@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SufeHelperApp</string>
+    <string name="greeting">Hello World!</string>
 </resources>
