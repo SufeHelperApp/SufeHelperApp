@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_explore"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ExploreActivity">
 
     <include layout="@layout/common_toolbar"/>
 
@@ -17,28 +17,28 @@
         android:layout_above="@id/btn_navigation"
         android:orientation="vertical">
         <Button
-            android:id="@+id/btn_errand"
+            android:id="@+id/btn_weekly_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/btn_errand"
+            android:text="@string/btn_weekly_data"
             android:textSize="35sp"
             android:textAlignment="textStart"
             />
         <Button
-            android:id="@+id/btn_skill"
+            android:id="@+id/btn_weekly_talent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/btn_skill"
+            android:text="@string/btn_weekly_talent"
             android:textSize="35sp"
             android:textAlignment="textStart"/>
         <Button
-            android:id="@+id/btn_counsel"
+            android:id="@+id/btn_my_talent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/btn_counsel"
+            android:text="@string/btn_my_talent"
             android:textSize="35sp"
             android:textAlignment="textStart"/>
     </LinearLayout>

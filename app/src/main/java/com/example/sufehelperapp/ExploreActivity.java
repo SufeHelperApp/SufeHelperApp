@@ -9,12 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class ExploreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_explore);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -22,15 +22,16 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+                switch(item.getItemId())
+                {
                     case R.id.item_task:
-                        break;
-                    case R.id.item_explore:
-                        Intent intent1 = new Intent(MainActivity.this, ExploreActivity.class);
+                        Intent intent1 = new Intent(ExploreActivity.this, MainActivity.class);
                         startActivity(intent1);
                         break;
+                    case R.id.item_explore:
+                        break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(MainActivity.this, MyActivity.class);
+                        Intent intent2 = new Intent(ExploreActivity.this, MyActivity.class);
                         startActivity(intent2);
                         break;
                 }
@@ -38,32 +39,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button b1 = (Button) findViewById(R.id.btn_errand);
+        Button b1 = (Button) findViewById(R.id.btn_weekly_data);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, Task_ErrandActivity.class);
+                Intent intent1 = new Intent(ExploreActivity.this, Explore_WeeklyDataActivity.class);
                 startActivity(intent1);
             }
         });
-        Button b2 = (Button) findViewById(R.id.btn_skill);
+        Button b2 = (Button) findViewById(R.id.btn_weekly_talent);
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(MainActivity.this, Task_SkillActivity.class);
+                Intent intent2 = new Intent(ExploreActivity.this, Explore_WeeklyTalentActivity.class);
                 startActivity(intent2);
             }
         });
-        Button b3 = (Button) findViewById(R.id.btn_counsel);
+        Button b3 = (Button) findViewById(R.id.btn_my_talent);
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(MainActivity.this, Task_CounselActivity.class);
+                Intent intent3 = new Intent(ExploreActivity.this, Explore_MyTalentActivity.class);
                 startActivity(intent3);
             }
         });
-
     }
-
-
 }
