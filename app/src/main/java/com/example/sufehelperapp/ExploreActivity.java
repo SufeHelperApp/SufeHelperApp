@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class ExploreActivity extends AppCompatActivity {
 
@@ -34,6 +36,31 @@ public class ExploreActivity extends AppCompatActivity {
                         break;
                 }
                 return true;
+            }
+        });
+
+        Button b1 = (Button) findViewById(R.id.btn_weekly_data);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ExploreActivity.this, Explore_WeeklyDataActivity.class);
+                startActivity(intent1);
+            }
+        });
+        Button b2 = (Button) findViewById(R.id.btn_weekly_talent);
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(ExploreActivity.this, Explore_WeeklyTalentActivity.class);
+                startActivity(intent2);
+            }
+        });
+        Button b3 = (Button) findViewById(R.id.btn_my_talent);
+        b3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(ExploreActivity.this, Explore_MyTalentActivity.class);
+                startActivity(intent3);
             }
         });
     }
