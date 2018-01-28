@@ -23,7 +23,8 @@
         <activity android:name=".Task_CounselActivity" />
         <activity android:name=".Explore_WeeklyDataActivity" />
         <activity android:name=".Explore_WeeklyTalentActivity" />
-        <activity android:name=".Explore_MyTalentActivity"></activity>
+        <activity android:name=".Explore_MyTalentActivity" />
+        <activity android:name=".Task_ErrandChoose1Activity"></activity>
     </application>
 
 </manifest>

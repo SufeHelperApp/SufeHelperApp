@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009088</color>
-    <color name="colorPrimaryDark">#b2dfdb</color>
-    <color name="colorAccent">#b2dfdb</color>
     <color name="white">#FFFFFF</color>
+    <color name="Azure">#F0FFFF</color>
+    <color name="LightCyan">#E0FFFF</color>
+    <color name="brightlightblue">#CCFFFF</color>
+    <color name="lightblue">#AFEEEE</color>
+    <color name="colorAccent">#b2dfdb</color>
+    <color name="colorPrimary">#009088</color>
+
+    <color name="colorPrimaryDark">#b2dfdb</color>
+
+
+
+
 </resources>
