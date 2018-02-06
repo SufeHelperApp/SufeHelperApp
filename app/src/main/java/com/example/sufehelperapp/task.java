@@ -3,6 +3,7 @@ package com.example.sufehelperapp;
 public class task {
 
     private String launcherName;
+    private int taskId;
     private int launcherImageId;
     private String launcherPhoneNumber;
     private String location;
@@ -19,8 +20,9 @@ public class task {
     private int grade;
     */
 
-    public task(String launcherName, int launcherImageId, String launcherPhoneNumber, String taskType,
+    public task(int taskId, String launcherName, int launcherImageId, String launcherPhoneNumber, String taskType,
                 String location, String deadline, String payment){
+        this.taskId = taskId;
         this.launcherName = launcherName;
         this.launcherImageId = launcherImageId;
         this.launcherPhoneNumber = launcherPhoneNumber;
@@ -57,6 +59,8 @@ public class task {
     public String getPayment(){
         return payment;
     }
+
+    public int getTaskId(){return taskId;}
 
 }
 
