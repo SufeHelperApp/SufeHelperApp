@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SufeHelperApp.iml" filepath="$PROJECT_DIR$/SufeHelperApp.iml" />
       <module fileurl="file://D:\SufeHelperApp\SufeHelperApp.iml" filepath="D:\SufeHelperApp\SufeHelperApp.iml" />
+      <module fileurl="file://C:\clone\SufeHelperApp\SufeHelperApp.iml" filepath="C:\clone\SufeHelperApp\SufeHelperApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\clone\SufeHelperApp\app\app.iml" filepath="C:\clone\SufeHelperApp\app\app.iml" />
       <module fileurl="file://D:\SufeHelperApp\app\app.iml" filepath="D:\SufeHelperApp\app\app.iml" />
     </modules>
   </component>
