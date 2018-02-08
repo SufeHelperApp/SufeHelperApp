@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(MainActivity.this, Task_ErrandChoose1Activity.class);
+                Intent intent2 = new Intent(MainActivity.this, Task_ErrandSelectionActivity.class);
                 startActivity(intent2);
             }
         });
