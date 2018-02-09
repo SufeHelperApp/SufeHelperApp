@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".launchTaskActivity">
+
+    <include layout="@layout/common_toolbar"/>
+
+    <TextView
+        android:id="@+id/taskinfo_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="18dp"
+        android:textSize="27sp"
+        android:text="发布任务" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/taskinfo_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskinfo_title"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/taskinfo_title_taskType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_launcher"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:text="分区："
+                android:textSize="22sp"/>
+
+            <Spinner
+                android:id="@+id/spinner_subtasks"
+                android:layout_toEndOf="@id/taskinfo_title_taskType"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/subtasks">
+
+            </Spinner>
+
+            <TextView
+                android:id="@+id/taskinfo_title_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_taskType"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:text="时间："
+                android:textSize="22sp"/>
+
+
+            <TextView
+                android:id="@+id/taskinfo_title_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_time"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:text="地点："
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/taskinfo_title_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_location"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:text="报酬："
+                android:textSize="22sp"/>
+
+            <EditText
+                android:id="@+id/launch_payment"
+                android:layout_below="@id/taskinfo_title_location"
+                android:layout_marginTop="-5dp"
+                android:layout_toEndOf="@id/taskinfo_title_payment"
+                android:layout_marginEnd="20dp"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:hint=" "
+                android:maxLines="4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_location"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="145dp"
+                android:text="元"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/taskinfo_title_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_payment"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:text="任务描述："
+                android:textSize="22sp"/>
+
+            <EditText
+                android:id="@+id/launch_description"
+                android:layout_below="@id/taskinfo_title_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=" 输入必要的任务细节"
+                android:maxLines="4"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/launch_task_btn"
+        android:layout_below="@id/taskinfo_card"
+        android:layout_centerHorizontal="true"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="发布任务 >"/>
+
+    <include layout="@layout/common_bottom_navigation_bar"/>
+
+</RelativeLayout>
+

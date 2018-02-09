@@ -1,0 +1,37 @@
+<resources>
+    <string-array name="subtasks" >
+        <item>占座</item>
+        <item>拿快递</item>
+        <item>买饭</item>
+        <item>买东西</item>
+        <item>拼单</item>
+        <item>电子产品修理</item>
+        <item>家具器件组装</item>
+        <item>学习作业辅导</item>
+        <item>技能培训</item>
+        <item>找同好</item>
+        <item>选课指南</item>
+        <item>考研出国经验</item>
+        <item>求职经验</item>
+        <item>票务转让</item>
+        <item>二手闲置</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="years" >
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+    </string-array>
+
+    <string-array name="months" >
+        <item>1月</item>
+        <item>2月</item>
+        <item>3月</item>
+        <item>2021</item>
+    </string-array>
+
+
+</resources>
+

@@ -44,8 +44,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/taskinfo_image"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_toEndOf="@id/taskinfo_title_launcher"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
@@ -181,6 +181,15 @@
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/receive_task_btn"
+        android:layout_below="@id/taskinfo_card"
+        android:layout_centerHorizontal="true"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="接收任务 >"/>
 
     <include layout="@layout/common_bottom_navigation_bar"/>
 

@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.item_task:
                         break;
                     case R.id.item_explore:
-                        Intent intent1 = new Intent(MainActivity.this, ExploreActivity.class);
-                        startActivity(intent1);
+                        Intent intent2 = new Intent(MainActivity.this, ExploreActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(MainActivity.this, MyActivity.class);
-                        startActivity(intent2);
+                        Intent intent3 = new Intent(MainActivity.this, MyActivity.class);
+                        startActivity(intent3);
                         break;
                 }
                 return true;
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(MainActivity.this, Task_ErrandSelectionActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, Task_SkillActivity.class);
                 startActivity(intent2);
             }
         });
@@ -62,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent3);
             }
         });
+        Button b4 = (Button) findViewById(R.id.launch_button);
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent4 = new Intent(MainActivity.this, launchTaskActivity.class);
+                startActivity(intent4);
+            }
+        });
+
+
 
     }
 
