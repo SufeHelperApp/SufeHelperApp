@@ -44,14 +44,16 @@ public class Task_ErrandActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        break;
-                    case R.id.item_explore:
-                        Intent intent1 = new Intent(Task_ErrandActivity.this, ExploreActivity.class);
+                        Intent intent1 = new Intent(Task_ErrandActivity.this, MainActivity.class);
                         startActivity(intent1);
                         break;
-                    case R.id.item_my:
-                        Intent intent2 = new Intent(Task_ErrandActivity.this, MyActivity.class);
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent(Task_ErrandActivity.this, ExploreActivity.class);
                         startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        Intent intent3 = new Intent(Task_ErrandActivity.this, MyActivity.class);
+                        startActivity(intent3);
                         break;
                 }
                 return true;
@@ -69,7 +71,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_ErrandSelectionActivity.class);
+                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_Selection1Activity.class);
                 startActivity(intent1);
             }
         });

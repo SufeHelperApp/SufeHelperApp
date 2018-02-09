@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sufehelperapp">
 
     <application
@@ -8,7 +9,8 @@
         android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="label">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +26,12 @@
         <activity android:name=".Explore_WeeklyDataActivity" />
         <activity android:name=".Explore_WeeklyTalentActivity" />
         <activity android:name=".Explore_MyTalentActivity" />
-        <activity android:name=".Task_ErrandSelectionActivity" />
-        <activity android:name=".TaskInfoActivity"></activity>
+        <activity android:name=".TaskInfoActivity" />
+        <activity android:name=".Task_Selection1Activity" />
+        <activity android:name=".launchTaskActivity" />
+        <activity android:name=".Task_Selection2Activity" />
+        <activity android:name=".Task_Selection3Activity" />
+        <activity android:name=".TimePicker"></activity>
     </application>
 
 </manifest>

@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -40,14 +43,15 @@ public class TaskInfoActivity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        break;
-                    case R.id.item_explore:
-                        Intent intent1 = new Intent(TaskInfoActivity.this, ExploreActivity.class);
+                        Intent intent1 = new Intent(TaskInfoActivity.this, MainActivity.class);
                         startActivity(intent1);
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent(TaskInfoActivity.this, ExploreActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(TaskInfoActivity.this, MyActivity.class);
-                        startActivity(intent2);
+                        Intent intent3 = new Intent(TaskInfoActivity.this, MyActivity.class);
+                        startActivity(intent3);
                         break;
                 }
                 return true;
@@ -75,6 +79,17 @@ public class TaskInfoActivity extends AppCompatActivity {
         time.setText(task.getDeadline());
         location.setText(task.getLocation());
         payment.setText(task.getPayment());
+
+        Button b1 = (Button) findViewById(R.id.receive_task_btn);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(TaskInfoActivity.this, MainActivity.class);
+                startActivity(intent1);
+                Toast.makeText(TaskInfoActivity.this, "任务接收成功！",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
