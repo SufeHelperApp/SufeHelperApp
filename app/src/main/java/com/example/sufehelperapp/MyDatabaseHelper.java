@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
-    public static final String CREATE_USER = "create table user ("
+    public static final String CREATE_USER = "create table User ("
             + "phonenumber integer primary key , "
             + "myName text, "
             + "nickname text,"
