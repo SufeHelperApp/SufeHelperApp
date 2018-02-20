@@ -7,7 +7,6 @@ import java.io.Serializable;
 public class task extends DataSupport implements Serializable{
 
     private int taskId; //TODO: DELETE taskId 能删掉吗？学习：点击任务卡片时直接传Task
-    private String deadline; //old //TODO: DELETE after switch
 
     private user launcher;
     private user receiver;
@@ -64,17 +63,25 @@ public class task extends DataSupport implements Serializable{
     // 临时构造函数
     //TODO: SWITCH
 
-    public task(String launcherName, int launcherImageId, String launcherPhoneNumber, String taskType,
-                String location, String ddlDate, String payment){
+    public task(String launcherName, int launcherImageId, String launcherPhoneNumber, String subtaskType,
+                String location, String ddlDate, String ddlTime, String payment, String description){
 
         this.taskId = getIdTask();
+
         this.launcherName = launcherName;
         this.launcherImageId = launcherImageId;
         this.launcherPhoneNumber = launcherPhoneNumber;
-        this.taskType = taskType; //old //TODO: UPDATE
+        this.subtaskType = subtaskType;
+        this.taskType = chooseTaskType(subtaskType);
         this.location = location;
-        this.deadline = ddlDate; //old //TODO: UPDATE
+        this.ddlDate = ddlDate;
+        this.ddlTime = ddlTime;
         this.payment = payment;
+        this.description = description;
+
+        this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
+        this.progress = 1; //默认进度为1：已发布
+        this.score = -1; //默认评分为-1：无评分
 
     }
 
@@ -88,14 +95,17 @@ public class task extends DataSupport implements Serializable{
         else{return"咨询";}
     }
 
-    /*public String getTaskType() {
-        return taskType;
-    }*/   //TODO: RESTORE after constructor is switched
+
+    public int getTaskId(){return taskId;}
 
     public int getIdTask(){return ++Static.ID_TASK;}
 
     public String getLauncherName(){
         return launcherName;
+    }
+
+    public String getTaskType() {
+        return taskType;
     }
 
     public void setTaskType(String taskType) {
@@ -183,35 +193,8 @@ public class task extends DataSupport implements Serializable{
     }
 
 
-    //old methods
-    //TODO: DELETE after constructor is switched
-
-    public int getImageId(){
-        return launcherImageId;
-    }
-
-    public String getTaskType(){
-        return subtaskType;
-    }
-
-    public String getDeadline(){
-        return deadline;
-    }
-
-    public int getTaskId(){return taskId;}
-
-
 
     //TODO: DELETE after discussion
-
-    /*
-    public int getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
-    } */
 
     /*
     public int getTimes() {

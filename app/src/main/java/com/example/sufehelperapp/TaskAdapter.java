@@ -24,7 +24,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         ImageView launcherImage;
         TextView launcherName;
         TextView launcherPhoneNumber;
-        TextView taskType;
+        TextView subtaskType;
         TextView location;
         TextView deadline;
         TextView payment;
@@ -35,7 +35,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
             launcherImage = (ImageView) view.findViewById(R.id.launcher_image);
             launcherName = (TextView) view.findViewById(R.id.launcher_name);
             launcherPhoneNumber = (TextView) view.findViewById(R.id.launcher_phoneNumber);
-            taskType = (TextView) view.findViewById(R.id.taskType);
+            subtaskType = (TextView) view.findViewById(R.id.subtaskType);
             location = (TextView) view.findViewById(R.id.location);
             deadline = (TextView) view.findViewById(R.id.deadline);
             payment = (TextView) view.findViewById(R.id.payment);
@@ -71,11 +71,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         task task = mTaskList.get(position);
         holder.launcherName.setText(task.getLauncherName());
-        Glide.with(mContext).load(task.getImageId()).into(holder.launcherImage);
+        Glide.with(mContext).load(task.getLauncherImageId()).into(holder.launcherImage);
         holder.launcherPhoneNumber.setText(task.getLauncherPhoneNumber());
-        holder.taskType.setText(task.getTaskType());
+        holder.subtaskType.setText(task.getSubtaskType());
         holder.location.setText(task.getLocation());
-        holder.deadline.setText(task.getDeadline());
+        holder.deadline.setText(task.getDdlDate());
         holder.payment.setText(task.getPayment());
     }
 

@@ -14,8 +14,6 @@ public class launchTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_task);
-        //datePicker = findViewById(R.id.dpPicker);
-        //timePicker = findViewById(R.id.tpPicker);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
