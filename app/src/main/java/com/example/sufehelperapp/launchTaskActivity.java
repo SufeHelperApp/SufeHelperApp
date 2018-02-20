@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 public class launchTaskActivity extends AppCompatActivity {
 
-    private DatePicker datePicker;
-    private TimePicker timePicker;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

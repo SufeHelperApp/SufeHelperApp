@@ -4,11 +4,11 @@ import org.litepal.crud.DataSupport;
 //TODO: taskId 能删掉吗？实现：点击任务卡片时直接传Task。还有哪里会用到？
 //private static int taskId = 0;
 
-public class Task extends DataSupport {
+public class TASK1 extends DataSupport {
 
     private int taskId;
-    private User launcher;
-    private User receiver;
+    private user launcher;
+    private user receiver;
 
     private String launcherName;
     private int launcherImageId;
@@ -34,8 +34,8 @@ public class Task extends DataSupport {
 
     // 完整构造函数
 
-    public Task(User launcher, String subtaskType, String ddlDate, String ddlTime, String payment, String location,
-                String description){
+    public TASK1(user launcher, String subtaskType, String ddlDate, String ddlTime, String payment, String location,
+                 String description){
 
         //this.taskId = taskId++;
 
@@ -66,7 +66,7 @@ public class Task extends DataSupport {
 
     // 临时构造函数
 
-    public Task(int taskId, String launcherName, int launcherImageId, String launcherPhoneNumber, String taskType,
+    public TASK1(int taskId, String launcherName, int launcherImageId, String launcherPhoneNumber, String taskType,
                 String location, String ddlDate, String payment){
         //this.taskId = ++taskId;
         this.launcherName = launcherName;

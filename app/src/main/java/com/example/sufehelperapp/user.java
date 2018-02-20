@@ -1,7 +1,7 @@
 package com.example.sufehelperapp;
 import org.litepal.crud.DataSupport;
 
-public class User extends DataSupport {
+public class user extends DataSupport {
     private String phonenumber;
     private String myName;   //姓名
     private String nickname;   //昵称
@@ -17,7 +17,7 @@ public class User extends DataSupport {
     private int tasknumber;    //任务发布及完成量
 
 
-    public User(String phonenumber, String myName, String nickname, String gender, String password,
+    public user(String phonenumber, String myName, String nickname, String gender, String password,
                 int myImageId, String dormitoryLocation, String demand, String specialty,
                 String talent, int credit, int level, int tasknumber){
         this.phonenumber = phonenumber;
