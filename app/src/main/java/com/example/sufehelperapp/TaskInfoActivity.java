@@ -61,7 +61,7 @@ public class TaskInfoActivity extends AppCompatActivity {
             }
         });
 
-        task task = (task) getIntent().getSerializableExtra("task_selected");
+        final task task = (task) getIntent().getSerializableExtra("task_selected");
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
         TextView launcher_name = (TextView) findViewById(R.id.taskinfo_name);
         TextView launcher_phoneNumber = (TextView) findViewById(R.id.taskinfo_phoneNumber);
@@ -88,6 +88,9 @@ public class TaskInfoActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                task.setIfAccepted(true);
+                //TODO: link to DB : 如何获取当前用户对象？
+                //task.setHelper();
                 Intent intent1 = new Intent(TaskInfoActivity.this, MainActivity.class);
                 startActivity(intent1);
                 Toast.makeText(TaskInfoActivity.this, "任务接收成功！",Toast.LENGTH_SHORT).show();

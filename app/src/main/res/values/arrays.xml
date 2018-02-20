@@ -18,18 +18,10 @@
         <item>其他</item>
     </string-array>
 
-    <string-array name="years" >
-        <item>2018</item>
-        <item>2019</item>
-        <item>2020</item>
-        <item>2021</item>
-    </string-array>
-
-    <string-array name="months" >
-        <item>1月</item>
-        <item>2月</item>
-        <item>3月</item>
-        <item>2021</item>
+    <string-array name="areas" >
+        <item>国定校区</item>
+        <item>武东校区</item>
+        <item>武川校区</item>
     </string-array>
 
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class launchTaskActivity extends AppCompatActivity {
 
     public String subtaskType;
+    public String area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class launchTaskActivity extends AppCompatActivity {
         // intialize views
 
         final Spinner subtaskView = (Spinner) findViewById(R.id.spinner_subtasks);
+        final Spinner areaView = (Spinner) findViewById(R.id.spinner_areas);
         final TextView dateView = (TextView) findViewById(R.id.editDate);
         final TextView timeView = (TextView) findViewById(R.id.editTime);
         final TextView locationView = (TextView) findViewById(R.id.launch_location);
@@ -46,6 +48,18 @@ public class launchTaskActivity extends AppCompatActivity {
             }
         });
 
+        areaView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                String[] areas = getResources().getStringArray(R.array.areas);
+                area = areas[pos];
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
         //once clicked, build new task
 
         Button b1 = (Button) findViewById(R.id.launch_task_btn);
@@ -59,7 +73,7 @@ public class launchTaskActivity extends AppCompatActivity {
                 String payment = paymentView.getText().toString();
                 String description = descriptionView.getText().toString();
 
-                if(!subtaskType.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
+                if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
                     task task = new task(); //TODO: link to DB
@@ -67,6 +81,7 @@ public class launchTaskActivity extends AppCompatActivity {
                     task.setSubtaskType(subtaskType);
                     task.setDdlDate(date);
                     task.setDdlTime(time);
+                    task.setArea(area);
                     task.setLocation(location);
                     task.setPayment(payment);
                     task.setDescription(description);
