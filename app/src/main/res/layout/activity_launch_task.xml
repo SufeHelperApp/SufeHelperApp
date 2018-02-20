@@ -34,6 +34,13 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/taskinfo_space1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="                                      "
+                android:textSize="12sp"/>
+
+            <TextView
                 android:id="@+id/taskinfo_title_taskType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/taskinfo_title_taskType"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="15dp"
                 android:layout_toEndOf="@id/editTime"
                 android:layout_marginStart="5dp"
                 android:text="前完成"
@@ -109,7 +116,6 @@
             <EditText
                 android:id="@+id/launch_location"
                 android:layout_below="@id/taskinfo_title_time"
-                android:layout_marginTop="-5dp"
                 android:layout_toEndOf="@id/taskinfo_title_location"
                 android:layout_marginEnd="20dp"
                 android:layout_width="120dp"
@@ -122,6 +128,7 @@
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_below="@+id/taskinfo_title_time"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="38dp"
                 android:layout_toEndOf="@+id/textView"
                 android:text="定位" />
@@ -173,8 +180,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint=" 输入必要的任务细节"
-                android:maxLines="4"
+                android:maxLines="5"
                 />
+
+            <TextView
+                android:id="@+id/taskinfo_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/launch_description"
+                android:layout_marginStart="8dp"
+                android:text="                                  "
+                android:textSize="8sp"/>
 
 
         </RelativeLayout>

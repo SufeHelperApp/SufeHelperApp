@@ -18,15 +18,18 @@ import com.bumptech.glide.Glide;
 
 public class TaskInfoActivity extends AppCompatActivity {
 
-    public static final String TASK_ID = "task_id";
+    public static final String TASK_SELECTED = "task_selected";
 
     private task[] tasks =
-            {new task(0,"文静", R.drawable.apple, "13912345678",
-                    "占座","二教206","18/2/12","5"),
-                    new task(1,"戴晓东", R.drawable.banana, "13812345678",
-                            "拿快递","快递中心","18/2/10","7"),
-                    new task(2,"刘宇涵", R.drawable.orange,"13712345678",
-                            "买饭","新食堂","18/2/17","6")};
+            {new task("文静", R.drawable.apple, "13912345678",
+                    "占座","二教206","18/2/12","9:00",
+                    "5","微信联系"),
+                    new task("戴晓东", R.drawable.banana, "13812345678",
+                            "拿快递","快递中心","18/2/10","10:00",
+                            "7","微信联系"),
+                    new task("刘宇涵", R.drawable.orange,"13712345678",
+                            "买饭","新食堂","18/2/17","11:00",
+                            "6","微信联系")};
     // NOTE: 可删除，用数据库取代
 
     @Override
@@ -58,27 +61,28 @@ public class TaskInfoActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        int taskId = intent.getIntExtra(TASK_ID,0);
-        task task = tasks[taskId]; // TODO：用数据库方法取代
+        task task = (task) getIntent().getSerializableExtra("task_selected");
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
         TextView launcher_name = (TextView) findViewById(R.id.taskinfo_name);
         TextView launcher_phoneNumber = (TextView) findViewById(R.id.taskinfo_phoneNumber);
         TextView taskType = (TextView) findViewById(R.id.taskinfo_taskType);
         TextView subtaskType = (TextView) findViewById(R.id.taskinfo_subtaskType);
+        TextView date = (TextView) findViewById(R.id.taskinfo_date);
         TextView time = (TextView) findViewById(R.id.taskinfo_time);
         TextView location = (TextView) findViewById(R.id.taskinfo_location);
         TextView payment = (TextView) findViewById(R.id.taskinfo_payment);
         TextView description = (TextView) findViewById(R.id.taskinfo_description);
 
-        Glide.with(this).load(task.getImageId()).into(launcher_image);
+        Glide.with(this).load(task.getLauncherImageId()).into(launcher_image);
         launcher_name.setText(task.getLauncherName());
         launcher_phoneNumber.setText(task.getLauncherPhoneNumber());
         taskType.setText(task.getTaskType());
-        //subtaskType.setText(task.getTaskType());
-        time.setText(task.getDeadline());
+        subtaskType.setText(task.getSubtaskType());
+        date.setText(task.getDdlDate());
+        time.setText(task.getDdlTime());
         location.setText(task.getLocation());
         payment.setText(task.getPayment());
+        description.setText(task.getDescription());
 
         Button b1 = (Button) findViewById(R.id.receive_task_btn);
         b1.setOnClickListener(new View.OnClickListener() {

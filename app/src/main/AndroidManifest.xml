@@ -32,7 +32,6 @@
         <activity android:name=".launchTaskActivity" />
         <activity android:name=".Task_Selection2Activity" />
         <activity android:name=".Task_Selection3Activity" />
-        <activity android:name=".TimePicker"></activity>
     </application>
 
 </manifest>
