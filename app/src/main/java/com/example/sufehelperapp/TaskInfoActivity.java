@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 
 public class TaskInfoActivity extends AppCompatActivity {
 
-    public static final String TASK_ID = "task_id";
+    public static final String TASK_SELECTED = "task_selected";
 
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
@@ -59,8 +59,7 @@ public class TaskInfoActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        int taskId = intent.getIntExtra(TASK_ID,0);
-        task task = tasks[taskId]; // TODO：用数据库方法取代
+        task task = (task) getIntent().getSerializableExtra("task_selected");
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
         TextView launcher_name = (TextView) findViewById(R.id.taskinfo_name);
         TextView launcher_phoneNumber = (TextView) findViewById(R.id.taskinfo_phoneNumber);
