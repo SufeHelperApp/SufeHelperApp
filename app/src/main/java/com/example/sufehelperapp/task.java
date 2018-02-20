@@ -9,7 +9,7 @@ public class task extends DataSupport implements Serializable{
     private int taskId; //TODO: DELETE taskId 能删掉吗？学习：点击任务卡片时直接传Task
 
     private user launcher;
-    private user receiver;
+    private user helper;
 
     private String launcherName;
     private int launcherImageId;
@@ -22,8 +22,9 @@ public class task extends DataSupport implements Serializable{
     private String ddlDate;   //任务截止日期
     private String ddlTime;   //任务截止时间
     private String payment;  //任务报酬
+    private String area;     //任务校区
     private String location;   //任务位置
-    private Double locationCoordinator; //任务位置坐标
+    private Double locationCoordinator; //TODO: 任务位置坐标
     private String description;  //任务描述
 
     private boolean ifAccepted;   //任务是否已被接受
@@ -85,6 +86,14 @@ public class task extends DataSupport implements Serializable{
 
     }
 
+    public task(){
+        this.taskId = getIdTask();
+
+        this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
+        this.progress = 1; //默认进度为1：已发布
+        this.score = -1; //默认评分为-1：无评分
+    }
+
 
     public String chooseTaskType(String subtaskType){
         if(subtaskType == "占座" || subtaskType =="拿快递" ||subtaskType =="买饭" ||subtaskType == "买东西"|| subtaskType =="拼单")
@@ -99,6 +108,22 @@ public class task extends DataSupport implements Serializable{
     public int getTaskId(){return taskId;}
 
     public int getIdTask(){return ++Static.ID_TASK;}
+
+    public user getLauncher(){
+        return launcher;
+    }
+
+    public user getHelper(){
+        return helper;
+    }
+
+    public void setLauncher(user launcher){
+        this.launcher =  launcher;
+    }
+
+    public void setHelper(user helper){
+        this.helper = helper;
+    }
 
     public String getLauncherName(){
         return launcherName;
@@ -154,6 +179,14 @@ public class task extends DataSupport implements Serializable{
 
     public void setIfAccepted(boolean ifAccepted) {
         this.ifAccepted = ifAccepted;
+    }
+
+    public String getArea(){
+        return area;
+    }
+
+    public void setArea(String area){
+        this.area = area;
     }
 
     public String getLocation() {

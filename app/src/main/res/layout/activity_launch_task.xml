@@ -9,7 +9,7 @@
     <include layout="@layout/common_toolbar"/>
 
     <TextView
-        android:id="@+id/taskinfo_title"
+        android:id="@+id/tasklaunch_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
@@ -19,10 +19,10 @@
         android:text="发布任务" />
 
     <android.support.v7.widget.CardView
-        android:id="@+id/taskinfo_card"
+        android:id="@+id/tasklaunch_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/taskinfo_title"
+        android:layout_below="@id/tasklaunch_title"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:layout_marginStart="13dp"
@@ -34,17 +34,17 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/taskinfo_space1"
+                android:id="@+id/tasklaunch_space1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="                                      "
                 android:textSize="10sp"/>
 
             <TextView
-                android:id="@+id/taskinfo_title_taskType"
+                android:id="@+id/tasklaunch_title_taskType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_space1"
+                android:layout_below="@id/tasklaunch_space1"
                 android:layout_marginStart="8dp"
                 android:text="分区："
                 android:textSize="22sp"/>
@@ -53,19 +53,19 @@
                 android:id="@+id/spinner_subtasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_space1"
+                android:layout_below="@id/tasklaunch_space1"
                 android:layout_marginTop="2dp"
-                android:layout_toEndOf="@id/taskinfo_title_taskType"
+                android:layout_toEndOf="@id/tasklaunch_title_taskType"
                 android:layout_marginEnd="20dp"
                 android:entries="@array/subtasks">
 
             </Spinner>
 
             <TextView
-                android:id="@+id/taskinfo_title_time"
+                android:id="@+id/tasklaunch_title_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_taskType"
+                android:layout_below="@id/tasklaunch_title_taskType"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:text="时间："
@@ -75,17 +75,17 @@
                 android:id="@+id/editDate"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/taskinfo_title_taskType"
-                android:layout_toEndOf="@+id/taskinfo_title_taskType"
+                android:layout_below="@+id/tasklaunch_title_taskType"
+                android:layout_toEndOf="@+id/tasklaunch_title_taskType"
                 android:ems="10"
                 android:inputType="date"
-                android:hint="18/2/26"/>
+                android:hint="18/8/31"/>
 
             <EditText
                 android:id="@+id/editTime"
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/taskinfo_title_taskType"
+                android:layout_below="@+id/tasklaunch_title_taskType"
                 android:layout_toEndOf="@id/editDate"
                 android:layout_marginStart="8dp"
                 android:ems="10"
@@ -93,51 +93,80 @@
                 android:hint="17:00"/>
 
             <TextView
-                android:id="@+id/taskinfo_time_text"
+                android:id="@+id/tasklaunch_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_taskType"
-                android:layout_marginTop="15dp"
+                android:layout_below="@id/tasklaunch_title_taskType"
+                android:layout_marginTop="12dp"
                 android:layout_toEndOf="@id/editTime"
                 android:layout_marginStart="5dp"
                 android:text="前完成"
                 android:textSize="17sp"/>
 
             <TextView
-                android:id="@+id/taskinfo_title_location"
+                android:id="@+id/tasklaunch_title_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_time"
+                android:layout_below="@id/tasklaunch_title_time"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:text="地点："
                 android:textSize="22sp"/>
 
+            <Spinner
+                android:id="@+id/spinner_areas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tasklaunch_title_time"
+                android:layout_marginTop="12dp"
+                android:layout_toEndOf="@id/tasklaunch_title_location"
+                android:layout_marginEnd="20dp"
+                android:entries="@array/areas">
+            </Spinner>
+
             <EditText
                 android:id="@+id/launch_location"
-                android:layout_below="@id/taskinfo_title_time"
-                android:layout_toEndOf="@id/taskinfo_title_location"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tasklaunch_title_time"
+                android:layout_marginStart="190dp"
+                android:hint=" 二教101"
+                android:maxLines="4"/>
+
+            <TextView
+                android:id="@+id/tasklaunch_title_coordinator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tasklaunch_title_location"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:text="坐标："
+                android:textSize="22sp"/>
+
+            <EditText
+                android:id="@+id/launch_coodinator"
+                android:layout_below="@id/tasklaunch_title_location"
+                android:layout_toEndOf="@id/tasklaunch_title_coordinator"
                 android:layout_marginEnd="20dp"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:hint=" 二教101"
-                android:maxLines="4"/>
+                android:hint=" " />
 
             <Button
                 android:id="@+id/launch_location_coordinator"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
-                android:layout_below="@+id/taskinfo_title_time"
+                android:layout_below="@+id/tasklaunch_title_location"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="38dp"
                 android:layout_toEndOf="@+id/textView"
                 android:text="定位" />
 
             <TextView
-                android:id="@+id/taskinfo_title_payment"
+                android:id="@+id/tasklaunch_title_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_location"
+                android:layout_below="@id/tasklaunch_title_coordinator"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:text="报酬："
@@ -145,9 +174,9 @@
 
             <EditText
                 android:id="@+id/launch_payment"
-                android:layout_below="@id/taskinfo_title_location"
-                android:layout_marginTop="-5dp"
-                android:layout_toEndOf="@id/taskinfo_title_payment"
+                android:layout_below="@id/tasklaunch_title_coordinator"
+                android:layout_marginTop="0dp"
+                android:layout_toEndOf="@id/tasklaunch_title_payment"
                 android:layout_marginEnd="20dp"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
@@ -157,18 +186,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_location"
-                android:layout_marginTop="12dp"
+                android:layout_below="@id/tasklaunch_title_coordinator"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="150dp"
                 android:text="元"
                 android:textSize="18sp"
                 android:id="@+id/textView" />
 
             <TextView
-                android:id="@+id/taskinfo_title_description"
+                android:id="@+id/tasklaunch_title_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_payment"
+                android:layout_below="@id/tasklaunch_title_payment"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:text="任务描述："
@@ -176,7 +205,7 @@
 
             <EditText
                 android:id="@+id/launch_description"
-                android:layout_below="@id/taskinfo_title_description"
+                android:layout_below="@id/tasklaunch_title_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint=" 输入必要的任务细节"
@@ -184,7 +213,7 @@
                 />
 
             <TextView
-                android:id="@+id/taskinfo_space"
+                android:id="@+id/tasklaunch_space"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/launch_description"
@@ -199,7 +228,7 @@
 
     <Button
         android:id="@+id/launch_task_btn"
-        android:layout_below="@id/taskinfo_card"
+        android:layout_below="@id/tasklaunch_card"
         android:layout_centerHorizontal="true"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
