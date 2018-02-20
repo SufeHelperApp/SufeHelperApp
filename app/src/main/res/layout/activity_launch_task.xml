@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="20dp"
         android:textSize="27sp"
         android:text="发布任务" />
 
@@ -25,8 +25,8 @@
         android:layout_below="@id/taskinfo_title"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
         app:cardCornerRadius="4dp">
 
         <RelativeLayout
@@ -38,25 +38,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="                                      "
-                android:textSize="12sp"/>
+                android:textSize="10sp"/>
 
             <TextView
                 android:id="@+id/taskinfo_title_taskType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_launcher"
-                android:layout_marginTop="8dp"
+                android:layout_below="@id/taskinfo_space1"
                 android:layout_marginStart="8dp"
                 android:text="分区："
                 android:textSize="22sp"/>
 
             <Spinner
                 android:id="@+id/spinner_subtasks"
-                android:layout_toEndOf="@id/taskinfo_title_taskType"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_space1"
+                android:layout_marginTop="2dp"
+                android:layout_toEndOf="@id/taskinfo_title_taskType"
+                android:layout_marginEnd="20dp"
                 android:entries="@array/subtasks">
 
             </Spinner>
