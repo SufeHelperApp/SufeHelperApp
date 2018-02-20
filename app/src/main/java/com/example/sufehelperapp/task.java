@@ -85,6 +85,14 @@ public class task extends DataSupport implements Serializable{
 
     }
 
+    public task(){
+        this.taskId = getIdTask();
+
+        this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
+        this.progress = 1; //默认进度为1：已发布
+        this.score = -1; //默认评分为-1：无评分
+    }
+
 
     public String chooseTaskType(String subtaskType){
         if(subtaskType == "占座" || subtaskType =="拿快递" ||subtaskType =="买饭" ||subtaskType == "买东西"|| subtaskType =="拼单")
