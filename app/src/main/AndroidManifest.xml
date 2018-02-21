@@ -37,7 +37,8 @@
         <activity android:name=".My_LoginThirdActivity" />
         <activity android:name=".My_LoginForthActivity" />
         <activity android:name=".My_RegisterFirstActivity" />
-        <activity android:name=".My_RegisterSecondActivity"></activity>
+        <activity android:name=".My_RegisterSecondActivity" />
+        <activity android:name=".Explore_weekly_interal"></activity>
     </application>
 
 </manifest>
