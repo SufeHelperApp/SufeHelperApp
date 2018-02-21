@@ -11,6 +11,7 @@
     <color name="drop_down_unselected">#000000</color>
     <color name="drop_down_selected">#009088</color>
     <color name="colorPrimaryDark">#b2dfdb</color>
+    <color name="anotherPrimary">#19a093</color>
 
     <color name="gray">#cccccc</color>
     <color name="mask_color">#88888888</color>

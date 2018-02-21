@@ -44,7 +44,11 @@
         <activity android:name=".MyActivity_Setup" />
         <activity android:name=".MyActivity_Setup_Edit" />
         <activity android:name=".MyActivity_Myaward" />
-        <activity android:name=".MyActivity_recievedaward"></activity>
+        <activity android:name=".MyActivity_recievedaward" />
+        <activity android:name=".MyActivity_Mytask" />
+        <activity android:name=".MyActivity_mytask_currenttask" />
+        <activity android:name=".MyActivity_mytask_historicaltask" />
+        <activity android:name=".MyActivity_mytask_personalhome"></activity>
     </application>
 
 </manifest>
