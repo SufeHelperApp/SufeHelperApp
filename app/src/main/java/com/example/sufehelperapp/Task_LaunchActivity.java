@@ -3,16 +3,14 @@ package com.example.sufehelperapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class launchTaskActivity extends AppCompatActivity {
+public class Task_LaunchActivity extends AppCompatActivity {
 
     public String subtaskType;
     public String area;
@@ -90,12 +88,12 @@ public class launchTaskActivity extends AppCompatActivity {
 
                     //TODO: credit.increase(15)
 
-                    Intent intent1 = new Intent(launchTaskActivity.this, MainActivity.class);
+                    Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
                     startActivity(intent1);
-                    Toast.makeText(launchTaskActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Task_LaunchActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    Toast.makeText(launchTaskActivity.this, "请检查空缺字段！", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Task_LaunchActivity.this, "请检查空缺字段！", Toast.LENGTH_SHORT).show();
                 }
 
             }

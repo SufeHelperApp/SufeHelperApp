@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginSecondActivity extends AppCompatActivity {
+public class My_LoginSecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class LoginSecondActivity extends AppCompatActivity {
         buttonback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(LoginSecondActivity.this, LoginFirstActivity.class);
+                Intent intent1 = new Intent(My_LoginSecondActivity.this, My_LoginFirstActivity.class);
                 startActivity(intent1);
             }
         });
@@ -29,7 +29,7 @@ public class LoginSecondActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(LoginSecondActivity.this, LoginThirdActivity.class);
+                Intent intent2 = new Intent(My_LoginSecondActivity.this, My_LoginThirdActivity.class);
                 startActivity(intent2);
             }
         });

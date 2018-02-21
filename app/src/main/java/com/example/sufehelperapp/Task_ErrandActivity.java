@@ -74,7 +74,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_Selection1Activity.class);
+                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_ErrandSelectActivity.class);
                 startActivity(intent1);
             }
         });

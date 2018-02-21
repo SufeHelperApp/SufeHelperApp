@@ -27,17 +27,17 @@
         <activity android:name=".Explore_WeeklyDataActivity" />
         <activity android:name=".Explore_WeeklyTalentActivity" />
         <activity android:name=".Explore_MyTalentActivity" />
-        <activity android:name=".TaskInfoActivity" />
-        <activity android:name=".Task_Selection1Activity" />
-        <activity android:name=".launchTaskActivity" />
-        <activity android:name=".Task_Selection2Activity" />
-        <activity android:name=".Task_Selection3Activity" />
-        <activity android:name=".LoginFirstActivity" />
-        <activity android:name=".LoginSecondActivity" />
-        <activity android:name=".LoginThirdActivity" />
-        <activity android:name=".LoginForthActivity" />
-        <activity android:name=".RegisterFirstActivity" />
-        <activity android:name=".RegisterSecondActivity"></activity>
+        <activity android:name=".Task_InfoActivity" />
+        <activity android:name=".Task_ErrandSelectActivity" />
+        <activity android:name=".Task_LaunchActivity" />
+        <activity android:name=".Task_SkillSelectActivity" />
+        <activity android:name=".Task_CounselSelectActivity" />
+        <activity android:name=".My_LoginFirstActivity" />
+        <activity android:name=".My_LoginSecondActivity" />
+        <activity android:name=".My_LoginThirdActivity" />
+        <activity android:name=".My_LoginForthActivity" />
+        <activity android:name=".My_RegisterFirstActivity" />
+        <activity android:name=".My_RegisterSecondActivity"></activity>
     </application>
 
 </manifest>

@@ -1,15 +1,13 @@
 package com.example.sufehelperapp;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginForthActivity extends AppCompatActivity {
+public class My_LoginForthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +21,7 @@ public class LoginForthActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(LoginForthActivity.this, LoginThirdActivity.class);
+                Intent intent1 = new Intent(My_LoginForthActivity.this, My_LoginThirdActivity.class);
                 startActivity(intent1);
             }
         });
