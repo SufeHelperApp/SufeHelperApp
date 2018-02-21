@@ -21,8 +21,8 @@ import android.widget.SpinnerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.dell.myapplication.fragmentAdapter;
-import com.example.dell.myapplication.viewAdapter;
+import com.example.sufehelperapp.fragmentAdapter;
+import com.example.sufehelperapp.viewAdapter;
 
 public class MyActivity_Mytask extends AppCompatActivity {
 

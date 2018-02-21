@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(MainActivity.this, My_LoginFirstActivity.class);
+                        Intent intent3 = new Intent(MainActivity.this, My_HomeActivity.class);
                         startActivity(intent3);
                         break;
                 }
