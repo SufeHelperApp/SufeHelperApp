@@ -32,6 +32,12 @@
         <activity android:name=".launchTaskActivity" />
         <activity android:name=".Task_Selection2Activity" />
         <activity android:name=".Task_Selection3Activity" />
+        <activity android:name=".LoginFirstActivity" />
+        <activity android:name=".LoginSecondActivity" />
+        <activity android:name=".LoginThirdActivity" />
+        <activity android:name=".LoginForthActivity" />
+        <activity android:name=".RegisterFirstActivity" />
+        <activity android:name=".RegisterSecondActivity"></activity>
     </application>
 
 </manifest>

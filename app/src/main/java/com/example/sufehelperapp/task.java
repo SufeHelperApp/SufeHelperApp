@@ -6,10 +6,13 @@ import java.io.Serializable;
 
 public class task extends DataSupport implements Serializable{
 
-    private int taskId; //TODO: DELETE taskId 能删掉吗？学习：点击任务卡片时直接传Task
+    private int taskId;
+    private boolean isValid;
 
     private user launcher;
     private user helper;
+    //private user invited //TODO后期：任务邀请人
+    //private boolean invitationAccepted
 
     private String launcherName;
     private int launcherImageId;
@@ -17,21 +20,21 @@ public class task extends DataSupport implements Serializable{
 
     private String taskType;
     private String subtaskType;
-    //TODO: DELETE 任务发布时间能删掉吗？（默认筛选以“截止时间”倒序）
-    //private double launchtime; //任务发布时间
+    //TODO: launchTime 获取方法
+    private double launchtime; //任务发布时间
     private String ddlDate;   //任务截止日期
     private String ddlTime;   //任务截止时间
     private String payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
-    private Double locationCoordinator; //TODO: 任务位置坐标
+    private Double locationCoordinator; //TODO: 任务位置经度纬度
     private String description;  //任务描述
 
     private boolean ifAccepted;   //任务是否已被接受
-    //TODO: DELETE 第一次匹配任务成功后任务就不显示在筛选页面中了？
-    //private int times; //与接收/发布人匹配次数
     private int progress;     //任务进度(1-5)
     private int score;    //任务评分(1-10)
+
+    private boolean ifDefault;  //是否违约
 
 
     // 完整构造函数
@@ -47,14 +50,14 @@ public class task extends DataSupport implements Serializable{
         this.launcherImageId = launcher.getMyImageId();
         this.launcherPhoneNumber = launcher.getPhonenumber();
 
-        this.subtaskType = subtaskType; //TODO: 获取@id/spinner_subtasks 中的字符串
+        this.subtaskType = subtaskType;
         this.taskType = chooseTaskType(subtaskType);
 
-        this.ddlDate = ddlDate; //TODO: 获取@id/editDate 中的字符串
-        this.ddlTime = ddlTime; //TODO: 获取@id/editTime 中的字符串
-        this.payment = payment; //TODO: 获取@id/spinner_subtasks 中的字符串
-        this.location = location; //TODO: 获取@id/launch_location 中的字符串
-        this.description = description; //TODO: 获取@id/launch_description中的字符串
+        this.ddlDate = ddlDate;
+        this.ddlTime = ddlTime;
+        this.payment = payment;
+        this.location = location;
+        this.description = description;
 
         this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
         this.progress = 1; //默认进度为1：已发布
@@ -62,12 +65,13 @@ public class task extends DataSupport implements Serializable{
     }
 
     // 临时构造函数
-    //TODO: SWITCH
 
     public task(String launcherName, int launcherImageId, String launcherPhoneNumber, String subtaskType,
                 String location, String ddlDate, String ddlTime, String payment, String description){
 
         this.taskId = getIdTask();
+
+        this.launcher = launcher; //TODO:如何获得当前的用户？
 
         this.launcherName = launcherName;
         this.launcherImageId = launcherImageId;
@@ -88,6 +92,7 @@ public class task extends DataSupport implements Serializable{
 
     public task(){
         this.taskId = getIdTask();
+        this.isValid = true;
 
         this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
         this.progress = 1; //默认进度为1：已发布
@@ -103,6 +108,17 @@ public class task extends DataSupport implements Serializable{
         {return"技能";}
         else{return"咨询";}
     }
+
+    //TODO: 项目是否违约
+
+    /*
+    public void checkValid(){
+    if(time>launchtime){
+            this.ifDefault = true;
+            this.helper.getCredit().decrease(60);
+            }
+    }
+     */
 
 
     public int getTaskId(){return taskId;}
@@ -225,28 +241,14 @@ public class task extends DataSupport implements Serializable{
         this.launcherPhoneNumber = launcherPhoneNumber;
     }
 
-
-
-    //TODO: DELETE after discussion
-
-    /*
-    public int getTimes() {
-        return times;
-    }
-
-    public void setTimes(int times) {
-        this.times = times;
-    }
-    */
-
-    /*
     public double getLaunchtime() {
         return launchtime;
     }
 
     public void setLaunchtime(double launchtime) {
         this.launchtime = launchtime;
-    } */
+    }
+
 }
 
 

@@ -76,7 +76,7 @@ public class launchTaskActivity extends AppCompatActivity {
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
-                    task task = new task(); //TODO: link to DB
+                    task task = new task();
 
                     task.setSubtaskType(subtaskType);
                     task.setDdlDate(date);
@@ -85,6 +85,10 @@ public class launchTaskActivity extends AppCompatActivity {
                     task.setLocation(location);
                     task.setPayment(payment);
                     task.setDescription(description);
+
+                    //TODO: save
+
+                    //TODO: credit.increase(15)
 
                     Intent intent1 = new Intent(launchTaskActivity.this, MainActivity.class);
                     startActivity(intent1);
