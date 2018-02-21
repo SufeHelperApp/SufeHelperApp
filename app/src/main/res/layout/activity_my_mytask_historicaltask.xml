@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D8D8D8">
+    <LinearLayout
+        app:layout_widthPercent="100%"
+        app:layout_heightPercent="49%"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我接受的任务"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginTop="5dp"/>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_line"/>
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/launcher_image3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="3dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_image"
+                    android:layout_marginLeft="8dp" />
+
+                <TextView
+                    android:id="@+id/launcher_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="68dp"
+                    android:layout_marginTop="3dp"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/launcher_phoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/launcher_name"
+                    android:layout_marginLeft="68dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/taskType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="161dp"
+                    android:layout_marginTop="12dp"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/locationTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="3dp"
+                    android:text="地点:"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/deadlineTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="22dp"
+                    android:text="时间:"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/paymentTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="41dp"
+                    android:text="报酬:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="295dp"
+                    android:layout_marginTop="3dp"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/deadline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="295dp"
+                    android:layout_marginTop="22dp"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="295dp"
+                    android:layout_marginTop="41dp"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+    <LinearLayout
+        app:layout_widthPercent="100%"
+        app:layout_heightPercent="50%"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我发布的任务"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_marginTop="5dp"/>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_line"/>
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/launcher_image4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="3dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_image"
+                    android:layout_marginLeft="8dp" />
+
+                <TextView
+                    android:id="@+id/launcher_name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="68dp"
+                    android:layout_marginTop="3dp"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/launcher_phoneNumber2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/launcher_name2"
+                    android:layout_marginLeft="68dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/taskType2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="161dp"
+                    android:layout_marginTop="12dp"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/locationTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="3dp"
+                    android:text="地点:"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/deadlineTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="22dp"
+                    android:text="时间:"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/paymentTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="255dp"
+                    android:layout_marginTop="41dp"
+                    android:text="报酬:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/location2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="295dp"
+                    android:layout_marginTop="3dp"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/deadline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="295dp"
+                    android:layout_marginTop="22dp"
+                    android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/payment2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="295dp"
+                    android:layout_marginTop="41dp"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.percent.PercentFrameLayout>
