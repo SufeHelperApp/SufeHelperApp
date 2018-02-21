@@ -7,15 +7,14 @@
 
     <include layout="@layout/register_title_layout"/>
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginLeft="70dp">
         <ImageView
             android:id="@+id/picture_upload"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:src="@drawable/icon_image"
             />
@@ -32,14 +31,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:hint="姓名" />
-    <EditText
-        android:id="@+id/edit_text4"
-        android:layout_gravity="center"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="昵称" />
+        android:hint="昵称（建议输入真实姓名）" />
     <EditText
         android:id="@+id/edit_text5"
         android:layout_gravity="center"
@@ -49,12 +41,14 @@
         android:hint="密码" />
     <Button
         android:id="@+id/button_8"
-        android:layout_width="160dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="确认"
         android:layout_gravity="center"
-        android:layout_marginTop="90dp"
-        android:textSize="25sp" />
+        android:layout_marginTop="80dp"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>
     <TextView
         android:id="@+id/dot"
         android:layout_width="wrap_content"

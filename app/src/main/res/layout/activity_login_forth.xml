@@ -11,14 +11,14 @@
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:hint="输入新密码" />
     <EditText
         android:id="@+id/edit_text2"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:hint="确认新密码"
         />
 
@@ -30,5 +30,7 @@
         android:text="确认"
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
-        android:textSize="25sp" />
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"/>
 </LinearLayout>
