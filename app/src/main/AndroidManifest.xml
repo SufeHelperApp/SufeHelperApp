@@ -53,7 +53,9 @@
         <activity android:name=".MyActivity_credit" />
         <activity android:name=".MyActivity_Edit_NickName" />
         <activity android:name=".MyActivity_Edit_password" />
-        <activity android:name=".MyActivity_Edit_phonenumber"></activity>
+        <activity android:name=".MyActivity_Edit_phonenumber" />
+        <activity android:name=".MyActivity_chat" />
+        <activity android:name=".MyActivity_chat_home"></activity>
     </application>
 
 </manifest>
