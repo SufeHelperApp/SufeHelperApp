@@ -89,8 +89,8 @@ public class TaskInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 task.setIfAccepted(true);
-                //TODO: link to DB : 如何获取当前用户对象？
-                //task.setHelper();
+                //TODO: task.setHelper(user); 参数为当前正在操作的User对象
+                //TODO: user.getCredit().increase(30);
                 Intent intent1 = new Intent(TaskInfoActivity.this, MainActivity.class);
                 startActivity(intent1);
                 Toast.makeText(TaskInfoActivity.this, "任务接收成功！",Toast.LENGTH_SHORT).show();
