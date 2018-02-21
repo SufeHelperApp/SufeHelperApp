@@ -48,7 +48,12 @@
         <activity android:name=".MyActivity_Mytask" />
         <activity android:name=".MyActivity_mytask_currenttask" />
         <activity android:name=".MyActivity_mytask_historicaltask" />
-        <activity android:name=".MyActivity_mytask_personalhome"></activity>
+        <activity android:name=".MyActivity_mytask_personalhome" />
+        <activity android:name=".MyActivity_evaluation" />
+        <activity android:name=".MyActivity_credit" />
+        <activity android:name=".MyActivity_Edit_NickName" />
+        <activity android:name=".MyActivity_Edit_password" />
+        <activity android:name=".MyActivity_Edit_phonenumber"></activity>
     </application>
 
 </manifest>
