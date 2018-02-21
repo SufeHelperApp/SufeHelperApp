@@ -24,7 +24,7 @@
         <activity android:name=".Task_ErrandActivity" />
         <activity android:name=".Task_SkillActivity" />
         <activity android:name=".Task_CounselActivity" />
-        <activity android:name=".Explore_WeeklyDataActivity" />
+        <activity android:name=".Explore_weekly" />
         <activity android:name=".Explore_WeeklyTalentActivity" />
         <activity android:name=".Explore_MyTalentActivity" />
         <activity android:name=".Task_InfoActivity" />
