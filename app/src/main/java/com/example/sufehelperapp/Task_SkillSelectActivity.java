@@ -25,7 +25,7 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class Task_Selection3Activity extends AppCompatActivity {
+public class Task_SkillSelectActivity extends AppCompatActivity {
 
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
@@ -51,7 +51,7 @@ public class Task_Selection3Activity extends AppCompatActivity {
     private ListDropDownAdapter sexAdapter;
     private ConstellationAdapter constellationAdapter;
 
-    private String citys[] = {"不限", "选课咨询", "考研出国咨询", "求职咨询", "票务转让", "二手闲置", "其他"};
+    private String citys[] = {"不限", "电子产品修理", "家具器件组装", "学习作业辅导", "技能培训", "找同好", "其他"};
     private String ages[] = {"不限", "国定校区", "武东校区", "武川校区"};
     private String sexs[] = {"不限", "0-10元", "11-20元","21-30元","30元以上"};
     private String constellations[] = {"不限", "三小时内", "今天", "三天内", "本周", "本月"};
@@ -61,7 +61,7 @@ public class Task_Selection3Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task__selection3);
+        setContentView(R.layout.activity_task__selection2);
         ButterKnife.inject(this);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -74,15 +74,15 @@ public class Task_Selection3Activity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_Selection3Activity.this, MainActivity.class);
+                        Intent intent1 = new Intent(Task_SkillSelectActivity.this, MainActivity.class);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
-                        Intent intent2 = new Intent(Task_Selection3Activity.this, ExploreActivity.class);
+                        Intent intent2 = new Intent(Task_SkillSelectActivity.this, ExploreActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_Selection3Activity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_SkillSelectActivity.this, MyActivity.class);
                         startActivity(intent3);
                         break;
                 }
@@ -201,4 +201,3 @@ public class Task_Selection3Activity extends AppCompatActivity {
         }
     }
 }
-

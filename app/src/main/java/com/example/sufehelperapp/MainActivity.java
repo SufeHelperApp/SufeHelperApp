@@ -9,8 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import org.litepal.tablemanager.Connector;
-
 public class MainActivity extends AppCompatActivity {
 
     //private MyDatabaseHelper dbHelper;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(MainActivity.this, LoginFirstActivity.class);
+                        Intent intent3 = new Intent(MainActivity.this, My_LoginFirstActivity.class);
                         startActivity(intent3);
                         break;
                 }
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent4 = new Intent(MainActivity.this, launchTaskActivity.class);
+                Intent intent4 = new Intent(MainActivity.this, Task_LaunchActivity.class);
                 startActivity(intent4);
             }
         });

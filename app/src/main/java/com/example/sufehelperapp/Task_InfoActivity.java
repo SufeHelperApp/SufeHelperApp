@@ -2,11 +2,9 @@ package com.example.sufehelperapp;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-public class TaskInfoActivity extends AppCompatActivity {
+public class Task_InfoActivity extends AppCompatActivity {
 
     public static final String TASK_SELECTED = "task_selected";
 
@@ -46,14 +44,14 @@ public class TaskInfoActivity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(TaskInfoActivity.this, MainActivity.class);
+                        Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
                         startActivity(intent1);
                     case R.id.item_explore:
-                        Intent intent2 = new Intent(TaskInfoActivity.this, ExploreActivity.class);
+                        Intent intent2 = new Intent(Task_InfoActivity.this, ExploreActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(TaskInfoActivity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_InfoActivity.this, MyActivity.class);
                         startActivity(intent3);
                         break;
                 }
@@ -91,9 +89,9 @@ public class TaskInfoActivity extends AppCompatActivity {
                 task.setIfAccepted(true);
                 //TODO: task.setHelper(user); 参数为当前正在操作的User对象
                 //TODO: user.getCredit().increase(30);
-                Intent intent1 = new Intent(TaskInfoActivity.this, MainActivity.class);
+                Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
                 startActivity(intent1);
-                Toast.makeText(TaskInfoActivity.this, "任务接收成功！",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Task_InfoActivity.this, "任务接收成功！",Toast.LENGTH_SHORT).show();
             }
         });
 

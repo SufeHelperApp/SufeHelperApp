@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class RegisterFirstActivity extends AppCompatActivity {
+public class My_LoginThirdActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_first);
+        setContentView(R.layout.activity_login_third);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.hide();
@@ -21,18 +21,17 @@ public class RegisterFirstActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(RegisterFirstActivity.this, LoginFirstActivity.class);
+                Intent intent1 = new Intent(My_LoginThirdActivity.this, My_LoginSecondActivity.class);
                 startActivity(intent1);
             }
         });
-        Button button2 = (Button) findViewById(R.id.button_7);
+        Button button2 = (Button) findViewById(R.id.button_5);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent2 = new Intent(RegisterFirstActivity.this, RegisterSecondActivity.class);
+                Intent intent2 = new Intent(My_LoginThirdActivity.this, My_LoginForthActivity.class);
                 startActivity(intent2);
             }
         });
     }
 }
-

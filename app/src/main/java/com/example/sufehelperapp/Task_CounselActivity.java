@@ -74,7 +74,7 @@ public class Task_CounselActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Task_CounselActivity.this, Task_Selection3Activity.class);
+                Intent intent1 = new Intent(Task_CounselActivity.this, Task_CounselSelectActivity.class);
                 startActivity(intent1);
             }
         });

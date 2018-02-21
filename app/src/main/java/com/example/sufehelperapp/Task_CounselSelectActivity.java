@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class Task_Selection1Activity extends AppCompatActivity {
+public class Task_CounselSelectActivity extends AppCompatActivity {
 
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
@@ -47,28 +46,22 @@ public class Task_Selection1Activity extends AppCompatActivity {
     private String headers[] = {"分区", "位置", "报酬", "时间"};
     private List<View> popupViews = new ArrayList<>();
 
-    private GirdDropDownAdapter subtaskAdapter;
-    private ListDropDownAdapter areaAdapter;
-    private ListDropDownAdapter paymentAdapter;
-    private ConstellationAdapter ddlAdapter;
+    private GirdDropDownAdapter cityAdapter;
+    private ListDropDownAdapter ageAdapter;
+    private ListDropDownAdapter sexAdapter;
+    private ConstellationAdapter constellationAdapter;
 
-    private String subtasks[] = {"不限", "占座", "拿快递", "买饭", "买东西", "拼单", "其他"};
-    private String areas[] = {"不限", "国定校区", "武东校区", "武川校区"};
-    private String payments[] = {"不限", "0-5元", "6-10元","11-15元","15元以上"};
-    private String ddls[] = {"不限", "三小时内", "今天", "三天内", "本周", "本月"};
+    private String citys[] = {"不限", "选课咨询", "考研出国咨询", "求职咨询", "票务转让", "二手闲置", "其他"};
+    private String ages[] = {"不限", "国定校区", "武东校区", "武川校区"};
+    private String sexs[] = {"不限", "0-10元", "11-20元","21-30元","30元以上"};
+    private String constellations[] = {"不限", "三小时内", "今天", "三天内", "本周", "本月"};
 
-    private int ddlPosition = 0;
-
-    private int position1=0;
-    private int position2=0;
-    private int position3=0;
-    private int position4=0;
-
+    private int constellationPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task__selection1);
+        setContentView(R.layout.activity_task__selection3);
         ButterKnife.inject(this);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
@@ -81,15 +74,15 @@ public class Task_Selection1Activity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_Selection1Activity.this, MainActivity.class);
+                        Intent intent1 = new Intent(Task_CounselSelectActivity.this, MainActivity.class);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
-                        Intent intent2 = new Intent(Task_Selection1Activity.this, ExploreActivity.class);
+                        Intent intent2 = new Intent(Task_CounselSelectActivity.this, ExploreActivity.class);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_Selection1Activity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_CounselSelectActivity.this, MyActivity.class);
                         startActivity(intent3);
                         break;
                 }
@@ -103,32 +96,32 @@ public class Task_Selection1Activity extends AppCompatActivity {
     private void initView() {
         //init city menu
         final ListView cityView = new ListView(this);
-        subtaskAdapter = new GirdDropDownAdapter(this, Arrays.asList(subtasks));
+        cityAdapter = new GirdDropDownAdapter(this, Arrays.asList(citys));
         cityView.setDividerHeight(0);
-        cityView.setAdapter(subtaskAdapter);
+        cityView.setAdapter(cityAdapter);
 
         //init age menu
         final ListView ageView = new ListView(this);
         ageView.setDividerHeight(0);
-        areaAdapter = new ListDropDownAdapter(this, Arrays.asList(areas));
-        ageView.setAdapter(areaAdapter);
+        ageAdapter = new ListDropDownAdapter(this, Arrays.asList(ages));
+        ageView.setAdapter(ageAdapter);
 
         //init sex menu
         final ListView sexView = new ListView(this);
         sexView.setDividerHeight(0);
-        paymentAdapter = new ListDropDownAdapter(this, Arrays.asList(payments));
-        sexView.setAdapter(paymentAdapter);
+        sexAdapter = new ListDropDownAdapter(this, Arrays.asList(sexs));
+        sexView.setAdapter(sexAdapter);
 
         //init constellation
         final View constellationView = getLayoutInflater().inflate(R.layout.custom_layout, null);
         GridView constellation = ButterKnife.findById(constellationView, R.id.constellation);
-        ddlAdapter = new ConstellationAdapter(this, Arrays.asList(ddls));
-        constellation.setAdapter(ddlAdapter);
+        constellationAdapter = new ConstellationAdapter(this, Arrays.asList(constellations));
+        constellation.setAdapter(constellationAdapter);
         TextView ok = ButterKnife.findById(constellationView, R.id.ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDropDownMenu.setTabText(ddlPosition == 0 ? headers[3] : ddls[ddlPosition]);
+                mDropDownMenu.setTabText(constellationPosition == 0 ? headers[3] : constellations[constellationPosition]);
                 mDropDownMenu.closeMenu();
             }
         });
@@ -143,53 +136,37 @@ public class Task_Selection1Activity extends AppCompatActivity {
         cityView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                subtaskAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[0] : subtasks[position]);
+                cityAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(position == 0 ? headers[0] : citys[position]);
                 mDropDownMenu.closeMenu();
-                position1 = position; //点击后
-                String subtask = subtasks[position1];
-                Log.d("selection1",subtask);
-                //TODO: 查找（符合position1-4的任务），装入tasklist
-                //db.searchTask(subtaskType=="subtasks[position1]",position=="areas[position2]",...)
             }
         });
 
         ageView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                areaAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[1] : areas[position]);
+                ageAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(position == 0 ? headers[1] : ages[position]);
                 mDropDownMenu.closeMenu();
-                position2 = position;
-                String location = areas[position2];
-                Log.d("selection2",location);
             }
         });
 
         sexView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                paymentAdapter.setCheckItem(position);
-                mDropDownMenu.setTabText(position == 0 ? headers[2] : payments[position]);
+                sexAdapter.setCheckItem(position);
+                mDropDownMenu.setTabText(position == 0 ? headers[2] : sexs[position]);
                 mDropDownMenu.closeMenu();
-                position3 = position;
-                String payment = payments[position3];
-                Log.d("selection3",payment);
             }
         });
 
         constellation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ddlAdapter.setCheckItem(position);
-                ddlPosition = position;
-                position4 = position;
-                String time = ddls[position4];
-                Log.d("selection4",time);
+                constellationAdapter.setCheckItem(position);
+                constellationPosition = position;
             }
         });
-
-
 
         initTasks();
         //init context view
@@ -207,7 +184,6 @@ public class Task_Selection1Activity extends AppCompatActivity {
 
     private void initTasks(){
         taskList.clear();
-        //TODO: pick tasks that is selected
         for(int i=0; i<6; i++){
             Random random = new Random();
             int index = random.nextInt(tasks.length);
@@ -225,3 +201,4 @@ public class Task_Selection1Activity extends AppCompatActivity {
         }
     }
 }
+
