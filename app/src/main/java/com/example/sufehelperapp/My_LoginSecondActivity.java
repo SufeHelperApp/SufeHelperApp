@@ -33,5 +33,13 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
+        Button button2 = (Button) findViewById(R.id.button_4);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(My_LoginSecondActivity.this, MainActivity.class);
+                startActivity(intent3);
+            }
+        });
     }
 }

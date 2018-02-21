@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="当前任务"
+            android:text="历史任务"
             android:textColor="#FFFFFF"
             android:textSize="24sp"/>
         <Button
@@ -37,13 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:text="历史任务"
-            android:textColor="@color/white"
-            android:textSize="20dp"
             android:background="#00000000"/>
     </LinearLayout>
     <android.support.design.widget.TabLayout
-        android:id="@+id/tab_title"
+        android:id="@+id/tab_title2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -53,7 +50,7 @@
         />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_pager"
+        android:id="@+id/vp_pager2"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

@@ -29,7 +29,8 @@ public class My_LoginForthActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent1 = new Intent(My_LoginForthActivity.this, My_LoginSecondActivity.class);
+                startActivity(intent1);
             }
         });
     }

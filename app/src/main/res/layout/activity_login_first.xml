@@ -25,16 +25,20 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="登录"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimaryDark"
             android:layout_marginLeft="60dp"
-            android:textSize="20sp"/>
+            android:textSize="20dp"/>
 
         <Button
             android:id="@+id/button_2"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="注册"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimaryDark"
             android:layout_marginLeft="50dp"
-            android:textSize="20sp"/>
+            android:textSize="20dp"/>
     </LinearLayout>
 
 </android.support.percent.PercentFrameLayout>
