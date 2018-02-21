@@ -43,7 +43,7 @@ public class ExploreActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(ExploreActivity.this, Explore_WeeklyDataActivity.class);
+                Intent intent1 = new Intent(ExploreActivity.this, Explore_weekly.class);
                 startActivity(intent1);
             }
         });
