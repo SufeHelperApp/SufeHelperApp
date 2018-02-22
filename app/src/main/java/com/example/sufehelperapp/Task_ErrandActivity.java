@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,6 +29,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
                     new task("刘宇涵", R.drawable.orange,"13712345678",
                             "买饭","新食堂","18/2/17","11:00",
                             "6","微信联系")};
+    user user = new user();
     // NOTE: 可删除，用数据库取代
 
     private List<task> taskList = new ArrayList<>();
@@ -88,5 +91,14 @@ public class Task_ErrandActivity extends AppCompatActivity {
             int index = random.nextInt(tasks.length);
             taskList.add(tasks[index]);
         }
+    }
+
+    //推荐算法
+
+    private void initTaskSuggestions(){
+        taskList.clear();
+        //对所有task.setCompatibility(user);
+        taskList= DataSupport.order("compatibility").limit(4).find(task.class);
+
     }
 }

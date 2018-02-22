@@ -102,6 +102,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
         initView();
     }
 
+
     private void initView() {
         //init city menu
         final ListView cityView = new ListView(this);
@@ -149,13 +150,14 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : subtasks[position]);
                 mDropDownMenu.closeMenu();
                 position1 = position; //点击后
-                //String subtask = subtasks[position1];
-                //Log.d("selection1",subtask);
+                //TODO: 问题：可以在where里写函数吗
                 //TODO: 对接：调用获取当前时间的函数，把time和dll变成可比较的Int类型
                 //TODO: order倒序(以下三个函数一样)
-                taskList= DataSupport.select("subtaskType","area","payment","ddl").where("subtaskType = ?"
+                //对所有task.checkIsValid()
+
+                taskList= DataSupport.select("subtaskType","area","payment","ddl","isValid").where("subtaskType = ?"
                         , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
-                        "payment <= ?", "pay2").where("ddl <= ?", "time").order("ddl").find(task.class);
+                        "payment <= ?", "pay2").where("within[position4]", "true").where("isValid = ?", "true").order("ddl").find(task.class);
             }
         });
 
@@ -166,8 +168,6 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[1] : areas[position]);
                 mDropDownMenu.closeMenu();
                 position2 = position;
-                //String location = areas[position2];
-                //Log.d("selection2",location);
                 taskList= DataSupport.select("subtaskType","area","payment","ddl").where("subtaskType = ?"
                         , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
                         "payment <= ?", "pay2").where("ddl <= ?", "time").order("ddl").find(task.class);
@@ -181,8 +181,6 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[2] : payments[position]);
                 mDropDownMenu.closeMenu();
                 position3 = position;
-                //String payment = payments[position3];
-                //Log.d("selection3",payment);
                 taskList= DataSupport.select("subtaskType","area","payment","ddl").where("subtaskType = ?"
                         , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
                         "payment <= ?", "pay2").where("ddl <= ?", "time").order("ddl").find(task.class);
@@ -195,8 +193,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 ddlAdapter.setCheckItem(position);
                 ddlPosition = position;
                 position4 = position;
-                //String time = ddls[position4];
-                //Log.d("selection4",time);
+                //对所有task.checkWithin(position4);
                 taskList= DataSupport.select("subtaskType","area","payment","ddl").where("subtaskType = ?"
                         , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
                         "payment <= ?", "pay2").where("ddl <= ?", "time").order("ddl").find(task.class);

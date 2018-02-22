@@ -2,6 +2,9 @@ package com.example.sufehelperapp;
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
+import java.sql.Time;
+
+import com.example.sufehelperapp.TimeUtils;
 
 
 public class task extends DataSupport implements Serializable{
@@ -20,12 +23,11 @@ public class task extends DataSupport implements Serializable{
 
     private String taskType;
     private String subtaskType;
-    //TODO: 对接：launchTime 获取方法
-    private double launchtime; //任务发布时间
-    private double finishtime; //TODO: get set
+    private String launchtime; //任务发布时间
+    private String finishtime;
     private String ddlDate;   //任务截止日期
     private String ddlTime;   //任务截止时间
-    private String ddl;  //TODO: get
+    private String ddl;
     private String payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
@@ -37,6 +39,27 @@ public class task extends DataSupport implements Serializable{
     private int score;    //任务评分(1-10)
 
     private boolean ifDefault;  //是否违约
+    private boolean within1;
+    private boolean within2;
+    private boolean within3;
+    private boolean within4;
+    private boolean within5;
+
+    private int compatibility;
+
+    public task(){
+        this.taskId = getIdTask();
+        this.isValid = true;
+
+        this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
+        this.progress = 1; //默认进度为1：已发布
+        this.score = -1; //默认评分为-1：无评分
+        this.within1 = false;
+        this.within2 = false;
+        this.within3 = false;
+        this.within4 = false;
+        this.within5 = false;
+    }
 
 
     // 完整构造函数
@@ -92,15 +115,6 @@ public class task extends DataSupport implements Serializable{
 
     }
 
-    public task(){
-        this.taskId = getIdTask();
-        this.isValid = true;
-
-        this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
-        this.progress = 1; //默认进度为1：已发布
-        this.score = -1; //默认评分为-1：无评分
-    }
-
 
     public String chooseTaskType(String subtaskType){
         if(subtaskType == "占座" || subtaskType =="拿快递" ||subtaskType =="买饭" ||subtaskType == "买东西"|| subtaskType =="拼单")
@@ -111,21 +125,61 @@ public class task extends DataSupport implements Serializable{
         else{return"咨询";}
     }
 
-    //TODO: 项目是否违约
 
-    /*
-    public void checkValid(){
-    if(time>launchtime){
-            this.ifDefault = true;
-            this.helper.getCredit().decrease(60);
-            }
+    //检查项目在给定时间段内
+
+    public int getCompatibility(){
+        return compatibility;
     }
-     */
+
+    public void setCompatibility(user user){
+        
+    }
+
+    public boolean checkWithin(int position){
+        String taskTime = this.getDdl();
+        switch (position){
+            case 1: within1 = TimeUtils.isDateWithinThreeHour(taskTime); return within1;
+            case 2: within2 = TimeUtils.isDateWithinOneDay(taskTime); return within2;
+            case 3: within3 = TimeUtils.isDateWithinThreeDay(taskTime); return within3;
+            case 4: within4 = TimeUtils.isDateWithinOneWeek(taskTime); return within4;
+            case 5: within5 = TimeUtils.isDateWithinOneMonth(taskTime); return within5;
+            default: return false;
+        }
+    }
+
+    //检查项目是否过期
+
+    public boolean checkIsValid(){
+        if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),launchtime)){
+            this.isValid = false;
+        }
+        return this.isValid;
+    }
+
+    public void setIsValid(boolean a){
+        this.isValid = a;
+    }
+
+    public String getLaunchtime() {
+        return launchtime;
+    }
+
+    public void setLaunchtime() {
+        this.launchtime = TimeUtils.getNowTime();
+    }
+
+    public String getFinishtime(){return finishtime;}
+
+    public void setFinishtime(){
+        this.finishtime = TimeUtils.getNowTime();
+    }
+
+    public String getDdl(){return ddl;}
 
     public void setDdl(){
-        this.ddl = ddlDate + ";" + ddlTime; //ddl:18/12/31;17:00
+        this.ddl = ddlDate + " " + ddlTime; //ddl:2018/12/31 17:00
     }
-
 
     public int getTaskId(){return taskId;}
 
@@ -245,14 +299,6 @@ public class task extends DataSupport implements Serializable{
 
     public void setLauncherPhoneNumber(String launcherPhoneNumber) {
         this.launcherPhoneNumber = launcherPhoneNumber;
-    }
-
-    public double getLaunchtime() {
-        return launchtime;
-    }
-
-    public void setLaunchtime(double launchtime) {
-        this.launchtime = launchtime;
     }
 
 }

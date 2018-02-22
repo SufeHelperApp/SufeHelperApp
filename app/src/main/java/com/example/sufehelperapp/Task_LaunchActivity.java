@@ -81,6 +81,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     task.setDdlTime(time);
                     task.setDdl();
                     task.setArea(area);
+                    task.setLaunchtime();
                     task.setLocation(location);
                     task.setPayment(payment);
                     task.setDescription(description);
