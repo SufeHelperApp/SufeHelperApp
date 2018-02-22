@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MyActivity_Edit_phonenumber extends AppCompatActivity {
 
@@ -27,12 +28,17 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        final TextView phonenumberView = (TextView) findViewById(R.id.edit_text_phonenumber);
         Button button2 = (Button) findViewById(R.id.button_conserve_phonenumber);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
                     case R.id.button_conserve_phonenumber:
+                        String newPhonenumber = phonenumberView.getText().toString();
+                        //TODO: 修改手机：1.获取当前user对象 2.保存修改
+                        //user user1 = new user();
+                        //user1.setPhonenumber(newPhonenumber);
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_phonenumber.this);
                         dialog.setTitle("提示");
                         dialog.setMessage("手机号修改成功！");

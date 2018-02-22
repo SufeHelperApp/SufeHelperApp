@@ -65,6 +65,7 @@
                 android:layout_marginTop="35dp">
 
                 <ImageView
+                    android:id="@+id/setup_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_dot"
@@ -73,7 +74,6 @@
                     android:id="@+id/sex_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="女"
                     android:textSize="17dp"
                     android:gravity="center"
                     android:textColor="	#909090"/>

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MyActivity_Edit_NickName extends AppCompatActivity {
 
@@ -27,13 +28,18 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        final TextView nicknameView = (TextView) findViewById(R.id.edit_text_changeNickname);
         Button button2 = (Button) findViewById(R.id.button_conserve_nickname);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
-                    // TODO: 对接：update 方法
                     case R.id.button_conserve_nickname:
+                        String newNickname = nicknameView.getText().toString();
+                        //TODO: 修改昵称：1.获取当前user对象 2.保存修改
+                        //user user1 = new user();
+                        //user1.setNickname(newNickname);
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_NickName.this);
                         dialog.setTitle("提示");
                         dialog.setMessage("昵称修改成功！");
