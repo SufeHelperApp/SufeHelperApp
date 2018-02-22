@@ -6,7 +6,7 @@
 
     <list>
         <mapping class="com.example.sufehelperapp.user"></mapping>
-        <mapping class="com.example.sufehelperapp.TASK1"></mapping>
+        <mapping class="com.example.sufehelperapp.task"></mapping>
         <mapping class="com.example.sufehelperapp.weeklyData"></mapping>
 
     </list>

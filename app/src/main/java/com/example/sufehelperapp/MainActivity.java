@@ -9,9 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.litepal.LitePal;
+
 public class MainActivity extends AppCompatActivity {
 
-    //private MyDatabaseHelper dbHelper;
+    private MyDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //dbHelper = new MyDatabaseHelper(this,"USER.db",null,1);
-        //Connector.getDatabase();
+        dbHelper = new MyDatabaseHelper(this,"USER.db",null,1);
+        LitePal.getDatabase();
 
         Button b1 = (Button) findViewById(R.id.btn_errand);
         b1.setOnClickListener(new View.OnClickListener() {
