@@ -18,6 +18,7 @@ public class user extends DataSupport {
 
     //个性信息
     private String dormArea;
+    private String dormitoryLocation;
     private double dormitoryX;
     private double dormitoryY; //寝室位置
     private List<String> demand; //常见需求
@@ -98,6 +99,15 @@ public class user extends DataSupport {
     }
 
     */
+
+    public void setDormitoryLocation(String dormitoryLocation){
+        this.dormitoryLocation = dormitoryLocation;
+    }
+
+    public String getDormitoryLocation(){
+        return dormitoryLocation;
+    }
+
     public String getSex(){
         return sex;
     }
