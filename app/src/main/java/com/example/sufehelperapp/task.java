@@ -31,7 +31,8 @@ public class task extends DataSupport implements Serializable{
     private String payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
-    private Double locationCoordinator; //TODO: 任务位置经度纬度
+    private Double locationX;
+    private Double locationY;
     private String description;  //任务描述
 
     private boolean ifAccepted;   //任务是否已被接受
@@ -133,7 +134,7 @@ public class task extends DataSupport implements Serializable{
     }
 
     public void setCompatibility(user user){
-        
+
     }
 
     public boolean checkWithin(int position){

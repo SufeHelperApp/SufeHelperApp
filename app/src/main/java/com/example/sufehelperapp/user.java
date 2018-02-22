@@ -1,6 +1,8 @@
 package com.example.sufehelperapp;
 import org.litepal.crud.DataSupport;
 
+import java.util.List;
+
 public class user extends DataSupport {
 
     //基本信息
@@ -48,7 +50,7 @@ public class user extends DataSupport {
     //达人信息
     private boolean ifTalent;  //是否是达人
     //TODO: 对接：获取所有达人称号字符串：显示在"我的达人"页面。
-    private String[] talentTitles;    //TODO: LIST
+    private List<String> talentTitles;
     //private int invitedTimes;  //被邀请多少次
 
 
@@ -178,7 +180,7 @@ public class user extends DataSupport {
         this.specialty = specialty;
     }
 
-    public String[] getTalent() {
+    public List<String> getTalent() {
         return talentTitles;
     }
 
