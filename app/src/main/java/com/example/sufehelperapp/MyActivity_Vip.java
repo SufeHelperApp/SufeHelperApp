@@ -6,8 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MyActivity_Vip extends AppCompatActivity {
+
+    user user = new user(); //TODO: user改为当前user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +20,15 @@ public class MyActivity_Vip extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+
+        //show level
+        TextView levelView = (TextView) findViewById(R.id.vip_text_level);
+        levelView.setText("Lv."+ user.getLevel());
+
+        //show credit
+        TextView creditView = (TextView) findViewById(R.id.vip_text_credit);
+        creditView.setText(String.valueOf(user.getCredit()));
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

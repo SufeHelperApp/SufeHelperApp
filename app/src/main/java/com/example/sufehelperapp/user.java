@@ -8,6 +8,7 @@ public class user extends DataSupport {
     private String phonenumber;
     private String password;
     private String myName;   //姓名
+    private String sex;
     private String nickname;   //昵称
     private String gender;
     private int myImageId;//个人头像  //TODO: 改成String
@@ -93,6 +94,13 @@ public class user extends DataSupport {
     }
 
     */
+    public String getSex(){
+        return sex;
+    }
+
+    public void setSex(String sex){
+        this.sex = sex;
+    }
 
     public String getPhonenumber(){
         return phonenumber;

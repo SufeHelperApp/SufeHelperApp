@@ -10,8 +10,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import static org.litepal.LitePalApplication.getContext;
 
 public class My_HomeActivity extends AppCompatActivity {
+
+    user user = new user(); //TODO: 用当前用户代替
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +29,15 @@ public class My_HomeActivity extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+
+        user.setMyImageId(R.drawable.apple);
+        ImageView image = (ImageView) findViewById(R.id.button_picture);
+        Glide.with(getContext()).load(user.getMyImageId()).into(image);
+
+        user.setMyName("戴晓东");
+        TextView nicknameView = (TextView) findViewById(R.id.username_text);
+        nicknameView.setText(user.getMyName());
+
         Button button1 = (Button) findViewById(R.id.button_setup);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

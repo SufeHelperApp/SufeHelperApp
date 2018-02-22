@@ -44,7 +44,6 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                // TODO Auto-generated method stub
 //              textView append显示数据
 //          textView.append("***当前值："+rating+"**步长："+ratingBar.getStepSize()+"\n");
 //          switch case 语句对评价的星星个数进行判断 给出相应的操作
