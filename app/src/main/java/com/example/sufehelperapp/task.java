@@ -134,7 +134,6 @@ public class task extends DataSupport implements Serializable{
     }
 
     public void setCompatibility(user user){
-
     }
 
     public boolean checkWithin(int position){
