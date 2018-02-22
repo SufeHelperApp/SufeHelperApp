@@ -79,14 +79,15 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     task.setSubtaskType(subtaskType);
                     task.setDdlDate(date);
                     task.setDdlTime(time);
+                    task.setDdl();
                     task.setArea(area);
                     task.setLocation(location);
                     task.setPayment(payment);
                     task.setDescription(description);
 
-                    //TODO: save
+                    task.save();
 
-                    //TODO: credit.increase(15)
+                    //TODO: user.getCredit().increase(15)
 
                     Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
                     startActivity(intent1);

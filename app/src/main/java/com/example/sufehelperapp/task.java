@@ -20,10 +20,12 @@ public class task extends DataSupport implements Serializable{
 
     private String taskType;
     private String subtaskType;
-    //TODO: launchTime 获取方法
+    //TODO: 对接：launchTime 获取方法
     private double launchtime; //任务发布时间
+    private double finishtime; //TODO: get set
     private String ddlDate;   //任务截止日期
     private String ddlTime;   //任务截止时间
+    private String ddl;  //TODO: get
     private String payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
@@ -44,7 +46,7 @@ public class task extends DataSupport implements Serializable{
 
         this.taskId = getIdTask();
 
-        this.launcher = launcher; //TODO: 如何获取当前的用户？
+        this.launcher = launcher;
 
         this.launcherName = launcher.getMyName();
         this.launcherImageId = launcher.getMyImageId();
@@ -71,7 +73,7 @@ public class task extends DataSupport implements Serializable{
 
         this.taskId = getIdTask();
 
-        this.launcher = launcher; //TODO:如何获得当前的用户？
+        this.launcher = launcher;
 
         this.launcherName = launcherName;
         this.launcherImageId = launcherImageId;
@@ -119,6 +121,10 @@ public class task extends DataSupport implements Serializable{
             }
     }
      */
+
+    public void setDdl(){
+        this.ddl = ddlDate + ";" + ddlTime; //ddl:18/12/31;17:00
+    }
 
 
     public int getTaskId(){return taskId;}

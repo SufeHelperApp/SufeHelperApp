@@ -32,6 +32,7 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
+                    // TODO: 对接：update 方法
                     case R.id.button_conserve_nickname:
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_NickName.this);
                         dialog.setTitle("提示");

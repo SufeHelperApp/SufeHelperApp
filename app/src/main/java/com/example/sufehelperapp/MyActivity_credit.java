@@ -17,6 +17,7 @@ public class MyActivity_credit extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+        //TODO：对接：set rating
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
