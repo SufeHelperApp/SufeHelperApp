@@ -82,7 +82,7 @@ public class Task_SkillActivity extends AppCompatActivity {
     private void initTasks(){
         taskList.clear();
         for(int i=0; i<4; i++){
-            Random random = new Random(); //TODO（算法设计）：用推荐算法取代随机算法，从数据库调用相应tasks的index
+            Random random = new Random();
             int index = random.nextInt(tasks.length);
             taskList.add(tasks[index]);
         }

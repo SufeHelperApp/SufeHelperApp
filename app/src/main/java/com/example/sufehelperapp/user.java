@@ -17,9 +17,11 @@ public class user extends DataSupport {
     private boolean isValid; //是否被冻结
 
     //个性信息
-    private String dormitoryLocation;  //寝室位置  //TODO: 经纬度
-    private String demand; //常见需求 //TODO: 改成List （查一下List是否动态增加，注释一下动态增加的方法)
-    private String specialty;  //个人特长  //TODO: 改成List
+    private String dormArea;
+    private double dormitoryX;
+    private double dormitoryY; //寝室位置
+    private List<String> demand; //常见需求
+    private List<String> specialty;  //个人特长
 
     //任务信息
     private int taskLNum;  //发布任务总数
@@ -31,7 +33,7 @@ public class user extends DataSupport {
 
     //评价信息
     //TODO: 对接：任务评价页面：新评分加进平均评分
-    private int averageScore;    //平均评分
+    private double averageScore;    //平均评分
     private int credit; //积分总量
     //TODO: 数据库设计：1.积分增加/减少函数 2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
     //TODO: 发布任务+15，违约-60，*登录+2，*在线时长超过六小时+1，*被邀请+5，*接受邀请+10，*平均评分增减+1：+10）和积分总量之间的对应增减关系（积分算法）
@@ -124,6 +126,14 @@ public class user extends DataSupport {
         this.myName = name;
     }
 
+    public double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -156,28 +166,20 @@ public class user extends DataSupport {
         this.myImageId = myImageId;
     }
 
-    public String getDormitoryLocation() {
-        return dormitoryLocation;
+    public String getDormArea() {
+        return dormArea;
     }
 
-    public void setDormitoryLocation(String dormitoryLocation) {
-        this.dormitoryLocation = dormitoryLocation;
+    public void setDormArea(String area) {
+        this.dormArea = area;
     }
 
-    public String getDemand() {
+    public List<String> getDemand() {
         return demand;
     }
 
-    public void setDemand(String demand) {
-        this.demand = demand;
-    }
-
-    public String getSpecialty() {
+    public List<String> getSpecialty() {
         return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
     }
 
     public List<String> getTalent() {

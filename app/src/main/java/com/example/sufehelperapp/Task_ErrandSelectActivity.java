@@ -151,7 +151,6 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.closeMenu();
                 position1 = position; //点击后
                 //TODO: 问题：可以在where里写函数吗
-                //TODO: 对接：调用获取当前时间的函数，把time和dll变成可比较的Int类型
                 //TODO: order倒序(以下三个函数一样)
                 //对所有task.checkIsValid()
 

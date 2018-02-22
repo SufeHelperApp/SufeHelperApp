@@ -87,18 +87,24 @@ public class Task_ErrandActivity extends AppCompatActivity {
     private void initTasks(){
         taskList.clear();
         for(int i=0; i<4; i++){
-            Random random = new Random(); //TODO（算法设计）：用推荐算法取代随机算法，从数据库调用相应tasks的index
+            Random random = new Random();
             int index = random.nextInt(tasks.length);
             taskList.add(tasks[index]);
         }
     }
 
-    //推荐算法
-
+    //TODO: 推荐算法
+/*
     private void initTaskSuggestions(){
         taskList.clear();
         //对所有task.setCompatibility(user);
         taskList= DataSupport.order("compatibility").limit(4).find(task.class);
+        String Dormarea = user.getDormArea();
+
+        taskList= DataSupport.select("area","specialty","averageScore","ddl").where("area = ?"
+                , "Dormarea").where("area = ?", "").where("payment >= ?" , "pay1").where(
+                "payment <= ?", "pay2").where("ddl <= ?", "time").limit(4).order("ddl").find(task.class);
 
     }
+    */
 }
