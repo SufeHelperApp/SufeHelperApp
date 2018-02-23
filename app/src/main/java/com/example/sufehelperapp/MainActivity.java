@@ -45,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new MyDatabaseHelper(this,"USER.db",null,1);
         LitePal.getDatabase();
 
+        Button db_test = (Button) findViewById(R.id.button_db_test);
+        db_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(MainActivity.this, DBTESTActivity.class);
+                startActivity(intent1);
+            }
+        });
+
         Button b1 = (Button) findViewById(R.id.btn_errand);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
