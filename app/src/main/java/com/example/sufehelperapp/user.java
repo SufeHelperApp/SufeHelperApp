@@ -97,8 +97,87 @@ public class user extends DataSupport {
         this.level = level;
         this.tasknumber = tasknumber;
     }
-
     */
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public double getDormitoryX() {
+        return dormitoryX;
+    }
+
+    public void setDormitoryX(double dormitoryX) {
+        this.dormitoryX = dormitoryX;
+    }
+
+    public double getDormitoryY() {
+        return dormitoryY;
+    }
+
+    public void setDormitoryY(double dormitoryY) {
+        this.dormitoryY = dormitoryY;
+    }
+
+    public void setDemand(List<String> demand) {
+        this.demand = demand;
+    }
+
+    public void setSpecialty(List<String> specialty) {
+        this.specialty = specialty;
+    }
+
+    public int getTaskRNum() {
+        return taskRNum;
+    }
+
+    public void setTaskRNum(int taskRNum) {
+        this.taskRNum = taskRNum;
+    }
+
+    public int getCurr_taskLNum() {
+        return curr_taskLNum;
+    }
+
+    public void setCurr_taskLNum(int curr_taskLNum) {
+        this.curr_taskLNum = curr_taskLNum;
+    }
+
+    public int getCurr_taskRNum() {
+        return curr_taskRNum;
+    }
+
+    public void setCurr_taskRNum(int curr_taskRNum) {
+        this.curr_taskRNum = curr_taskRNum;
+    }
+
+    public int getDefault_taskNum() {
+        return default_taskNum;
+    }
+
+    public void setDefault_taskNum(int default_taskNum) {
+        this.default_taskNum = default_taskNum;
+    }
+
+    public boolean isIfTalent() {
+        return ifTalent;
+    }
+
+    public void setIfTalent(boolean ifTalent) {
+        this.ifTalent = ifTalent;
+    }
+
+    public List<String> getTalentTitles() {
+        return talentTitles;
+    }
+
+    public void setTalentTitles(List<String> talentTitles) {
+        this.talentTitles = talentTitles;
+    }
 
     public void setDormitoryLocation(String dormitoryLocation){
         this.dormitoryLocation = dormitoryLocation;
