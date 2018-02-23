@@ -34,7 +34,7 @@ public class user extends DataSupport {
 
     //评价信息
     //TODO: 对接：任务评价页面：新评分加进平均评分
-    private double averageScore;    //平均评分
+    private float averageScore;    //平均评分
     private int credit; //积分总量
     //TODO: 数据库设计：1.积分增加/减少函数 2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
     //TODO: 发布任务+15，违约-60，*登录+2，*在线时长超过六小时+1，*被邀请+5，*接受邀请+10，*平均评分增减+1：+10）和积分总量之间的对应增减关系（积分算法）
@@ -215,11 +215,11 @@ public class user extends DataSupport {
         this.myName = name;
     }
 
-    public double getAverageScore() {
+    public float getAverageScore() {
         return averageScore;
     }
 
-    public void setAverageScore(double averageScore) {
+    public void setAverageScore(float averageScore) {
         this.averageScore = averageScore;
     }
 
