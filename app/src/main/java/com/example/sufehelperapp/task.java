@@ -9,7 +9,7 @@ import com.example.sufehelperapp.TimeUtils;
 
 public class task extends DataSupport implements Serializable{
 
-    private int taskId;
+    //private int taskId;
     private boolean isValid;
 
     private user launcher;
@@ -40,16 +40,18 @@ public class task extends DataSupport implements Serializable{
     private int score;    //任务评分(1-10)
 
     private boolean ifDefault;  //是否违约
+    /*
     private boolean within1;
     private boolean within2;
     private boolean within3;
     private boolean within4;
-    private boolean within5;
+    private boolean within5;*/
 
-    private int compatibility;
+    public task(){}
 
+/*
     public task(){
-        this.taskId = getIdTask();
+        //this.taskId = getIdTask();
         this.isValid = true;
 
         this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
@@ -60,42 +62,15 @@ public class task extends DataSupport implements Serializable{
         this.within3 = false;
         this.within4 = false;
         this.within5 = false;
-    }
+    } */
 
-
-    // 完整构造函数
-
-    public task(user launcher, String subtaskType, String ddlDate, String ddlTime, String payment, String location,
-                String description){
-
-        this.taskId = getIdTask();
-
-        this.launcher = launcher;
-
-        this.launcherName = launcher.getMyName();
-        this.launcherImageId = launcher.getMyImageId();
-        this.launcherPhoneNumber = launcher.getPhonenumber();
-
-        this.subtaskType = subtaskType;
-        this.taskType = chooseTaskType(subtaskType);
-
-        this.ddlDate = ddlDate;
-        this.ddlTime = ddlTime;
-        this.payment = payment;
-        this.location = location;
-        this.description = description;
-
-        this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
-        this.progress = 1; //默认进度为1：已发布
-        this.score = -1; //默认评分为-1：无评分
-    }
 
     // 临时构造函数
 
     public task(String launcherName, int launcherImageId, String launcherPhoneNumber, String subtaskType,
                 String location, String ddlDate, String ddlTime, String payment, String description){
 
-        this.taskId = getIdTask();
+        //this.taskId = getIdTask();
 
         this.launcher = launcher;
 
@@ -117,6 +92,7 @@ public class task extends DataSupport implements Serializable{
     }
 
 
+
     public String chooseTaskType(String subtaskType){
         if(subtaskType == "占座" || subtaskType =="拿快递" ||subtaskType =="买饭" ||subtaskType == "买东西"|| subtaskType =="拼单")
         {return"跑腿";}
@@ -129,13 +105,7 @@ public class task extends DataSupport implements Serializable{
 
     //检查项目在给定时间段内
 
-    public int getCompatibility(){
-        return compatibility;
-    }
-
-    public void setCompatibility(user user){
-    }
-
+/*
     public boolean checkWithin(int position){
         String taskTime = this.getDdl();
         switch (position){
@@ -146,7 +116,7 @@ public class task extends DataSupport implements Serializable{
             case 5: within5 = TimeUtils.isDateWithinOneMonth(taskTime); return within5;
             default: return false;
         }
-    }
+    }*/
 
     //检查项目是否过期
 
@@ -181,7 +151,7 @@ public class task extends DataSupport implements Serializable{
         this.ddl = ddlDate + " " + ddlTime; //ddl:2018/12/31 17:00
     }
 
-    public int getTaskId(){return taskId;}
+    /*public int getTaskId(){return taskId;}*/
 
     public int getIdTask(){return ++Static.ID_TASK;}
 

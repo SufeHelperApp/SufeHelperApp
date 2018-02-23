@@ -59,8 +59,7 @@
         <activity android:name=".MyActivity_Historical_Task" />
         <activity android:name=".MyActivity_History_Recieved" />
         <activity android:name=".MyActivity_History_Republish" />
-        <activity android:name=".viewAdapter_history" />
-        <activity android:name=".fragmentAdapter_history"></activity>
+        <activity android:name=".DBTESTActivity"></activity>
     </application>
 
 </manifest>
