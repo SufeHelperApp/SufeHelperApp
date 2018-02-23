@@ -69,6 +69,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 String time = timeView.getText().toString();
                 String location = locationView.getText().toString();
                 String payment = paymentView.getText().toString();
+                double paymentDouble = Double.parseDouble(payment);
                 String description = descriptionView.getText().toString();
 
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
@@ -83,7 +84,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     task.setArea(area);
                     task.setLaunchtime();
                     task.setLocation(location);
-                    task.setPayment(payment);
+                    task.setPayment(paymentDouble);
                     task.setDescription(description);
 
                     task.save();

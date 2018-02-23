@@ -30,13 +30,13 @@ public class Task_CounselSelectActivity extends AppCompatActivity {
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
                     "占座","二教206","18/2/12","9:00",
-                    "5","微信联系"),
+                    5,"微信联系"),
                     new task("戴晓东", R.drawable.banana, "13812345678",
                             "拿快递","快递中心","18/2/10","10:00",
-                            "7","微信联系"),
+                            7,"微信联系"),
                     new task("刘宇涵", R.drawable.orange,"13712345678",
                             "买饭","新食堂","18/2/17","11:00",
-                            "6","微信联系")};
+                            6,"微信联系")};
 
     private List<task> taskList = new ArrayList<>();
 

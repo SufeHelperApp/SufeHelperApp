@@ -21,13 +21,13 @@ public class Task_InfoActivity extends AppCompatActivity {
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
                     "占座","二教206","18/2/12","9:00",
-                    "5","微信联系"),
+                    5,"微信联系"),
                     new task("戴晓东", R.drawable.banana, "13812345678",
                             "拿快递","快递中心","18/2/10","10:00",
-                            "7","微信联系"),
+                            7,"微信联系"),
                     new task("刘宇涵", R.drawable.orange,"13712345678",
                             "买饭","新食堂","18/2/17","11:00",
-                            "6","微信联系")};
+                            6,"微信联系")};
     // NOTE: 可删除，用数据库取代
 
     @Override
@@ -79,7 +79,8 @@ public class Task_InfoActivity extends AppCompatActivity {
         date.setText(task.getDdlDate());
         time.setText(task.getDdlTime());
         location.setText(task.getLocation());
-        payment.setText(task.getPayment());
+        String paymentString = Double.toString(task.getPayment());
+        payment.setText(paymentString);
         description.setText(task.getDescription());
 
         Button b1 = (Button) findViewById(R.id.receive_task_btn);

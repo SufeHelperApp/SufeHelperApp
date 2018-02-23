@@ -28,7 +28,7 @@ public class task extends DataSupport implements Serializable{
     private String ddlDate;   //任务截止日期
     private String ddlTime;   //任务截止时间
     private String ddl;
-    private String payment;  //任务报酬
+    private double payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
     private Double locationX;
@@ -68,7 +68,7 @@ public class task extends DataSupport implements Serializable{
     // 临时构造函数
 
     public task(String launcherName, int launcherImageId, String launcherPhoneNumber, String subtaskType,
-                String location, String ddlDate, String ddlTime, String payment, String description){
+                String location, String ddlDate, String ddlTime, double payment, String description){
 
         //this.taskId = getIdTask();
 
@@ -211,11 +211,11 @@ public class task extends DataSupport implements Serializable{
 
     public void setDdlTime(String ddlTime) {this.ddlTime = ddlTime;}
 
-    public String getPayment() {
+    public double getPayment() {
         return payment;
     }
 
-    public void setPayment(String payment) {
+    public void setPayment(double payment) {
         this.payment = payment;
     }
 
