@@ -64,9 +64,9 @@ public class user extends DataSupport {
         this.taskRNum=0;
         this.taskNum=0;
         this.curr_taskLNum=0;
-        this. curr_taskRNum=0;
+        this.curr_taskRNum=0;
         this.default_taskNum=0;
-        this.averageScore=-1;
+        this.averageScore=0;
         this.credit=0;
         //this.credit=0;
         this.level=1;

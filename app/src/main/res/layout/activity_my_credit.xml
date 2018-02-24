@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#F0F0F0">
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -52,7 +53,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="我的平均评分"
+            android:text="我的信用评分"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:layout_marginLeft="30dp"
@@ -61,12 +62,13 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="80dp">
         <RatingBar
             android:id="@+id/my_credit_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="11dp"
             android:numStars="5"
             android:stepSize="0.5"
             android:isIndicator="false"
@@ -76,13 +78,19 @@
             android:id="@+id/my_credit_average_score_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="123"
             android:textSize="28dp"
             android:layout_marginStart="285dp"
-            android:layout_marginTop="7dp"/>
+            android:layout_marginTop="22dp"/>
 
     </android.support.v7.widget.CardView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <android.support.v7.widget.CardView
+        android:id="@+id/my_credit_card2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="2dp"
@@ -94,110 +102,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="我收到的评价"
+            android:text="我的违约任务"
             android:textColor="@color/white"
             android:textSize="20dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:layout_gravity="center_vertical"/>
     </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_credit_recycler"
+        android:layout_below="@id/my_credit_card2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:cardCornerRadius="4dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/credit_time1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="时间："
-                android:textSize="18dp"
-                android:textColor="#B8B8B8"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="30dp"
-                />
-            <TextView
-                android:id="@+id/credit_get_time1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:textColor="#B8B8B8"
-                android:layout_toRightOf="@id/credit_time1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"/>
-            <TextView
-                android:id="@+id/credit_category1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="分区："
-                android:textSize="18dp"
-                android:textColor="#B8B8B8"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="30dp"
-                android:layout_below="@id/credit_time1"/>
-            <TextView
-                android:id="@+id/credit_get_category1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:textColor="#B8B8B8"
-                android:layout_toRightOf="@id/credit_category1"
-                android:layout_below="@id/credit_get_time1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"/>
-            <TextView
-                android:id="@+id/credit_evaluation1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="他人评价："
-                android:textSize="18dp"
-                android:textColor="#B8B8B8"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="30dp"
-                android:layout_below="@id/credit_category1"
-                android:layout_marginBottom="5dp"/>
-            <TextView
-                android:id="@+id/credit_get_evaluation1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:textColor="#B8B8B8"
-                android:layout_toRightOf="@id/credit_evaluation1"
-                android:layout_below="@id/credit_get_category1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/bottom_shadow"
-                android:text="详情"
-                android:textSize="15dp"
-                android:textColor="@color/colorPrimary"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="3dp"
-        android:backgroundTint="@color/colorPrimaryDark">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="我的违约情况"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center_vertical"/>
-    </android.support.v7.widget.CardView>
-    <include layout="@layout/task_item"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </RelativeLayout>
+
 </LinearLayout>

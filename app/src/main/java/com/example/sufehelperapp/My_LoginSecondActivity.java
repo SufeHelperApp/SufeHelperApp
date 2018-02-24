@@ -6,6 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 public class My_LoginSecondActivity extends AppCompatActivity {
 
@@ -37,8 +43,28 @@ public class My_LoginSecondActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(My_LoginSecondActivity.this, MainActivity.class);
-                startActivity(intent3);
+
+                TextView nameView = findViewById(R.id.login_second_name);
+                TextView passwordView = findViewById(R.id.login_second_password);
+                String name = nameView.getText().toString();
+                String password = passwordView.getText().toString();
+
+                List<user> userList = DataSupport.where("myName = ?","name").
+                        where("password = ?","password").find(user.class);
+                if(userList == null){
+                    Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",
+                            Toast.LENGTH_SHORT).show();}else {
+
+                    user user = userList.get(0); //TODO: 缓存
+
+                    user.setMyName(name);
+                    user.setPassword(password);
+                    user.save();
+
+
+                    Intent intent3 = new Intent(My_LoginSecondActivity.this, MainActivity.class);
+                    startActivity(intent3);
+                }
             }
         });
     }
