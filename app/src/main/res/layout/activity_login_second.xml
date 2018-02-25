@@ -7,14 +7,14 @@ android:layout_height="match_parent">
 
 <include layout="@layout/login_title_layout"/>
 <EditText
-    android:id="@+id/edit_text1"
+    android:id="@+id/login_second_name"
     android:layout_gravity="center"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="100dp"
     android:hint="User Name" />
 <EditText
-    android:id="@+id/edit_text2"
+    android:id="@+id/login_second_password"
     android:layout_gravity="center"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
