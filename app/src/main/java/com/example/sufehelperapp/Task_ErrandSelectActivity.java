@@ -30,7 +30,7 @@ import butterknife.InjectView;
 
 public class Task_ErrandSelectActivity extends AppCompatActivity {
 
-    private List<task> taskList = new ArrayList<>();
+    private static List<task> taskList = new ArrayList<>();
 
     private TaskAdapter adapter;
 
@@ -50,13 +50,13 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
 
     private int ddlPosition = 0;
 
-    private int position1=0;
-    private int position2=0;
-    private int position3=0;
-    private int position4=0;
+    private static int position1=0;
+    private static int position2=0;
+    private static int position3=0;
+    private static int position4=0;
 
-    String pay1string = "0";
-    String pay2string = "10000";
+    private static String pay1string = "0";
+    private static String pay2string = "10000";
 
 
 
@@ -151,24 +151,36 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : subtasks[position]);
                 mDropDownMenu.closeMenu();
                 position1 = position; //点击后
-                //TODO: order倒序(以下三个函数一样)
-
-                if(position1==0){
-                    taskList= DataSupport.where("area = ?", areas[position2])
-                            .where("payment >= ?" , pay1string)
-                            .where("payment <= ?", pay2string)
-                            .where("within = ?", "1")
-                            .where("isValid = ?","1").find(task.class);
-                }else{
-                    taskList= DataSupport.where("subtaskType = ?", subtasks[position1])
-                            .where("area = ?", areas[position2])
-                            .where("payment >= ?" , pay1string)
-                            .where("payment <= ?", pay2string)
-                            .where("within = ?", "1")
-                            .where("isValid = ?","1").find(task.class);
-                }
             }
         });
+
+        if(position1==0 && position2!=0){
+            taskList= DataSupport.where("area = ?", areas[position2])
+                    .where("payment >= ?" , pay1string)
+                    .where("payment <= ?", pay2string)
+                    .where("within = ?", "1")
+                    .where("isValid = ?","1").find(task.class);
+        }else if(position1!=0 && position2==0){
+            taskList= DataSupport.where("subtaskType = ?", subtasks[position1])
+                    .where("payment >= ?" , pay1string)
+                    .where("payment <= ?", pay2string)
+                    .where("within = ?", "1")
+                    .where("isValid = ?","1").find(task.class);
+        }else if(position1==0 && position2==0){
+            taskList= DataSupport.where("payment >= ?" , pay1string)
+                    .where("payment <= ?", pay2string)
+                    .where("within = ?", "1")
+                    .where("isValid = ?","1").find(task.class);
+        }else{
+            taskList= DataSupport.where("subtaskType = ?", subtasks[position1])
+                    .where("area = ?", areas[position2])
+                    .where("payment >= ?" , pay1string)
+                    .where("payment <= ?", pay2string)
+                    .where("within = ?", "1")
+                    .where("isValid = ?","1").find(task.class);
+        }
+
+
 
         ageView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -281,7 +293,6 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
 
 
         //init context view
-        //initTasks();
         RecyclerView contentView = new RecyclerView(this);
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
@@ -291,6 +302,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
 
         //init dropdownview
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
+
     }
 
 
