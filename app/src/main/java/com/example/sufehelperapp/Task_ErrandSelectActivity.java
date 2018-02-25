@@ -66,6 +66,10 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
     private int position3=0;
     private int position4=0;
 
+    String pay1string = " ";
+    String pay2string = " ";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,16 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
 
 
     private void initView() {
+
+        task task = new task();
+        task.checkWithin(1);
+        task.checkWithin(2);
+        task.checkWithin(3);
+        task.checkWithin(4);
+        task.checkWithin(5);
+        task.checkIsValid();
+        task.updateAll();
+
         //init city menu
         final ListView cityView = new ListView(this);
         subtaskAdapter = new GirdDropDownAdapter(this, Arrays.asList(subtasks));
@@ -150,13 +164,12 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[0] : subtasks[position]);
                 mDropDownMenu.closeMenu();
                 position1 = position; //点击后
-                //TODO: 问题：可以在where里写函数吗
                 //TODO: order倒序(以下三个函数一样)
-                //对所有task.checkIsValid()
 
-                taskList= DataSupport.select("subtaskType","area","payment","ddl","isValid").where("subtaskType = ?"
-                        , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
-                        "payment <= ?", "pay2").where("within[position4]", "true").where("isValid = ?", "true").order("ddl").find(task.class);
+                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
+                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
+                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
+                                where("isValid = ?","1").find(task.class);
             }
         });
 
@@ -167,9 +180,10 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[1] : areas[position]);
                 mDropDownMenu.closeMenu();
                 position2 = position;
-                taskList= DataSupport.select("subtaskType","area","payment","ddl").where("subtaskType = ?"
-                        , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
-                        "payment <= ?", "pay2").where("ddl <= ?", "time").order("ddl").find(task.class);
+                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
+                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
+                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
+                                where("isValid = ?","1").find(task.class);
             }
         });
 
@@ -179,10 +193,20 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 paymentAdapter.setCheckItem(position);
                 mDropDownMenu.setTabText(position == 0 ? headers[2] : payments[position]);
                 mDropDownMenu.closeMenu();
+
+                switch(payments[position]){
+                    case "不限":{pay1string = "0"; pay2string = "10000";break;}
+                    case "0-5元":{pay1string = "0"; pay2string = "5";break;}
+                    case "6-10元": {pay1string = "6"; pay2string = "10";break;}
+                    case "11-15元":{pay1string = "11"; pay2string = "15";break;}
+                    case "15元以上": {pay1string = "15"; pay2string = "10000";break;}
+                }
+
                 position3 = position;
-                taskList= DataSupport.select("subtaskType","area","payment","ddl").where("subtaskType = ?"
-                        , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
-                        "payment <= ?", "pay2").where("ddl <= ?", "time").order("ddl").find(task.class);
+                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
+                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
+                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
+                                where("isValid = ?","1").find(task.class);
             }
         });
 
@@ -192,10 +216,11 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 ddlAdapter.setCheckItem(position);
                 ddlPosition = position;
                 position4 = position;
-                //对所有task.checkWithin(position4);
-                taskList= DataSupport.select("subtaskType","area","payment","ddl").where("subtaskType = ?"
-                        , "subtasks[position1]").where("area = ?", "areas[position2]").where("payment >= ?" , "pay1").where(
-                        "payment <= ?", "pay2").where("ddl <= ?", "time").order("ddl").find(task.class);
+
+                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
+                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
+                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
+                                where("isValid = ?","1").find(task.class);
             }
         });
 
