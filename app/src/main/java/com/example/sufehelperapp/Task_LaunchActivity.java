@@ -10,6 +10,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 public class Task_LaunchActivity extends AppCompatActivity {
 
     public String subtaskType;
@@ -57,6 +61,9 @@ public class Task_LaunchActivity extends AppCompatActivity {
             }
         });
 
+        List<user> users = DataSupport.where("myName = ?","sophia")
+                .find(user.class); //TODO: 用当前用户代替
+        final user userSophia = users.get(0);
 
         //once clicked, build new task
 
@@ -75,21 +82,32 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
-                    task task = new task();
+                    List<user> users = DataSupport.where("myName = ?","sophia")
+                            .find(user.class); //TODO: 用当前用户代替
+                    user userSophia = users.get(0);
 
+                    task task = new task();
+                    task.setLauncher(userSophia);
+                    task.setLauncherName(userSophia.getMyName());
+                    task.setLauncherPhoneNumber(userSophia.getPhonenumber());
+                    task.setLauncherImageId(userSophia.getMyImageId());
                     task.setSubtaskType(subtaskType);
                     task.setDdlDate(date);
                     task.setDdlTime(time);
                     task.setDdl();
                     task.setArea(area);
-                    task.setLaunchtime();
                     task.setLocation(location);
                     task.setPayment(paymentDouble);
                     task.setDescription(description);
 
                     task.save();
 
-                    //TODO: user.getCredit().increase(15)
+                    userSophia.increaseCredit(15);
+                    userSophia.addTaskLNum(1);
+                    userSophia.addTaskRNum(1);
+                    userSophia.addTaskNum(1);
+
+                    userSophia.save();
 
                     Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
                     startActivity(intent1);

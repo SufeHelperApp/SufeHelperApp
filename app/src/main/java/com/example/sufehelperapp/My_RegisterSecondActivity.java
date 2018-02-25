@@ -46,7 +46,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 String password = passwordView.getText().toString();
 
                 List<user> userList1 = DataSupport.where("myName = ?",name).find(user.class);
-                if(userList1!=null){
+                if(!userList1.isEmpty()){
                     Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！", Toast.LENGTH_SHORT).show();
                 }else {
 
@@ -55,6 +55,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
                     user.setMyName(name);
                     user.setPassword(password);
+                    user.setMyImageId(R.drawable.apple);
                     user.save();
 
                     Intent intent1 = new Intent(My_RegisterSecondActivity.this, My_RegisterSecondActivity.class);

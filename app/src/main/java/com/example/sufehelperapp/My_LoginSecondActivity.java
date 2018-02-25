@@ -4,21 +4,29 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
 public class My_LoginSecondActivity extends AppCompatActivity {
 
+    private MyDatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_second);
+
+        dbHelper = new MyDatabaseHelper(this,"USER.db",null,1);
+        LitePal.getDatabase();
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.hide();
@@ -49,23 +57,24 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                 String name = nameView.getText().toString();
                 String password = passwordView.getText().toString();
 
-                List<user> userList = DataSupport.where("myName = ?","name").
-                        where("password = ?","password").find(user.class);
-                if(userList == null){
+                List<user> userList = DataSupport.where("myName = ?",name).
+                        where("password = ?",password).find(user.class);
+
+                if(userList.isEmpty()){
                     Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",
-                            Toast.LENGTH_SHORT).show();}else {
-
+                            Toast.LENGTH_SHORT).show();
+                }else {
                     user user = userList.get(0); //TODO: 缓存
-
-                    user.setMyName(name);
-                    user.setPassword(password);
-                    user.save();
-
-
+                    String txt = "欢迎回来, "+user.getMyName()+"!";
+                    Toast.makeText(My_LoginSecondActivity.this,txt,
+                            Toast.LENGTH_SHORT).show();
+                    //TODO: 传user
                     Intent intent3 = new Intent(My_LoginSecondActivity.this, MainActivity.class);
+                    intent3.putExtra("user_data", user);
                     startActivity(intent3);
                 }
             }
         });
+
     }
 }

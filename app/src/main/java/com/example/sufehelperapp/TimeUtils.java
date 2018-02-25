@@ -14,7 +14,7 @@ public class TimeUtils {
      * @return
      */
     public static String getNowTime(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
@@ -24,7 +24,7 @@ public class TimeUtils {
      * @return 获取时间戳
      */
     public static String getTimeString() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         Calendar calendar = Calendar.getInstance();
         return df.format(calendar.getTime());
     }
@@ -34,7 +34,7 @@ public class TimeUtils {
      * @return
      */
     public static String dateToStamp(String time)  {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         Date date = null;
         try {
             date = simpleDateFormat.parse(time);
@@ -52,7 +52,7 @@ public class TimeUtils {
      */
     public static String getDateToString(long time) {
         Date d = new Date(time);
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         return sf.format(d);
     }
     /**
@@ -65,7 +65,7 @@ public class TimeUtils {
         int h; // 需要更改的小时
         h = c.get(Calendar.HOUR_OF_DAY) - hour;
         c.set(Calendar.HOUR_OF_DAY, h);
-        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         Log.v("time",df.format(c.getTime()));
         return df.format(c.getTime());
     }
@@ -77,7 +77,7 @@ public class TimeUtils {
      */
     public static boolean isDateOneBigger(String str1, String str2) {
         boolean isBigger = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         Date dt1 = null;
         Date dt2 = null;
         try {
@@ -94,14 +94,13 @@ public class TimeUtils {
         return isBigger;
     }
 
-    public static boolean isDateWithinThreeHour(String time){
+    public static boolean isDateWithinThreeHour(String ddl){
         //格式化时间
-        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
-
-            Date beginTime=CurrentTime.parse(time);
-            Date endTime=CurrentTime.parse(getNowTime());
-            if(((endTime.getTime() - beginTime.getTime())/(24*60*60*1000))<=1/8) {
+            Date beginTime=CurrentTime.parse(getNowTime());
+            Date endTime=CurrentTime.parse(ddl);
+            if(((endTime.getTime() - beginTime.getTime())/(24*60*60*1000))<=0.125) {
                 return true;
             }else{
                 return false;
@@ -115,13 +114,12 @@ public class TimeUtils {
 
     }
 
-    public static boolean isDateWithinOneDay(String time){
+    public static boolean isDateWithinOneDay(String ddl){
         //格式化时间
-        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
-
-            Date beginTime=CurrentTime.parse(time);
-            Date endTime=CurrentTime.parse(getNowTime());
+            Date beginTime = CurrentTime.parse(getNowTime());
+            Date endTime = CurrentTime.parse(ddl);
             if(((endTime.getTime() - beginTime.getTime())/(24*60*60*1000))<=1) {
                 return true;
             }else{
@@ -136,13 +134,13 @@ public class TimeUtils {
 
     }
 
-    public static boolean isDateWithinThreeDay(String time){
+    public static boolean isDateWithinThreeDay(String ddl){
         //格式化时间
-        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
 
-            Date beginTime=CurrentTime.parse(time);
-            Date endTime=CurrentTime.parse(getNowTime());
+            Date beginTime = CurrentTime.parse(getNowTime());
+            Date endTime = CurrentTime.parse(ddl);
             if(((endTime.getTime() - beginTime.getTime())/(24*60*60*1000))<=3) {
                 return true;
             }else{
@@ -158,13 +156,12 @@ public class TimeUtils {
     }
 
 
-    public static boolean isDateWithinOneWeek(String time){
+    public static boolean isDateWithinOneWeek(String ddl){
         //格式化时间
-        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
-
-            Date beginTime=CurrentTime.parse(time);
-            Date endTime=CurrentTime.parse(getNowTime());
+            Date beginTime = CurrentTime.parse(getNowTime());
+            Date endTime = CurrentTime.parse(ddl);
             if(((endTime.getTime() - beginTime.getTime())/(24*60*60*1000))<=7) {
                 return true;
             }else{
@@ -179,13 +176,12 @@ public class TimeUtils {
 
     }
 
-    public static boolean isDateWithinOneMonth(String time){
+    public static boolean isDateWithinOneMonth(String ddl){
         //格式化时间
-        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
         try {
-
-            Date beginTime=CurrentTime.parse(time);
-            Date endTime=CurrentTime.parse(getNowTime());
+            Date beginTime = CurrentTime.parse(getNowTime());
+            Date endTime = CurrentTime.parse(ddl);
             if(((endTime.getTime() - beginTime.getTime())/(24*60*60*1000))<=31) {
                 return true;
             }else{

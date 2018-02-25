@@ -75,7 +75,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         holder.launcherPhoneNumber.setText(task.getLauncherPhoneNumber());
         holder.subtaskType.setText(task.getSubtaskType());
         holder.location.setText(task.getLocation());
-        holder.deadline.setText(task.getDdlDate());
+        holder.deadline.setText(task.getDdl());
         String paymentString = Double.toString(task.getPayment());
         holder.payment.setText(paymentString);
     }
