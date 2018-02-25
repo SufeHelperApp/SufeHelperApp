@@ -30,17 +30,6 @@ import butterknife.InjectView;
 
 public class Task_ErrandSelectActivity extends AppCompatActivity {
 
-    private task[] tasks =
-            {new task("文静", R.drawable.apple, "13912345678",
-                    "占座","二教206","18/2/12","9:00",
-                    5,"微信联系"),
-                    new task("戴晓东", R.drawable.banana, "13812345678",
-                            "拿快递","快递中心","18/2/10","10:00",
-                            7,"微信联系"),
-                    new task("刘宇涵", R.drawable.orange,"13712345678",
-                            "买饭","新食堂","18/2/17","11:00",
-                            6,"微信联系")};
-
     private List<task> taskList = new ArrayList<>();
 
     private TaskAdapter adapter;
@@ -54,10 +43,10 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
     private ListDropDownAdapter paymentAdapter;
     private ConstellationAdapter ddlAdapter;
 
-    private String subtasks[] = {"不限", "占座", "拿快递", "买饭", "买东西", "拼单", "其他"};
-    private String areas[] = {"不限", "国定校区", "武东校区", "武川校区"};
-    private String payments[] = {"不限", "0-5元", "6-10元","11-15元","15元以上"};
-    private String ddls[] = {"不限", "三小时内", "今天", "三天内", "本周", "本月"};
+    private String subtasks[] = {"不限","占座", "拿快递", "买饭", "买东西", "拼单"};
+    private String areas[] = {"不限","国定校区", "武东校区", "武川校区"};
+    private String payments[] = {"不限","0-5元", "6-10元","11-15元","15元以上"};
+    private String ddls[] = {"不限","三小时内", "今天", "三天内", "本周", "本月"};
 
     private int ddlPosition = 0;
 
@@ -66,8 +55,8 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
     private int position3=0;
     private int position4=0;
 
-    String pay1string = " ";
-    String pay2string = " ";
+    String pay1string = "0";
+    String pay2string = "10000";
 
 
 
@@ -109,14 +98,12 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
 
     private void initView() {
 
-        task task = new task();
-        task.checkWithin(1);
-        task.checkWithin(2);
-        task.checkWithin(3);
-        task.checkWithin(4);
-        task.checkWithin(5);
-        task.checkIsValid();
-        task.updateAll();
+        //TODO: 更新所有项目是否在指定时间内
+        List<task> tasks = DataSupport.findAll(task.class);
+        for(task task:tasks) {
+            task.checkWithin();
+            task.save();
+        }
 
         //init city menu
         final ListView cityView = new ListView(this);
@@ -166,10 +153,20 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 position1 = position; //点击后
                 //TODO: order倒序(以下三个函数一样)
 
-                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
-                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
-                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
-                                where("isValid = ?","1").find(task.class);
+                if(position1==0){
+                    taskList= DataSupport.where("area = ?", areas[position2])
+                            .where("payment >= ?" , pay1string)
+                            .where("payment <= ?", pay2string)
+                            .where("within = ?", "1")
+                            .where("isValid = ?","1").find(task.class);
+                }else{
+                    taskList= DataSupport.where("subtaskType = ?", subtasks[position1])
+                            .where("area = ?", areas[position2])
+                            .where("payment >= ?" , pay1string)
+                            .where("payment <= ?", pay2string)
+                            .where("within = ?", "1")
+                            .where("isValid = ?","1").find(task.class);
+                }
             }
         });
 
@@ -180,10 +177,21 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[1] : areas[position]);
                 mDropDownMenu.closeMenu();
                 position2 = position;
-                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
-                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
-                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
-                                where("isValid = ?","1").find(task.class);
+
+                if(position2==0){
+                    taskList= DataSupport.where("subtaskType = ?", subtasks[position1])
+                            .where("payment >= ?" , pay1string)
+                            .where("payment <= ?", pay2string)
+                            .where("within = ?", "1")
+                            .where("isValid = ?","1").find(task.class);
+                }else {
+                    taskList = DataSupport.where("subtaskType = ?", subtasks[position1])
+                            .where("area = ?", areas[position2])
+                            .where("payment >= ?", pay1string)
+                            .where("payment <= ?", pay2string)
+                            .where("within = ?", "1")
+                            .where("isValid = ?", "1").find(task.class);
+                }
             }
         });
 
@@ -194,19 +202,50 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setTabText(position == 0 ? headers[2] : payments[position]);
                 mDropDownMenu.closeMenu();
 
-                switch(payments[position]){
-                    case "不限":{pay1string = "0"; pay2string = "10000";break;}
-                    case "0-5元":{pay1string = "0"; pay2string = "5";break;}
-                    case "6-10元": {pay1string = "6"; pay2string = "10";break;}
-                    case "11-15元":{pay1string = "11"; pay2string = "15";break;}
-                    case "15元以上": {pay1string = "15"; pay2string = "10000";break;}
+                switch (payments[position]) {
+                    case "不限": {
+                        pay1string = "0";
+                        pay2string = "10000";
+                        break;
+                    }
+                    case "0-5元": {
+                        pay1string = "0";
+                        pay2string = "5";
+                        break;
+                    }
+                    case "6-10元": {
+                        pay1string = "6";
+                        pay2string = "10";
+                        break;
+                    }
+                    case "11-15元": {
+                        pay1string = "11";
+                        pay2string = "15";
+                        break;
+                    }
+                    case "15元以上": {
+                        pay1string = "15";
+                        pay2string = "10000";
+                        break;
+                    }
                 }
 
                 position3 = position;
-                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
-                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
-                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
-                                where("isValid = ?","1").find(task.class);
+
+                if (position3 == 0) {
+                    taskList = DataSupport.where("subtaskType = ?", subtasks[position1])
+                            .where("area = ?", areas[position2])
+                            .where("within = ?", "1")
+                            .where("isValid = ?", "1").find(task.class);
+                } else {
+                    taskList = DataSupport.where("subtaskType = ?", subtasks[position1])
+                            .where("area = ?", areas[position2])
+                            .where("payment >= ?", pay1string)
+                            .where("payment <= ?", pay2string)
+                            .where("within = ?", "1")
+                            .where("isValid = ?", "1").find(task.class);
+                }
+
             }
         });
 
@@ -217,17 +256,32 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 ddlPosition = position;
                 position4 = position;
 
-                taskList= DataSupport.where("subtaskType = ?", subtasks[position1]).
-                        where("area = ?", areas[position2]).where("payment >= ?" , pay1string)
-                        .where("payment <= ?", pay2string).where("within[position4] = ?", "1").
-                                where("isValid = ?","1").find(task.class);
+                List<task> tasks = DataSupport.findAll(task.class);
+                for(task task:tasks) {
+                    task.ifWithin(position);
+                    task.save();
+                }
+
+                if(position4==0){
+                    taskList= DataSupport.where("subtaskType = ?", subtasks[position1])
+                            .where("area = ?", areas[position2])
+                            .where("payment >= ?" , pay1string)
+                            .where("payment <= ?", pay2string)
+                            .where("isValid = ?","1").find(task.class);
+                }else {
+                    taskList = DataSupport.where("subtaskType = ?", subtasks[position1])
+                            .where("area = ?", areas[position2])
+                            .where("payment >= ?", pay1string)
+                            .where("payment <= ?", pay2string)
+                            .where("within = ?", "1")
+                            .where("isValid = ?", "1").find(task.class);
+                }
             }
         });
 
 
-
-        initTasks();
         //init context view
+        //initTasks();
         RecyclerView contentView = new RecyclerView(this);
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
@@ -239,16 +293,6 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
     }
 
-
-    private void initTasks(){
-        taskList.clear();
-        //TODO: pick tasks that is selected
-        for(int i=0; i<6; i++){
-            Random random = new Random();
-            int index = random.nextInt(tasks.length);
-            taskList.add(tasks[index]);
-        }
-    }
 
     @Override
     public void onBackPressed() {

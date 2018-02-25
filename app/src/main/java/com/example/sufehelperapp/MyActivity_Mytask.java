@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
@@ -23,6 +25,8 @@ import java.util.List;
 
 import com.example.sufehelperapp.fragmentAdapter;
 import com.example.sufehelperapp.viewAdapter;
+
+import org.litepal.crud.DataSupport;
 
 public class MyActivity_Mytask extends AppCompatActivity {
 
@@ -90,6 +94,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
         initControls();
 
         viewChange();
+
     }
     /**
      * 初始化控件

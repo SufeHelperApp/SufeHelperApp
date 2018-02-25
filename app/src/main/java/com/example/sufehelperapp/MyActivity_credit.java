@@ -38,10 +38,12 @@ public class MyActivity_credit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_credit);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.hide();
         }
+/*
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -62,22 +64,26 @@ public class MyActivity_credit extends AppCompatActivity {
                 }
                 return true;
             }
-        });
+        }); */
 
-        user user = new user(); ////TODO: 用当前用户代替
-        user.save();
+
+        List<user> users = DataSupport.where("myName = ?","sophia")
+                .find(user.class); //TODO: 用当前用户代替
+        user userSophia = users.get(0);
         //从数据库显示rating
+
         RatingBar ratingBar = findViewById(R.id.my_credit_rating_bar);
-        ratingBar.setRating(user.getAverageScore());
+        ratingBar.setRating(userSophia.getAverageScore());
 
         TextView ratingTextView = findViewById(R.id.my_credit_average_score_text);
-        ratingTextView.setText(String.valueOf(user.getAverageScore()));
+        ratingTextView.setText(String.valueOf(userSophia.getAverageScore()));
 
 
         //显示违约任务卡片
 
-        List<task> taskList = DataSupport.where("helper = ?","user")
-                .where("ifDefault = ? ","true").find(task.class);
+
+        List<task> taskList = DataSupport.where("helperName = ?","sophia")
+                .where("ifDefault = ? ","1").find(task.class);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_credit_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
@@ -93,5 +99,8 @@ public class MyActivity_credit extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
     }
 }

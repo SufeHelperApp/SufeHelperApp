@@ -1,20 +1,19 @@
 package com.example.sufehelperapp;
 import org.litepal.crud.DataSupport;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class user extends DataSupport {
+public class user extends DataSupport implements Serializable {
+
+    private boolean isValid; //是否被冻结
 
     //基本信息
-    //TODO: 数据库设计：完成未完成的set和get方法(黄色的)
     private String phonenumber;
     private String password;
     private String myName;   //姓名
     private String sex;
-    private String nickname;   //昵称
-    private String gender;
     private int myImageId;//个人头像  //TODO: 改成String
-    private boolean isValid; //是否被冻结
 
     //个性信息
     private String dormArea;
@@ -28,15 +27,13 @@ public class user extends DataSupport {
     private int taskLNum;  //发布任务总数
     private int taskRNum;  //接受任务总数
     private int taskNum;  //任务总数
-    private int curr_taskLNum;  //未完成的发布任务总数
-    private int curr_taskRNum;  //未完成的接受任务总数
     private int default_taskNum;  //违约任务总数  //TODO: 如何在某个时间触发某个方法？
 
     //评价信息
     //TODO: 对接：任务评价页面：新评分加进平均评分
     private float averageScore;    //平均评分
     private int credit; //积分总量
-    //TODO: 数据库设计：1.积分增加/减少函数 2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
+    //TODO: 数据库设计：2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
     //TODO: 发布任务+15，违约-60，*登录+2，*在线时长超过六小时+1，*被邀请+5，*接受邀请+10，*平均评分增减+1：+10）和积分总量之间的对应增减关系（积分算法）
     //TODO: 数据库设计：建立积分与等级的对应关系（等级算法）
     private int level; //个人等级(1-10)
@@ -63,8 +60,6 @@ public class user extends DataSupport {
         this.taskLNum=0;
         this.taskRNum=0;
         this.taskNum=0;
-        this.curr_taskLNum=0;
-        this.curr_taskRNum=0;
         this.default_taskNum=0;
         this.averageScore=0;
         this.credit=0;
@@ -98,6 +93,10 @@ public class user extends DataSupport {
         this.tasknumber = tasknumber;
     }
     */
+
+    public void increaseCredit(int num){
+        this.credit = credit + num;
+    }
 
     public boolean isValid() {
         return isValid;
@@ -135,32 +134,20 @@ public class user extends DataSupport {
         return taskRNum;
     }
 
-    public void setTaskRNum(int taskRNum) {
-        this.taskRNum = taskRNum;
-    }
-
-    public int getCurr_taskLNum() {
-        return curr_taskLNum;
-    }
-
-    public void setCurr_taskLNum(int curr_taskLNum) {
-        this.curr_taskLNum = curr_taskLNum;
-    }
-
-    public int getCurr_taskRNum() {
-        return curr_taskRNum;
-    }
-
-    public void setCurr_taskRNum(int curr_taskRNum) {
-        this.curr_taskRNum = curr_taskRNum;
+    public void addTaskRNum(int num) {
+        this.taskRNum = taskRNum + num;
     }
 
     public int getDefault_taskNum() {
         return default_taskNum;
     }
 
-    public void setDefault_taskNum(int default_taskNum) {
-        this.default_taskNum = default_taskNum;
+    public void addTaskNum(int num) {
+        this.taskNum = taskNum + num;
+    }
+
+    public void addDefault_taskNum(int num) {
+        this.default_taskNum = default_taskNum + num;
     }
 
     public boolean isIfTalent() {
@@ -221,22 +208,6 @@ public class user extends DataSupport {
 
     public void setAverageScore(float averageScore) {
         this.averageScore = averageScore;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getPassword() {
@@ -308,9 +279,14 @@ public class user extends DataSupport {
         return taskLNum;
     }
 
-    public void setTaskLNum(int TaskLNum) {
-        this.taskLNum = TaskLNum;
+    public void addTaskLNum(int num) {
+        this.taskLNum = taskLNum + num;
     }
+
+    public void addToAverageScore(float newScore){
+        this.averageScore = (averageScore*(taskRNum-1)+newScore)/taskRNum;
+    }
+
 }
 
 

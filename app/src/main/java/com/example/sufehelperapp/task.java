@@ -2,7 +2,10 @@ package com.example.sufehelperapp;
 import org.litepal.crud.DataSupport;
 
 import java.io.Serializable;
+import java.sql.Array;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.sufehelperapp.TimeUtils;
 
@@ -11,20 +14,21 @@ public class task extends DataSupport implements Serializable{
 
     //private int taskId;
     private boolean isValid;
+    private boolean ifDefault;  //是否违约
 
-    private user launcher;
-    private user helper;
+    private String launchtime; //任务发布时间
+    private String finishtime;
+
     //private user invited //TODO后期：任务邀请人
     //private boolean invitationAccepted
 
+    private user launcher;
     private String launcherName;
     private int launcherImageId;
     private String launcherPhoneNumber;
 
     private String taskType;
     private String subtaskType;
-    private String launchtime; //任务发布时间
-    private String finishtime;
     private String ddlDate;   //任务截止日期
     private String ddlTime;   //任务截止时间
     private String ddl;
@@ -36,33 +40,36 @@ public class task extends DataSupport implements Serializable{
     private String description;  //任务描述
 
     private boolean ifAccepted;   //任务是否已被接受
-    private int progress;     //任务进度(1-5)
-    private int score;    //任务评分(1-10)
+    private user helper;
+    private String helperName;
 
-    private boolean ifDefault;  //是否违约
-    /*
+    private int progress;     //任务进度(1-5)
+    private float score;    //任务评分(1-10)
+
+    private  boolean within;
+    private boolean within0;
     private boolean within1;
     private boolean within2;
     private boolean within3;
     private boolean within4;
-    private boolean within5;*/
+    private boolean within5;
 
-    public task(){}
 
-/*
+
     public task(){
-        //this.taskId = getIdTask();
+        this.launchtime = TimeUtils.getNowTime();
         this.isValid = true;
-
+        this.ifDefault = false;
         this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
         this.progress = 1; //默认进度为1：已发布
-        this.score = -1; //默认评分为-1：无评分
+        this.within = true;
+        this.within0 = true;
         this.within1 = false;
         this.within2 = false;
         this.within3 = false;
         this.within4 = false;
         this.within5 = false;
-    } */
+    }
 
 
     // 临时构造函数
@@ -105,26 +112,56 @@ public class task extends DataSupport implements Serializable{
 
     //检查项目在给定时间段内
 
-/*
-    public boolean checkWithin(int position){
-        String taskTime = this.getDdl();
-        switch (position){
-            case 1: within1 = TimeUtils.isDateWithinThreeHour(taskTime); return within1;
-            case 2: within2 = TimeUtils.isDateWithinOneDay(taskTime); return within2;
-            case 3: within3 = TimeUtils.isDateWithinThreeDay(taskTime); return within3;
-            case 4: within4 = TimeUtils.isDateWithinOneWeek(taskTime); return within4;
-            case 5: within5 = TimeUtils.isDateWithinOneMonth(taskTime); return within5;
-            default: return false;
+
+    public void checkWithin(){
+        String ddl = this.getDdl();
+        within1 = TimeUtils.isDateWithinThreeHour(ddl);
+        within2 = TimeUtils.isDateWithinOneDay(ddl);
+        within3 = TimeUtils.isDateWithinThreeDay(ddl);
+        within4 = TimeUtils.isDateWithinOneWeek(ddl);
+        within5 = TimeUtils.isDateWithinOneMonth(ddl);
+    }
+
+    public void ifWithin(int position){
+        if(position==0){
+            within = true;
         }
-    }*/
+        if(position==1){
+            if(within1=true) within = true;
+            else within = false;
+        }
+        if(position==2){
+            if(within2=true) within = true;
+            else within = false;
+        }
+        if(position==3){
+            if(within3=true) within = true;
+            else within = false;
+        }
+        if(position==4){
+            if(within4=true) within = true;
+            else within = false;
+        }
+        if(position==5){
+            if(within5=true) within = true;
+            else within = false;
+        }
+    }
 
     //检查项目是否过期
 
-    public boolean checkIsValid(){
-        if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),launchtime)){
+    public boolean getIfDefault(){
+        return ifDefault;
+    }
+
+    public void setIfDefault(boolean a){
+        this.ifDefault = a;
+    }
+
+    public void checkIsValid(){
+        if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),ddl)){
             this.isValid = false;
         }
-        return this.isValid;
     }
 
     public void setIsValid(boolean a){
@@ -174,6 +211,12 @@ public class task extends DataSupport implements Serializable{
     public String getLauncherName(){
         return launcherName;
     }
+
+    public void setLauncherName(String launcherName){this.launcherName = launcherName;}
+
+    public void setHelperName(String helperName){this.helperName = helperName;}
+
+    public String getHelperName(){return helperName;}
 
     public String getTaskType() {
         return taskType;
@@ -249,11 +292,11 @@ public class task extends DataSupport implements Serializable{
         this.progress = progress;
     }
 
-    public int getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(int score) {this.score = score;}
+    public void setScore(float score) {this.score = score;}
 
     public int getLauncherImageId() {
         return launcherImageId;

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="label">
-        <activity android:name=".MainActivity">
+        <activity android:name=".My_LoginSecondActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +33,7 @@
         <activity android:name=".Task_SkillSelectActivity" />
         <activity android:name=".Task_CounselSelectActivity" />
         <activity android:name=".My_LoginFirstActivity" />
-        <activity android:name=".My_LoginSecondActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".My_LoginThirdActivity" />
         <activity android:name=".My_LoginForthActivity" />
         <activity android:name=".My_RegisterFirstActivity" />

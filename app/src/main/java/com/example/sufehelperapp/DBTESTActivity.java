@@ -33,8 +33,11 @@ public class DBTESTActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 task task = new task();
-                task.setScore(10);
-                task.updateAll("payment = ?","5");
+                task.setLauncherImageId(R.drawable.apple);
+                task.setSubtaskType("占座");
+                task.setLauncherPhoneNumber("13912341234");
+                task.setIfDefault(true);
+                task.updateAll();
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -46,9 +49,10 @@ public class DBTESTActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String a = " ";
-                List<task> tasks = DataSupport.select("payment").where("payment > ?", "5").find(task.class);
+                List<task> tasks = DataSupport.where("helperName = ?", "sophia")
+                        .where("ifDefault = ? ","1").find(task.class);
                 for(task task:tasks){
-                    a = a + task.getPayment() + " ";
+                    a = a + task.getLauncherName() + " ";
                 }
                 text.setText(a);
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
