@@ -22,7 +22,8 @@ public class DBTESTActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataSupport.deleteAll(task.class);
+                DataSupport.deleteAll(task.class,"launcherPhoneNumber = ?","13912341234",
+                        "launcherName = ?","tom");
                 Toast.makeText(DBTESTActivity.this, "任务删除成功！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -32,12 +33,12 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                task task = new task();
-                task.setLauncherImageId(R.drawable.apple);
-                task.setSubtaskType("占座");
-                task.setLauncherPhoneNumber("13912341234");
-                task.setIfDefault(true);
-                task.updateAll();
+                List<user> users = DataSupport.where("myName = ?","tom")
+                        .find(user.class); //TODO: 用当前用户代替
+                user user = users.get(0);
+                user.setMyName("sophia");
+                user.save();
+
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
         });

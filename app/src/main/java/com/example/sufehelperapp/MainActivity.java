@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
-
 
         Button db_test = (Button) findViewById(R.id.button_db_test);
         db_test.setOnClickListener(new View.OnClickListener() {

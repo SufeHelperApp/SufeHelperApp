@@ -53,17 +53,13 @@ public class Task_LaunchActivity extends AppCompatActivity {
         areaView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String[] areas = getResources().getStringArray(R.array.areas);
+                String[] areas = getResources().getStringArray(R.array.area);
                 area = areas[pos];
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
-        List<user> users = DataSupport.where("myName = ?","sophia")
-                .find(user.class); //TODO: 用当前用户代替
-        final user userSophia = users.get(0);
 
         //once clicked, build new task
 
@@ -82,15 +78,15 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
-                    List<user> users = DataSupport.where("myName = ?","sophia")
+                    List<user> users = DataSupport.where("myName = ?","tom")
                             .find(user.class); //TODO: 用当前用户代替
-                    user userSophia = users.get(0);
+                    user user = users.get(0);
 
                     task task = new task();
-                    task.setLauncher(userSophia);
-                    task.setLauncherName(userSophia.getMyName());
-                    task.setLauncherPhoneNumber(userSophia.getPhonenumber());
-                    task.setLauncherImageId(userSophia.getMyImageId());
+                    task.setLauncher(user);
+                    task.setLauncherName(user.getMyName());
+                    task.setLauncherPhoneNumber(user.getPhonenumber());
+                    task.setLauncherImageId(user.getMyImageId());
                     task.setSubtaskType(subtaskType);
                     task.setDdlDate(date);
                     task.setDdlTime(time);
@@ -102,14 +98,14 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                     task.save();
 
-                    userSophia.increaseCredit(15);
-                    userSophia.addTaskLNum(1);
-                    userSophia.addTaskRNum(1);
-                    userSophia.addTaskNum(1);
+                    user.increaseCredit(15);
+                    user.addTaskLNum(1);
+                    user.addTaskRNum(1);
+                    user.addTaskNum(1);
 
-                    userSophia.save();
+                    user.save();
 
-                    Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
+                    Intent intent1 = new Intent(Task_LaunchActivity.this, ExploreActivity.class);
                     startActivity(intent1);
                     Toast.makeText(Task_LaunchActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();
 
