@@ -24,6 +24,15 @@
         <item>武川校区</item>
     </string-array>
 
+    <string-array name="dormitory" >
+        <item>静思园17号楼</item>
+        <item>静思园16号楼</item>
+        <item>静思园15号楼</item>
+        <item>静思园13号楼</item>
+        <item>静思园12号楼</item>
+        <item>宁远楼</item>
+        <item>武川男寝</item>
+    </string-array>
 
 </resources>
 

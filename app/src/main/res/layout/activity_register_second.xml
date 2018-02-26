@@ -32,12 +32,49 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:hint="昵称（建议输入真实姓名）" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="性别"
+            android:textColor="#A8A8A8"
+            android:layout_marginLeft="70dp"
+            android:layout_gravity="center"/>
+        <RadioGroup
+            android:id="@+id/rg_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp">
+
+            <RadioButton
+                android:id="@+id/rb_Male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:textSize="18dp"
+                android:textColor="#A8A8A8"/>
+
+            <RadioButton
+                android:id="@+id/rb_FeMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女"
+                android:textSize="18dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="#A8A8A8"/>
+        </RadioGroup>
+    </LinearLayout>
     <EditText
         android:id="@+id/edit_text5"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:hint="密码" />
     <Button
         android:id="@+id/button_8"
