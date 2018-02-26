@@ -50,7 +50,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！", Toast.LENGTH_SHORT).show();
                 }else {
 
-                    List<user> userList = DataSupport.where("phonenumber = ?", "13912341234").find(user.class);
+                    List<user> userList = DataSupport.where("phonenumber = ?", "13712341234").find(user.class);
                     user user = userList.get(0); //TODO: 用当前用户代替
 
                     user.setMyName(name);

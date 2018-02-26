@@ -93,7 +93,8 @@ public class MyActivity_Mytask extends AppCompatActivity {
 
         initControls();
 
-        viewChange();
+        //viewChange();
+        fragmentChange();
 
     }
     /**
@@ -111,36 +112,21 @@ public class MyActivity_Mytask extends AppCompatActivity {
      */
 
 
-    private void viewChange() {
-        listViews = new ArrayList<>();
-        LayoutInflater mInflater = getLayoutInflater();
+    private void fragmentChange() {
+        list_fragment = new ArrayList<>();
 
-        currenttaskView = mInflater.inflate(R.layout.activity_my_mytask_currenttask,null);
-        historicaltaskView = mInflater.inflate(R.layout.activity_my_mytask_historicaltask,null);
-        listViews.add(currenttaskView);
-        listViews.add(historicaltaskView);
+        cFragment = new MyActivity_mytask_currenttask();
+        hFragment = new MyActivity_mytask_historicaltask();
+
+        list_fragment.add(cFragment);
+        list_fragment.add(hFragment);
 
         list_title = new ArrayList<>();
-        list_title.add("我接受的任务");
-        list_title.add("我发布的任务");
+        list_title.add("当前任务");
+        list_title.add("历史任务");
 
-        //设置TabLayout的模式,这里主要是用来显示tab展示的情况的
-        //TabLayout.MODE_FIXED          各tab平分整个工具栏,如果不设置，则默认就是这个值
-        //TabLayout.MODE_SCROLLABLE     适用于多tab的，也就是有滚动条的，一行显示不下这些tab可以用这个
-        //                              当然了，你要是想做点特别的，像知乎里就使用的这种效果
-        tab_title.setTabMode(TabLayout.MODE_FIXED);
-
-        //设置tablayout距离上下左右的距离
-        //tab_title.setPadding(20,20,20,20);
-
-        //为TabLayout添加tab名称
-        tab_title.addTab(tab_title.newTab().setText(list_title.get(0)));
-        tab_title.addTab(tab_title.newTab().setText(list_title.get(1)));
-
-        vAdapter = new viewAdapter(this,listViews,list_title,tabImg);
-        vp_pager.setAdapter(vAdapter);
-
-        //将tabLayout与viewpager连起来
+        fAdapter = new fragmentAdapter(getSupportFragmentManager(),list_fragment,list_title);
+        vp_pager.setAdapter(fAdapter);
         tab_title.setupWithViewPager(vp_pager);
     }
 }
