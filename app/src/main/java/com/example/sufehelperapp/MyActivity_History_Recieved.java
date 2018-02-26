@@ -32,6 +32,10 @@ public class MyActivity_History_Recieved extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_historical_task);
 
+        //接受user
+        user user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+
         //插入任务卡片
         List<task> taskList = DataSupport.findAll(task.class); //TODO: 用当前用户代替
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recieved_recycler);

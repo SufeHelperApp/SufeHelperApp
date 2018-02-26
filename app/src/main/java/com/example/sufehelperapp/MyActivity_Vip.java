@@ -21,6 +21,10 @@ public class MyActivity_Vip extends AppCompatActivity {
             actionBar.hide();
         }
 
+        //接受user
+        user user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+
         //show level
         TextView levelView = (TextView) findViewById(R.id.vip_text_level);
         levelView.setText("Lv."+ user.getLevel());
