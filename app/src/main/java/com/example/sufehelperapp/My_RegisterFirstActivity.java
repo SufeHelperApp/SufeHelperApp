@@ -43,16 +43,22 @@ public class My_RegisterFirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String phone = phoneView.getText().toString();
-                List<user> users = DataSupport.where("phonenumber = ?",phone).find(user.class);
-                if(!users.isEmpty()) {
-                    Toast.makeText(My_RegisterFirstActivity.this, "手机号已经存在！",
+                if(phone.isEmpty())
+                {
+                    Toast.makeText(My_RegisterFirstActivity.this, "手机号不得为空！",
                             Toast.LENGTH_SHORT).show();
-                }else{
-                    user user = new user(); //TODO: 用当前用户代替
-                    user.setPhonenumber(phone);
-                    user.save();
-                    Intent intent2 = new Intent(My_RegisterFirstActivity.this, My_RegisterSecondActivity.class);
-                    startActivity(intent2);
+                }else {
+                    List<user> users = DataSupport.where("phonenumber = ?", phone).find(user.class);
+                    if (!users.isEmpty()) {
+                        Toast.makeText(My_RegisterFirstActivity.this, "手机号已经存在！",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        user user = new user(); //TODO: 用当前用户代替
+                        user.setPhonenumber(phone);
+                        user.save();
+                        Intent intent2 = new Intent(My_RegisterFirstActivity.this, My_RegisterSecondActivity.class);
+                        startActivity(intent2);
+                    }
                 }
             }
         });

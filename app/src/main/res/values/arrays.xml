@@ -58,6 +58,34 @@
         <item>武川校区</item>
     </string-array>
 
+    <string-array name="dormitory" >
+        <item>静思园17号楼</item>
+        <item>静思园16号楼</item>
+        <item>静思园15号楼</item>
+        <item>静思园13号楼</item>
+        <item>静思园12号楼</item>
+        <item>宁远楼</item>
+        <item>武川男寝</item>
+    </string-array>
+
+    <string-array name="payments" >
+        <item>不限</item>
+        <item>0-5元</item>
+        <item>6-10元</item>
+        <item>11-15元</item>
+        <item>15元以上</item>
+    </string-array>
+
+    <string-array name="ddls" >
+        <item>不限</item>
+        <item>三小时内</item>
+        <item>今天</item>
+        <item>三天内</item>
+        <item>本周</item>
+        <item>本月</item>
+    </string-array>
+
+
 
 </resources>
 
