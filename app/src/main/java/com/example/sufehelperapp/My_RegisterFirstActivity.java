@@ -57,6 +57,7 @@ public class My_RegisterFirstActivity extends AppCompatActivity {
                         user.setPhonenumber(phone);
                         user.save();
                         Intent intent2 = new Intent(My_RegisterFirstActivity.this, My_RegisterSecondActivity.class);
+                        intent2.putExtra(My_RegisterSecondActivity.USER_SELECTED, user);
                         startActivity(intent2);
                     }
                 }

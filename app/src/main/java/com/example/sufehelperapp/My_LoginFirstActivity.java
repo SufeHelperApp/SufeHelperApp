@@ -17,6 +17,7 @@ public class My_LoginFirstActivity extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+
         Button button1 = (Button) findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

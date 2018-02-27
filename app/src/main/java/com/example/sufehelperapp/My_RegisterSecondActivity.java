@@ -21,6 +21,8 @@ import java.util.List;
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
 
+    public static final String USER_SELECTED = "user_selected";
+
     private RadioGroup rg;
     private RadioButton rb_Male;
     private RadioButton rb_Female;
@@ -42,6 +44,8 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
         });
 
+        final user user = (user) getIntent().getSerializableExtra("user_selected");
+
         Button button2 = (Button) findViewById(R.id.button_8);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,9 +61,6 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 if(!userList1.isEmpty()){
                     Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！", Toast.LENGTH_SHORT).show();
                 }else {
-
-                    List<user> userList = DataSupport.where("phonenumber = ?", "13712341234").find(user.class);
-                    user user = userList.get(0); //TODO: 用当前用户代替
 
                     user.setMyName(name);
                     user.setPassword(password);
