@@ -17,7 +17,9 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private List<String> mDatas;
-    private My_RegisterThirdActivity_Interal2[] my_registerThirdActivity_interal2s = {new My_RegisterThirdActivity_Interal2("常见需求"),
+
+    private My_RegisterThirdActivity_Interal2[] my_registerThirdActivity_interal2s =
+            {new My_RegisterThirdActivity_Interal2("常见需求"),
             new My_RegisterThirdActivity_Interal2("个人特长")};
 
     private List<My_RegisterThirdActivity_Interal2> interalList = new ArrayList<>();
@@ -29,7 +31,8 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_register_third);
+        setContentView(R.layout.activity_my);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.hide();
@@ -43,17 +46,18 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
             }
         });
 
-        /*initInterals();
+        /*
+        initInterals();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new My_RegisterThirdActivity_Adapter(interalList);
-        recyclerView.setAdapter(adapter);*/
+        adapter = new My_RegisterThirdActivity_Adapter(interalList);*/
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_register3);
 
         initData();
         initRecyclerView();
     }
+
     private void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new My_RegisterThirdActivity_Adapter(this,interalList);
