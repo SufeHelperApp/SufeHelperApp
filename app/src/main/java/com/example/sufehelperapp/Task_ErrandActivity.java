@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,13 +22,14 @@ public class Task_ErrandActivity extends AppCompatActivity {
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
                     "占座","二教206","18/2/12","9:00",
-                    "5","微信联系"),
+                    5,"微信联系"),
                     new task("戴晓东", R.drawable.banana, "13812345678",
                             "拿快递","快递中心","18/2/10","10:00",
-                            "7","微信联系"),
+                            7,"微信联系"),
                     new task("刘宇涵", R.drawable.orange,"13712345678",
                             "买饭","新食堂","18/2/17","11:00",
-                            "6","微信联系")};
+                            6,"微信联系")};
+    user user = new user();
     // NOTE: 可删除，用数据库取代
 
     private List<task> taskList = new ArrayList<>();
@@ -74,7 +77,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_ErrandSelectActivity.class);
+                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_SelectionEActivity.class);
                 startActivity(intent1);
             }
         });
@@ -84,9 +87,22 @@ public class Task_ErrandActivity extends AppCompatActivity {
     private void initTasks(){
         taskList.clear();
         for(int i=0; i<4; i++){
-            Random random = new Random(); //TODO（算法设计）：用推荐算法取代随机算法，从数据库调用相应tasks的index
+            Random random = new Random();
             int index = random.nextInt(tasks.length);
             taskList.add(tasks[index]);
         }
     }
+
+    //TODO: 推荐算法
+
+    private void initTaskSuggestions(){
+        taskList.clear();
+        String Dormarea = user.getDormArea();
+
+        taskList= DataSupport.where("area = ?", "Dormarea")
+                .where("payment >= ?" , "pay1").where(
+                "payment <= ?", "pay2").where("ddl <= ?", "time").limit(4).find(task.class);
+
+    }
+
 }

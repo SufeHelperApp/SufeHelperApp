@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 public class MyActivity_Edit_password extends AppCompatActivity {
 
     @Override
@@ -37,9 +41,14 @@ public class MyActivity_Edit_password extends AppCompatActivity {
                 switch(v.getId()) {
                     case R.id.button_conserve_password:
                         String newPassword = passwordView.getText().toString();
-                        //TODO: 修改密码：1.获取当前user对象 2.保存修改
-                        //user user1 = new user();
-                        //user1.setPassword(newPassword);
+
+                        List<user> users = DataSupport.where("myName = ?","sophia")
+                                .find(user.class); //TODO: 用当前用户代替
+                        user userSophia = users.get(0);
+
+                        userSophia.setPassword(newPassword);
+                        userSophia.save();
+
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_password.this);
                         dialog.setTitle("提示");
                         dialog.setMessage("昵称修改成功！"); //TODO:改错：密码

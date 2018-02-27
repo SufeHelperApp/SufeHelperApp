@@ -1,18 +1,39 @@
 package com.example.sufehelperapp;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyActivity_History_Republish extends AppCompatActivity {
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
+public class MyActivity_History_Republish extends Fragment implements View.OnClickListener {
 
     @Nullable
+    private TaskAdapter adapter;
 
-    public View onCreatView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_history_republish, container, false);
+
+        List<task> taskList = DataSupport.where("launcherName = ?","sophia").find(task.class);
+        //TODO: 用当前用户代替
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_republish_recycler);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new TaskAdapter(taskList);
+        recyclerView.setAdapter(adapter);
+
         return view;
+    }
+    @Override
+    public void onClick(View view) {
+
     }
 }

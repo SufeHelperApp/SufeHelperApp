@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 public class MyActivity_Edit_phonenumber extends AppCompatActivity {
 
     @Override
@@ -36,9 +40,14 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
                 switch(v.getId()) {
                     case R.id.button_conserve_phonenumber:
                         String newPhonenumber = phonenumberView.getText().toString();
-                        //TODO: 修改手机：1.获取当前user对象 2.保存修改
-                        //user user1 = new user();
-                        //user1.setPhonenumber(newPhonenumber);
+
+                        List<user> users = DataSupport.where("myName = ?","sophia")
+                                .find(user.class); //TODO: 用当前用户代替
+                        user userSophia = users.get(0);
+
+                        userSophia.setPhonenumber(newPhonenumber);
+                        userSophia.save();
+
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_phonenumber.this);
                         dialog.setTitle("提示");
                         dialog.setMessage("手机号修改成功！");

@@ -5,13 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import org.litepal.LitePal;
 
-    //private MyDatabaseHelper dbHelper;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //dbHelper = new MyDatabaseHelper(this,"USER.db",null,1);
-        //Connector.getDatabase();
+
+        Button db_test = (Button) findViewById(R.id.button_db_test);
+        db_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(MainActivity.this, DBTESTActivity.class);
+                startActivity(intent1);
+            }
+        });
 
         Button b1 = (Button) findViewById(R.id.btn_errand);
         b1.setOnClickListener(new View.OnClickListener() {

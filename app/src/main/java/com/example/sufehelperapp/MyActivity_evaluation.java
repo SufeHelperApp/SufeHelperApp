@@ -1,5 +1,6 @@
 package com.example.sufehelperapp;
 
+import org.litepal.crud.DataSupport;
 import org.w3c.dom.Text;
 
 import android.content.DialogInterface;
@@ -15,7 +16,10 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class MyActivity_evaluation extends AppCompatActivity implements View.OnClickListener{
+    public static final String TASK_SELECTED = "task_selected";
     private RatingBar ratingBar;
     private TextView textView;
 
@@ -70,6 +74,7 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
         });
 
     }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
@@ -81,7 +86,17 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
                 dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        List<user> users = DataSupport.where("myName = ?","sophia")
+                                .find(user.class); //TODO: 用当前用户代替
+                        user userSophia = users.get(0);
 
+                        //TODO: 排查
+                        task task = (task) getIntent().getSerializableExtra("task_selected");
+                        task.setScore(ratingBar.getRating());
+                        task.save();
+
+                        userSophia.addToAverageScore(ratingBar.getRating());
+                        userSophia.save();
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

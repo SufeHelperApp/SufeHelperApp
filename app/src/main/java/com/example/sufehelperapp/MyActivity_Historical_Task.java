@@ -72,7 +72,7 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
 
         initControls();
 
-        viewChange();
+        fragmentChange();
     }
     /**
      * 初始化控件
@@ -89,36 +89,21 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
      */
 
 
-    private void viewChange() {
-        listViews2 = new ArrayList<>();
-        LayoutInflater mInflater = getLayoutInflater();
+    private void fragmentChange(){
+        list_fragment2 = new ArrayList<>();
 
-        recievedtaskView = mInflater.inflate(R.layout.activity_my_history_recieved,null);
-        republishtaskView = mInflater.inflate(R.layout.activity_my_history_republish,null);
-        listViews2.add(recievedtaskView);
-        listViews2.add(republishtaskView);
+        cFragment = new MyActivity_History_Recieved();
+        hFragment = new MyActivity_History_Republish();
+
+        list_fragment2.add(cFragment);
+        list_fragment2.add(hFragment);
 
         list_title2 = new ArrayList<>();
-        list_title2.add("我接受的任务");
-        list_title2.add("我发布的任务");
+        list_title2.add("当前任务");
+        list_title2.add("历史任务");
 
-        //设置TabLayout的模式,这里主要是用来显示tab展示的情况的
-        //TabLayout.MODE_FIXED          各tab平分整个工具栏,如果不设置，则默认就是这个值
-        //TabLayout.MODE_SCROLLABLE     适用于多tab的，也就是有滚动条的，一行显示不下这些tab可以用这个
-        //                              当然了，你要是想做点特别的，像知乎里就使用的这种效果
-        tab_title2.setTabMode(TabLayout.MODE_FIXED);
-
-        //设置tablayout距离上下左右的距离
-        //tab_title.setPadding(20,20,20,20);
-
-        //为TabLayout添加tab名称
-        tab_title2.addTab(tab_title2.newTab().setText(list_title2.get(0)));
-        tab_title2.addTab(tab_title2.newTab().setText(list_title2.get(1)));
-
-        vAdapter = new viewAdapter_history(this,listViews2,list_title2,tabImg);
-        vp_pager2.setAdapter(vAdapter);
-
-        //将tabLayout与viewpager连起来
+        fAdapter = new fragmentAdapter_history(getSupportFragmentManager(),list_fragment2,list_title2);
+        vp_pager2.setAdapter(fAdapter);
         tab_title2.setupWithViewPager(vp_pager2);
     }
 }

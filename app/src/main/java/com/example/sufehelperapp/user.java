@@ -1,37 +1,39 @@
 package com.example.sufehelperapp;
 import org.litepal.crud.DataSupport;
 
-public class user extends DataSupport {
+import java.io.Serializable;
+import java.util.List;
+
+public class user extends DataSupport implements Serializable {
+
+    private boolean isValid; //是否被冻结
 
     //基本信息
-    //TODO: 数据库设计：完成未完成的set和get方法(黄色的)
     private String phonenumber;
     private String password;
     private String myName;   //姓名
     private String sex;
-    private String nickname;   //昵称
-    private String gender;
     private int myImageId;//个人头像  //TODO: 改成String
-    private boolean isValid; //是否被冻结
 
     //个性信息
-    private String dormitoryLocation;  //寝室位置  //TODO: 经纬度
-    private String demand; //常见需求 //TODO: 改成List （查一下List是否动态增加，注释一下动态增加的方法)
-    private String specialty;  //个人特长  //TODO: 改成List
+    private String dormArea;
+    private String dormitoryLocation;
+    private double dormitoryX;
+    private double dormitoryY; //寝室位置
+    private List<String> demand; //常见需求
+    private List<String> specialty;  //个人特长
 
     //任务信息
     private int taskLNum;  //发布任务总数
     private int taskRNum;  //接受任务总数
     private int taskNum;  //任务总数
-    private int curr_taskLNum;  //未完成的发布任务总数
-    private int curr_taskRNum;  //未完成的接受任务总数
     private int default_taskNum;  //违约任务总数  //TODO: 如何在某个时间触发某个方法？
 
     //评价信息
     //TODO: 对接：任务评价页面：新评分加进平均评分
-    private int averageScore;    //平均评分
+    private float averageScore;    //平均评分
     private int credit; //积分总量
-    //TODO: 数据库设计：1.积分增加/减少函数 2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
+    //TODO: 数据库设计：2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
     //TODO: 发布任务+15，违约-60，*登录+2，*在线时长超过六小时+1，*被邀请+5，*接受邀请+10，*平均评分增减+1：+10）和积分总量之间的对应增减关系（积分算法）
     //TODO: 数据库设计：建立积分与等级的对应关系（等级算法）
     private int level; //个人等级(1-10)
@@ -48,7 +50,7 @@ public class user extends DataSupport {
     //达人信息
     private boolean ifTalent;  //是否是达人
     //TODO: 对接：获取所有达人称号字符串：显示在"我的达人"页面。
-    private String[] talentTitles;    //TODO: LIST
+    private List<String> talentTitles;
     //private int invitedTimes;  //被邀请多少次
 
 
@@ -58,10 +60,8 @@ public class user extends DataSupport {
         this.taskLNum=0;
         this.taskRNum=0;
         this.taskNum=0;
-        this.curr_taskLNum=0;
-        this. curr_taskRNum=0;
         this.default_taskNum=0;
-        this.averageScore=-1;
+        this.averageScore=0;
         this.credit=0;
         //this.credit=0;
         this.level=1;
@@ -92,8 +92,88 @@ public class user extends DataSupport {
         this.level = level;
         this.tasknumber = tasknumber;
     }
-
     */
+
+    public void increaseCredit(int num){
+        this.credit = credit + num;
+    }
+
+    public boolean isValid() {
+        return isValid;
+    }
+
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
+    public double getDormitoryX() {
+        return dormitoryX;
+    }
+
+    public void setDormitoryX(double dormitoryX) {
+        this.dormitoryX = dormitoryX;
+    }
+
+    public double getDormitoryY() {
+        return dormitoryY;
+    }
+
+    public void setDormitoryY(double dormitoryY) {
+        this.dormitoryY = dormitoryY;
+    }
+
+    public void setDemand(List<String> demand) {
+        this.demand = demand;
+    }
+
+    public void setSpecialty(List<String> specialty) {
+        this.specialty = specialty;
+    }
+
+    public int getTaskRNum() {
+        return taskRNum;
+    }
+
+    public void addTaskRNum(int num) {
+        this.taskRNum = taskRNum + num;
+    }
+
+    public int getDefault_taskNum() {
+        return default_taskNum;
+    }
+
+    public void addTaskNum(int num) {
+        this.taskNum = taskNum + num;
+    }
+
+    public void addDefault_taskNum(int num) {
+        this.default_taskNum = default_taskNum + num;
+    }
+
+    public boolean isIfTalent() {
+        return ifTalent;
+    }
+
+    public void setIfTalent(boolean ifTalent) {
+        this.ifTalent = ifTalent;
+    }
+
+    public List<String> getTalentTitles() {
+        return talentTitles;
+    }
+
+    public void setTalentTitles(List<String> talentTitles) {
+        this.talentTitles = talentTitles;
+    }
+
+    public void setDormitoryLocation(String dormitoryLocation){
+        this.dormitoryLocation = dormitoryLocation;
+    }
+
+    public String getDormitoryLocation(){
+        return dormitoryLocation;
+    }
+
     public String getSex(){
         return sex;
     }
@@ -122,20 +202,12 @@ public class user extends DataSupport {
         this.myName = name;
     }
 
-    public String getNickname() {
-        return nickname;
+    public float getAverageScore() {
+        return averageScore;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setAverageScore(float averageScore) {
+        this.averageScore = averageScore;
     }
 
     public String getPassword() {
@@ -154,31 +226,23 @@ public class user extends DataSupport {
         this.myImageId = myImageId;
     }
 
-    public String getDormitoryLocation() {
-        return dormitoryLocation;
+    public String getDormArea() {
+        return dormArea;
     }
 
-    public void setDormitoryLocation(String dormitoryLocation) {
-        this.dormitoryLocation = dormitoryLocation;
+    public void setDormArea(String area) {
+        this.dormArea = area;
     }
 
-    public String getDemand() {
+    public List<String> getDemand() {
         return demand;
     }
 
-    public void setDemand(String demand) {
-        this.demand = demand;
-    }
-
-    public String getSpecialty() {
+    public List<String> getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-
-    public String[] getTalent() {
+    public List<String> getTalent() {
         return talentTitles;
     }
 
@@ -215,9 +279,14 @@ public class user extends DataSupport {
         return taskLNum;
     }
 
-    public void setTaskLNum(int TaskLNum) {
-        this.taskLNum = TaskLNum;
+    public void addTaskLNum(int num) {
+        this.taskLNum = taskLNum + num;
     }
+
+    public void addToAverageScore(float newScore){
+        this.averageScore = (averageScore*(taskRNum-1)+newScore)/taskRNum;
+    }
+
 }
 
 

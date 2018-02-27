@@ -10,6 +10,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 public class Task_LaunchActivity extends AppCompatActivity {
 
     public String subtaskType;
@@ -49,14 +53,13 @@ public class Task_LaunchActivity extends AppCompatActivity {
         areaView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String[] areas = getResources().getStringArray(R.array.areas);
+                String[] areas = getResources().getStringArray(R.array.area);
                 area = areas[pos];
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
 
         //once clicked, build new task
 
@@ -69,27 +72,40 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 String time = timeView.getText().toString();
                 String location = locationView.getText().toString();
                 String payment = paymentView.getText().toString();
+                double paymentDouble = Double.parseDouble(payment);
                 String description = descriptionView.getText().toString();
 
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
-                    task task = new task();
+                    List<user> users = DataSupport.where("myName = ?","tom")
+                            .find(user.class); //TODO: 用当前用户代替
+                    user user = users.get(0);
 
+                    task task = new task();
+                    task.setLauncher(user);
+                    task.setLauncherName(user.getMyName());
+                    task.setLauncherPhoneNumber(user.getPhonenumber());
+                    task.setLauncherImageId(user.getMyImageId());
                     task.setSubtaskType(subtaskType);
                     task.setDdlDate(date);
                     task.setDdlTime(time);
                     task.setDdl();
                     task.setArea(area);
                     task.setLocation(location);
-                    task.setPayment(payment);
+                    task.setPayment(paymentDouble);
                     task.setDescription(description);
 
                     task.save();
 
-                    //TODO: user.getCredit().increase(15)
+                    user.increaseCredit(15);
+                    user.addTaskLNum(1);
+                    user.addTaskRNum(1);
+                    user.addTaskNum(1);
 
-                    Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
+                    user.save();
+
+                    Intent intent1 = new Intent(Task_LaunchActivity.this, ExploreActivity.class);
                     startActivity(intent1);
                     Toast.makeText(Task_LaunchActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();
 

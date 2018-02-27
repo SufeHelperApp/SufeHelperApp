@@ -33,7 +33,7 @@
         <activity android:name=".Task_SkillSelectActivity" />
         <activity android:name=".Task_CounselSelectActivity" />
         <activity android:name=".My_LoginFirstActivity" />
-        <activity android:name=".My_LoginSecondActivity" />
+        <activity android:name=".Task_SelectionEActivity" />
         <activity android:name=".My_LoginThirdActivity" />
         <activity android:name=".My_LoginForthActivity" />
         <activity android:name=".My_RegisterFirstActivity" />
@@ -45,7 +45,6 @@
         <activity android:name=".MyActivity_Myaward" />
         <activity android:name=".MyActivity_recievedaward" />
         <activity android:name=".MyActivity_Mytask" />
-        <activity android:name=".MyActivity_mytask_currenttask" />
         <activity android:name=".MyActivity_mytask_personalhome" />
         <activity android:name=".MyActivity_evaluation" />
         <activity android:name=".MyActivity_credit" />
@@ -57,10 +56,8 @@
         <activity android:name=".Task_Home" />
         <activity android:name=".My_HomeActivity" />
         <activity android:name=".MyActivity_Historical_Task" />
-        <activity android:name=".MyActivity_History_Recieved" />
-        <activity android:name=".MyActivity_History_Republish" />
-        <activity android:name=".viewAdapter_history" />
-        <activity android:name=".fragmentAdapter_history"></activity>
+        <activity android:name=".DBTESTActivity" />
+        <activity android:name=".My_LoginSecondActivity"></activity>
     </application>
 
 </manifest>

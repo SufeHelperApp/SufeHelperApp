@@ -1,0 +1,47 @@
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Task_SelectionEActivity">
+
+    <include layout="@layout/common_toolbar"/>
+
+    <Spinner
+        android:id="@+id/select_subtask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:entries="@array/subtasks_errand">
+    </Spinner>
+
+
+    <Spinner
+        android:id="@+id/select_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_toEndOf="@id/select_subtask"
+        android:entries="@array/payments">
+
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/select_ddl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_toEndOf="@id/select_payment"
+        android:entries="@array/ddls">
+    </Spinner>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_errand_select"
+        android:layout_below="@id/select_subtask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <include layout="@layout/common_bottom_navigation_bar"/>
+
+</RelativeLayout>

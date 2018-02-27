@@ -50,5 +50,14 @@ public class MyActivity_Setup extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button button3 = (Button) findViewById(R.id.button_logoff);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyActivity_Setup.this, My_LoginFirstActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

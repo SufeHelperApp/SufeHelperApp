@@ -18,21 +18,46 @@
         <item>其他</item>
     </string-array>
 
-    <string-array name="areas" >
+    <string-array name="subtasks_errand" >
+        <item>不限</item>
+        <item>占座</item>
+        <item>拿快递</item>
+        <item>买饭</item>
+        <item>买东西</item>
+        <item>拼单</item>
+    </string-array>
+
+    <string-array name="subtasks_skill" >
+        <item>不限</item>
+        <item>占座</item>
+        <item>拿快递</item>
+        <item>买饭</item>
+        <item>买东西</item>
+        <item>拼单</item>
+    </string-array>
+
+    <string-array name="subtasks_counsel" >
+        <item>不限</item>
+        <item>占座</item>
+        <item>拿快递</item>
+        <item>买饭</item>
+        <item>买东西</item>
+        <item>拼单</item>
+    </string-array>
+
+    <string-array name="area" >
         <item>国定校区</item>
         <item>武东校区</item>
         <item>武川校区</item>
     </string-array>
 
-    <string-array name="dormitory" >
-        <item>静思园17号楼</item>
-        <item>静思园16号楼</item>
-        <item>静思园15号楼</item>
-        <item>静思园13号楼</item>
-        <item>静思园12号楼</item>
-        <item>宁远楼</item>
-        <item>武川男寝</item>
+    <string-array name="areas" >
+        <item>不限</item>
+        <item>国定校区</item>
+        <item>武东校区</item>
+        <item>武川校区</item>
     </string-array>
+
 
 </resources>
 

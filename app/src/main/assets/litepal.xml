@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <litepal>
-    <dbname value="USER"></dbname>
+    <dbname value="SufeHelper"></dbname>
 
-    <version value="1"></version>
+    <version value="14"></version>
 
     <list>
         <mapping class="com.example.sufehelperapp.user"></mapping>
-        <mapping class="com.example.sufehelperapp.TASK1"></mapping>
+        <mapping class="com.example.sufehelperapp.task"></mapping>
         <mapping class="com.example.sufehelperapp.weeklyData"></mapping>
 
     </list>
