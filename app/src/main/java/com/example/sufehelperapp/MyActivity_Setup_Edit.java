@@ -17,10 +17,10 @@ import static org.litepal.LitePalApplication.getContext;
 
 public class MyActivity_Setup_Edit extends AppCompatActivity {
 
-    //user user = new user(); //TODO: 用当前用户代替
+    user user = new user(); //TODO: 用当前用户代替
     //接受user
-    user user = (user) getIntent().getSerializableExtra("user_data");
-    String myName = user.getMyName();
+    //user user = (user) getIntent().getSerializableExtra("user_data");
+    //String myName = user.getMyName();
     ImageButton imgbtn1;
     ImageButton imgbtn2;
     ImageButton imgbtn3;

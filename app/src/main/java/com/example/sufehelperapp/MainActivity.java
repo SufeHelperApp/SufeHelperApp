@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //from : launch, login2
+        final user user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("MainActivity:",user.getMyName());
+
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -30,10 +34,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(MainActivity.this, ExploreActivity.class);
+                        //intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(MainActivity.this, My_HomeActivity.class);
+                        //intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -46,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
         db_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, DBTESTActivity.class);
-                startActivity(intent1);
+                Intent intent = new Intent(MainActivity.this, DBTESTActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(MainActivity.this, Task_ErrandActivity.class);
+                intent1.putExtra("user_now", user);
                 startActivity(intent1);
             }
         });
@@ -64,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(MainActivity.this, Task_SkillActivity.class);
+                intent2.putExtra("user_now", user);
                 startActivity(intent2);
             }
         });
@@ -72,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent3 = new Intent(MainActivity.this, Task_CounselActivity.class);
+                intent3.putExtra("user_now", user);
                 startActivity(intent3);
             }
         });
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent4 = new Intent(MainActivity.this, Task_LaunchActivity.class);
+                intent4.putExtra("user_now", user);
                 startActivity(intent4);
             }
         });

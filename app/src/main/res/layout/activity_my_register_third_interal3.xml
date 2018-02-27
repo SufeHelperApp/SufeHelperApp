@@ -7,15 +7,15 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button_8"
+        android:id="@+id/button_confirm"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="确认"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:background="@color/colorPrimary"
+        android:text="确认"
         android:textColor="@color/white"
-        android:background="@color/colorPrimary"/>
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/dot"
         android:layout_width="wrap_content"

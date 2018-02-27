@@ -18,7 +18,7 @@ public class DBTESTActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbtest);
 
-        //TODO:接受user
+        //接受user
         //user user = (user) getIntent().getSerializableExtra("user_data");
         //String myName = user.getMyName();
 
@@ -26,8 +26,8 @@ public class DBTESTActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataSupport.deleteAll(task.class,"launcherPhoneNumber = ?","13912341234",
-                        "launcherName = ?","tom");
+                DataSupport.deleteAll(task.class);
+                DataSupport.deleteAll(user.class);
                 Toast.makeText(DBTESTActivity.this, "任务删除成功！", Toast.LENGTH_SHORT).show();
             }
         });

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,8 +22,6 @@ import java.util.List;
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
 
-    public static final String USER_SELECTED = "user_selected";
-
     private RadioGroup rg;
     private RadioButton rb_Male;
     private RadioButton rb_Female;
@@ -35,9 +34,6 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -49,22 +45,36 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
         });
 
-        final user user = (user) getIntent().getSerializableExtra("user_selected");
+        //从My_RegisterFirstActivity获取user
+        final user user = (user) getIntent().getSerializableExtra("user_now");
+        String myPhone = user.getPhonenumber();
+        Log.d("RegisterSecondActivity",myPhone);
 
+        //点击“确认”按钮
         Button button2 = (Button) findViewById(R.id.button_8);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //将填写的用户名和密码存入数据库
 
+                //获取用户名和密码的组件对象
                 TextView nameView = findViewById(R.id.register2_name);
                 TextView passwordView = findViewById(R.id.register2_password);
-                String name = nameView.getText().toString();
-                String password = passwordView.getText().toString();
 
+                //检查用户名和密码不得为空
+                String name = nameView.getText().toString();
+                if(name.isEmpty()){
+                    Toast.makeText(My_RegisterSecondActivity.this, "用户名不得为空！", Toast.LENGTH_SHORT).show();
+                }
+                String password = passwordView.getText().toString();
+                if(password.isEmpty()){
+                    Toast.makeText(My_RegisterSecondActivity.this, "密码不得为空！", Toast.LENGTH_SHORT).show();
+                }
+
+                //获取sex的组件
                 rg = (RadioGroup) findViewById(R.id.rg_sex);
                 rb_Male = (RadioButton) findViewById(R.id.rb_Male);
                 rb_Female = (RadioButton) findViewById(R.id.rb_FeMale);
+                //TODO:sex点击事件
                 rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -72,18 +82,26 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     }
                 });
 
-                List<user> userList1 = DataSupport.where("myName = ?",name).find(user.class);
-                if(!userList1.isEmpty()){
-                    Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！", Toast.LENGTH_SHORT).show();
-                }else {
 
+                //检查用户名未被注册
+                List<user> userList1 = DataSupport.where("myName = ?",name).find(user.class);
+                if(userList1.isEmpty() && !name.isEmpty() && !password.isEmpty()){
+
+                    //设置用户的用户名，密码，头像
                     user.setMyName(name);
                     user.setPassword(password);
-                    user.setMyImageId(R.drawable.apple);//todo
+                    user.setMyImageId(R.drawable.apple);//TODO：后期：头像
                     user.save();
 
+                    //跳转到注册3页面, 将user输出
                     Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
+                    intent.putExtra("user_now",user);
                     startActivity(intent);
+
+                }else if(!userList1.isEmpty() && !name.isEmpty() && !password.isEmpty()){
+
+                    Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！",
+                            Toast.LENGTH_SHORT).show();
 
                 }
             }

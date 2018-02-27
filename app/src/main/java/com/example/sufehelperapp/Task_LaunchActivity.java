@@ -3,6 +3,7 @@ package com.example.sufehelperapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,12 +28,13 @@ public class Task_LaunchActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
+        //从MainActivity接受user
+        final user user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
+        Log.d("Task_LaunchActivity",myName);
+
 
         // intialize views
-
         final Spinner subtaskView = (Spinner) findViewById(R.id.spinner_subtasks);
         final Spinner areaView = (Spinner) findViewById(R.id.spinner_areas);
         final TextView dateView = (TextView) findViewById(R.id.editDate);
@@ -41,8 +43,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
         final TextView paymentView = (TextView) findViewById(R.id.launch_payment);
         final TextView descriptionView = (TextView) findViewById(R.id.launch_description);
 
-        //detect spinner change
 
+        //detect spinner change
         subtaskView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -65,8 +67,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
             }
         });
 
-        //once clicked, build new task
 
+        //once clicked, build new task
         Button b1 = (Button) findViewById(R.id.launch_task_btn);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +84,6 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
-                    List<user> users = DataSupport.where("myName = ?", "tom")
-                            .find(user.class); //TODO: 用当前用户代替
-                    user user = users.get(0);
 
                     task task = new task();
                     task.setLauncher(user);
@@ -109,7 +108,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                     user.save();
 
-                    Intent intent1 = new Intent(Task_LaunchActivity.this, ExploreActivity.class);
+                    Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
+                    intent1.putExtra("user_now", user);
                     startActivity(intent1);
                     Toast.makeText(Task_LaunchActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();
 
