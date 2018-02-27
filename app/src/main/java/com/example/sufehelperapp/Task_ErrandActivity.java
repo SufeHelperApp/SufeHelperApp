@@ -81,7 +81,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_ErrandSelectActivity.class);
+                Intent intent1 = new Intent(Task_ErrandActivity.this, Task_SelectionEActivity.class);
                 startActivity(intent1);
             }
         });
@@ -98,17 +98,15 @@ public class Task_ErrandActivity extends AppCompatActivity {
     }
 
     //TODO: 推荐算法
-/*
+
     private void initTaskSuggestions(){
         taskList.clear();
-        //对所有task.setCompatibility(user);
-        taskList= DataSupport.order("compatibility").limit(4).find(task.class);
         String Dormarea = user.getDormArea();
 
-        taskList= DataSupport.select("area","specialty","averageScore","ddl").where("area = ?"
-                , "Dormarea").where("area = ?", "").where("payment >= ?" , "pay1").where(
-                "payment <= ?", "pay2").where("ddl <= ?", "time").limit(4).order("ddl").find(task.class);
+        taskList= DataSupport.where("area = ?", "Dormarea")
+                .where("payment >= ?" , "pay1").where(
+                "payment <= ?", "pay2").where("ddl <= ?", "time").limit(4).find(task.class);
 
     }
-    */
+
 }

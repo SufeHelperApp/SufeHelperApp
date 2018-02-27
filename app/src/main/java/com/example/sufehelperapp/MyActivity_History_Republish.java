@@ -1,6 +1,7 @@
 package com.example.sufehelperapp;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,32 +14,31 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-public class MyActivity_History_Republish extends AppCompatActivity {
+public class MyActivity_History_Republish extends Fragment implements View.OnClickListener {
 
     @Nullable
     private TaskAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_history_republish, container, false);
-        return view;
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_historical_task);
+        //TODO:接受user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
 
-        //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
-
-        //插入任务卡片
-        List<task> taskList = DataSupport.findAll(task.class); //TODO: 用当前用户代替
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_republish_recycler);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,1);
+        List<task> taskList = DataSupport.where("launcherName = ?","sophia").find(task.class);
+        //TODO: 用当前用户代替
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_republish_recycler);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new TaskAdapter(taskList);
         recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+  
+    @Override
+    public void onClick(View view) {
 
     }
 }

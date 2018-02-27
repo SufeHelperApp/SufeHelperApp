@@ -26,7 +26,8 @@ public class DBTESTActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataSupport.deleteAll(task.class);
+                DataSupport.deleteAll(task.class,"launcherPhoneNumber = ?","13912341234",
+                        "launcherName = ?","tom");
                 Toast.makeText(DBTESTActivity.this, "任务删除成功！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -36,11 +37,9 @@ public class DBTESTActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 task task = new task();
-                task.setLauncherImageId(R.drawable.apple);
-                task.setSubtaskType("占座");
-                task.setLauncherPhoneNumber("13912341234");
-                task.setIfDefault(true);
+                task.setTaskType(task.getSubtaskType());
                 task.updateAll();
+
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -51,13 +50,11 @@ public class DBTESTActivity extends AppCompatActivity {
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String a = " ";
-                List<task> tasks = DataSupport.where("helperName = ?", "sophia")
-                        .where("ifDefault = ? ","1").find(task.class);
-                for(task task:tasks){
-                    a = a + task.getLauncherName() + " ";
-                }
-                text.setText(a);
+                List<user> users = DataSupport.where("myName = ?","tom")
+                        .find(user.class); //TODO: 用当前用户代替
+                user userTom = users.get(0);
+
+                text.setText(String.valueOf(userTom.getTaskRNum_errand()));
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
             }
         });

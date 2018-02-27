@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -96,27 +97,39 @@ public class Task_InfoActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<user> users = DataSupport.where("myName = ?","sophia")
+                List<user> users = DataSupport.where("myName = ?","tom")
                         .find(user.class); //TODO: 用当前用户代替
-                user userSophia = users.get(0);
-                String helperName = userSophia.getMyName();
+                user userTom = users.get(0);
+                String helperName = userTom.getMyName();
 
                 //不得接收自己的任务
                 if(task.getLauncherName().equals(helperName)){
                     Toast.makeText(Task_InfoActivity.this, "请勿接收自己的任务！",
                             Toast.LENGTH_SHORT).show();
                 }else {
+
                     //更新该task信息
                     task.setIfAccepted(true);
-                    task.setHelper(userSophia);
+                    task.setHelper(userTom);
                     task.setHelperName(helperName);
                     task.setProgress(2);
                     task.save();
 
-                    userSophia.increaseCredit(30);
-                    userSophia.addTaskRNum(1);
-                    userSophia.addTaskNum(1);
-                    userSophia.save();
+                    userTom.increaseCredit(30);
+                    userTom.addTaskRNum(1);
+                    if (task.getTaskType() == "跑腿") {
+                        userTom.addTaskRNum_errand(1);
+                    }else if(task.getTaskType() == "技能"){
+                        userTom.addTaskRNum_skill(1);
+                    }else if(task.getTaskType() == "咨询"){
+                        userTom.addTaskRNum_counsel(1);
+                    }
+                    userTom.addTaskNum(1);
+
+                    userTom.save();
+                    Log.d("msg1",String.valueOf(userTom.getTaskRNum_errand()));
+                    Log.d("msg2",String.valueOf(userTom.getTaskRNum_skill()));
+                    Log.d("msg3",String.valueOf(userTom.getTaskRNum_counsel()));
 
                     Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
                     startActivity(intent1);

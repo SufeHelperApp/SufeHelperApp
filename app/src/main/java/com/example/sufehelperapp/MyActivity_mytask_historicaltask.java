@@ -17,31 +17,32 @@ import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-public class MyActivity_mytask_historicaltask extends AppCompatActivity {
+public class MyActivity_mytask_historicaltask extends Fragment implements View.OnClickListener {
 
     @Nullable
     private TaskAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mytask_historicaltask, container, false);
+      
+        //TODO:接受user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
+
+        List<task> taskList = DataSupport.where("launcherName = ?","tom").find(task.class);
+        //TODO: 用当前用户代替
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.historicaltask_recycler);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new TaskAdapter(taskList);
+        recyclerView.setAdapter(adapter);
+
         return view;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_mytask);
+    public void onClick(View view) {
 
-        //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
-
-        //插入任务卡片
-        List<task> taskList = DataSupport.findAll(task.class); //TODO: 用当前用户代替
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.historicaltask_recycler);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,1);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList);
-        recyclerView.setAdapter(adapter);
     }
+
 }

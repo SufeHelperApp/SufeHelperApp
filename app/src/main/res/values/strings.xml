@@ -6,4 +6,6 @@
     <string name="btn_weekly_data">数据周报</string>
     <string name="btn_weekly_talent">本周达人榜</string>
     <string name="btn_my_talent">我的达人</string>
+    <drawable name="color1">#A8A8A8</drawable>
+    <drawable name="color2">#009088</drawable>
 </resources>
