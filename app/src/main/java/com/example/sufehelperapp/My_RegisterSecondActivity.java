@@ -57,6 +57,16 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 String name = nameView.getText().toString();
                 String password = passwordView.getText().toString();
 
+                rg = (RadioGroup) findViewById(R.id.rg_sex);
+                rb_Male = (RadioButton) findViewById(R.id.rb_Male);
+                rb_Female = (RadioButton) findViewById(R.id.rb_FeMale);
+                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                    }
+                });
+
                 List<user> userList1 = DataSupport.where("myName = ?",name).find(user.class);
                 if(!userList1.isEmpty()){
                     Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！", Toast.LENGTH_SHORT).show();
@@ -64,23 +74,13 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
                     user.setMyName(name);
                     user.setPassword(password);
-                    user.setMyImageId(R.drawable.apple);
+                    user.setMyImageId(R.drawable.apple);//todo
                     user.save();
 
-                    Intent intent1 = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
-                    startActivity(intent1);
+                    Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
+                    startActivity(intent);
 
                 }
-            }
-        });
-
-        rg = (RadioGroup) findViewById(R.id.rg_sex);
-        rb_Male = (RadioButton) findViewById(R.id.rb_Male);
-        rb_Female = (RadioButton) findViewById(R.id.rb_FeMale);
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-
             }
         });
 
