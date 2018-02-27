@@ -27,6 +27,10 @@ public class Task_LaunchActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //接受user
+        user user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+
         // intialize views
 
         final Spinner subtaskView = (Spinner) findViewById(R.id.spinner_subtasks);
@@ -112,6 +116,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(Task_LaunchActivity.this, "请检查空缺字段！", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });

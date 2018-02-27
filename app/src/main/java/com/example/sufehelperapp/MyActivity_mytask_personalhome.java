@@ -25,7 +25,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
             actionBar.hide();
         }
 
-        final user user = (user) getIntent().getSerializableExtra("user_selected");
+        final user user = (user) getIntent().getSerializableExtra("user_selected");//TODO
         Log.d("name",user.getMyName());
 
         ImageView launcher_image = (ImageView) findViewById(R.id.picture_upload);

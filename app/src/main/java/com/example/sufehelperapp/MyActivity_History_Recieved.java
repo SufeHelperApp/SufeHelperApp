@@ -26,6 +26,10 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_history_recieved, container, false);
+      
+        //TODO:接受user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
 
         List<task> taskList = DataSupport.where("launcherName = ?","tom").find(task.class);
         //TODO: 用当前用户代替
@@ -37,6 +41,7 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
 
         return view;
     }
+  
     @Override
     public void onClick(View view) {
 

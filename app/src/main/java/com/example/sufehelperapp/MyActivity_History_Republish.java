@@ -22,6 +22,10 @@ public class MyActivity_History_Republish extends Fragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_history_republish, container, false);
 
+        //TODO:接受user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
+
         List<task> taskList = DataSupport.where("launcherName = ?","sophia").find(task.class);
         //TODO: 用当前用户代替
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_republish_recycler);
@@ -32,6 +36,7 @@ public class MyActivity_History_Republish extends Fragment implements View.OnCli
 
         return view;
     }
+  
     @Override
     public void onClick(View view) {
 

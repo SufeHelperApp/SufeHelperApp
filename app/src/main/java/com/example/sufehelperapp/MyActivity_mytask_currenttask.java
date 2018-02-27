@@ -25,6 +25,10 @@ public class MyActivity_mytask_currenttask extends Fragment implements View.OnCl
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mytask_currenttask, container, false);
+      
+        //TODO:接受user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
 
         List<task> taskList = DataSupport.where("launcherName = ?","sophia").find(task.class);
         //TODO: 用当前用户代替

@@ -18,6 +18,10 @@ public class DBTESTActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbtest);
 
+        //TODO:接受user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
+
         Button delete = (Button) findViewById(R.id.button_delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,7 +31,6 @@ public class DBTESTActivity extends AppCompatActivity {
                 Toast.makeText(DBTESTActivity.this, "任务删除成功！", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         Button change = (Button) findViewById(R.id.button_change);
         change.setOnClickListener(new View.OnClickListener() {

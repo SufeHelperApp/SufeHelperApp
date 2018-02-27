@@ -18,6 +18,10 @@ public class My_LoginFirstActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
+        //TODO:接收user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
+
         Button button1 = (Button) findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
