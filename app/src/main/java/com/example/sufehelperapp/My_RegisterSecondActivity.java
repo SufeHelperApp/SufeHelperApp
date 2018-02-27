@@ -6,16 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import org.litepal.crud.DataSupport;
-
-import java.util.List;
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
 
+    private RadioGroup rg;
+    private RadioButton rb_Male;
+    private RadioButton rb_Female;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +61,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 }

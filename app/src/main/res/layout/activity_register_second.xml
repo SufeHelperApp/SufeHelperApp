@@ -31,13 +31,13 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:hint="姓名（建议输入真实姓名）" />
+
     <EditText
         android:id="@+id/register2_password"
         android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:hint="密码" />
     <Button
         android:id="@+id/button_8"

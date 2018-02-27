@@ -58,23 +58,6 @@
         <item>武川校区</item>
     </string-array>
 
-    <string-array name="payments" >
-        <item>不限</item>
-        <item>0-5元</item>
-        <item>6-10元</item>
-        <item>11-15元</item>
-        <item>15元以上</item>
-    </string-array>
-
-    <string-array name="ddls" >
-        <item>不限</item>
-        <item>三小时内</item>
-        <item>今天</item>
-        <item>三天内</item>
-        <item>本周</item>
-        <item>本月</item>
-    </string-array>
-
 
 </resources>
 
