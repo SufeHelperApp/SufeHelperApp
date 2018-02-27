@@ -18,9 +18,9 @@ public class DBTESTActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbtest);
 
-        //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
+        //TODO:接受user
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
 
         Button delete = (Button) findViewById(R.id.button_delete);
         delete.setOnClickListener(new View.OnClickListener() {
