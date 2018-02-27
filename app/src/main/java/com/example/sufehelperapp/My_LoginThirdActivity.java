@@ -18,7 +18,7 @@ public class My_LoginThirdActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
+        //从My_LoginSecondActivity接受user
         user user = (user) getIntent().getSerializableExtra("user_data");
         String myName = user.getMyName();
 

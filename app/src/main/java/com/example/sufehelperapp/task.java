@@ -18,41 +18,45 @@ import com.example.sufehelperapp.TimeUtils;
 
 public class task extends DataSupport implements Serializable{
 
-    //private int taskId;
-    private boolean isValid;
-    private boolean ifDefault;  //是否违约
+    //任务状态
+    private boolean isValid;    //TODO: 合并为ifAccepted（任务发布页、筛选页）。
+    private boolean ifAccepted;   //任务是否已被接受
+    private boolean ifDefault;  //TODO: 是否违约（我的违约）。
 
-    private String launchtime; //任务发布时间
-    private String finishtime;
+    //任务进度
+    private int progress;     //任务进度(1-5)
 
-    //private user invited //TODO后期：任务邀请人
+    //任务时间
+    private String launchtime; //任务发布时间（发布页） 。
+    private String finishtime; //TODO: 任务结束时间（我的任务）
+    private String ddlDate;   //任务截止日期（发布页）
+    private String ddlTime;   //任务截止时刻（发布页）
+    private String ddl;  //任务截至时间（发布页）
+
+    //private user invited //任务邀请人
     //private boolean invitationAccepted
 
-    private user launcher;
+    //任务相关人（发布页/接收页）
+    private user launcher; //任务发起人（发布页）
     private String launcherName;
     private int launcherImageId;
     private String launcherPhoneNumber;
+    private user helper; //任务接收人（接收页）
+    private String helperName;
 
-    private String taskType;
-    private String subtaskType;
-    private String ddlDate;   //任务截止日期
-    private String ddlTime;   //任务截止时间
-    private String ddl;
+    //任务基本信息（发布页）
+    private String taskType; //任务种类
+    private String subtaskType; //任务子种类
     private double payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
-    private Double locationX;
-    private Double locationY;
     private String description;  //任务描述
 
-    private boolean ifAccepted;   //任务是否已被接受
-    private user helper;
-    private String helperName;
+    //任务评分
+    private float score;    //任务评分（我的任务-评价页）
 
-    private int progress;     //任务进度(1-5)
-    private float score;    //任务评分(1-10)
-
-    private  boolean within;
+    //任务时间范围
+    private boolean within;
     private boolean within0;
     private boolean within1;
     private boolean within2;
@@ -61,6 +65,8 @@ public class task extends DataSupport implements Serializable{
     private boolean within5;
 
 
+
+    //默认构造函数
 
     public task(){
         this.launchtime = TimeUtils.getNowTime();
@@ -83,8 +89,6 @@ public class task extends DataSupport implements Serializable{
     public task(String launcherName, int launcherImageId, String launcherPhoneNumber, String subtaskType,
                 String location, String ddlDate, String ddlTime, double payment, String description){
 
-        //this.taskId = getIdTask();
-
         this.launcher = launcher;
 
         this.launcherName = launcherName;
@@ -105,6 +109,8 @@ public class task extends DataSupport implements Serializable{
 
 
 
+    //函数：任务种类
+
     public void setTaskType(String subtaskType){
         if(subtaskType == "占座" || subtaskType =="拿快递" ||subtaskType =="买饭" ||subtaskType == "买东西"|| subtaskType =="拼单")
         {taskType = "跑腿";}
@@ -115,8 +121,7 @@ public class task extends DataSupport implements Serializable{
     }
 
 
-    //检查项目在给定时间段内
-
+    //函数：时间段
 
     public void checkWithin(){
         String ddl = this.getDdl();
@@ -126,6 +131,7 @@ public class task extends DataSupport implements Serializable{
         within4 = TimeUtils.isDateWithinOneWeek(ddl);
         within5 = TimeUtils.isDateWithinOneMonth(ddl);
     }
+
 
     public void ifWithin(int position){
         if(position==0){
@@ -152,7 +158,39 @@ public class task extends DataSupport implements Serializable{
             else within = false;
         }
     }
-    //Alarm
+
+
+
+    //函数：检查任务状态
+
+    public boolean getIfDefault(){
+        return ifDefault;
+    }
+
+    public void setIfDefault(boolean a){
+        this.ifDefault = a;
+    }
+
+    public void checkIsValid(){
+        if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),ddl)){
+            this.isValid = false;
+        }
+    }
+
+    public void setIsValid(boolean a){
+        this.isValid = a;
+    }
+
+    public boolean ifAccepted() {
+        return ifAccepted;
+    }
+
+    public void setIfAccepted(boolean ifAccepted) {
+        this.ifAccepted = ifAccepted;
+    }
+
+
+    //TODO: 是否过期Alarm
     /*
     public class IfValid extends Service {
         @Override
@@ -173,25 +211,9 @@ public class task extends DataSupport implements Serializable{
         }
     }*/
 
-    //检查项目是否过期
 
-    public boolean getIfDefault(){
-        return ifDefault;
-    }
 
-    public void setIfDefault(boolean a){
-        this.ifDefault = a;
-    }
-
-    public void checkIsValid(){
-        if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),ddl)){
-            this.isValid = false;
-        }
-    }
-
-    public void setIsValid(boolean a){
-        this.isValid = a;
-    }
+    //函数：时间
 
     public String getLaunchtime() {
         return launchtime;
@@ -213,9 +235,20 @@ public class task extends DataSupport implements Serializable{
         this.ddl = ddlDate + " " + ddlTime; //ddl:2018/12/31 17:00
     }
 
-    /*public int getTaskId(){return taskId;}*/
+    public String getDdlDate() {
+        return ddlDate;
+    }
 
-    public int getIdTask(){return ++Static.ID_TASK;}
+    public void setDdlDate(String ddlDate) {this.ddlDate = ddlDate;}
+
+    public String getDdlTime() {
+        return ddlTime;
+    }
+
+    public void setDdlTime(String ddlTime) {this.ddlTime = ddlTime;}
+
+
+    //函数：用户
 
     public user getLauncher(){
         return launcher;
@@ -241,7 +274,29 @@ public class task extends DataSupport implements Serializable{
 
     public void setHelperName(String helperName){this.helperName = helperName;}
 
-    public String getHelperName(){return helperName;}
+    public int getLauncherImageId() {
+        return launcherImageId;
+    }
+
+    public String getHelperName(){
+        return helperName;
+    }
+
+    public void setLauncherImageId(int launcherImageId) {
+        this.launcherImageId = launcherImageId;
+    }
+
+    public String getLauncherPhoneNumber() {
+        return launcherPhoneNumber;
+    }
+
+    public void setLauncherPhoneNumber(String launcherPhoneNumber) {
+        this.launcherPhoneNumber = launcherPhoneNumber;
+    }
+
+
+
+    //函数：任务基本信息
 
     public String getTaskType() {
         return taskType;
@@ -263,32 +318,12 @@ public class task extends DataSupport implements Serializable{
         this.description = description;
     }
 
-    public String getDdlDate() {
-        return ddlDate;
-    }
-
-    public void setDdlDate(String ddlDate) {this.ddlDate = ddlDate;}
-
-    public String getDdlTime() {
-        return ddlTime;
-    }
-
-    public void setDdlTime(String ddlTime) {this.ddlTime = ddlTime;}
-
     public double getPayment() {
         return payment;
     }
 
     public void setPayment(double payment) {
         this.payment = payment;
-    }
-
-    public boolean ifAccepted() {
-        return ifAccepted;
-    }
-
-    public void setIfAccepted(boolean ifAccepted) {
-        this.ifAccepted = ifAccepted;
     }
 
     public String getArea(){
@@ -307,11 +342,19 @@ public class task extends DataSupport implements Serializable{
         this.location = location;
     }
 
+
+
+    //函数：任务进度
+
     public int getProgress() {return progress;}
 
     public void setProgress(int process) {
         this.progress = progress;
     }
+
+
+
+    //函数：任务评分
 
     public float getScore() {
         return score;
@@ -319,21 +362,7 @@ public class task extends DataSupport implements Serializable{
 
     public void setScore(float score) {this.score = score;}
 
-    public int getLauncherImageId() {
-        return launcherImageId;
-    }
 
-    public void setLauncherImageId(int launcherImageId) {
-        this.launcherImageId = launcherImageId;
-    }
-
-    public String getLauncherPhoneNumber() {
-        return launcherPhoneNumber;
-    }
-
-    public void setLauncherPhoneNumber(String launcherPhoneNumber) {
-        this.launcherPhoneNumber = launcherPhoneNumber;
-    }
 
 
 }

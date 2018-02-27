@@ -19,10 +19,10 @@ import static org.litepal.LitePalApplication.getContext;
 
 public class My_HomeActivity extends AppCompatActivity {
 
-    //user user = new user(); //TODO: 用当前用户代替
+    user user = new user(); //TODO: 用当前用户代替
     //接受user
-    user user = (user) getIntent().getSerializableExtra("user_data");
-    String myName = user.getMyName();
+    //user user = (user) getIntent().getSerializableExtra("user_data");
+    //String myName = user.getMyName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

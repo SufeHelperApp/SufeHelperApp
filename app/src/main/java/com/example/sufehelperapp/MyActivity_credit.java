@@ -45,8 +45,8 @@ public class MyActivity_credit extends AppCompatActivity {
         }
 
         //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
+        //user user = (user) getIntent().getSerializableExtra("user_data");
+        //String myName = user.getMyName();
 /*
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

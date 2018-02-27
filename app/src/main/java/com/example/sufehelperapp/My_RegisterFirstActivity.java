@@ -26,10 +26,6 @@ public class My_RegisterFirstActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
-
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -58,12 +54,12 @@ public class My_RegisterFirstActivity extends AppCompatActivity {
                         Toast.makeText(My_RegisterFirstActivity.this, "手机号已经存在！",
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        user user = new user(); //TODO: 用当前用户代替
+                        user user = new user();
                         user.setPhonenumber(phone);
                         user.save();
-                        Intent intent2 = new Intent(My_RegisterFirstActivity.this, My_RegisterSecondActivity.class);
-                        intent2.putExtra(My_RegisterSecondActivity.USER_SELECTED, user);
-                        startActivity(intent2);
+                        Intent intent = new Intent(My_RegisterFirstActivity.this, My_RegisterSecondActivity.class);
+                        intent.putExtra("user_now", user);
+                        startActivity(intent);
                     }
                 }
             }

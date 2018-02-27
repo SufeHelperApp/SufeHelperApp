@@ -64,13 +64,17 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                     Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",
                             Toast.LENGTH_SHORT).show();
                 }else {
-                    //user user = userList.get(0); //TODO: 缓存
-                    //接受user
-                    user user = (user) getIntent().getSerializableExtra("user_data");
+                    user user = userList.get(0);
                     String myName = user.getMyName();
                     String txt = "欢迎回来, "+user.getMyName()+"!";
+
+                    Intent intent = new Intent(My_LoginSecondActivity.this, MainActivity.class);
+                    intent.putExtra("user_now", user);
+                    startActivity(intent);
                     Toast.makeText(My_LoginSecondActivity.this,txt,
                             Toast.LENGTH_SHORT).show();
+
+                    /*
                     //TODO: 传user
                     Intent intent3 = new Intent(My_LoginSecondActivity.this, MainActivity.class);
                     intent3.putExtra("user_data", user);
@@ -239,6 +243,8 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                     Intent intent44 = new Intent(My_LoginSecondActivity.this, MyService.class);
                     intent44.putExtra("user_data", user);
                     startActivity(intent44);
+
+                    */
                 }
             }
         });

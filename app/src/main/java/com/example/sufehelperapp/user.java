@@ -6,54 +6,56 @@ import java.util.List;
 
 public class user extends DataSupport implements Serializable {
 
-    private boolean isValid; //是否被冻结
+    private boolean isValid; //TODO: 是否被冻结（信用评价页-违约, 我的任务）。
 
     //基本信息
-    private String phonenumber;
-    private String password;
-    private String myName;   //姓名
-    private String sex;
-    private int myImageId;//个人头像  //TODO: 改成String
+    private String phonenumber; //手机号（注册1）
+    private String password; //密码（注册2）
+    private String myName;   //用户名（注册2）
+    private String sex; //性别（注册2）
+    private int myImageId;//TODO：头像（注册3）
 
     //个性信息
-    private String dormArea;
-    private String dormitoryLocation;
-    private double dormitoryX;
-    private double dormitoryY; //寝室位置
-    private List<String> demand; //常见需求
-    private List<String> specialty;  //个人特长
+    private String dormArea; //寝室校区（注册3）
+    private String dormitoryLocation; //寝室名（注册3）
+    private double dormitoryX; //TODO: 寝室坐标（注册3）
+    private double dormitoryY;
+    private List<String> demand; //TODO: 常见需求（注册3）
+    private List<String> specialty;  //TODO: 个人特长（注册3）
 
     //任务信息
-    private int taskLNum;  //发布任务总数
-    private int taskRNum;  //接受任务总数
-    private int taskRNum_errand;
-    private int taskRNum_skill;
-    private int taskRNum_counsel;
-    private int taskNum;  //任务总数
-    private int default_taskNum;  //违约任务总数  //TODO: 如何在某个时间触发某个方法？
+    private int taskLNum;  //发布任务总数（发布页）。
+    private int taskRNum;  //接受任务总数（信息页）。
+    private int taskRNum_errand; //跑腿任务总数（信息页）。
+    private int taskRNum_skill; //技能任务总数（信息页）。
+    private int taskRNum_counsel; //咨询任务总数（信息页）。
+    private int taskNum;  //任务总数（发布页，信息页）。
+    private int default_taskNum;  //TODO：违约任务总数（alarm）。
 
     //评价信息
-    //TODO: 对接：任务评价页面：新评分加进平均评分
-    private float averageScore;    //平均评分
-    private int credit; //积分总量
-    //TODO: 数据库设计：2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
-    //TODO: 发布任务+15，违约-60，*登录+2，*在线时长超过六小时+1，*被邀请+5，*接受邀请+10，*平均评分增减+1：+10）和积分总量之间的对应增减关系（积分算法）
-    //TODO: 数据库设计：建立积分与等级的对应关系（等级算法）
-    private int level; //个人等级(1-10)
+    private float averageScore;    //平均评分（信用评价页）。
+
+    //TODO: 数据库设计（积分算法）：2.若积分总量少于0，账户被冻结isValid=false 3.建立各行为（接受任务+30，
+    //TODO: 发布任务+15，违约-60，*登录+2，*在线时长超过六小时+1，*被邀请+5，*接受邀请+10，
+    //TODO: *平均评分增减+1：+10）和积分总量之间的对应增减关系
+    private int credit; //积分总量（个人主页）。
+
+    //TODO: 数据库设计（等级算法）：建立积分与等级的对应关系
+    private int level; //个人等级(个人主页，他人主页)。
 
 
-    //TODO*: 补充数据库设计：如何记录登录次数和登录时长？
+    //补充数据库设计：如何记录登录次数和登录时长？
     //private int loginTimes;
     //private int loginDuration;
-    //TODO*: 补充数据库设计：优先级：1. 数据库默认查找指标：截止时间倒序，优先级顺序 2. 购买优先级10分耗费50积分。有效期为2周
+    //补充数据库设计：优先级：1. 数据库默认查找指标：截止时间倒序，优先级顺序 2. 购买优先级10分耗费50积分。有效期为2周
     // private int priority; // 个人等级(1-10)
-    //TODO*: 补充数据库设计：当前积分=积分总量-优先级的积分消费总量。当前积分不能小于0，若某次消费积分后小于零，禁止此次购买
+    //补充数据库设计：当前积分=积分总量-优先级的积分消费总量。当前积分不能小于0，若某次消费积分后小于零，禁止此次购买
 
 
     //达人信息
-    private boolean ifTalent;  //是否是达人
+    private boolean ifTalent;  //TODO: 是否是达人（达人榜）。
     //TODO: 对接：获取所有达人称号字符串：显示在"我的达人"页面。
-    private List<String> talentTitles;
+    private List<String> talentTitles;  //TODO: 达人称号（达人榜，我的达人）。
     //private int invitedTimes;  //被邀请多少次
 
 
@@ -69,12 +71,9 @@ public class user extends DataSupport implements Serializable {
         this.default_taskNum=0;
         this.averageScore=0;
         this.credit=0;
-        //this.credit=0;
         this.level=1;
-        //this.priority=0;
         this.ifTalent=false;
         this.talentTitles = null;
-        //this.invitedTimes=0;
     }
 
 
@@ -100,9 +99,8 @@ public class user extends DataSupport implements Serializable {
     }
     */
 
-    public void increaseCredit(int num){
-        this.credit = credit + num;
-    }
+
+    //函数：冻结
 
     public boolean isValid() {
         return isValid;
@@ -112,29 +110,104 @@ public class user extends DataSupport implements Serializable {
         isValid = valid;
     }
 
-    public double getDormitoryX() {
-        return dormitoryX;
+
+    //函数：基本信息
+
+    public String getSex(){
+        return sex;
     }
 
-    public void setDormitoryX(double dormitoryX) {
-        this.dormitoryX = dormitoryX;
+    public void setSex(String sex){
+        this.sex = sex;
     }
 
-    public double getDormitoryY() {
-        return dormitoryY;
+    public String getPhonenumber(){
+        return phonenumber;
     }
 
-    public void setDormitoryY(double dormitoryY) {
-        this.dormitoryY = dormitoryY;
+    public void setPhonenumber(String phonenumber){
+        this.phonenumber = phonenumber;
     }
 
-    public void setDemand(List<String> demand) {
-        this.demand = demand;
+    public String getMyName() {
+        return myName;
     }
 
-    public void setSpecialty(List<String> specialty) {
-        this.specialty = specialty;
+    public void setMyName(String myName) {
+        this.myName = myName;
     }
+
+    public void setName(String name) {
+        this.myName = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getMyImageId() {
+        return myImageId;
+    }
+
+    public void setMyImageId(int myImageId) {
+        this.myImageId = myImageId;
+    }
+
+
+    //评分
+
+    public float getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(float averageScore) {
+        this.averageScore = averageScore;
+    }
+
+
+
+    //个性信息
+
+    public String getDormArea() {
+        return dormArea;
+    }
+
+    public void setDormArea(String area) {
+        this.dormArea = area;
+    }
+
+    public void setDormitoryLocation(String dormitoryLocation){
+        this.dormitoryLocation = dormitoryLocation;
+    }
+
+    public String getDormitoryLocation(){
+        return dormitoryLocation;
+    }
+
+    public void addDemand(String d) {
+        this.demand.add(d);
+    }
+
+    public void addSpecialty(String s) {
+        this.specialty.add(s);
+    }
+
+    public List<String> getDemand() {
+        return demand;
+    }
+
+    public List<String> getSpecialty() {
+        return specialty;
+    }
+
+
+
+
+    //函数：增减任务数量
 
     public int getTaskRNum() {
         return taskRNum;
@@ -180,6 +253,25 @@ public class user extends DataSupport implements Serializable {
         this.default_taskNum = default_taskNum + num;
     }
 
+    public int getTaskNum() {
+        return taskNum;
+    }
+
+    public void setTaskNum(int tasknumber) {
+        this.taskNum = tasknumber;
+    }
+
+    public int getTaskLNum() {
+        return taskLNum;
+    }
+
+    public void addTaskLNum(int num) {
+        this.taskLNum = taskLNum + num;
+    }
+
+
+    //函数：达人
+
     public boolean isIfTalent() {
         return ifTalent;
     }
@@ -196,89 +288,19 @@ public class user extends DataSupport implements Serializable {
         this.talentTitles = talentTitles;
     }
 
-    public void setDormitoryLocation(String dormitoryLocation){
-        this.dormitoryLocation = dormitoryLocation;
-    }
-
-    public String getDormitoryLocation(){
-        return dormitoryLocation;
-    }
-
-    public String getSex(){
-        return sex;
-    }
-
-    public void setSex(String sex){
-        this.sex = sex;
-    }
-
-    public String getPhonenumber(){
-        return phonenumber;
-    }
-
-    public void setPhonenumber(String phonenumber){
-        this.phonenumber = phonenumber;
-    }
-
-    public String getMyName() {
-        return myName;
-    }
-
-    public void setMyName(String myName) {
-        this.myName = myName;
-    }
-
-    public void setName(String name) {
-        this.myName = name;
-    }
-
-    public float getAverageScore() {
-        return averageScore;
-    }
-
-    public void setAverageScore(float averageScore) {
-        this.averageScore = averageScore;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getMyImageId() {
-        return myImageId;
-    }
-
-    public void setMyImageId(int myImageId) {
-        this.myImageId = myImageId;
-    }
-
-    public String getDormArea() {
-        return dormArea;
-    }
-
-    public void setDormArea(String area) {
-        this.dormArea = area;
-    }
-
-    public List<String> getDemand() {
-        return demand;
-    }
-
-    public List<String> getSpecialty() {
-        return specialty;
-    }
-
     public List<String> getTalent() {
         return talentTitles;
     }
 
-    //TODO: 达人称号动态添加
     public void addTalentTitle(String talent) {
+        talentTitles.add(talent);
+    }
 
+
+    //函数：积分/等级/评分
+
+    public void increaseCredit(int num){
+        this.credit = credit + num;
     }
 
     public int getCredit() {
@@ -295,22 +317,6 @@ public class user extends DataSupport implements Serializable {
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public int getTaskNum() {
-        return taskNum;
-    }
-
-    public void setTaskNum(int tasknumber) {
-        this.taskNum = tasknumber;
-    }
-
-    public int getTaskLNum() {
-        return taskLNum;
-    }
-
-    public void addTaskLNum(int num) {
-        this.taskLNum = taskLNum + num;
     }
 
     public void addToAverageScore(float newScore){
