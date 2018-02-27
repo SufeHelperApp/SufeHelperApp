@@ -26,6 +26,9 @@ public class user extends DataSupport implements Serializable {
     //任务信息
     private int taskLNum;  //发布任务总数
     private int taskRNum;  //接受任务总数
+    private int taskRNum_errand;
+    private int taskRNum_skill;
+    private int taskRNum_counsel;
     private int taskNum;  //任务总数
     private int default_taskNum;  //违约任务总数  //TODO: 如何在某个时间触发某个方法？
 
@@ -59,6 +62,9 @@ public class user extends DataSupport implements Serializable {
         this.isValid = true;
         this.taskLNum=0;
         this.taskRNum=0;
+        this.taskRNum_errand=0;
+        this.taskRNum_skill=0;
+        this.taskRNum_counsel=0;
         this.taskNum=0;
         this.default_taskNum=0;
         this.averageScore=0;
@@ -136,6 +142,30 @@ public class user extends DataSupport implements Serializable {
 
     public void addTaskRNum(int num) {
         this.taskRNum = taskRNum + num;
+    }
+
+    public void addTaskRNum_errand(int num) {
+        this.taskRNum_errand = taskRNum_errand + num;
+    }
+
+    public int getTaskRNum_errand() {
+        return taskRNum_errand;
+    }
+
+    public void addTaskRNum_skill(int num) {
+        this.taskRNum_skill = taskRNum_skill + num;
+    }
+
+    public int getTaskRNum_skill() {
+        return taskRNum_skill;
+    }
+
+    public void  addTaskRNum_counsel(int num) {
+        this.taskRNum_counsel = taskRNum_counsel + num;
+    }
+
+    public int getTaskRNum_counsel() {
+        return taskRNum_counsel;
     }
 
     public int getDefault_taskNum() {

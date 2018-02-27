@@ -85,7 +85,6 @@ public class task extends DataSupport implements Serializable{
         this.launcherImageId = launcherImageId;
         this.launcherPhoneNumber = launcherPhoneNumber;
         this.subtaskType = subtaskType;
-        this.taskType = chooseTaskType(subtaskType);
         this.location = location;
         this.ddlDate = ddlDate;
         this.ddlTime = ddlTime;
@@ -100,13 +99,13 @@ public class task extends DataSupport implements Serializable{
 
 
 
-    public String chooseTaskType(String subtaskType){
+    public void setTaskType(String subtaskType){
         if(subtaskType == "占座" || subtaskType =="拿快递" ||subtaskType =="买饭" ||subtaskType == "买东西"|| subtaskType =="拼单")
-        {return"跑腿";}
+        {taskType = "跑腿";}
         else if(subtaskType == "电子产品修理" || subtaskType =="家具器件组装" ||subtaskType =="学习作业辅导" ||
                 subtaskType == "技能培训"|| subtaskType =="找同好")
-        {return"技能";}
-        else{return"咨询";}
+        {taskType = "技能";}
+        else{taskType = "咨询";}
     }
 
 
@@ -220,10 +219,6 @@ public class task extends DataSupport implements Serializable{
 
     public String getTaskType() {
         return taskType;
-    }
-
-    public void setTaskType(String taskType) {
-        this.taskType = taskType;
     }
 
     public String getSubtaskType() {

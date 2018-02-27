@@ -55,9 +55,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
 
 
-        userList1= DataSupport.order("taskRNum desc").limit(3).find(user.class);
-        userList2= DataSupport.order("taskRNum desc").limit(3).find(user.class);
-        userList3= DataSupport.order("taskRNum desc").limit(3).find(user.class);
+        userList1= DataSupport.order("taskRNum_errand desc").limit(3).find(user.class);
+        userList2= DataSupport.order("taskRNum_skill desc").limit(3).find(user.class);
+        userList3= DataSupport.order("taskRNum_counsel desc").limit(3).find(user.class);
 
         android.support.v7.widget.CardView card1 = findViewById(R.id.wt1_card1);
         card1.setOnClickListener(new View.OnClickListener() {

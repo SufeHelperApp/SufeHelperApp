@@ -78,7 +78,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
-                    List<user> users = DataSupport.where("myName = ?","tom")
+                    List<user> users = DataSupport.where("myName = ?", "tom")
                             .find(user.class); //TODO: 用当前用户代替
                     user user = users.get(0);
 
@@ -88,6 +88,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     task.setLauncherPhoneNumber(user.getPhonenumber());
                     task.setLauncherImageId(user.getMyImageId());
                     task.setSubtaskType(subtaskType);
+                    task.setTaskType(subtaskType);
                     task.setDdlDate(date);
                     task.setDdlTime(time);
                     task.setDdl();
@@ -100,7 +101,6 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                     user.increaseCredit(15);
                     user.addTaskLNum(1);
-                    user.addTaskRNum(1);
                     user.addTaskNum(1);
 
                     user.save();
