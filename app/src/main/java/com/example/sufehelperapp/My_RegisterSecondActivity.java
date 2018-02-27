@@ -25,6 +25,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
     private RadioGroup rg;
     private RadioButton rb_Male;
     private RadioButton rb_Female;
+    String sex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,11 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        int id = radioGroup.getCheckedRadioButtonId();
+                        switch (id){
+                            case R.id.rb_Male: sex = "男"; break;
+                            case R.id.rb_FeMale: sex = "女"; break;
+                        }
 
                     }
                 });
@@ -91,11 +97,12 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     user.setMyName(name);
                     user.setPassword(password);
                     user.setMyImageId(R.drawable.apple);//TODO：后期：头像
+                    user.setSex(sex);
                     user.save();
 
                     //跳转到注册3页面, 将user输出
-                    Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
-                    intent.putExtra("user_now",user);
+                    Intent intent = new Intent(My_RegisterSecondActivity.this, MyActivity_chat.class);
+                    //intent.putExtra("user_now",user);
                     startActivity(intent);
 
                 }else if(!userList1.isEmpty() && !name.isEmpty() && !password.isEmpty()){

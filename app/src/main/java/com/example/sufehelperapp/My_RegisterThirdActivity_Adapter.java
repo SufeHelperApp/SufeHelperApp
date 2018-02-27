@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,7 +27,7 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
 
     private int headViewCount = 1;
     private int footViewCount = 1;
-
+/*
     //private OnItemClickListener onItemClickListener;
     private ButtonInterface buttonInterface;
 
@@ -57,6 +58,30 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         if(holder instanceof HeaderViewHolder) {
+            //监听spinner内容变化
+            ((HeaderViewHolder) holder).dormAreaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    String[] areas = getResources().getStringArray(R.array.area);
+                    area = areas[pos];
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
+
+            ((HeaderViewHolder) holder).dormNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                    String [] dormNames = getResources().getStringArray(R.array.dormitory);
+                    dormName = dormNames[pos];
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+
+
 
         } else if (holder instanceof FootViewHolder) {
 
@@ -122,7 +147,7 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
             onItemClickListener.onItemClick(view, (Integer) view.getTag());
         }
     }*/
-
+/*
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView interalName;
          final Button mPerson1;
@@ -137,28 +162,37 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
     }
 
     static class HeaderViewHolder extends My_RegisterThirdActivity_Adapter.ViewHolder {
+        //TODO: 获得实例
+        Spinner dormAreaSpinner;
+        Spinner dormNameSpinner;
         public HeaderViewHolder(View view) {
+
             super(view);
+            //获取组件实例
+            dormAreaSpinner = (Spinner) view.findViewById(R.id.spinner_address1);
+            dormNameSpinner = (Spinner) view.findViewById(R.id.spinner_address2);
         }
     }
+
     static class FootViewHolder extends  My_RegisterThirdActivity_Adapter.ViewHolder {
         Button mButton8;
         public FootViewHolder(View view) {
             super(view);
-            mButton8 = (Button) view.findViewById(R.id.button_8);
+            mButton8 = (Button) view.findViewById(R.id.button_confirm);
         }
-    }
+    }*/
 
     /*public void setOnItemClickListener(OnItemClickListener onItemClickListener){
          this.onItemClickListener = onItemClickListener;
     }*/
 
+    /*
     public void setButtonInterface(ButtonInterface buttonInterface) {
         this.buttonInterface = buttonInterface;
     }
     public interface ButtonInterface {
         void onButtonClick(View view);
-    }
+    }*/
     //定义一个接口，利用接口回调
     /*public interface OnItemClickListener{
         void onItemClick(View view,int position);

@@ -31,6 +31,8 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
     private List<My_RegisterThirdActivity_Interal2> interalList = new ArrayList<>();
     private My_RegisterThirdActivity_Adapter adapter;
 
+    final user user = (user)getIntent().getSerializableExtra("user_now");
+
     private Button mButton8;
     int flag = 0;
     int flag2 = 0;
@@ -53,8 +55,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
         });
 
         //接收 My_RegisterSecondActivity 传来的user
-        final user user = (user)getIntent().getSerializableExtra("user_now");
-        Log.d("RegisterThirdActivity",user.getMyName());
+
 
         /*
         initInterals();
@@ -68,9 +69,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
         initRecyclerView();
 
 
-        //获取组件实例
-        final Spinner dormAreaSpinner = findViewById(R.id.spinner_address1);
-        final Spinner dormNameSpinner = findViewById(R.id.spinner_address2);
+
 
 
         Button person1 = findViewById(R.id.person1);
@@ -89,10 +88,8 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
         Button person14 = findViewById(R.id.person14);
         Button person15 = findViewById(R.id.person15);
 
-        Button confirm = findViewById(R.id.button_confirm);
 
-
-        //监听spinner内容变化
+        /*
         dormAreaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -102,32 +99,11 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
-        });
-
-        dormNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String [] dormNames = getResources().getStringArray(R.array.dormitory);
-                dormName = dormNames[pos];
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        });*/
 
 
-        //点击确认后
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                user.setDormArea(area);
-                user.setDormitoryLocation(dormName);
-                //TODO: 设置寝室坐标
-                //TODO: 设置需求和特长
-                user.save();
-            }
-        });
+
 
 
     }
@@ -139,6 +115,13 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
         adapter.setButtonInterface(new My_RegisterThirdActivity_Adapter.ButtonInterface() {
             @Override
             public void onButtonClick(View view) {
+                //TODO：confirm按钮
+                user.setDormArea(area);
+                user.setDormitoryLocation(dormName);
+                //TODO: 设置寝室坐标
+                //TODO: 设置需求和特长
+                user.save();
+
                 Intent intent1 = new Intent(My_RegisterThirdActivity.this, MainActivity.class);
                 startActivity(intent1);
             }
