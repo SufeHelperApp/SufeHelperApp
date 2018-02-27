@@ -71,46 +71,24 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     Toast.makeText(My_RegisterSecondActivity.this, "密码不得为空！", Toast.LENGTH_SHORT).show();
                 }
 
-                //获取sex的组件
-                rg = (RadioGroup) findViewById(R.id.rg_sex);
-                rb_Male = (RadioButton) findViewById(R.id.rb_Male);
-                rb_Female = (RadioButton) findViewById(R.id.rb_FeMale);
-                //TODO:sex点击事件
-                rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                        int id = radioGroup.getCheckedRadioButtonId();
-                        switch (id){
-                            case R.id.rb_Male: sex = "男"; break;
-                            case R.id.rb_FeMale: sex = "女"; break;
-                        }
 
-                    }
-                });
+            }
+        });
 
-
-                //检查用户名未被注册
-                List<user> userList1 = DataSupport.where("myName = ?",name).find(user.class);
-                if(userList1.isEmpty() && !name.isEmpty() && !password.isEmpty()){
-
-                    //设置用户的用户名，密码，头像
-                    user.setMyName(name);
-                    user.setPassword(password);
-                    user.setMyImageId(R.drawable.apple);//TODO：后期：头像
-                    user.setSex(sex);
-                    user.save();
-
-                    //跳转到注册3页面, 将user输出
-                    Intent intent = new Intent(My_RegisterSecondActivity.this, MyActivity_chat.class);
-                    //intent.putExtra("user_now",user);
-                    startActivity(intent);
-
-                }else if(!userList1.isEmpty() && !name.isEmpty() && !password.isEmpty()){
-
-                    Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！",
-                            Toast.LENGTH_SHORT).show();
-
+        //获取sex的组件
+        rg = (RadioGroup) findViewById(R.id.rg_sex);
+        rb_Male = (RadioButton) findViewById(R.id.rb_Male);
+        rb_Female = (RadioButton) findViewById(R.id.rb_FeMale);
+        //TODO:sex点击事件
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int id = radioGroup.getCheckedRadioButtonId();
+                switch (id){
+                    case R.id.rb_Male: sex = "男"; break;
+                    case R.id.rb_FeMale: sex = "女"; break;
                 }
+
             }
         });
 
