@@ -6,9 +6,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
+
+    public static final String USER_SELECTED = "user_selected";
 
     private RadioGroup rg;
     private RadioButton rb_Male;
@@ -31,6 +44,8 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
         });
 
+        final user user = (user) getIntent().getSerializableExtra("user_selected");
+
         Button button2 = (Button) findViewById(R.id.button_8);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,20 +62,28 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     Toast.makeText(My_RegisterSecondActivity.this, "用户名已经存在！", Toast.LENGTH_SHORT).show();
                 }else {
 
-                    List<user> userList = DataSupport.where("phonenumber = ?", "13712341234").find(user.class);
-                    user user = userList.get(0); //TODO: 用当前用户代替
-
                     user.setMyName(name);
                     user.setPassword(password);
                     user.setMyImageId(R.drawable.apple);
                     user.save();
 
-                    Intent intent1 = new Intent(My_RegisterSecondActivity.this, My_RegisterSecondActivity.class);
+                    Intent intent1 = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
                     startActivity(intent1);
 
                 }
             }
         });
+
+        rg = (RadioGroup) findViewById(R.id.rg_sex);
+        rb_Male = (RadioButton) findViewById(R.id.rb_Male);
+        rb_Female = (RadioButton) findViewById(R.id.rb_FeMale);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+            }
+        });
+
 
 
     }
