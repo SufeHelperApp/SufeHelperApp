@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="label">
-        <activity android:name=".My_RegisterThirdActivity">
+        <activity android:name=".My_LoginFirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

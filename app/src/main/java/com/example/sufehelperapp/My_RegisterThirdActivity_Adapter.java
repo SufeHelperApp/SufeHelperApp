@@ -27,9 +27,9 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
 
     private int headViewCount = 1;
     private int footViewCount = 1;
-/*
+
     //private OnItemClickListener onItemClickListener;
-    private ButtonInterface buttonInterface;
+    //private ButtonInterface buttonInterface;
 
     public My_RegisterThirdActivity_Adapter(Context context, List<My_RegisterThirdActivity_Interal2> interalList) {
         this.mInteralList = interalList;
@@ -59,28 +59,6 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
 
         if(holder instanceof HeaderViewHolder) {
             //监听spinner内容变化
-            ((HeaderViewHolder) holder).dormAreaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                    String[] areas = getResources().getStringArray(R.array.area);
-                    area = areas[pos];
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
-
-            ((HeaderViewHolder) holder).dormNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                    String [] dormNames = getResources().getStringArray(R.array.dormitory);
-                    dormName = dormNames[pos];
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-
 
 
         } else if (holder instanceof FootViewHolder) {
@@ -88,9 +66,9 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
             ((FootViewHolder) holder).mButton8.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (buttonInterface != null) {
+                    /*if (buttonInterface != null) {
                         buttonInterface.onButtonClick(v);
-                    }
+                    }*/
                 }
             });
         } else if (holder instanceof ViewHolder) {
@@ -100,17 +78,19 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
             ((ViewHolder) holder).mPerson1.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    /*
                     if (buttonInterface != null) {
                         buttonInterface.onButtonClick(view);
-                    }
+                    }*/
                 }
             });
             ((ViewHolder) holder).mPerson2.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    /*
                     if (buttonInterface != null) {
                         buttonInterface.onButtonClick(view);
-                    }
+                    }*/
                 }
             });
         }
@@ -147,7 +127,7 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
             onItemClickListener.onItemClick(view, (Integer) view.getTag());
         }
     }*/
-/*
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView interalName;
          final Button mPerson1;
@@ -180,7 +160,7 @@ public class My_RegisterThirdActivity_Adapter extends RecyclerView.Adapter<My_Re
             super(view);
             mButton8 = (Button) view.findViewById(R.id.button_confirm);
         }
-    }*/
+    }
 
     /*public void setOnItemClickListener(OnItemClickListener onItemClickListener){
          this.onItemClickListener = onItemClickListener;

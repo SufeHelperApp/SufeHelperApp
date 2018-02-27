@@ -70,8 +70,6 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
 
 
-
-
         Button person1 = findViewById(R.id.person1);
         Button person2 = findViewById(R.id.person2);
         Button person3 = findViewById(R.id.person3);
@@ -112,15 +110,10 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new My_RegisterThirdActivity_Adapter(this,interalList);
         //adapter.setOnItemClickListener(this);
+        /*
         adapter.setButtonInterface(new My_RegisterThirdActivity_Adapter.ButtonInterface() {
             @Override
             public void onButtonClick(View view) {
-                //TODO：confirm按钮
-                user.setDormArea(area);
-                user.setDormitoryLocation(dormName);
-                //TODO: 设置寝室坐标
-                //TODO: 设置需求和特长
-                user.save();
 
                 Intent intent1 = new Intent(My_RegisterThirdActivity.this, MainActivity.class);
                 startActivity(intent1);
@@ -143,7 +136,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
 
             }
-        });
+        });*/
         mRecyclerView.setAdapter(adapter);
     }
 
