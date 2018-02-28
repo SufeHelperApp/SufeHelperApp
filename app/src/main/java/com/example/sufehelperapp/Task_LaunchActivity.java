@@ -20,6 +20,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
     public String subtaskType;
     public String area;
 
+    private user user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //从MainActivity接受user
-        final user user = (user) getIntent().getSerializableExtra("user_now");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("Task_LaunchActivity",myName);
 

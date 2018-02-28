@@ -17,7 +17,7 @@ import android.widget.Toast;
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
-
+import java.util.Random;
 
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
@@ -79,11 +79,13 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 if(!name.isEmpty() && !password.isEmpty() && !sex.isEmpty()){
 
                     user.setSex(sex);
+                    Log.d("sex",user.getSex());
+                    user.setMyImageId(R.drawable.apple);
                     user.setMyName(name);
                     user.setPassword(password);
                     user.save();
 
-                    Intent intent = new Intent(My_RegisterSecondActivity.this, MainActivity.class);
+                    Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
                     intent.putExtra("user_now", user);
                     startActivity(intent);
                 }
@@ -108,7 +110,6 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }

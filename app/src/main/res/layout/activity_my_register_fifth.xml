@@ -195,6 +195,7 @@
             android:layout_below="@id/person149"
             />
     </RelativeLayout>
+
     <Button
         android:id="@+id/button_confirm5"
         android:layout_width="120dp"
@@ -202,7 +203,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:background="@color/colorPrimary"
-        android:text="确认"
+        android:text="完成注册"
         android:textColor="@color/white"
         android:textSize="20dp" />
     <TextView

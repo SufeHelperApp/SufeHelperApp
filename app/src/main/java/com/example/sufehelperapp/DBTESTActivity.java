@@ -2,6 +2,7 @@ package com.example.sufehelperapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,10 +19,6 @@ public class DBTESTActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbtest);
 
-        //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
-
         Button delete = (Button) findViewById(R.id.button_delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,9 +33,9 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                task task = new task();
-                task.setTaskType(task.getSubtaskType());
-                task.updateAll();
+                user user = new user();
+                user.setMyImageId(R.drawable.apple);
+                user.updateAll();
 
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
