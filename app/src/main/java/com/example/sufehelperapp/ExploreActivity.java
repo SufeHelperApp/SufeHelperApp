@@ -34,12 +34,14 @@ public class ExploreActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(ExploreActivity.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(ExploreActivity.this, MyActivity.class);
+                        Intent intent2 = new Intent(ExploreActivity.this, My_HomeActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                 }
@@ -52,6 +54,7 @@ public class ExploreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(ExploreActivity.this, Explore_weekly.class);
+                intent1.putExtra("user_now", user);
                 startActivity(intent1);
             }
         });
@@ -60,6 +63,7 @@ public class ExploreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(ExploreActivity.this, Explore_WeeklyTalentActivity.class);
+                intent2.putExtra("user_now", user);
                 startActivity(intent2);
             }
         });
@@ -68,6 +72,7 @@ public class ExploreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent3 = new Intent(ExploreActivity.this, Explore_MyTalentActivity.class);
+                intent3.putExtra("user_now", user);
                 startActivity(intent3);
             }
         });

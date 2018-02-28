@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 public class MyActivity_mytask_personalhome extends AppCompatActivity {
 
     public static final String USER_SELECTED = "user_selected";
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,14 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
             actionBar.hide();
         }
 
-        final user user = (user) getIntent().getSerializableExtra("user_selected");//TODO
-        Log.d("name",user.getMyName());
+        //接收user
+        user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+        Log.d("personalhome",myName);
+
+        //接收选中的user
+        final user user_selected = (user) getIntent().getSerializableExtra("user_selected");//TODO
+        Log.d("name",user_selected.getMyName());
 
         ImageView launcher_image = (ImageView) findViewById(R.id.picture_upload);
         TextView launcher_name = (TextView) findViewById(R.id.his_nickname_text11);
@@ -35,13 +42,14 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         TextView subtaskType = (TextView) findViewById(R.id.his_personalintention_text44);
         TextView date = (TextView) findViewById(R.id.his_integral_text11);
 
-        Glide.with(this).load(user.getMyImageId()).into(launcher_image);
-        launcher_name.setText(user.getMyName());
+        Glide.with(this).load(user_selected.getMyImageId()).into(launcher_image);
+        launcher_name.setText(user_selected.getMyName());
         //launcher_phoneNumber.setText(user.getDormArea()); //TODO
-        taskType.setText(user.getPhonenumber());
+        taskType.setText(user_selected.getPhonenumber());
         //subtaskType.setText(user.getp());
         //date.setText(task.getDdlDate());
 
+        //TODO:删掉
         Button button2 = (Button) findViewById(R.id.button_talk);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override

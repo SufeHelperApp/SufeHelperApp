@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +18,8 @@ import java.util.Random;
 public class Explore_weekly extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+
+    private user user;
 
     private Explore_weekly_interal[] explore_weekly_interals = {new Explore_weekly_interal("发布量",R.drawable.ic_tiao),
             new Explore_weekly_interal("完成量",R.drawable.ic_tiao),
@@ -34,6 +37,10 @@ public class Explore_weekly extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+
+        user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+        Log.d("Explore_weekly",myName);
 
         initInterals();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
