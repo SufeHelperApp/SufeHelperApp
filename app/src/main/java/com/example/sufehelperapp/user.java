@@ -137,10 +137,6 @@ public class user extends DataSupport implements Serializable {
         this.myName = myName;
     }
 
-    public void setName(String name) {
-        this.myName = name;
-    }
-
     public String getPassword() {
         return password;
     }
