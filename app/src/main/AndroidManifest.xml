@@ -60,7 +60,10 @@
         <activity android:name=".DBTESTActivity" />
         <activity android:name=".My_LoginSecondActivity" />
         <activity android:name=".My_RegisterForthActivity" />
-        <activity android:name=".My_RegisterFifthActivity"></activity>
+        <activity android:name=".My_RegisterFifthActivity" />
+        <activity android:name=".MyActivity_Task_Details" />
+        <activity android:name=".Trace" />
+        <activity android:name=".TraceListAdapter"></activity>
     </application>
 
 </manifest>
