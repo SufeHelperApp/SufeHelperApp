@@ -33,9 +33,9 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                task task = new task();
-                task.setLauncherImageId(R.drawable.apple);
-                task.updateAll();
+                user user = new user();
+                user.setDormitoryLocation("第一宿舍");
+                user.updateAll();
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
         });

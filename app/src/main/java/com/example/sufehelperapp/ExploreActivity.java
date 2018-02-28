@@ -77,12 +77,5 @@ public class ExploreActivity extends AppCompatActivity {
             }
         });
     }
-/*
-    @Override
-    public void onBackPressed(){
-        Intent intent = new Intent();
-        intent.putExtra("data_now_back",user);
-        setResult(RESULT_OK,intent);
-        finish();
-    }*/
+
 }

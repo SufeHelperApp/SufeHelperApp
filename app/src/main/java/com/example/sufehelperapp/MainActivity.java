@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.item_explore:
                         Intent intent2 = new Intent(MainActivity.this, ExploreActivity.class);
                         intent2.putExtra("user_now", user);
-                        //startActivityForResult(intent2,1);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
@@ -100,23 +99,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-    /*
-
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent data){
-        switch (requestCode){
-            case 1:
-                if(resultCode == RESULT_OK){
-                    user = (user) getIntent().getSerializableExtra("data_now_back");
-                    Log.d("MainActivity.back",user.getMyName());
-                }
-                break;
-            default:
-        }
-    }
-    */
-
 
 
 

@@ -47,7 +47,9 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:background="#00000000" />
+
             </LinearLayout>
+
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -56,5 +58,9 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+
     </android.support.design.widget.CoordinatorLayout>
+
+
+
 </android.support.v4.widget.DrawerLayout>

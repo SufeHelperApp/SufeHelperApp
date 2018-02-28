@@ -52,12 +52,8 @@ public class MyActivity_Edit_password extends AppCompatActivity {
                     case R.id.button_conserve_password:
                         String newPassword = passwordView.getText().toString();
 
-                        List<user> users = DataSupport.where("myName = ?","sophia")
-                                .find(user.class); //TODO: 用当前用户代替
-                        user userSophia = users.get(0);
-
-                        userSophia.setPassword(newPassword);
-                        userSophia.save();
+                        user.setPassword(newPassword);
+                        user.save();
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_password.this);
                         dialog.setTitle("提示");
