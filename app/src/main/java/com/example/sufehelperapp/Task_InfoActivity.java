@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,17 +30,6 @@ public class Task_InfoActivity extends AppCompatActivity {
 
     private user user;
 
-    private task[] tasks =
-            {new task("文静", R.drawable.apple, "13912345678",
-                    "占座","二教206","18/2/12","9:00",
-                    5,"微信联系"),
-                    new task("戴晓东", R.drawable.banana, "13812345678",
-                            "拿快递","快递中心","18/2/10","10:00",
-                            7,"微信联系"),
-                    new task("刘宇涵", R.drawable.orange,"13712345678",
-                            "买饭","新食堂","18/2/17","11:00",
-                            6,"微信联系")};
-    // NOTE: 可删除，用数据库取代
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +58,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_InfoActivity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_InfoActivity.this, My_HomeActivity.class);
                         intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
@@ -84,7 +74,7 @@ public class Task_InfoActivity extends AppCompatActivity {
         TextView taskType = (TextView) findViewById(R.id.taskinfo_taskType);
         TextView subtaskType = (TextView) findViewById(R.id.taskinfo_subtaskType);
         TextView date = (TextView) findViewById(R.id.taskinfo_date);
-        TextView time = (TextView) findViewById(R.id.taskinfo_time);
+        TextView time= (TextView)findViewById(R.id.taskinfo_time);
         TextView location = (TextView) findViewById(R.id.taskinfo_location);
         TextView payment = (TextView) findViewById(R.id.taskinfo_payment);
         TextView description = (TextView) findViewById(R.id.taskinfo_description);
