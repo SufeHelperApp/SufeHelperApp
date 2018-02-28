@@ -46,7 +46,7 @@ public class AddressAdapter extends BaseAdapter {
         ViewHolder holder = null;
         if(convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_my_register_third_interal,null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_my_register_third,null);
             holder.mTextView = (TextView) convertView;
             convertView.setTag(holder);
         } else {
