@@ -35,7 +35,7 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
         }
 
         //接受user
-        user = (user) getIntent().getSerializableExtra("user_data");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("evaluation",myName);
 

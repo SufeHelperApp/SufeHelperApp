@@ -31,11 +31,9 @@ public class MyActivity_Setup extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("MyActivity_Setup",user.getMyName());
 
-        user.setMyImageId(R.drawable.apple);
         ImageView image = (ImageView) findViewById(R.id.button_picture);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
 
-        user.setMyName("戴晓东");
         TextView nicknameView = (TextView) findViewById(R.id.username_text);
         nicknameView.setText(user.getMyName());
 

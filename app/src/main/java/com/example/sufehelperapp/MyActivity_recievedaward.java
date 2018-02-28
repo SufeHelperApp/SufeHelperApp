@@ -23,7 +23,7 @@ public class MyActivity_recievedaward extends AppCompatActivity implements View.
             actionBar.hide();
         }
 
-        user = (user) getIntent().getSerializableExtra("user_data");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("recievedaward",myName);
 

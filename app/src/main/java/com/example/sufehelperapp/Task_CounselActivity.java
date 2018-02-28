@@ -78,7 +78,7 @@ public class Task_CounselActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_counsel);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(taskList,user);
         recyclerView.setAdapter(adapter);
 
         //TODO

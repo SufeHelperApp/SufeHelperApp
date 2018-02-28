@@ -116,7 +116,7 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                 }
                 if(!taskList.isEmpty()) {
                     //update adapter
-                    adapter = new TaskAdapter(taskList);
+                    adapter = new TaskAdapter(taskList,user);
                     recyclerView.setAdapter(adapter);
                 }
             }

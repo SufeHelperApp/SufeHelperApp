@@ -27,7 +27,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         }
 
         //接收user
-        user = (user) getIntent().getSerializableExtra("user_data");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("personalhome",myName);
 
@@ -54,8 +54,8 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_mytask_personalhome.this, MyActivity_chat.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MyActivity_mytask_personalhome.this, MyActivity_chat.class);
+                //startActivity(intent);
             }
         });
     }

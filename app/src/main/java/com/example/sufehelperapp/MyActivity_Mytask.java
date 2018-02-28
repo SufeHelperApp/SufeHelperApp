@@ -32,6 +32,7 @@ import org.litepal.crud.DataSupport;
 public class MyActivity_Mytask extends AppCompatActivity {
 
     private user user;
+    private Bundle bundle;
 
     private TabLayout tab_title;
     private ViewPager vp_pager;
@@ -62,9 +63,10 @@ public class MyActivity_Mytask extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        user = (user) getIntent().getSerializableExtra("user_data");
-        Log.d("MyActivity_Mytask:",user.getMyName());
+        //bundle用于传当前user
+        bundle = new Bundle();//创建一个句柄
+        bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
+
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +128,9 @@ public class MyActivity_Mytask extends AppCompatActivity {
         list_fragment = new ArrayList<>();
 
         cFragment = new MyActivity_mytask_currenttask();
+        cFragment.setArguments(bundle); //传user入fragments
         hFragment = new MyActivity_mytask_historicaltask();
+        hFragment.setArguments(bundle); //传user入fragments
 
         list_fragment.add(cFragment);
         list_fragment.add(hFragment);

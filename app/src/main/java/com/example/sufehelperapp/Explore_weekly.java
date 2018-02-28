@@ -38,7 +38,7 @@ public class Explore_weekly extends AppCompatActivity {
             actionBar.hide();
         }
 
-        user = (user) getIntent().getSerializableExtra("user_data");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("Explore_weekly",myName);
 

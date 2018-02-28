@@ -2,6 +2,7 @@ package com.example.sufehelperapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Message;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,10 +18,9 @@ import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
 
-    private user user;
-
     private Context mContext;
     private List<task> mTaskList;
+    private user user;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
@@ -46,14 +46,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         }
     }
 
-    public TaskAdapter(List<task> taskList){
+    public TaskAdapter(List<task> taskList , user user1){
         mTaskList = taskList;
+        user = user1; //接收user
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        //TODO:adapter接受user!!!
 
         if (mContext == null) {
             mContext = parent.getContext();
@@ -66,10 +65,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 task task = mTaskList.get(position);
                 Intent intent = new Intent(mContext, Task_InfoActivity.class);
-
-                //TODO:adapter传输user!!!!
-
                 intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
+                intent.putExtra(Task_InfoActivity.USER_NOW, user);//传送user
                 mContext.startActivity(intent);
             }
         });

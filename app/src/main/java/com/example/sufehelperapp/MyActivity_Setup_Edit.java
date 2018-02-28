@@ -40,23 +40,18 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         //TODO: DB：1.数据库中调用头像
         //TODO: UI: 2.姓名删除，昵称改成用户名 3.button位置
 
-        user.setMyImageId(R.drawable.apple);
         ImageView image = (ImageView) findViewById(R.id.picture_upload);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
 
-        user.setSex("女");
         TextView sexView = (TextView) findViewById(R.id.sex_text);
         sexView.setText(user.getSex());
 
-        user.setMyName("戴晓东");
         TextView nicknameView = (TextView) findViewById(R.id.nickname_text11);
         nicknameView.setText(user.getMyName());
 
-        user.setDormitoryLocation("第八宿舍");
         TextView dormitoryView = (TextView) findViewById(R.id.nickname_text22);
         dormitoryView.setText(user.getDormitoryLocation());
 
-        user.setPhonenumber("13612341234");
         TextView phoneView = (TextView) findViewById(R.id.nickname_text33);
         phoneView.setText(user.getPhonenumber());
 

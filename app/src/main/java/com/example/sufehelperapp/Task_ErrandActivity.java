@@ -79,7 +79,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_errand);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(taskList,user); //taskAdapter中获得当前user
         recyclerView.setAdapter(adapter);
 
         ImageView img1 = findViewById(R.id.errand_ic1);

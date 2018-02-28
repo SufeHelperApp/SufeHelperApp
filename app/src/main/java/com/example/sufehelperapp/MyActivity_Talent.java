@@ -23,7 +23,7 @@ public class MyActivity_Talent extends AppCompatActivity {
             actionBar.hide();
         }
 
-        user = (user) getIntent().getSerializableExtra("user_data");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("MyActivity_Talent",myName);
 
