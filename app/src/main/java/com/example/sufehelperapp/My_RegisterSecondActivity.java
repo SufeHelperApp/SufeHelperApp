@@ -66,9 +66,26 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 if(name.isEmpty()){
                     Toast.makeText(My_RegisterSecondActivity.this, "用户名不得为空！", Toast.LENGTH_SHORT).show();
                 }
+
                 String password = passwordView.getText().toString();
                 if(password.isEmpty()){
                     Toast.makeText(My_RegisterSecondActivity.this, "密码不得为空！", Toast.LENGTH_SHORT).show();
+                }
+
+                if(sex.isEmpty()){
+                    Toast.makeText(My_RegisterSecondActivity.this, "性别不得为空！", Toast.LENGTH_SHORT).show();
+                }
+
+                if(!name.isEmpty() && !password.isEmpty() && !sex.isEmpty()){
+
+                    user.setSex(sex);
+                    user.setMyName(name);
+                    user.setPassword(password);
+                    user.save();
+
+                    Intent intent = new Intent(My_RegisterSecondActivity.this, MainActivity.class);
+                    intent.putExtra("user_now", user);
+                    startActivity(intent);
                 }
 
 
