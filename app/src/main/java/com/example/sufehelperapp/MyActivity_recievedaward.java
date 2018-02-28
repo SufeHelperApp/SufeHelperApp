@@ -6,10 +6,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 public class MyActivity_recievedaward extends AppCompatActivity implements View.OnClickListener{
+
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +23,11 @@ public class MyActivity_recievedaward extends AppCompatActivity implements View.
             actionBar.hide();
         }
 
-        //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+        Log.d("recievedaward",myName);
 
+        //TODO
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

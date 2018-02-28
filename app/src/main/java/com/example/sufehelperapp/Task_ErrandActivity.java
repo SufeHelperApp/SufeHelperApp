@@ -20,6 +20,8 @@ import java.util.Random;
 
 public class Task_ErrandActivity extends AppCompatActivity {
 
+    private user user;
+
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
                     "占座","二教206","18/2/12","9:00",
@@ -30,8 +32,6 @@ public class Task_ErrandActivity extends AppCompatActivity {
                     new task("刘宇涵", R.drawable.orange,"13712345678",
                             "买饭","新食堂","18/2/17","11:00",
                             6,"微信联系")};
-    user user = new user();
-    // NOTE: 可删除，用数据库取代
 
     private List<task> taskList = new ArrayList<>();
 
@@ -45,8 +45,8 @@ public class Task_ErrandActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //从MainActivity接受user
-        user user = (user) getIntent().getSerializableExtra("user_now");
+        //接受user
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("Task_ErrandActivity",myName);
 
@@ -57,14 +57,17 @@ public class Task_ErrandActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_ErrandActivity.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_ErrandActivity.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Task_ErrandActivity.this, MyActivity.class);
+                        intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -84,6 +87,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Task_ErrandActivity.this, Task_SelectionEActivity.class);
+                intent1.putExtra("user_now", user);
                 startActivity(intent1);
             }
         });

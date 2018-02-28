@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MyActivity_Vip extends AppCompatActivity {
 
-    user user = new user(); //TODO: user改为当前user
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +23,8 @@ public class MyActivity_Vip extends AppCompatActivity {
         }
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("MyActivity_Vip",user.getMyName());
 
         //show level
         TextView levelView = (TextView) findViewById(R.id.vip_text_level);
@@ -38,6 +39,7 @@ public class MyActivity_Vip extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Vip.this, My_HomeActivity.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -46,6 +48,7 @@ public class MyActivity_Vip extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Vip.this, MyActivity_Myaward.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });

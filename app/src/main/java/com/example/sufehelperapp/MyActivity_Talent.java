@@ -6,10 +6,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 public class MyActivity_Talent extends AppCompatActivity {
+
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +23,16 @@ public class MyActivity_Talent extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+        Log.d("MyActivity_Talent",myName);
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Talent.this, My_HomeActivity.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -37,6 +41,7 @@ public class MyActivity_Talent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Talent.this, MyActivity_recievedaward.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });

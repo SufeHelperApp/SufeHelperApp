@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_credit extends AppCompatActivity {
+
+    private user user;
 
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
@@ -45,8 +48,8 @@ public class MyActivity_credit extends AppCompatActivity {
         }
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("MyActivity_credit",user.getMyName());
 /*
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,22 +74,19 @@ public class MyActivity_credit extends AppCompatActivity {
         }); */
 
 
-        List<user> users = DataSupport.where("myName = ?","sophia")
-                .find(user.class); //TODO: 用当前用户代替
-        user userSophia = users.get(0);
         //从数据库显示rating
 
         RatingBar ratingBar = findViewById(R.id.my_credit_rating_bar);
-        ratingBar.setRating(userSophia.getAverageScore());
+        ratingBar.setRating(user.getAverageScore());
 
         TextView ratingTextView = findViewById(R.id.my_credit_average_score_text);
-        ratingTextView.setText(String.valueOf(userSophia.getAverageScore()));
+        ratingTextView.setText(String.valueOf(user.getAverageScore()));
 
 
         //显示违约任务卡片
 
 
-        List<task> taskList = DataSupport.where("helperName = ?","sophia")
+        List<task> taskList = DataSupport.where("helperName = ?",user.getMyName())
                 .where("ifDefault = ? ","1").find(task.class);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_credit_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
@@ -94,7 +94,7 @@ public class MyActivity_credit extends AppCompatActivity {
         adapter = new TaskAdapter(taskList);
         recyclerView.setAdapter(adapter);
 
-
+        //TODO:删除
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

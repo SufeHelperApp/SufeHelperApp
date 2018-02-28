@@ -23,6 +23,9 @@ public class Task_InfoActivity extends AppCompatActivity {
 
     public static final String TASK_SELECTED = "task_selected";
 
+    //TODO: 接受当前user!！！！
+    //private user user;
+
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
                     "占座","二教206","18/2/12","9:00",
@@ -54,13 +57,16 @@ public class Task_InfoActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
+                        //intent1.putExtra("user_now", user);
                         startActivity(intent1);
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_InfoActivity.this, ExploreActivity.class);
+                        //intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Task_InfoActivity.this, MyActivity.class);
+                        //intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }

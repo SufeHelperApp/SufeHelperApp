@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,10 +18,8 @@ import static org.litepal.LitePalApplication.getContext;
 
 public class MyActivity_Setup_Edit extends AppCompatActivity {
 
-    user user = new user(); //TODO: 用当前用户代替
-    //接受user
-    //user user = (user) getIntent().getSerializableExtra("user_data");
-    //String myName = user.getMyName();
+    private user user;
+
     ImageButton imgbtn1;
     ImageButton imgbtn2;
     ImageButton imgbtn3;
@@ -33,6 +32,10 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+
+        //接收user
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("MyActivity_Setup_Edit",user.getMyName());
 
         //TODO: DB：1.数据库中调用头像
         //TODO: UI: 2.姓名删除，昵称改成用户名 3.button位置
@@ -61,11 +64,14 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         imgbtn2=(ImageButton)findViewById(R.id.button_edit_password);
         imgbtn3=(ImageButton)findViewById(R.id.button_edit_phonenumber);
 
+
+        //TODO:delete
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Setup.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -75,6 +81,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_NickName.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
 
@@ -84,6 +91,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_password.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
 
@@ -93,6 +101,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_phonenumber.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
 

@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import java.util.List;
 
 public class MyActivity_Edit_phonenumber extends AppCompatActivity {
 
+    private user user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,15 +28,17 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        //接收user
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("Edit_phonenumber",user.getMyName());
 
+        //TODO: delete
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Edit_phonenumber.this, MyActivity_Setup_Edit.class);
+                Log.d("MyActivity_Setup_Edit",user.getMyName());
                 startActivity(intent);
             }
         });
@@ -62,6 +67,7 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
                                 Intent intent = new Intent(MyActivity_Edit_phonenumber.this, MyActivity_Setup_Edit.class);
+                                Log.d("MyActivity_Setup_Edit",user.getMyName());
                                 startActivity(intent);
                             }
                         });

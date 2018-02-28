@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import java.util.List;
 
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
+
+    private user user;
 
     private Context mContext;
     private List<task> mTaskList;
@@ -49,6 +52,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        //TODO:adapter接受user!!!
+
         if (mContext == null) {
             mContext = parent.getContext();
         }
@@ -60,6 +66,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 task task = mTaskList.get(position);
                 Intent intent = new Intent(mContext, Task_InfoActivity.class);
+
+                //TODO:adapter传输user!!!!
+
                 intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
                 mContext.startActivity(intent);
             }
