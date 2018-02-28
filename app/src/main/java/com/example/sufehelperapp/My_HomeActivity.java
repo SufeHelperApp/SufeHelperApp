@@ -23,8 +23,6 @@ public class My_HomeActivity extends AppCompatActivity {
     private user user;
 
     //接受user
-    //user user = (user) getIntent().getSerializableExtra("user_data");
-    //String myName = user.getMyName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

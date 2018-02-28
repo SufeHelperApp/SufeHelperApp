@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import java.util.List;
 
 public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
+    private user user;
 
     private static List<user> userList1 = new ArrayList<>();
     private static List<user> userList2 = new ArrayList<>();
@@ -32,8 +34,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_data");
+        String myName = user.getMyName();
+        Log.d("Explore_WeeklyTalent",myName);
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -42,14 +45,17 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Explore_WeeklyTalentActivity.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Explore_WeeklyTalentActivity.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Explore_WeeklyTalentActivity.this, MyActivity.class);
+                        intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -192,6 +198,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
 
         if(userList1.size()>=1) {
+            //TODO：传输？？？
             TextView nameView1 = (TextView) findViewById(R.id.wt1_name1);
             TextView tasknumView1 = (TextView) findViewById(R.id.wt1_num1);
 
