@@ -34,7 +34,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接受user
-        user = (user) getIntent().getSerializableExtra("user_data");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("Explore_WeeklyTalent",myName);
 

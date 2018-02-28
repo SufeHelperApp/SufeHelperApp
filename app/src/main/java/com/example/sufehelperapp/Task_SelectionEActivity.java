@@ -22,6 +22,8 @@ import java.util.List;
 
 public class Task_SelectionEActivity extends AppCompatActivity {
 
+    private user user;
+
     private List<task> taskList = new ArrayList<>();
     private TaskAdapter adapter;
 
@@ -41,7 +43,13 @@ public class Task_SelectionEActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task__selection_e);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+
+        //接受user
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("SelectionEActivity",myName);
+
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,14 +59,17 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_SelectionEActivity.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_SelectionEActivity.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Task_SelectionEActivity.this, MyActivity.class);
+                        intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -105,7 +116,7 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                 }
                 if(!taskList.isEmpty()) {
                     //update adapter
-                    adapter = new TaskAdapter(taskList);
+                    adapter = new TaskAdapter(taskList,user);
                     recyclerView.setAdapter(adapter);
                 }
             }

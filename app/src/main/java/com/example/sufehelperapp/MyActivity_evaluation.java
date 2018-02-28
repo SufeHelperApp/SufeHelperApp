@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -22,6 +23,7 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
     public static final String TASK_SELECTED = "task_selected";
     private RatingBar ratingBar;
     private TextView textView;
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,17 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
         }
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("evaluation",myName);
 
+        //TODO: DELETE
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Mytask.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -91,17 +96,14 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
                 dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        List<user> users = DataSupport.where("myName = ?","sophia")
-                                .find(user.class); //TODO: 用当前用户代替
-                        user userSophia = users.get(0);
 
                         //TODO: 排查
                         task task = (task) getIntent().getSerializableExtra("task_selected");
                         task.setScore(ratingBar.getRating());
                         task.save();
 
-                        userSophia.addToAverageScore(ratingBar.getRating());
-                        userSophia.save();
+                        user.addToAverageScore(ratingBar.getRating());
+                        user.save();
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

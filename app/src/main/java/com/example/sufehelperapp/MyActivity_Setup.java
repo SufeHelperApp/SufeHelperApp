@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,10 +16,7 @@ import static org.litepal.LitePalApplication.getContext;
 
 public class MyActivity_Setup extends AppCompatActivity {
 
-    user user = new user(); //TODO: 用当前用户代替
-    //接受user
-    //user user = (user) getIntent().getSerializableExtra("user_data");
-    //String myName = user.getMyName();
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +27,13 @@ public class MyActivity_Setup extends AppCompatActivity {
             actionBar.hide();
         }
 
-        user.setMyImageId(R.drawable.apple);
+        //接收user
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("MyActivity_Setup",user.getMyName());
+
         ImageView image = (ImageView) findViewById(R.id.button_picture);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
 
-        user.setMyName("戴晓东");
         TextView nicknameView = (TextView) findViewById(R.id.username_text);
         nicknameView.setText(user.getMyName());
 
@@ -42,6 +42,7 @@ public class MyActivity_Setup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup.this, My_HomeActivity.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -50,15 +51,17 @@ public class MyActivity_Setup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup.this, MyActivity_Setup_Edit.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
         Button button3 = (Button) findViewById(R.id.button_logoff);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_Setup.this, My_LoginFirstActivity.class);
-                startActivity(intent);
+                button3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MyActivity_Setup.this, My_LoginFirstActivity.class);
+                        //传输user的终点
+                        startActivity(intent);
             }
         });
 

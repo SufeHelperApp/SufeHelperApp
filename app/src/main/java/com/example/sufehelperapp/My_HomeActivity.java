@@ -34,7 +34,7 @@ public class My_HomeActivity extends AppCompatActivity {
         }
 
         user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("My_HomeActivity:",user.getMyName());
+        Log.d("My_HomeActivity",user.getMyName());
 
         ImageView image = (ImageView) findViewById(R.id.button_picture);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);

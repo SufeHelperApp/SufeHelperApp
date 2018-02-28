@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //接收user
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("MainActivity:",user.getMyName());
 

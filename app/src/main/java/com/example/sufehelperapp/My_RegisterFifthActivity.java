@@ -73,6 +73,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
                     String txt = "注册成功, " + user.getMyName() + "!";
 
                     Intent intent1 = new Intent(My_RegisterFifthActivity.this, MainActivity.class);
+                    //传输user的起点
                     intent1.putExtra("user_now", user);
                     startActivity(intent1);
                     Toast.makeText(My_RegisterFifthActivity.this, txt,

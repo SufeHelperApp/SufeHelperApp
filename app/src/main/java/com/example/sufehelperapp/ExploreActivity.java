@@ -22,7 +22,7 @@ public class ExploreActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接受user
-        user = (user) getIntent().getSerializableExtra("user_data");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("ExploreActivity",myName);
 
@@ -71,7 +71,7 @@ public class ExploreActivity extends AppCompatActivity {
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(ExploreActivity.this, Explore_MyTalentActivity.class);
+                Intent intent3 = new Intent(ExploreActivity.this, MyActivity_Talent.class);
                 intent3.putExtra("user_now", user);
                 startActivity(intent3);
             }

@@ -33,6 +33,8 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
 
     private static List<task> taskList = new ArrayList<>();
 
+    private user user;
+
     private TaskAdapter adapter;
 
     @InjectView(R.id.dropDownMenu) DropDownMenu mDropDownMenu;
@@ -180,7 +182,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         contentView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(taskList,user);
         contentView.setAdapter(adapter);
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
 
@@ -225,7 +227,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                             .where("isValid = ?","1").find(task.class);
                 }
 
-                adapter = new TaskAdapter(taskList);
+                adapter = new TaskAdapter(taskList,user);
                 contentView.setAdapter(adapter);
                 mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
 
@@ -276,7 +278,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 GridLayoutManager layoutManager = new GridLayoutManager(Task_ErrandSelectActivity.this,1);
                 contentView.setLayoutManager(layoutManager);
-                adapter = new TaskAdapter(taskList);
+                adapter = new TaskAdapter(taskList,user);
                 contentView.setAdapter(adapter);
                 mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
 
@@ -357,7 +359,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 GridLayoutManager layoutManager = new GridLayoutManager(Task_ErrandSelectActivity.this,1);
                 contentView.setLayoutManager(layoutManager);
-                adapter = new TaskAdapter(taskList);
+                adapter = new TaskAdapter(taskList,user);
                 contentView.setAdapter(adapter);
                 mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
             }
@@ -413,7 +415,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 GridLayoutManager layoutManager = new GridLayoutManager(Task_ErrandSelectActivity.this,1);
                 contentView.setLayoutManager(layoutManager);
-                adapter = new TaskAdapter(taskList);
+                adapter = new TaskAdapter(taskList,user);
                 contentView.setAdapter(adapter);
                 mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
             }
