@@ -14,6 +14,8 @@ import org.litepal.LitePal;
 
 public class MainActivity extends AppCompatActivity {
 
+    private user user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //from : launch, login2
-        final user user = (user) getIntent().getSerializableExtra("user_now");
+        user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("MainActivity:",user.getMyName());
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
@@ -34,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(MainActivity.this, ExploreActivity.class);
-                        //intent2.putExtra("user_now", user);
+                        intent2.putExtra("user_now", user);
+                        //startActivityForResult(intent2,1);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(MainActivity.this, My_HomeActivity.class);
-                        //intent3.putExtra("user_now", user);
+                        intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -91,12 +93,30 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent4 = new Intent(MainActivity.this, Task_LaunchActivity.class);
                 intent4.putExtra("user_now", user);
                 startActivity(intent4);
+
+
             }
         });
 
-
-
     }
+
+    /*
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, Intent data){
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    user = (user) getIntent().getSerializableExtra("data_now_back");
+                    Log.d("MainActivity.back",user.getMyName());
+                }
+                break;
+            default:
+        }
+    }
+    */
+
+
 
 
 }

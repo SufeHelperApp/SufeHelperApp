@@ -57,8 +57,8 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                 String name = nameView.getText().toString();
                 String password = passwordView.getText().toString();
 
-                List<user> userList = DataSupport.where("myName = ?",name).
-                        where("password = ?",password).find(user.class);
+                List<user> userList = DataSupport.where("myName = ? and password = ?",
+                        name,password).find(user.class);
 
                 if(userList.isEmpty()){
                     Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",

@@ -4,8 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class My_RegisterForthActivity extends AppCompatActivity {
 
@@ -25,15 +30,22 @@ public class My_RegisterForthActivity extends AppCompatActivity {
     private int flag14 = 0;
     private int flag15 = 0;
 
+    List<String> demand = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_register_forth);
 
+        final user user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("RegisterForthActivity",user.getMyName());
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.hide();
         }
+
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +55,33 @@ public class My_RegisterForthActivity extends AppCompatActivity {
             }
         });
 
+
+        //点击确认按钮后
         Button button2 = (Button) findViewById(R.id.button_confirm4);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(My_RegisterForthActivity.this, My_RegisterFifthActivity.class);
-                startActivity(intent1);
+
+                if(demand.size()==0){
+                    Toast.makeText(My_RegisterForthActivity.this, "请至少选择一个常见需求！",
+                            Toast.LENGTH_SHORT).show();
+                }else {
+
+                    user.setDemand(demand);
+
+                    user.save();
+                    for (String d : user.getDemand()) {
+                        Log.d("demand", d);
+                    }
+
+                    Intent intent = new Intent(My_RegisterForthActivity.this, My_RegisterFifthActivity.class);
+                    intent.putExtra("user_now", user);
+                    startActivity(intent);
+                }
             }
         });
+
+        //按钮响应事件
         final Button mPerson1 = (Button) findViewById(R.id.person1);
         mPerson1.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -58,10 +89,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson1.setActivated(true);
                         flag1 = 1;
+                        demand.add("占座");
                         break;
                     case 1:
                         mPerson1.setActivated(false);
                         flag1 = 0;
+                        demand.remove("占座");
                         break;
                 }
             }
@@ -73,10 +106,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson2.setActivated(true);
                         flag2 = 1;
+                        demand.add("拿快递");
                         break;
                     case 1:
                         mPerson2.setActivated(false);
                         flag2 = 0;
+                        demand.remove("拿快递");
                         break;
                 }
             }
@@ -88,10 +123,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson3.setActivated(true);
                         flag3 = 1;
+                        demand.add("买饭");
                         break;
                     case 1:
                         mPerson3.setActivated(false);
                         flag3 = 0;
+                        demand.remove("买饭");
                         break;
                 }
             }
@@ -103,10 +140,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson4.setActivated(true);
                         flag4 = 1;
+                        demand.add("买东西");
                         break;
                     case 1:
                         mPerson4.setActivated(false);
                         flag4 = 0;
+                        demand.remove("买东西");
                         break;
                 }
             }
@@ -118,10 +157,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson5.setActivated(true);
                         flag5 = 1;
+                        demand.add("拼单");
                         break;
                     case 1:
                         mPerson5.setActivated(false);
                         flag5 = 0;
+                        demand.remove("拼单");
                         break;
                 }
             }
@@ -133,10 +174,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson6.setActivated(true);
                         flag6 = 1;
+                        demand.add("电子产品修理");
                         break;
                     case 1:
                         mPerson6.setActivated(false);
                         flag6 = 0;
+                        demand.remove("电子产品修理");
                         break;
                 }
             }
@@ -148,10 +191,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson7.setActivated(true);
                         flag7 = 1;
+                        demand.add("家具器件组装");
                         break;
                     case 1:
                         mPerson7.setActivated(false);
                         flag7 = 0;
+                        demand.remove("家具器件组装");
                         break;
                 }
             }
@@ -163,10 +208,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson8.setActivated(true);
                         flag8 = 1;
+                        demand.add("找同好");
                         break;
                     case 1:
                         mPerson8.setActivated(false);
                         flag8 = 0;
+                        demand.remove("找同好");
                         break;
                 }
             }
@@ -178,10 +225,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson9.setActivated(true);
                         flag9 = 1;
+                        demand.add("学习作业辅导");
                         break;
                     case 1:
                         mPerson9.setActivated(false);
                         flag9 = 0;
+                        demand.remove("学习作业辅导");
                         break;
                 }
             }
@@ -193,10 +242,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson10.setActivated(true);
                         flag10 = 1;
+                        demand.add("技能培训");
                         break;
                     case 1:
                         mPerson10.setActivated(false);
                         flag10 = 0;
+                        demand.remove("技能培训");
                         break;
                 }
             }
@@ -208,10 +259,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson11.setActivated(true);
                         flag11 = 1;
+                        demand.add("选课指南");
                         break;
                     case 1:
                         mPerson11.setActivated(false);
                         flag11 = 0;
+                        demand.remove("选课指南");
                         break;
                 }
             }
@@ -223,10 +276,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson12.setActivated(true);
                         flag12 = 1;
+                        demand.add("考研出国经验");
                         break;
                     case 1:
                         mPerson12.setActivated(false);
                         flag12 = 0;
+                        demand.remove("考研出国经验");
                         break;
                 }
             }
@@ -238,10 +293,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson13.setActivated(true);
                         flag13 = 1;
+                        demand.add("求职经验");
                         break;
                     case 1:
                         mPerson13.setActivated(false);
                         flag13 = 0;
+                        demand.remove("求职经验");
                         break;
                 }
             }
@@ -253,10 +310,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson14.setActivated(true);
                         flag14 = 1;
+                        demand.add("票务转让");
                         break;
                     case 1:
                         mPerson14.setActivated(false);
                         flag14 = 0;
+                        demand.remove("票务转让");
                         break;
                 }
             }
@@ -268,10 +327,12 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                     case 0:
                         mPerson15.setActivated(true);
                         flag15 = 1;
+                        demand.add("二手闲置");
                         break;
                     case 1:
                         mPerson15.setActivated(false);
                         flag15 = 0;
+                        demand.remove("二手闲置");
                         break;
                 }
             }
