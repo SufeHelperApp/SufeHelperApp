@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#F0F0F0">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#009088">
+        android:background="#009088"
+        android:id="@+id/LinearLayout12">
 
         <Button
             android:id="@+id/title_back"
@@ -44,7 +44,9 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/LinearLayout13"
+        android:layout_below="@id/LinearLayout12">
 
         <ImageButton
             android:id="@+id/button_picture"
@@ -68,12 +70,13 @@
         android:id="@+id/button_information"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="30dp"
         android:text="基本信息                                                        >"
         android:textSize="20dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_below="@id/LinearLayout13"/>
     <Button
         android:id="@+id/button_feedback"
         android:layout_width="match_parent"
@@ -83,7 +86,8 @@
         android:paddingLeft="30dp"
         android:text="意见反馈                                                        >"
         android:textSize="20dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_below="@id/button_information"/>
     <Button
         android:id="@+id/button_clearCache"
         android:layout_width="match_parent"
@@ -93,7 +97,8 @@
         android:paddingLeft="30dp"
         android:text="清除缓存                                                        >"
         android:textSize="20dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_below="@id/button_feedback"/>
     <Button
         android:id="@+id/button_logoff"
         android:layout_width="match_parent"
@@ -103,5 +108,7 @@
         android:paddingLeft="30dp"
         android:text="注销账号                                                        >"
         android:textSize="20dp"
-        android:background="@color/white"/>
-</LinearLayout>
+        android:background="@color/white"
+        android:layout_below="@id/button_clearCache"/>
+    <include layout="@layout/common_bottom_navigation_bar"/>
+</RelativeLayout>

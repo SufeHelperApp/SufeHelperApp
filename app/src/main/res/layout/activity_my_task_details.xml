@@ -92,18 +92,20 @@
         android:background="@color/white"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:layout_marginTop="1dp">
         <Button
             android:id="@+id/to_payoff"
-            android:layout_width="85dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:text="确认支付"
-            android:textSize="18dp"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimary"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"/>
+            android:textSize="15dp"
+            android:textColor="@drawable/btn_text"
+            android:background="@drawable/btn_click"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -124,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/task_details1"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="50dp"
             android:text="发起人："
             android:textSize="15sp"
             android:layout_marginTop="10dp"/>
@@ -155,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_details2"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="50dp"
             android:text="任务分区："
             android:textSize="15sp"
             />
@@ -186,7 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_details6"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="50dp"
             android:text="截止时间："
             android:textSize="15sp"/>
 
@@ -217,7 +219,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_details_title_time"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="50dp"
             android:text="报酬："
             android:textSize="15sp"/>
 
@@ -237,7 +239,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_details_title_payment"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="50dp"
             android:text="任务描述："
             android:textSize="15sp"/>
 

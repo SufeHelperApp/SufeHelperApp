@@ -2,10 +2,13 @@ package com.example.sufehelperapp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -126,6 +129,28 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
                 startActivity(intent);
             }
 
+        });
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent(MyActivity_Setup_Edit.this,MainActivity.class);
+                        intent1.putExtra("user_now", user);
+                        break;
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent(MyActivity_Setup_Edit.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        Intent intent3 = new Intent (MyActivity_Setup_Edit.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
+                        break;
+                }
+                return true;
+            }
         });
     }
 }

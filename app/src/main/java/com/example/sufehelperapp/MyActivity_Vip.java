@@ -1,10 +1,13 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,13 +46,35 @@ public class MyActivity_Vip extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button button2 = (Button) findViewById(R.id.button_myaward);
+        /*Button button2 = (Button) findViewById(R.id.button_myaward);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Vip.this, MyActivity_Myaward.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
+            }
+        });*/
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent(MyActivity_Vip.this,MainActivity.class);
+                        intent1.putExtra("user_now", user);
+                        break;
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent(MyActivity_Vip.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        Intent intent3 = new Intent (MyActivity_Vip.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
+                        break;
+                }
+                return true;
             }
         });
     }
