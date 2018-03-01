@@ -18,6 +18,8 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<Trace> traceList = new ArrayList<>(1);
     private static final int TYPE_TOP = 0x0000;
     private static final int TYPE_NORMAL = 0x0001;
+    private static final int TYPE_THIRD = 0x0002;
+    private static final int TYPE_FORTH = 0x0003;
 
     private int progress = 0;
     public TraceListAdapter(Context context,List<Trace> traceList) {
@@ -32,7 +34,7 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder itemHolder = (ViewHolder) holder;
-        if(getItemViewType(position) == TYPE_TOP) {
+        /*if(getItemViewType(position) == TYPE_TOP) {
             // 第一行头的竖线不显示
             itemHolder.tvTopLine.setVisibility(View.INVISIBLE);
             // 字体颜色加深
@@ -41,6 +43,67 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
         } else if (getItemViewType(position) == TYPE_NORMAL) {
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            itemHolder.tvAcceptTime.setTextColor(0xff999999);
+            itemHolder.tvAcceptStation.setTextColor(0xff999999);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
+        }*/
+        if(getItemViewType(position) == TYPE_TOP && progress == 1) {
+            //第一行头的竖线不显示
+            itemHolder.tvTopLine.setVisibility(View.INVISIBLE);
+            //字体颜色加深
+            itemHolder.tvAcceptTime.setTextColor(0xff555555);
+            itemHolder.tvAcceptStation.setTextColor(0xff555555);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
+        } else if (getItemViewType(position) == TYPE_TOP && progress != 1){
+            //第一行头的竖线不显示
+            itemHolder.tvTopLine.setVisibility(View.INVISIBLE);
+            //字体颜色不加深
+            itemHolder.tvAcceptTime.setTextColor(0xff999999);
+            itemHolder.tvAcceptStation.setTextColor(0xff999999);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
+        } else if (getItemViewType(position) == TYPE_NORMAL && progress == 2){
+            //第二行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //字体颜色加深
+            itemHolder.tvAcceptTime.setTextColor(0xff555555);
+            itemHolder.tvAcceptStation.setTextColor(0xff555555);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
+        } else if (getItemViewType(position) == TYPE_NORMAL && progress != 2){
+            //第二行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //字体颜色不加深
+            itemHolder.tvAcceptTime.setTextColor(0xff999999);
+            itemHolder.tvAcceptStation.setTextColor(0xff999999);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
+        } else if (getItemViewType(position) == TYPE_THIRD && progress == 3){
+            //第三行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //字体颜色加深
+            itemHolder.tvAcceptTime.setTextColor(0xff555555);
+            itemHolder.tvAcceptStation.setTextColor(0xff555555);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
+        } else if (getItemViewType(position) == TYPE_THIRD && progress != 3){
+            //第三行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //字体颜色不加深
+            itemHolder.tvAcceptTime.setTextColor(0xff999999);
+            itemHolder.tvAcceptStation.setTextColor(0xff999999);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
+        } else if (getItemViewType(position) == TYPE_FORTH && progress == 4){
+            //第四行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //第四行尾的竖线不显示
+            itemHolder.tvBottomLine.setVisibility(View.INVISIBLE);
+            //字体颜色加深
+            itemHolder.tvAcceptTime.setTextColor(0xff555555);
+            itemHolder.tvAcceptStation.setTextColor(0xff555555);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
+        } else if (getItemViewType(position) == TYPE_FORTH && progress != 4){
+            //第四行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //第四行尾的竖线不显示
+            itemHolder.tvBottomLine.setVisibility(View.INVISIBLE);
+            //字体颜色不加深
             itemHolder.tvAcceptTime.setTextColor(0xff999999);
             itemHolder.tvAcceptStation.setTextColor(0xff999999);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
@@ -54,15 +117,26 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
     @Override
     public int getItemViewType(int position) {
-        if(position == 0) {
+        /*if(position == 0) {
             return TYPE_TOP;
         }
-        return TYPE_NORMAL;
+        return TYPE_NORMAL;*/
+        if(position == 0) {
+            return TYPE_TOP;
+        } else if (position == 1) {
+            return TYPE_NORMAL;
+        } else if (position == 2) {
+            return TYPE_THIRD;
+        } else if (position == 3) {
+            return TYPE_FORTH;
+        }
+
+        return progress;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tvAcceptTime,tvAcceptStation;
-        private TextView tvTopLine,tvDot;
+        private TextView tvTopLine,tvDot,tvBottomLine;
         private String timeUtils;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -70,6 +144,7 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tvAcceptStation = (TextView) itemView.findViewById(R.id.tvAcceptStation);
             tvTopLine = (TextView) itemView.findViewById(R.id.tvTopLine);
             tvDot = (TextView) itemView.findViewById(R.id.tvDot);
+            tvBottomLine = (TextView)itemView.findViewById(R.id.tvBottomLine);
         }
 
         public void bindHolder(Trace trace) {
