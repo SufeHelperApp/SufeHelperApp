@@ -21,7 +21,7 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_THIRD = 0x0002;
     private static final int TYPE_FORTH = 0x0003;
 
-    private int progress = 0;
+    private int progress;
     public TraceListAdapter(Context context,List<Trace> traceList) {
         this.inflater = LayoutInflater.from(context);
         this.traceList = traceList;
@@ -47,49 +47,49 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemHolder.tvAcceptStation.setTextColor(0xff999999);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
         }*/
-        if(getItemViewType(position) == TYPE_TOP && progress == 1) {
+        if(getItemViewType(position) == TYPE_TOP && getItemProgress() == 1) {
             //第一行头的竖线不显示
             itemHolder.tvTopLine.setVisibility(View.INVISIBLE);
             //字体颜色加深
             itemHolder.tvAcceptTime.setTextColor(0xff555555);
             itemHolder.tvAcceptStation.setTextColor(0xff555555);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
-        } else if (getItemViewType(position) == TYPE_TOP && progress != 1){
+        } else if (getItemViewType(position) == TYPE_TOP && getItemProgress() != 1){
             //第一行头的竖线不显示
             itemHolder.tvTopLine.setVisibility(View.INVISIBLE);
             //字体颜色不加深
             itemHolder.tvAcceptTime.setTextColor(0xff999999);
             itemHolder.tvAcceptStation.setTextColor(0xff999999);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
-        } else if (getItemViewType(position) == TYPE_NORMAL && progress == 2){
+        } else if (getItemViewType(position) == TYPE_NORMAL && getItemProgress() == 2){
             //第二行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
             //字体颜色加深
             itemHolder.tvAcceptTime.setTextColor(0xff555555);
             itemHolder.tvAcceptStation.setTextColor(0xff555555);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
-        } else if (getItemViewType(position) == TYPE_NORMAL && progress != 2){
+        } else if (getItemViewType(position) == TYPE_NORMAL && getItemProgress() != 2){
             //第二行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
             //字体颜色不加深
             itemHolder.tvAcceptTime.setTextColor(0xff999999);
             itemHolder.tvAcceptStation.setTextColor(0xff999999);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
-        } else if (getItemViewType(position) == TYPE_THIRD && progress == 3){
+        } else if (getItemViewType(position) == TYPE_THIRD && getItemProgress() == 3){
             //第三行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
             //字体颜色加深
             itemHolder.tvAcceptTime.setTextColor(0xff555555);
             itemHolder.tvAcceptStation.setTextColor(0xff555555);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
-        } else if (getItemViewType(position) == TYPE_THIRD && progress != 3){
+        } else if (getItemViewType(position) == TYPE_THIRD && getItemProgress() != 3){
             //第三行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
             //字体颜色不加深
             itemHolder.tvAcceptTime.setTextColor(0xff999999);
             itemHolder.tvAcceptStation.setTextColor(0xff999999);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
-        } else if (getItemViewType(position) == TYPE_FORTH && progress == 4){
+        } else if (getItemViewType(position) == TYPE_FORTH && getItemProgress() == 4){
             //第四行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
             //第四行尾的竖线不显示
@@ -98,7 +98,7 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             itemHolder.tvAcceptTime.setTextColor(0xff555555);
             itemHolder.tvAcceptStation.setTextColor(0xff555555);
             itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
-        } else if (getItemViewType(position) == TYPE_FORTH && progress != 4){
+        } else if (getItemViewType(position) == TYPE_FORTH && getItemProgress() != 4){
             //第四行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
             //第四行尾的竖线不显示
@@ -131,7 +131,10 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return TYPE_FORTH;
         }
 
-        return progress;
+        return TYPE_NORMAL;
+    }
+    public int getItemProgress() {
+        return progress = 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

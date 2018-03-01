@@ -9,7 +9,7 @@
         android:id="@+id/rlTimeline"
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="30dp">
+        android:layout_marginLeft="10dp">
 
         <TextView
             android:id="@+id/tvTopLine"

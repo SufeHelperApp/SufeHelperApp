@@ -1,6 +1,8 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -67,6 +70,28 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent(MyActivity_Historical_Task.this,MainActivity.class);
+                        intent1.putExtra("user_now", user);
+                        break;
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent(MyActivity_Historical_Task.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        Intent intent3 = new Intent (MyActivity_Historical_Task.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
+                        break;
+                }
+                return true;
+            }
+        });
         /**Button button2 = (Button) findViewById(R.id.launcher_image);
          button2.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -116,8 +141,8 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
         list_fragment2.add(hFragment);
 
         list_title2 = new ArrayList<>();
-        list_title2.add("当前任务");
-        list_title2.add("历史任务");
+        list_title2.add("接受的任务");
+        list_title2.add("发布的任务");
 
         fAdapter = new fragmentAdapter_history(getSupportFragmentManager(),list_fragment2,list_title2);
         vp_pager2.setAdapter(fAdapter);

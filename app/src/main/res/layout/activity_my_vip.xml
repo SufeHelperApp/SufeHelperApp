@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#009088">
+        android:background="#009088"
+        android:id="@+id/LinearLayout7">
 
         <Button
             android:id="@+id/title_back"
@@ -39,78 +39,83 @@
             android:layout_margin="5dp"
             android:background="#00000000" />
     </LinearLayout>
+
     <RelativeLayout
+        android:id="@+id/LinearLayout8"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginRight="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/LinearLayout7"
         android:background="@color/white">
+
         <TextView
             android:id="@+id/text_vipgrade"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="会员等级:"
-            android:textSize="20dp"
-            android:textColor="#000000"
             android:gravity="center_vertical"
-            android:paddingLeft="30dp" />
+            android:paddingLeft="30dp"
+            android:text="会员等级:"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/vip_text_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            />
+            android:textSize="20dp" />
     </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@drawable/ic_line"/>
+        android:background="@drawable/ic_line"
+        android:id="@+id/LinearLayout9"
+        android:layout_below="@id/LinearLayout8"/>
+
     <RelativeLayout
+        android:id="@+id/LinearLayout10"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginRight="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/LinearLayout9"
         android:background="@color/white">
+
         <TextView
             android:id="@+id/text_integration"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="会员积分:"
-            android:textSize="20dp"
-            android:textColor="#000000"
             android:gravity="center_vertical"
-            android:paddingLeft="30dp" />
+            android:paddingLeft="30dp"
+            android:text="会员积分:"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/vip_text_credit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:textSize="20dp" />
     </RelativeLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@drawable/ic_line"/>
-    <Button
-        android:id="@+id/button_myaward"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:paddingLeft="30dp"
-        android:gravity="center_vertical"
-        android:text="我的奖励                                                        >"
-        android:textSize="20dp"
-        android:background="@color/white"/>
+        android:background="@drawable/ic_line"
+        android:id="@+id/LinearLayout11"
+        android:layout_below="@id/LinearLayout10"/>
 
     <Button
         android:id="@+id/button_function"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="5dp"
         android:paddingLeft="30dp"
         android:gravity="center_vertical"
         android:text="积分的作用？                                               >"
         android:textSize="20dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_below="@+id/LinearLayout11"/>
 
-</LinearLayout>
+    <include layout="@layout/common_bottom_navigation_bar"/>
+</RelativeLayout>

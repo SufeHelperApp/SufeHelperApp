@@ -1,11 +1,13 @@
 package com.example.sufehelperapp;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
@@ -68,6 +70,75 @@ public class Task_InfoActivity extends AppCompatActivity {
                 return true;
             }
         });
+        Button button3 = (Button) findViewById(R.id.receive_task_btn);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.button_apply_for:
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(Task_InfoActivity.this);
+                        dialog.setTitle("您确定申请称号吗？");
+                        dialog.setMessage("如果您未完成或者放弃该任务，将会减少您的积分。");
+                        dialog.setCancelable(false);
+                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                String helperName = user.getMyName();
+
+                                //不得接收自己的任务
+                                if(task.getLauncherName().equals(helperName)){
+                                    Toast.makeText(Task_InfoActivity.this, "请勿接收自己的任务！",
+                                            Toast.LENGTH_SHORT).show();
+                                }else {
+
+                                    //更新该task信息
+                                    task.setIfAccepted(true);
+                                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                                            task.getLauncherName());
+                                    task.updateTaskStatus(); //TODO: 排查
+                                    task.setProgress(2); //已接受
+                                    task.setHelper(user);
+                                    task.setHelperName(helperName);
+                                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                                            task.getLauncherName());
+
+                                    user.increaseCredit(30);
+                                    user.addTaskRNum(1);
+                                    if (task.getTaskType() == "跑腿") {
+                                        user.addTaskRNum_errand(1);
+                                    }else if(task.getTaskType() == "技能"){
+                                        user.addTaskRNum_skill(1);
+                                    }else if(task.getTaskType() == "咨询"){
+                                        user.addTaskRNum_counsel(1);
+                                    }
+                                    user.addTaskNum(1);
+
+                                    user.updateAll("phonenumber = ?",user.getPhonenumber());
+                                    Log.d("msg1",String.valueOf(user.getTaskRNum_errand()));
+                                    Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
+                                    Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));
+
+                                    Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
+                                    intent1.putExtra("user_now", user);
+                                    startActivity(intent1);
+                                    Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        dialog.show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         task = (task) getIntent().getSerializableExtra("task_selected");
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
@@ -94,7 +165,7 @@ public class Task_InfoActivity extends AppCompatActivity {
         description.setText(task.getDescription());
 
         //接收任务
-        Button b1 = (Button) findViewById(R.id.receive_task_btn);
+        /*Button b1 = (Button) findViewById(R.id.receive_task_btn);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +211,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
 
     }

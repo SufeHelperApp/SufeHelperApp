@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -61,6 +64,7 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-
+<include layout="@layout/common_bottom_navigation_bar"/>
+    </RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,6 +9,7 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/LinearLayout3"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#009088">
@@ -42,6 +44,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/LinearLayout4"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="2dp"
@@ -49,7 +52,8 @@
         android:layout_marginEnd="2dp"
         app:cardCornerRadius="3dp"
         app:cardElevation="3dp"
-        android:backgroundTint="@color/colorPrimaryDark">
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_below="@id/LinearLayout3">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,8 +65,10 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/LinearLayout5"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="80dp"
+        android:layout_below="@id/LinearLayout4">
         <RatingBar
             android:id="@+id/my_credit_rating_bar"
             android:layout_width="wrap_content"
@@ -87,7 +93,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/LinearLayout6"
+        android:layout_below="@id/LinearLayout5">
 
     <android.support.v7.widget.CardView
         android:id="@+id/my_credit_card2"
@@ -118,4 +126,5 @@
 
     </RelativeLayout>
 
-</LinearLayout>
+    <include layout="@layout/common_bottom_navigation_bar"/>
+</RelativeLayout>

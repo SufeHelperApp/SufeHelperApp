@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_above="@id/btn_navigation"
     android:background="#F0F0F0">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="#009088">
@@ -29,21 +29,21 @@
             android:text="个人中心"
             android:textColor="#FFFFFF"
             android:textSize="24sp"/>
-        <ImageButton
-            android:id="@+id/title_chat"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:src="@drawable/ic_envelope"
-            android:background="@color/colorPrimary"/>
+            android:background="#00000000"/>
 
     </LinearLayout>
     <RelativeLayout
+        android:id="@+id/LinearLayout2"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@+id/LinearLayout1">
 
         <ImageButton
             android:id="@+id/button_picture"
@@ -80,7 +80,7 @@
         android:layout_marginTop="30dp"
         android:paddingLeft="30dp"
         android:gravity="center_vertical"
-
+        android:layout_below="@+id/LinearLayout2"
         android:text="我的任务                                                        >"
         android:textSize="20dp"
         android:background="@color/white"/>
@@ -93,7 +93,8 @@
         android:paddingLeft="30dp"
         android:text="我的会员                                                        >"
         android:textSize="20dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_below="@id/button_mytask"/>
     <Button
         android:id="@+id/button_setup"
         android:layout_width="match_parent"
@@ -103,7 +104,8 @@
         android:paddingLeft="30dp"
         android:text="设置                                                                >"
         android:textSize="20dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:layout_below="@id/button_vip"/>
 
-
-</LinearLayout>
+    <include layout="@layout/common_bottom_navigation_bar"/>
+</RelativeLayout>
