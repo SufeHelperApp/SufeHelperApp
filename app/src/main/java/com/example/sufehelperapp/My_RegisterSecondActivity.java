@@ -80,7 +80,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
                     user.setSex(sex);
                     Log.d("sex",user.getSex());
-                    user.setMyImageId(R.drawable.apple);
+                    user.setMyImageId(R.drawable.apple); //TODO: 上传图片保存图片
                     user.setMyName(name);
                     user.setPassword(password);
                     user.save();

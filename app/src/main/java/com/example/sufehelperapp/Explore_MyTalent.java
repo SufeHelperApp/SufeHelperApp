@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class MyActivity_Talent extends AppCompatActivity {
+public class Explore_MyTalent extends AppCompatActivity {
 
     private user user;
 
@@ -25,13 +25,13 @@ public class MyActivity_Talent extends AppCompatActivity {
 
         user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
-        Log.d("MyActivity_Talent",myName);
+        Log.d("Explore_MyTalent",myName);
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_Talent.this, My_HomeActivity.class);
+                Intent intent = new Intent(Explore_MyTalent.this, My_HomeActivity.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }
@@ -40,7 +40,7 @@ public class MyActivity_Talent extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_Talent.this, MyActivity_recievedaward.class);
+                Intent intent = new Intent(Explore_MyTalent.this, MyActivity_recievedaward.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }
@@ -51,7 +51,7 @@ public class MyActivity_Talent extends AppCompatActivity {
             public void onClick(View v) {
                 switch(v.getId()) {
                     case R.id.button_apply_for:
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Talent.this);
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(Explore_MyTalent.this);
                         dialog.setTitle("提示");
                         dialog.setMessage("您确定申请称号吗？");
                         dialog.setCancelable(false);

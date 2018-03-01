@@ -18,10 +18,6 @@ public class My_LoginThirdActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //从My_LoginSecondActivity接受user
-        user user = (user) getIntent().getSerializableExtra("user_data");
-        String myName = user.getMyName();
-
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

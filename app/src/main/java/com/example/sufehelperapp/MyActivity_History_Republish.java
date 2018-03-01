@@ -31,7 +31,7 @@ public class MyActivity_History_Republish extends Fragment implements View.OnCli
         Log.d("History_Republish",user.getMyName());
 
         List<task> taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
-        //TODO: 用当前用户代替
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_republish_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);

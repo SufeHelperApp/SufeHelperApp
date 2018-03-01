@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -49,8 +50,12 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
             actionBar.hide();
         }
 
+        //接受user
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("Historical_Task",user.getMyName());
+
         //bundle用于传当前user
-        bundle = new Bundle();//创建一个句柄
+        bundle = new Bundle();
         bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
 
         //TODO

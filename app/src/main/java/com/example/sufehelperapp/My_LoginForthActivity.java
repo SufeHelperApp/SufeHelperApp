@@ -18,9 +18,6 @@ public class My_LoginForthActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {

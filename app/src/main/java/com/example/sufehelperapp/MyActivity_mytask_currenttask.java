@@ -35,7 +35,7 @@ public class MyActivity_mytask_currenttask extends Fragment implements View.OnCl
         Log.d("mytask_currenttask",user.getMyName());
 
         List<task> taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
-        //TODO: 用当前用户代替
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.currenttask_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);

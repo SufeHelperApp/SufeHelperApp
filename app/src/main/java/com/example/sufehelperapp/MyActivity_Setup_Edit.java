@@ -23,6 +23,8 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
     ImageButton imgbtn1;
     ImageButton imgbtn2;
     ImageButton imgbtn3;
+    ImageButton imgbtn4;
+    ImageButton imgbtn5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,6 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         Log.d("MyActivity_Setup_Edit",user.getMyName());
 
         //TODO: DB：1.数据库中调用头像
-        //TODO: UI: 2.姓名删除，昵称改成用户名 3.button位置
 
         ImageView image = (ImageView) findViewById(R.id.picture_upload);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
@@ -49,16 +50,21 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         TextView nicknameView = (TextView) findViewById(R.id.nickname_text11);
         nicknameView.setText(user.getMyName());
 
-        TextView dormitoryView = (TextView) findViewById(R.id.nickname_text22);
+        TextView dormitoryView = (TextView) findViewById(R.id.dormname_text22);
         dormitoryView.setText(user.getDormitoryLocation());
 
         TextView phoneView = (TextView) findViewById(R.id.nickname_text33);
         phoneView.setText(user.getPhonenumber());
 
-        imgbtn1=(ImageButton)findViewById(R.id.button_edit_nickname);
-        imgbtn2=(ImageButton)findViewById(R.id.button_edit_password);
-        imgbtn3=(ImageButton)findViewById(R.id.button_edit_phonenumber);
+        TextView intentionView = (TextView) findViewById(R.id.nickname_text44);
+        intentionView.setText(user.getDemand().get(0));
 
+
+        imgbtn1=(ImageButton)findViewById(R.id.button_edit_nickname);
+        imgbtn2=(ImageButton)findViewById(R.id.button_edit_address);
+        imgbtn3=(ImageButton)findViewById(R.id.button_edit_phonenumber);
+        imgbtn4=(ImageButton)findViewById(R.id.button_edit_personal_intention);
+        imgbtn5=(ImageButton)findViewById(R.id.button_edit_password);
 
         //TODO:delete
         Button button1 = (Button) findViewById(R.id.title_back);
@@ -85,7 +91,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_password.class);
+                Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_dormname.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }
@@ -96,6 +102,26 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_phonenumber.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
+            }
+
+        });
+        imgbtn4.setOnClickListener(new Button.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyActivity_Setup_Edit.this, My_RegisterForthActivity.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
+            }
+
+        });
+        imgbtn5.setOnClickListener(new Button.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_password.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }

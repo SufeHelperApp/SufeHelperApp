@@ -38,7 +38,7 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Edit_phonenumber.this, MyActivity_Setup_Edit.class);
-                Log.d("MyActivity_Setup_Edit",user.getMyName());
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -51,12 +51,8 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
                     case R.id.button_conserve_phonenumber:
                         String newPhonenumber = phonenumberView.getText().toString();
 
-                        List<user> users = DataSupport.where("myName = ?","sophia")
-                                .find(user.class); //TODO: 用当前用户代替
-                        user userSophia = users.get(0);
-
-                        userSophia.setPhonenumber(newPhonenumber);
-                        userSophia.save();
+                        user.setPhonenumber(newPhonenumber);
+                        user.save();
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_phonenumber.this);
                         dialog.setTitle("提示");
@@ -68,6 +64,7 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
                                 dialogInterface.dismiss();
                                 Intent intent = new Intent(MyActivity_Edit_phonenumber.this, MyActivity_Setup_Edit.class);
                                 Log.d("MyActivity_Setup_Edit",user.getMyName());
+                                intent.putExtra("user_now", user);
                                 startActivity(intent);
                             }
                         });

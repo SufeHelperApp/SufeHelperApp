@@ -63,8 +63,12 @@ public class MyActivity_Mytask extends AppCompatActivity {
             actionBar.hide();
         }
 
+        //接受user
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("Mytask",user.getMyName());
+
         //bundle用于传当前user
-        bundle = new Bundle();//创建一个句柄
+        bundle = new Bundle();
         bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
 
 

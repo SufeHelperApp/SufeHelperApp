@@ -71,18 +71,11 @@ public class ExploreActivity extends AppCompatActivity {
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(ExploreActivity.this, MyActivity_Talent.class);
+                Intent intent3 = new Intent(ExploreActivity.this, Explore_MyTalent.class);
                 intent3.putExtra("user_now", user);
                 startActivity(intent3);
             }
         });
     }
-/*
-    @Override
-    public void onBackPressed(){
-        Intent intent = new Intent();
-        intent.putExtra("data_now_back",user);
-        setResult(RESULT_OK,intent);
-        finish();
-    }*/
+
 }

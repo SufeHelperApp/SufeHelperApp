@@ -38,7 +38,7 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
         Log.d("History_Recieved",user.getMyName());
 
         List<task> taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
-        //TODO: 用当前用户代替
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_recieved_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);

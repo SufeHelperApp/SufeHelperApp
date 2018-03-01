@@ -35,7 +35,7 @@ public class MyActivity_mytask_historicaltask extends Fragment implements View.O
         Log.d("History_Recieved",user.getMyName());
 
         List<task> taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
-        //TODO: 用当前用户代替
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.historicaltask_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);

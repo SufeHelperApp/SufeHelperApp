@@ -10,9 +10,10 @@
         app:layout_widthPercent="100%"
         app:layout_heightPercent="40%"
         android:gravity="center_horizontal|bottom"
-        android:text="SUFE Helper"
+        android:text="SufeHelper"
+        android:fontFamily="cursive"
         android:textColor="#009688"
-        android:textSize="40sp"
+        android:textSize="53sp"
         android:typeface="serif" />
 
     <LinearLayout

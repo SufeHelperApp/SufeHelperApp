@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DBTESTActivity extends AppCompatActivity {
@@ -34,9 +35,8 @@ public class DBTESTActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 user user = new user();
-                user.setMyImageId(R.drawable.apple);
+                user.setDormitoryLocation("第一宿舍");
                 user.updateAll();
-
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
         });
@@ -47,11 +47,17 @@ public class DBTESTActivity extends AppCompatActivity {
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<user> users = DataSupport.where("myName = ?","tom")
+                List<user> users = DataSupport.where("myName = ?","bob")
                         .find(user.class); //TODO: 用当前用户代替
-                user userTom = users.get(0);
+                user user = users.get(0);
 
-                text.setText(String.valueOf(userTom.getTaskRNum_errand()));
+                List<String> demand = new ArrayList<String>();
+                demand.add("电子产品修理");
+
+                user.setDemand(demand);
+                user.save();
+
+                text.setText(user.getDemand().get(0));
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
             }
         });
