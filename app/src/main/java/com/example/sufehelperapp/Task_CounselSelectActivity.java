@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class Task_CounselSelectActivity extends AppCompatActivity {
+
+    private user user;
 
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
@@ -68,8 +71,9 @@ public class Task_CounselSelectActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("CounselSelectActivity",myName);
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -178,7 +182,7 @@ public class Task_CounselSelectActivity extends AppCompatActivity {
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         contentView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(taskList,user);
         contentView.setAdapter(adapter);
 
         //init dropdownview

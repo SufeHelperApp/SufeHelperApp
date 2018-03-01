@@ -1,15 +1,15 @@
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
     app:cardCornerRadius="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/launcher_image"
@@ -33,64 +33,72 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/launcher_name"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="30dp"
             android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/subtaskType"
-            android:layout_width="wrap_content"
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/launcher_subtaskType"
+            android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="161dp"
+            android:layout_marginStart="160dp"
             android:layout_marginTop="12dp"
-            android:textSize="20sp" />
+            android:singleLine="true"
+            android:textSize="20sp"
+            autofit:minTextSize="16sp" />
 
         <TextView
             android:id="@+id/locationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="255dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="2dp"
             android:text="地点:"
             android:textSize="16sp" />
+          <me.grantland.widget.AutofitTextView
+           android:id="@+id/launcher_location"
+              android:layout_marginStart="291dp"
+            android:layout_marginTop="2dp"
+              android:layout_width="109dp"
+           android:layout_height="wrap_content"
+              android:singleLine="true"
+              android:textSize="16sp"
+              autofit:minTextSize="12sp" />
+
         <TextView
             android:id="@+id/deadlineTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="255dp"
+            android:layout_marginStart="250dp"
             android:layout_marginTop="22dp"
             android:text="时间:"
             android:textSize="16sp" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/launcher_deadline"
+        android:layout_marginStart="291dp"
+        android:layout_marginTop="24dp"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        autofit:minTextSize="12sp" />
+
         <TextView
             android:id="@+id/paymentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="255dp"
-            android:layout_marginTop="41dp"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="42dp"
             android:text="报酬:"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="295dp"
-            android:layout_marginTop="3dp"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/deadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="295dp"
-            android:layout_marginTop="22dp"
-            android:textSize="15sp" />
-        <TextView
-            android:id="@+id/payment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="295dp"
-            android:layout_marginTop="41dp"
-            android:textSize="15sp" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/launcher_payment"
+            android:layout_marginStart="291dp"
+            android:layout_marginTop="42dp"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
+
 
 </android.support.v7.widget.CardView>

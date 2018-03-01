@@ -18,6 +18,8 @@ import java.util.Random;
 
 public class Task_CounselActivity extends AppCompatActivity {
 
+    private user user;
+
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
                     "占座","二教206","18/2/12","9:00",
@@ -43,7 +45,7 @@ public class Task_CounselActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接受user
-        user user = (user) getIntent().getSerializableExtra("user_now");
+        user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("Task_CounselActivity",myName);
 
@@ -54,14 +56,17 @@ public class Task_CounselActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_CounselActivity.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_CounselActivity.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Task_CounselActivity.this, MyActivity.class);
+                        intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -73,9 +78,10 @@ public class Task_CounselActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_counsel);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(taskList,user);
         recyclerView.setAdapter(adapter);
 
+        //TODO
         ImageView img1 = findViewById(R.id.counsel_ic1);
         img1.setOnClickListener(new View.OnClickListener() {
             @Override

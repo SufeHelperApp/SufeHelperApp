@@ -112,10 +112,13 @@ public class task extends DataSupport implements Serializable{
     //函数：任务种类
 
     public void setTaskType(String subtaskType){
-        if(subtaskType == "占座" || subtaskType =="拿快递" ||subtaskType =="买饭" ||subtaskType == "买东西"|| subtaskType =="拼单")
+        if(subtaskType.contentEquals("占座") || subtaskType.contentEquals("拿快递")
+                ||subtaskType.contentEquals("买饭") ||subtaskType.contentEquals("买东西")
+                || subtaskType.contentEquals("拼单"))
         {taskType = "跑腿";}
-        else if(subtaskType == "电子产品修理" || subtaskType =="家具器件组装" ||subtaskType =="学习作业辅导" ||
-                subtaskType == "技能培训"|| subtaskType =="找同好")
+        else if(subtaskType.contentEquals("电子产品修理") || subtaskType.contentEquals("家具器件组装")
+                ||subtaskType.contentEquals("学习作业辅导") || subtaskType.contentEquals("技能培训")
+                || subtaskType.contentEquals("找同好"))
         {taskType = "技能";}
         else{taskType = "咨询";}
     }
@@ -171,17 +174,27 @@ public class task extends DataSupport implements Serializable{
         this.ifDefault = a;
     }
 
-    public void checkIsValid(){
+    public void checkIfDefault(){
         if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),ddl)){
+            this.ifDefault = true;
             this.isValid = false;
         }
+    }
+
+    public void checkIsValid(){
+        if(this.progress == 4) isValid=false;
     }
 
     public void setIsValid(boolean a){
         this.isValid = a;
     }
 
-    public boolean ifAccepted() {
+    public boolean getIsValid(){
+        return isValid;
+    }
+
+
+    public boolean getIfAccepted(){
         return ifAccepted;
     }
 

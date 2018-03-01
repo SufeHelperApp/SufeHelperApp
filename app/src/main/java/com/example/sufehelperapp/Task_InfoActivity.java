@@ -1,10 +1,14 @@
 package com.example.sufehelperapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,18 +26,10 @@ import java.util.List;
 public class Task_InfoActivity extends AppCompatActivity {
 
     public static final String TASK_SELECTED = "task_selected";
+    public static final String USER_NOW = "user_now";
 
-    private task[] tasks =
-            {new task("文静", R.drawable.apple, "13912345678",
-                    "占座","二教206","18/2/12","9:00",
-                    5,"微信联系"),
-                    new task("戴晓东", R.drawable.banana, "13812345678",
-                            "拿快递","快递中心","18/2/10","10:00",
-                            7,"微信联系"),
-                    new task("刘宇涵", R.drawable.orange,"13712345678",
-                            "买饭","新食堂","18/2/17","11:00",
-                            6,"微信联系")};
-    // NOTE: 可删除，用数据库取代
+    private user user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +38,9 @@ public class Task_InfoActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("Task_InfoActivity",myName);
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -54,13 +50,16 @@ public class Task_InfoActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_InfoActivity.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_InfoActivity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_InfoActivity.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -75,7 +74,7 @@ public class Task_InfoActivity extends AppCompatActivity {
         TextView taskType = (TextView) findViewById(R.id.taskinfo_taskType);
         TextView subtaskType = (TextView) findViewById(R.id.taskinfo_subtaskType);
         TextView date = (TextView) findViewById(R.id.taskinfo_date);
-        TextView time = (TextView) findViewById(R.id.taskinfo_time);
+        TextView time= (TextView)findViewById(R.id.taskinfo_time);
         TextView location = (TextView) findViewById(R.id.taskinfo_location);
         TextView payment = (TextView) findViewById(R.id.taskinfo_payment);
         TextView description = (TextView) findViewById(R.id.taskinfo_description);
@@ -97,10 +96,8 @@ public class Task_InfoActivity extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<user> users = DataSupport.where("myName = ?","tom")
-                        .find(user.class); //TODO: 用当前用户代替
-                user userTom = users.get(0);
-                String helperName = userTom.getMyName();
+
+                String helperName = user.getMyName();
 
                 //不得接收自己的任务
                 if(task.getLauncherName().equals(helperName)){
@@ -110,28 +107,30 @@ public class Task_InfoActivity extends AppCompatActivity {
 
                     //更新该task信息
                     task.setIfAccepted(true);
-                    task.setHelper(userTom);
+                    task.setIsValid(false);
+                    task.setHelper(user);
                     task.setHelperName(helperName);
                     task.setProgress(2);
                     task.save();
 
-                    userTom.increaseCredit(30);
-                    userTom.addTaskRNum(1);
+                    user.increaseCredit(30);
+                    user.addTaskRNum(1);
                     if (task.getTaskType() == "跑腿") {
-                        userTom.addTaskRNum_errand(1);
+                        user.addTaskRNum_errand(1);
                     }else if(task.getTaskType() == "技能"){
-                        userTom.addTaskRNum_skill(1);
+                        user.addTaskRNum_skill(1);
                     }else if(task.getTaskType() == "咨询"){
-                        userTom.addTaskRNum_counsel(1);
+                        user.addTaskRNum_counsel(1);
                     }
-                    userTom.addTaskNum(1);
+                    user.addTaskNum(1);
 
-                    userTom.save();
-                    Log.d("msg1",String.valueOf(userTom.getTaskRNum_errand()));
-                    Log.d("msg2",String.valueOf(userTom.getTaskRNum_skill()));
-                    Log.d("msg3",String.valueOf(userTom.getTaskRNum_counsel()));
+                    user.save();
+                    Log.d("msg1",String.valueOf(user.getTaskRNum_errand()));
+                    Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
+                    Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));
 
                     Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
+                    intent1.putExtra("user_now", user);
                     startActivity(intent1);
                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
                 }

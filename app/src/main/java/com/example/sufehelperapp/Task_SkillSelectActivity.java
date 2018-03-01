@@ -27,6 +27,8 @@ import butterknife.InjectView;
 
 public class Task_SkillSelectActivity extends AppCompatActivity {
 
+    private user user;
+
     private task[] tasks =
             {new task("文静", R.drawable.apple, "13912345678",
                     "占座","二教206","18/2/12","9:00",
@@ -178,7 +180,7 @@ public class Task_SkillSelectActivity extends AppCompatActivity {
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         contentView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList);
+        adapter = new TaskAdapter(taskList,user);
         contentView.setAdapter(adapter);
 
         //init dropdownview

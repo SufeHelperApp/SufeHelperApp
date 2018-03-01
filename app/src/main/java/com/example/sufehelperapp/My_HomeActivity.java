@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,10 +20,9 @@ import static org.litepal.LitePalApplication.getContext;
 
 public class My_HomeActivity extends AppCompatActivity {
 
-    user user = new user(); //TODO: 用当前用户代替
+    private user user;
+
     //接受user
-    //user user = (user) getIntent().getSerializableExtra("user_data");
-    //String myName = user.getMyName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,12 @@ public class My_HomeActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        user.setMyImageId(R.drawable.apple);
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("My_HomeActivity",user.getMyName());
+
         ImageView image = (ImageView) findViewById(R.id.button_picture);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
 
-        user.setMyName("戴晓东");
         TextView nicknameView = (TextView) findViewById(R.id.username_text);
         nicknameView.setText(user.getMyName());
 
@@ -46,6 +47,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this, MyActivity_Setup.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -54,6 +56,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this, MyActivity_Mytask.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -62,6 +65,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this, MyActivity_Vip.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -69,7 +73,7 @@ public class My_HomeActivity extends AppCompatActivity {
          button4.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-        Intent intent = new Intent(My_HomeActivity.this, MyActivity_Talent.class);
+        Intent intent = new Intent(My_HomeActivity.this, Explore_MyTalent.class);
         startActivity(intent);
         }
         });*/
@@ -78,6 +82,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this,  MyActivity_credit.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
@@ -29,6 +30,9 @@ import com.example.sufehelperapp.viewAdapter;
 import org.litepal.crud.DataSupport;
 
 public class MyActivity_Mytask extends AppCompatActivity {
+
+    private user user;
+    private Bundle bundle;
 
     private TabLayout tab_title;
     private ViewPager vp_pager;
@@ -60,14 +64,20 @@ public class MyActivity_Mytask extends AppCompatActivity {
         }
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("Mytask",user.getMyName());
+
+        //bundle用于传当前user
+        bundle = new Bundle();
+        bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
+
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Mytask.this, My_HomeActivity.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -76,6 +86,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Mytask.this, MyActivity_Historical_Task.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -121,7 +132,9 @@ public class MyActivity_Mytask extends AppCompatActivity {
         list_fragment = new ArrayList<>();
 
         cFragment = new MyActivity_mytask_currenttask();
+        cFragment.setArguments(bundle); //传user入fragments
         hFragment = new MyActivity_mytask_historicaltask();
+        hFragment.setArguments(bundle); //传user入fragments
 
         list_fragment.add(cFragment);
         list_fragment.add(hFragment);

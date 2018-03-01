@@ -5,11 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 public class ExploreActivity extends AppCompatActivity {
+
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +22,9 @@ public class ExploreActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("ExploreActivity",myName);
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,12 +34,14 @@ public class ExploreActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(ExploreActivity.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(ExploreActivity.this, MyActivity.class);
+                        Intent intent2 = new Intent(ExploreActivity.this, My_HomeActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                 }
@@ -48,6 +54,7 @@ public class ExploreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(ExploreActivity.this, Explore_weekly.class);
+                intent1.putExtra("user_now", user);
                 startActivity(intent1);
             }
         });
@@ -56,6 +63,7 @@ public class ExploreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(ExploreActivity.this, Explore_WeeklyTalentActivity.class);
+                intent2.putExtra("user_now", user);
                 startActivity(intent2);
             }
         });
@@ -63,9 +71,11 @@ public class ExploreActivity extends AppCompatActivity {
         b3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent3 = new Intent(ExploreActivity.this, Explore_MyTalentActivity.class);
+                Intent intent3 = new Intent(ExploreActivity.this, Explore_MyTalent.class);
+                intent3.putExtra("user_now", user);
                 startActivity(intent3);
             }
         });
     }
+
 }

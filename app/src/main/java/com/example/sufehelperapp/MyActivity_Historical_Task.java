@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_Historical_Task extends AppCompatActivity {
+
+    private user user;
+    private Bundle bundle;
 
     private TabLayout tab_title2;
     private ViewPager vp_pager2;
@@ -47,9 +51,14 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
         }
 
         //接受user
-        //user user = (user) getIntent().getSerializableExtra("user_data");
-        //String myName = user.getMyName();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        Log.d("Historical_Task",user.getMyName());
 
+        //bundle用于传当前user
+        bundle = new Bundle();
+        bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
+
+        //TODO
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +107,10 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
         list_fragment2 = new ArrayList<>();
 
         cFragment = new MyActivity_History_Recieved();
+        cFragment.setArguments(bundle); //传user入fragments
         hFragment = new MyActivity_History_Republish();
+        hFragment.setArguments(bundle); //传user入fragments
+
 
         list_fragment2.add(cFragment);
         list_fragment2.add(hFragment);

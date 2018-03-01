@@ -27,7 +27,6 @@
         <activity android:name=".Task_CounselActivity" />
         <activity android:name=".Explore_weekly" />
         <activity android:name=".Explore_WeeklyTalentActivity" />
-        <activity android:name=".Explore_MyTalentActivity" />
         <activity android:name=".Task_InfoActivity" />
         <activity android:name=".Task_ErrandSelectActivity" />
         <activity android:name=".Task_LaunchActivity" />
@@ -40,7 +39,7 @@
         <activity android:name=".My_RegisterFirstActivity" />
         <activity android:name=".My_RegisterSecondActivity" />
         <activity android:name=".MyActivity_Vip" />
-        <activity android:name=".MyActivity_Talent" />
+        <activity android:name=".Explore_MyTalent" />
         <activity android:name=".MyActivity_Setup" />
         <activity android:name=".MyActivity_Setup_Edit" />
         <activity android:name=".MyActivity_Myaward" />
@@ -64,6 +63,7 @@
         <activity android:name=".MyActivity_Task_Details" />
         <activity android:name=".Trace" />
         <activity android:name=".TraceListAdapter"></activity>
+        <activity android:name=".MyActivity_Edit_dormname"></activity>
     </application>
 
 </manifest>

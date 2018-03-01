@@ -192,6 +192,10 @@ public class user extends DataSupport implements Serializable {
         this.specialty.add(s);
     }
 
+    public void setDemand(List<String>d){this.demand = d;}
+
+    public void setSpecialty(List<String>s){this.specialty = s;}
+
     public List<String> getDemand() {
         return demand;
     }
