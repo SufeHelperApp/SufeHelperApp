@@ -60,6 +60,9 @@
         <activity android:name=".My_LoginSecondActivity" />
         <activity android:name=".My_RegisterForthActivity" />
         <activity android:name=".My_RegisterFifthActivity" />
+        <activity android:name=".MyActivity_Task_Details" />
+        <activity android:name=".Trace" />
+        <activity android:name=".TraceListAdapter"></activity>
         <activity android:name=".MyActivity_Edit_dormname"></activity>
     </application>
 
