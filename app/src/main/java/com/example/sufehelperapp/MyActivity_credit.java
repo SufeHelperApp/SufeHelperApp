@@ -24,17 +24,6 @@ public class MyActivity_credit extends AppCompatActivity {
 
     private user user;
 
-    private task[] tasks =
-            {new task("文静", R.drawable.apple, "13912345678",
-                    "占座","二教206","18/2/12","9:00",
-                    5,"微信联系"),
-                    new task("戴晓东", R.drawable.banana, "13812345678",
-                            "拿快递","快递中心","18/2/10","10:00",
-                            7,"微信联系"),
-                    new task("刘宇涵", R.drawable.orange,"13712345678",
-                            "买饭","新食堂","18/2/17","11:00",
-                            6,"微信联系")};
-
     private TaskAdapter adapter;
 
     @Override
@@ -86,11 +75,7 @@ public class MyActivity_credit extends AppCompatActivity {
         //显示违约任务卡片
 
         //检查所有任务当前是否违约
-        List<task> taskListAll = DataSupport.findAll(task.class);
-        for(task task:taskListAll){
-            task.checkIfDefault();
-            task.save();
-        }
+        task.updateAllTaskStatus();
 
         List<task> taskList = DataSupport.where("helperName = ?",user.getMyName())
                 .where("ifDefault = ? ","1").find(task.class);

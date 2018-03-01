@@ -19,12 +19,14 @@ import com.example.sufehelperapp.TimeUtils;
 public class task extends DataSupport implements Serializable{
 
     //任务状态
-    private boolean isValid;    //TODO: 合并为ifAccepted（任务发布页、筛选页）。
-    private boolean ifAccepted;   //任务是否已被接受
-    private boolean ifDefault;  //TODO: 是否违约（我的违约）。
+    private boolean ifDisplayable;    //TODO: 是否进入筛选（未接受+未过期）。
+    private boolean ifAccepted;   //任务是否被接受
+    private boolean ifOutdated;     //是否过期（到ddl未被接受）
+    private boolean ifDefault;  //TODO: 接受者是否违约（ddl到期时未完成）。
+    private boolean ifShutDown;  //是否关闭
 
     //任务进度
-    private int progress;     //任务进度(1-5)
+    private int progress;     //任务进度(1-4)
 
     //任务时间
     private String launchtime; //任务发布时间（发布页） 。
@@ -33,8 +35,6 @@ public class task extends DataSupport implements Serializable{
     private String ddlTime;   //任务截止时刻（发布页）
     private String ddl;  //任务截至时间（发布页）
 
-    //private user invited //任务邀请人
-    //private boolean invitationAccepted
 
     //任务相关人（发布页/接收页）
     private user launcher; //任务发起人（发布页）
@@ -70,9 +70,11 @@ public class task extends DataSupport implements Serializable{
 
     public task(){
         this.launchtime = TimeUtils.getNowTime();
-        this.isValid = true;
+        this.ifDisplayable = true;
         this.ifDefault = false;
         this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
+        this.ifOutdated = false;
+        this.ifShutDown = false;
         this.progress = 1; //默认进度为1：已发布
         this.within = true;
         this.within0 = true;
@@ -166,41 +168,133 @@ public class task extends DataSupport implements Serializable{
 
     //函数：检查任务状态
 
-    public boolean getIfDefault(){
-        return ifDefault;
+    public boolean getIfAccepted(){
+        return ifAccepted;
+    }
+    public void setIfAccepted(boolean ifAccepted) {
+        this.ifAccepted = ifAccepted;
     }
 
+
+    public boolean getIfDisplayable(){
+        return ifDisplayable;
+    }
+    public void setIfDisplayable(boolean a){
+        this.ifDisplayable = a;
+    }
+
+
+    public boolean getIfOudated(){return ifOutdated;}
+    public void setIfOutdated(boolean a){this.ifOutdated = a;}
+
+
+    public boolean getIfDefault(){return ifDefault;}
     public void setIfDefault(boolean a){
         this.ifDefault = a;
     }
 
-    public void checkIfDefault(){
-        if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),ddl)){
-            this.ifDefault = true;
-            this.isValid = false;
+    public boolean getIfShutDown(){return ifShutDown;}
+    public void setIfShutDown(boolean a){
+        this.ifShutDown = a;
+    }
+
+
+    public static void updateAllTaskStatus() {
+        List<task> taskAllList = DataSupport.findAll(task.class);
+        for (task task : taskAllList) {
+            if (task.getProgress() < 3) {
+                if (TimeUtils.isDateOneBigger(TimeUtils.getNowTime(), task.getDdl())) {
+                    if (task.getIfAccepted()) {
+                        task.ifDisplayable = false;
+                        task.ifOutdated = false;
+                        task.ifDefault = true;
+                        task.ifShutDown = true; //接收者未及时完成，关闭项目
+                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                                task.getLauncherName());
+
+                    } else {
+                        task.ifDisplayable = false;
+                        task.ifOutdated = true;
+                        task.ifDefault = false;
+                        task.ifShutDown = true; //过期未接收，关闭项目
+                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                                task.getLauncherName());
+
+                    }
+                } else {
+                    if (task.getIfAccepted()) {
+                        task.ifDisplayable = false;
+                        task.ifOutdated = false;
+                        task.ifDefault = false;
+                        task.ifShutDown = false;
+                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                                task.getLauncherName());
+
+                    } else {
+                        task.ifDisplayable = true;
+                        task.ifOutdated = false;
+                        task.ifDefault = false;
+                        task.ifShutDown = false;
+                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                                task.getLauncherName());
+
+                    }
+                }
+            }else if(task.getProgress()==3){
+                task.ifDisplayable = false;
+                task.ifOutdated = false;
+                task.ifDefault = false;
+                task.ifShutDown = false;
+            }else if(task.getProgress()==4){
+                task.ifDisplayable = false;
+                task.ifOutdated = false;
+                task.ifDefault = false;
+                task.ifShutDown = true;  //支付完成，关闭任务
+            }
         }
     }
 
-    public void checkIsValid(){
-        if(this.progress == 4) isValid=false;
+    public void updateTaskStatus() {
+        if (progress < 3) {
+            if (TimeUtils.isDateOneBigger(TimeUtils.getNowTime(), this.ddl)) {
+                if (ifAccepted) {
+                    this.ifDisplayable = false;
+                    this.ifOutdated = false;
+                    this.ifDefault = true;
+                    this.ifShutDown = true;
+                } else {
+                    this.ifDisplayable = false;
+                    this.ifOutdated = true;
+                    this.ifDefault = false;
+                    this.ifShutDown = true;
+                }
+            } else {
+                if (ifAccepted) {
+                    this.ifDisplayable = false;
+                    this.ifOutdated = false;
+                    this.ifDefault = false;
+                    this.ifShutDown = false;
+                } else {
+                    this.ifDisplayable = true;
+                    this.ifOutdated = false;
+                    this.ifDefault = false;
+                    this.ifShutDown = false;
+                }
+            }
+        }else if(this.progress==3){
+            this.ifDisplayable = false;
+            this.ifOutdated = false;
+            this.ifDefault = false;
+            this.ifShutDown = false;
+        }else if(this.progress==4){
+            this.ifDisplayable = false;
+            this.ifOutdated = false;
+            this.ifDefault = false;
+            this.ifShutDown = true;  //支付完成，关闭任务
+        }
     }
 
-    public void setIsValid(boolean a){
-        this.isValid = a;
-    }
 
-    public boolean getIsValid(){
-        return isValid;
-    }
-
-
-    public boolean getIfAccepted(){
-        return ifAccepted;
-    }
-
-    public void setIfAccepted(boolean ifAccepted) {
-        this.ifAccepted = ifAccepted;
-    }
 
 
     //TODO: 是否过期Alarm

@@ -24,6 +24,7 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
     private RatingBar ratingBar;
     private TextView textView;
     private user user;
+    private task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,13 +98,13 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        //TODO: 排查
-                        task task = (task) getIntent().getSerializableExtra("task_selected");
+                        task = (task) getIntent().getSerializableExtra("task_selected");
                         task.setScore(ratingBar.getRating());
-                        task.save();
+                        task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                                task.getLauncherName());
 
                         user.addToAverageScore(ratingBar.getRating());
-                        user.save();
+                        user.updateAll("phonenumber = ?",user.getPhonenumber());
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

@@ -103,7 +103,9 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
         List<task> tasks = DataSupport.findAll(task.class);
         for(task task:tasks) {
             task.checkWithin();
-            task.save();
+            task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                    task.getLauncherName());
+
         }
 
         //init city menu
@@ -378,7 +380,9 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 List<task> tasks1 = DataSupport.findAll(task.class);
                 for(task task:tasks1) {
                     task.ifWithin(position4); //determine within
-                    task.save();
+                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                            task.getLauncherName());
+
                 }
 
                 if(position1==0 && position2!=0){

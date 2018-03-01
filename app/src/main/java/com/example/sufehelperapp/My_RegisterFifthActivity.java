@@ -14,6 +14,8 @@ import java.util.List;
 
 public class My_RegisterFifthActivity extends AppCompatActivity {
 
+    private user user;
+
     private int flag1 = 0;
     private int flag2 = 0;
     private int flag3 = 0;
@@ -37,7 +39,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_register_fifth);
 
-        final user user = (user) getIntent().getSerializableExtra("user_now");
+        user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("RegisterFifthActivity",user.getMyName());
 
         ActionBar actionBar = getSupportActionBar();
@@ -65,7 +67,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
 
                     user.setSpecialty(specialty);
 
-                    user.save();
+                    user.updateAll("phonenumber = ?",user.getPhonenumber());
                     for (String s : user.getSpecialty()) {
                         Log.d("specialty", s);
                     }

@@ -108,7 +108,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     user.addTaskLNum(1);
                     user.addTaskNum(1);
 
-                    user.save();
+                    user.updateAll("phonenumber = ?",user.getPhonenumber());
 
                     Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
                     intent1.putExtra("user_now", user);

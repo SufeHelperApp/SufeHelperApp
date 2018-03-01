@@ -53,7 +53,7 @@ public class MyActivity_Edit_password extends AppCompatActivity {
                         String newPassword = passwordView.getText().toString();
 
                         user.setPassword(newPassword);
-                        user.save();
+                        user.updateAll("phonenumber = ?",user.getPhonenumber());
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_password.this);
                         dialog.setTitle("提示");
