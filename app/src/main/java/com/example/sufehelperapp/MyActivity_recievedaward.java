@@ -32,7 +32,8 @@ public class MyActivity_recievedaward extends AppCompatActivity implements View.
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_recievedaward.this, MyActivity_Talent.class);
+                Intent intent = new Intent(MyActivity_recievedaward.this, Explore_MyTalent.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });

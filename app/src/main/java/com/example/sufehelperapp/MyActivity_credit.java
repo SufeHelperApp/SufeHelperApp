@@ -85,6 +85,12 @@ public class MyActivity_credit extends AppCompatActivity {
 
         //显示违约任务卡片
 
+        //检查所有任务当前是否违约
+        List<task> taskListAll = DataSupport.findAll(task.class);
+        for(task task:taskListAll){
+            task.checkIfDefault();
+            task.save();
+        }
 
         List<task> taskList = DataSupport.where("helperName = ?",user.getMyName())
                 .where("ifDefault = ? ","1").find(task.class);
@@ -100,6 +106,7 @@ public class MyActivity_credit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_credit.this, My_HomeActivity.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });

@@ -73,7 +73,7 @@ public class My_HomeActivity extends AppCompatActivity {
          button4.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-        Intent intent = new Intent(My_HomeActivity.this, MyActivity_Talent.class);
+        Intent intent = new Intent(My_HomeActivity.this, Explore_MyTalent.class);
         startActivity(intent);
         }
         });*/

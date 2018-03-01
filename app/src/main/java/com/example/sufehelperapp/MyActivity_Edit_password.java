@@ -57,7 +57,7 @@ public class MyActivity_Edit_password extends AppCompatActivity {
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_password.this);
                         dialog.setTitle("提示");
-                        dialog.setMessage("昵称修改成功！"); //TODO:改错：密码
+                        dialog.setMessage("密码修改成功！"); //TODO:改错：密码
                         //dialog.setCancelable(false);
                         dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override

@@ -56,15 +56,15 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         TextView phoneView = (TextView) findViewById(R.id.nickname_text33);
         phoneView.setText(user.getPhonenumber());
 
-        /*
         TextView intentionView = (TextView) findViewById(R.id.nickname_text44);
-        intentionView.setText(user.getDemand().get(0));*/
+        intentionView.setText(user.getDemand().get(0));
+
 
         imgbtn1=(ImageButton)findViewById(R.id.button_edit_nickname);
-        imgbtn2=(ImageButton)findViewById(R.id.button_edit_password);
+        imgbtn2=(ImageButton)findViewById(R.id.button_edit_address);
         imgbtn3=(ImageButton)findViewById(R.id.button_edit_phonenumber);
-        imgbtn4=(ImageButton)findViewById(R.id.button_edit_address);
-        imgbtn5=(ImageButton)findViewById(R.id.button_edit_personal_intention);
+        imgbtn4=(ImageButton)findViewById(R.id.button_edit_personal_intention);
+        imgbtn5=(ImageButton)findViewById(R.id.button_edit_password);
 
         //TODO:delete
         Button button1 = (Button) findViewById(R.id.title_back);

@@ -107,6 +107,7 @@ public class Task_InfoActivity extends AppCompatActivity {
 
                     //更新该task信息
                     task.setIfAccepted(true);
+                    task.setIsValid(false);
                     task.setHelper(user);
                     task.setHelperName(helperName);
                     task.setProgress(2);

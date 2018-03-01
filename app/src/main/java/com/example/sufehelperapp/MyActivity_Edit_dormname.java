@@ -11,9 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.litepal.crud.DataSupport;
-
-import java.util.List;
 
 public class MyActivity_Edit_dormname extends AppCompatActivity {
 
@@ -48,7 +45,7 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
-                    case R.id.button_conserve_phonenumber:
+                    case R.id.button_conserve_dormname:
                         String newDormname = dormnameView.getText().toString();
 
                         user.setDormitoryLocation(newDormname);

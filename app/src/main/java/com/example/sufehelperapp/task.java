@@ -174,17 +174,27 @@ public class task extends DataSupport implements Serializable{
         this.ifDefault = a;
     }
 
-    public void checkIsValid(){
+    public void checkIfDefault(){
         if(TimeUtils.isDateOneBigger(TimeUtils.getNowTime(),ddl)){
+            this.ifDefault = true;
             this.isValid = false;
         }
+    }
+
+    public void checkIsValid(){
+        if(this.progress == 4) isValid=false;
     }
 
     public void setIsValid(boolean a){
         this.isValid = a;
     }
 
-    public boolean ifAccepted() {
+    public boolean getIsValid(){
+        return isValid;
+    }
+
+
+    public boolean getIfAccepted(){
         return ifAccepted;
     }
 

@@ -39,7 +39,7 @@
         <activity android:name=".My_RegisterFirstActivity" />
         <activity android:name=".My_RegisterSecondActivity" />
         <activity android:name=".MyActivity_Vip" />
-        <activity android:name=".MyActivity_Talent" />
+        <activity android:name=".Explore_MyTalent" />
         <activity android:name=".MyActivity_Setup" />
         <activity android:name=".MyActivity_Setup_Edit" />
         <activity android:name=".MyActivity_Myaward" />

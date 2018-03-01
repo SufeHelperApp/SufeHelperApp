@@ -1,7 +1,9 @@
 package com.example.sufehelperapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,11 +61,32 @@ public class MyActivity_Setup extends AppCompatActivity {
                 button3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(MyActivity_Setup.this, My_LoginFirstActivity.class);
-                        //传输user的终点
-                        startActivity(intent);
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Setup.this);
+                        dialog.setTitle("提示：");
+                        dialog.setMessage("是否确认注销？");
+                        dialog.setCancelable(true);
+                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                Intent intent = new Intent(MyActivity_Setup.this, My_LoginFirstActivity.class);
+                                //传输user的终点
+                                intent.putExtra("user_now", user);
+                                startActivity(intent);
+                            }
+                        });
+                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        dialog.show();
+
             }
         });
+
 
     }
 }

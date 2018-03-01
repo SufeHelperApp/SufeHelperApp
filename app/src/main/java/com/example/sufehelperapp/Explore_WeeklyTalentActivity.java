@@ -198,7 +198,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
 
         if(userList1.size()>=1) {
-            //TODO：传输？？？
+
             TextView nameView1 = (TextView) findViewById(R.id.wt1_name1);
             TextView tasknumView1 = (TextView) findViewById(R.id.wt1_num1);
 

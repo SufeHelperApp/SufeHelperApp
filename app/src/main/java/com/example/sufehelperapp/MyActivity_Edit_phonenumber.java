@@ -64,6 +64,7 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
                                 dialogInterface.dismiss();
                                 Intent intent = new Intent(MyActivity_Edit_phonenumber.this, MyActivity_Setup_Edit.class);
                                 Log.d("MyActivity_Setup_Edit",user.getMyName());
+                                intent.putExtra("user_now", user);
                                 startActivity(intent);
                             }
                         });
