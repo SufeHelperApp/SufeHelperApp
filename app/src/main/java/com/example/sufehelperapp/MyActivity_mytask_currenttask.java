@@ -34,7 +34,12 @@ public class MyActivity_mytask_currenttask extends Fragment implements View.OnCl
         user = (user) bundle.getSerializable("user_now");
         Log.d("mytask_currenttask",user.getMyName());
 
-        List<task> taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
+        task.updateAllTaskStatus();
+
+        List<task> taskList = DataSupport
+                .where("helperName = ?",user.getMyName())
+                .where("ifShutDown = ?", "0")
+                .find(task.class);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.currenttask_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);

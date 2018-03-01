@@ -34,7 +34,12 @@ public class MyActivity_mytask_historicaltask extends Fragment implements View.O
         user = (user) bundle.getSerializable("user_now");
         Log.d("History_Recieved",user.getMyName());
 
-        List<task> taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
+        task.updateAllTaskStatus();
+
+        List<task> taskList = DataSupport
+                .where("launcherName = ?",user.getMyName())
+                .where("ifShutDown = ?", "0")
+                .find(task.class);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.historicaltask_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);

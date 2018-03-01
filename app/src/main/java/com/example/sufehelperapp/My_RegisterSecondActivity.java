@@ -22,6 +22,7 @@ import java.util.Random;
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
 
+    private user user;
     private RadioGroup rg;
     private RadioButton rb_Male;
     private RadioButton rb_Female;
@@ -47,8 +48,8 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
         });
 
         //从My_RegisterFirstActivity获取user
-        final user user = (user) getIntent().getSerializableExtra("user_now");
-        String myPhone = user.getPhonenumber();
+        user = (user) getIntent().getSerializableExtra("user_now");
+        final String myPhone = user.getPhonenumber();
         Log.d("RegisterSecondActivity",myPhone);
 
         //点击“确认”按钮
@@ -80,10 +81,21 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
                     user.setSex(sex);
                     Log.d("sex",user.getSex());
-                    user.setMyImageId(R.drawable.apple); //TODO: 上传图片保存图片
+
+                    Random random = new Random();
+                    int index = random.nextInt(5);
+
+                    switch(index){
+                        case 0:user.setMyImageId(R.drawable.apple);break;
+                        case 1:user.setMyImageId(R.drawable.banana);break;
+                        case 2:user.setMyImageId(R.drawable.orange);break;
+                        case 3:user.setMyImageId(R.drawable.icon_image);break;
+                        case 4:user.setMyImageId(R.drawable.photo_lyh);break;
+                    }//TODO: 上传图片保存图片
+
                     user.setMyName(name);
                     user.setPassword(password);
-                    user.save();
+                    user.updateAll("phonenumber = ?",user.getPhonenumber());
 
                     Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
                     intent.putExtra("user_now", user);

@@ -37,7 +37,12 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
         user = (user) bundle.getSerializable("user_now");
         Log.d("History_Recieved",user.getMyName());
 
-        List<task> taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
+        task.updateAllTaskStatus();
+
+        List<task> taskList = DataSupport
+                .where("helperName = ?",user.getMyName())
+                .where("ifShutDown = ?", "1")
+                .find(task.class);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_recieved_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);

@@ -53,7 +53,7 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
                         String newName = nameView.getText().toString();
 
                         user.setMyName(newName);
-                        user.save();
+                        user.updateAll("phonenumber = ?",user.getPhonenumber());
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_NickName.this);
                         dialog.setTitle("提示");

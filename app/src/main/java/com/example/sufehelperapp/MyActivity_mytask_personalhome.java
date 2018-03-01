@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 public class MyActivity_mytask_personalhome extends AppCompatActivity {
 
     public static final String USER_SELECTED = "user_selected";
+    private user user_selected;
     private user user;
 
     @Override
@@ -32,22 +33,26 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         Log.d("personalhome",myName);
 
         //接收选中的user
-        final user user_selected = (user) getIntent().getSerializableExtra("user_selected");//TODO
+        user_selected = (user) getIntent().getSerializableExtra("user_selected");
         Log.d("name",user_selected.getMyName());
 
         ImageView launcher_image = (ImageView) findViewById(R.id.picture_upload);
         TextView launcher_name = (TextView) findViewById(R.id.his_nickname_text11);
-        TextView launcher_phoneNumber = (TextView) findViewById(R.id.his_address_text22);
-        TextView taskType = (TextView) findViewById(R.id.his_phonenumber_text33);
-        TextView subtaskType = (TextView) findViewById(R.id.his_personalintention_text44);
-        TextView date = (TextView) findViewById(R.id.his_integral_text11);
+        TextView launcher_sex = (TextView) findViewById(R.id.sex_text);
+        TextView launcher_dormName = (TextView) findViewById(R.id.his_address_text22);
+        TextView launcher_phonenumber = (TextView) findViewById(R.id.his_phonenumber_text33);
+        TextView specialty = (TextView) findViewById(R.id.his_personalintention_text44);
+        TextView averagescore = (TextView) findViewById(R.id.his_integral_text11);
 
         Glide.with(this).load(user_selected.getMyImageId()).into(launcher_image);
+        launcher_sex.setText(user_selected.getSex());
         launcher_name.setText(user_selected.getMyName());
-        //launcher_phoneNumber.setText(user.getDormArea()); //TODO
-        taskType.setText(user_selected.getPhonenumber());
-        //subtaskType.setText(user.getp());
-        //date.setText(task.getDdlDate());
+        launcher_dormName.setText(user_selected.getDormitoryLocation());
+        launcher_phonenumber.setText(user.getPhonenumber());
+        averagescore.setText(String.valueOf(user_selected.getAverageScore()));
+        if(user.getDemand().size()!=0) {
+            specialty.setText(user.getDemand().get(0));
+        }
 
         //TODO:删掉
         Button button2 = (Button) findViewById(R.id.button_talk);

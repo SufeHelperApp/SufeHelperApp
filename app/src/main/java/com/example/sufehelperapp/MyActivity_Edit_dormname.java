@@ -49,7 +49,7 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
                         String newDormname = dormnameView.getText().toString();
 
                         user.setDormitoryLocation(newDormname);
-                        user.save();
+                        user.updateAll("phonenumber = ?",user.getPhonenumber());
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_dormname.this);
                         dialog.setTitle("提示");

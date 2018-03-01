@@ -52,7 +52,7 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
                         String newPhonenumber = phonenumberView.getText().toString();
 
                         user.setPhonenumber(newPhonenumber);
-                        user.save();
+                        user.updateAll("phonenumber = ?",user.getPhonenumber());
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_phonenumber.this);
                         dialog.setTitle("提示");

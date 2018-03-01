@@ -25,6 +25,8 @@ import java.util.List;
 
 public class Task_InfoActivity extends AppCompatActivity {
 
+    private task task;
+
     public static final String TASK_SELECTED = "task_selected";
     public static final String USER_NOW = "user_now";
 
@@ -67,7 +69,7 @@ public class Task_InfoActivity extends AppCompatActivity {
             }
         });
 
-        final task task = (task) getIntent().getSerializableExtra("task_selected");
+        task = (task) getIntent().getSerializableExtra("task_selected");
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
         TextView launcher_name = (TextView) findViewById(R.id.taskinfo_name);
         TextView launcher_phoneNumber = (TextView) findViewById(R.id.taskinfo_phoneNumber);
@@ -107,11 +109,14 @@ public class Task_InfoActivity extends AppCompatActivity {
 
                     //更新该task信息
                     task.setIfAccepted(true);
-                    task.setIsValid(false);
+                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                            task.getLauncherName());
+                    task.updateTaskStatus(); //TODO: 排查
+                    task.setProgress(2); //已接受
                     task.setHelper(user);
                     task.setHelperName(helperName);
-                    task.setProgress(2);
-                    task.save();
+                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                            task.getLauncherName());
 
                     user.increaseCredit(30);
                     user.addTaskRNum(1);
@@ -124,7 +129,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                     }
                     user.addTaskNum(1);
 
-                    user.save();
+                    user.updateAll("phonenumber = ?",user.getPhonenumber());
                     Log.d("msg1",String.valueOf(user.getTaskRNum_errand()));
                     Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
                     Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));

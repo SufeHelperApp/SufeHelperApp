@@ -50,7 +50,7 @@ public class Task_SelectionEActivity extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("SelectionEActivity",myName);
 
-
+/*
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -75,7 +75,7 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                 }
                 return true;
             }
-        });
+        });*/
 
         final Spinner subtaskView = (Spinner) findViewById(R.id.select_subtask);
         final Spinner paymentView = (Spinner) findViewById(R.id.select_payment);
@@ -84,7 +84,9 @@ public class Task_SelectionEActivity extends AppCompatActivity {
         List<task> tasks = DataSupport.findAll(task.class);
         for(task task:tasks) {
             task.checkWithin();
-            task.save();
+            task.updateTaskStatus();
+            task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                    task.getLauncherName());
         }
 
         //initialize RecyclerView
@@ -105,14 +107,14 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                             .where("payment >= ?" , pay1string)
                             .where("payment <= ?", pay2string)
                             .where("within = ?", "1")
-                            .where("isValid = ?","1").find(task.class);
+                            .where("ifDisplayable = ?","1").find(task.class);
                 }else{
                     taskList= DataSupport
                             .where("subtaskType = ?", subtaskType)
                             .where("payment >= ?" , pay1string)
                             .where("payment <= ?", pay2string)
                             .where("within = ?", "1")
-                            .where("isValid = ?","1").find(task.class);
+                            .where("ifDisplayable = ?","1").find(task.class);
                 }
                 if(!taskList.isEmpty()) {
                     //update adapter
@@ -194,7 +196,9 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                 List<task> tasks1 = DataSupport.findAll(task.class);
                 for(task task:tasks1) {
                     task.ifWithin(pos); //determine within
-                    task.save();
+                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                            task.getLauncherName());
+
                 }
 
                 if(position1==0){

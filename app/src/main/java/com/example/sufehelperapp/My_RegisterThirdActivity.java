@@ -21,6 +21,7 @@ import java.util.List;
 
 public class My_RegisterThirdActivity extends AppCompatActivity {
 
+    private user user;
     String dormArea;
     String dormName;
 
@@ -29,7 +30,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_register_third);
 
-        final user user = (user) getIntent().getSerializableExtra("user_now");
+        user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("RegisterThirdActivity",user.getMyName());
 
         ActionBar actionBar = getSupportActionBar();
@@ -82,7 +83,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
                     user.setDormArea(dormArea);
                     user.setDormitoryLocation(dormName);
 
-                    user.save();
+                    user.updateAll("phonenumber = ?",user.getPhonenumber());
                     Log.d("dormArea", user.getDormArea());
                     Log.d("dormLocation", user.getDormitoryLocation());
 

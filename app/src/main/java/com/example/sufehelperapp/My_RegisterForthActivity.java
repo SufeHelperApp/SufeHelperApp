@@ -14,6 +14,8 @@ import java.util.List;
 
 public class My_RegisterForthActivity extends AppCompatActivity {
 
+    private user user;
+
     private int flag1 = 0;
     private int flag2 = 0;
     private int flag3 = 0;
@@ -37,7 +39,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_register_forth);
 
-        final user user = (user) getIntent().getSerializableExtra("user_now");
+        user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("RegisterForthActivity",user.getMyName());
 
         ActionBar actionBar = getSupportActionBar();
@@ -69,7 +71,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
 
                     user.setDemand(demand);
 
-                    user.save();
+                    user.updateAll("phonenumber = ?",user.getPhonenumber());
                     for (String d : user.getDemand()) {
                         Log.d("demand", d);
                     }
