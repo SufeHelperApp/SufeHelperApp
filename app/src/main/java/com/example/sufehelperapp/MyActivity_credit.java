@@ -39,28 +39,28 @@ public class MyActivity_credit extends AppCompatActivity {
         //接受user
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("MyActivity_credit",user.getMyName());
-/*
+
+
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(MyActivity_credit.this, MainActivity.class);
-                        startActivity(intent1);
+                        Intent intent1 = new Intent(MyActivity_credit.this,MainActivity.class);
+                        intent1.putExtra("user_now", user);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(MyActivity_credit.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(MyActivity_credit.this, MyActivity.class);
-                        startActivity(intent3);
                         break;
                 }
                 return true;
             }
-        }); */
+        });
 
 
         //从数据库显示rating
@@ -85,7 +85,7 @@ public class MyActivity_credit extends AppCompatActivity {
         adapter = new TaskAdapter(taskList,user);
         recyclerView.setAdapter(adapter);
 
-        //TODO:删除
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,29 +93,6 @@ public class MyActivity_credit extends AppCompatActivity {
                 Intent intent = new Intent(MyActivity_credit.this, My_HomeActivity.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
-            }
-        });
-
-        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
-        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item_task:
-                        Intent intent1 = new Intent(MyActivity_credit.this,MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        break;
-                    case R.id.item_explore:
-                        Intent intent2 = new Intent(MyActivity_credit.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
-                        startActivity(intent2);
-                        break;
-                    case R.id.item_my:
-                        Intent intent3 = new Intent(MyActivity_credit.this, My_HomeActivity.class);
-                        intent3.putExtra("user_now", user);
-                        break;
-                }
-                return true;
             }
         });
 

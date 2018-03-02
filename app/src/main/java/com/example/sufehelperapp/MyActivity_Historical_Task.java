@@ -57,41 +57,43 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("Historical_Task",user.getMyName());
 
-        //bundle用于传当前user
-        bundle = new Bundle();
-        bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
-
-        //TODO
-        Button button1 = (Button) findViewById(R.id.title_back);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_Historical_Task.this, MyActivity_Mytask.class);
-                startActivity(intent);
-            }
-        });
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(MyActivity_Historical_Task.this,MainActivity.class);
+                        Intent intent1 = new Intent( MyActivity_Historical_Task.this,MainActivity.class);
                         intent1.putExtra("user_now", user);
                         break;
                     case R.id.item_explore:
-                        Intent intent2 = new Intent(MyActivity_Historical_Task.this, ExploreActivity.class);
+                        Intent intent2 = new Intent( MyActivity_Historical_Task.this, ExploreActivity.class);
                         intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent (MyActivity_Historical_Task.this, My_HomeActivity.class);
-                        intent3.putExtra("user_now", user);
                         break;
                 }
                 return true;
             }
         });
+
+
+        Button button1 = (Button) findViewById(R.id.title_back);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyActivity_Historical_Task.this, MyActivity_Mytask.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
+            }
+        });
+
+        //bundle用于传当前user
+        bundle = new Bundle();
+        bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
+
+
         /**Button button2 = (Button) findViewById(R.id.launcher_image);
          button2.setOnClickListener(new View.OnClickListener() {
         @Override

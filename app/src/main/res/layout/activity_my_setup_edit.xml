@@ -299,6 +299,5 @@
             android:background="@drawable/ic_line"/>
 
     </LinearLayout>
-
     <include layout="@layout/common_bottom_navigation_bar"/>
 </RelativeLayout>

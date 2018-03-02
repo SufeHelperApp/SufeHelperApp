@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,32 +38,6 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("Explore_WeeklyTalent",myName);
-
-        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
-        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item_task:
-                        Intent intent1 = new Intent(Explore_WeeklyTalentActivity.this, MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        startActivity(intent1);
-                        break;
-                    case R.id.item_explore:
-                        Intent intent2 = new Intent(Explore_WeeklyTalentActivity.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
-                        startActivity(intent2);
-                        break;
-                    case R.id.item_my:
-                        Intent intent3 = new Intent(Explore_WeeklyTalentActivity.this, MyActivity.class);
-                        intent3.putExtra("user_now", user);
-                        startActivity(intent3);
-                        break;
-                }
-                return true;
-            }
-        });
-
 
 
         userList1= DataSupport.order("taskRNum_errand desc").limit(3).find(user.class);

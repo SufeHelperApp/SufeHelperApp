@@ -70,6 +70,30 @@ public class MyActivity_Mytask extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("Mytask",user.getMyName());
 
+
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent( MyActivity_Mytask.this,MainActivity.class);
+                        intent1.putExtra("user_now", user);
+                        break;
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent( MyActivity_Mytask.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        break;
+                }
+                return true;
+            }
+        });
+
+
+
         //bundle用于传当前user
         bundle = new Bundle();
         bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
@@ -84,6 +108,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         Button button2 = (Button) findViewById(R.id.title_edit);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,28 +118,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
-        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item_task:
-                        Intent intent1 = new Intent(MyActivity_Mytask.this,MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        break;
-                    case R.id.item_explore:
-                        Intent intent2 = new Intent(MyActivity_Mytask.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
-                        startActivity(intent2);
-                        break;
-                    case R.id.item_my:
-                        Intent intent3 = new Intent (MyActivity_Mytask.this, My_HomeActivity.class);
-                        intent3.putExtra("user_now", user);
-                        break;
-                }
-                return true;
-            }
-        });
+
         /**Button button2 = (Button) findViewById(R.id.launcher_image);
          button2.setOnClickListener(new View.OnClickListener() {
         @Override

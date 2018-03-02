@@ -36,6 +36,27 @@ public class My_HomeActivity extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("My_HomeActivity",user.getMyName());
 
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent(My_HomeActivity.this,MainActivity.class);
+                        intent1.putExtra("user_now", user);
+                        break;
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent(My_HomeActivity.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        break;
+                }
+                return true;
+            }
+        });
+
         ImageView image = (ImageView) findViewById(R.id.button_picture);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
 
@@ -87,26 +108,7 @@ public class My_HomeActivity extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
-        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item_task:
-                        Intent intent1 = new Intent(My_HomeActivity.this,MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        break;
-                    case R.id.item_explore:
-                        Intent intent2 = new Intent(My_HomeActivity.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
-                        startActivity(intent2);
-                        break;
-                    case R.id.item_my:
-                        break;
-                }
-                return true;
-            }
-        });
+
         /** BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
          bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override

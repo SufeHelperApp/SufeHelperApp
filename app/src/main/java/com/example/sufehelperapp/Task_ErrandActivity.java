@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import org.litepal.crud.DataSupport;
@@ -56,9 +57,6 @@ public class Task_ErrandActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_ErrandActivity.this, MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_ErrandActivity.this, ExploreActivity.class);
@@ -66,7 +64,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_ErrandActivity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_ErrandActivity.this, My_HomeActivity.class);
                         intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
@@ -74,6 +72,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
         initTasks();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_errand);

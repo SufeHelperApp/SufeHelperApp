@@ -42,6 +42,13 @@ public class Explore_weekly extends AppCompatActivity {
             actionBar.hide();
         }
 
+
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("Explore_weekly",myName);
+
+        /*
+
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -54,9 +61,6 @@ public class Explore_weekly extends AppCompatActivity {
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
-                        Intent intent = new Intent(Explore_weekly.this, ExploreActivity.class);
-                        intent.putExtra("user_now", user);
-                        startActivity(intent);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(Explore_weekly.this, My_HomeActivity.class);
@@ -66,11 +70,7 @@ public class Explore_weekly extends AppCompatActivity {
                 }
                 return true;
             }
-        });
-
-        user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
-        Log.d("Explore_weekly",myName);
+        });*/
 
         initInterals();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -78,6 +78,16 @@ public class Explore_weekly extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new Explore_weekly_adapter(interalList);
         recyclerView.setAdapter(adapter);
+
+        Button button1 = (Button) findViewById(R.id.title_back);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Explore_weekly.this, My_HomeActivity.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initInterals() {

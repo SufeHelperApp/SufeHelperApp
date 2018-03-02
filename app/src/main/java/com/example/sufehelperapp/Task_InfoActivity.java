@@ -50,12 +50,9 @@ public class Task_InfoActivity extends AppCompatActivity {
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        startActivity(intent1);
+                        break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_InfoActivity.this, ExploreActivity.class);
                         intent2.putExtra("user_now", user);
@@ -70,6 +67,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                 return true;
             }
         });
+
         Button button3 = (Button) findViewById(R.id.receive_task_btn);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
