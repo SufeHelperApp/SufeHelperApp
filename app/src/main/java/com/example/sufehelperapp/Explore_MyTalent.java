@@ -2,11 +2,14 @@ package com.example.sufehelperapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,11 +30,35 @@ public class Explore_MyTalent extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("Explore_MyTalent",myName);
 
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId())
+                {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent(Explore_MyTalent.this, MainActivity.class);
+                        intent1.putExtra("user_now", user);
+                        startActivity(intent1);
+                        break;
+                    case R.id.item_explore:
+                        break;
+                    case R.id.item_my:
+                        Intent intent2 = new Intent(Explore_MyTalent.this, My_HomeActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                }
+                return true;
+            }
+        });
+
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Explore_MyTalent.this, My_HomeActivity.class);
+                Intent intent = new Intent(Explore_MyTalent.this, ExploreActivity.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }

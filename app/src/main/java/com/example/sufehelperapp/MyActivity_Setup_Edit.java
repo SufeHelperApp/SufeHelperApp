@@ -42,6 +42,29 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("MyActivity_Setup_Edit",user.getMyName());
 
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent( MyActivity_Setup_Edit.this,MainActivity.class);
+                        intent1.putExtra("user_now", user);
+                        break;
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent( MyActivity_Setup_Edit.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        break;
+                }
+                return true;
+            }
+        });
+
+
+
         //TODO: DB：1.数据库中调用头像
 
         ImageView image = (ImageView) findViewById(R.id.picture_upload);
@@ -69,7 +92,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         imgbtn4=(ImageButton)findViewById(R.id.button_edit_personal_intention);
         imgbtn5=(ImageButton)findViewById(R.id.button_edit_password);
 
-        //TODO:delete
+        //返回
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,27 +153,6 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             }
 
         });
-        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
-        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.item_task:
-                        Intent intent1 = new Intent(MyActivity_Setup_Edit.this,MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        break;
-                    case R.id.item_explore:
-                        Intent intent2 = new Intent(MyActivity_Setup_Edit.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
-                        startActivity(intent2);
-                        break;
-                    case R.id.item_my:
-                        Intent intent3 = new Intent (MyActivity_Setup_Edit.this, My_HomeActivity.class);
-                        intent3.putExtra("user_now", user);
-                        break;
-                }
-                return true;
-            }
-        });
+
     }
 }

@@ -116,6 +116,5 @@
         android:textSize="20dp"
         android:background="@color/white"
         android:layout_below="@+id/LinearLayout11"/>
-
     <include layout="@layout/common_bottom_navigation_bar"/>
 </RelativeLayout>

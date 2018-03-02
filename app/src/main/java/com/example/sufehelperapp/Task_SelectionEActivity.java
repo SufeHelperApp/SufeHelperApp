@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import org.litepal.crud.DataSupport;
@@ -50,17 +51,12 @@ public class Task_SelectionEActivity extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("SelectionEActivity",myName);
 
-/*
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_SelectionEActivity.this, MainActivity.class);
-                        intent1.putExtra("user_now", user);
-                        startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_SelectionEActivity.this, ExploreActivity.class);
@@ -68,14 +64,15 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_SelectionEActivity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_SelectionEActivity.this, My_HomeActivity.class);
                         intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
                 return true;
             }
-        });*/
+        });
+
 
         final Spinner subtaskView = (Spinner) findViewById(R.id.select_subtask);
         final Spinner paymentView = (Spinner) findViewById(R.id.select_payment);

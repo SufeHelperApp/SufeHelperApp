@@ -537,9 +537,5 @@
             android:textSize="20sp" />
     </android.support.v7.widget.CardView>
 
-
-
-
     <include layout="@layout/common_bottom_navigation_bar"/>
-
 </RelativeLayout>
