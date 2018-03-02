@@ -28,16 +28,14 @@ public class Task_SelectionEActivity extends AppCompatActivity {
     private List<task> taskList = new ArrayList<>();
     private TaskAdapter adapter;
 
-    public static String subtaskType;
-    public static String payment;
-    public static String ddl;
+    public String subtaskType;
 
-    private static int position1=0;
-    private static int position2=0;
-    private static int position3=0;
+    private int position1=0;
+    private int position2=0;
+    private int position3=0;
 
-    private static String pay1string = "0";
-    private static String pay2string = "10000";
+    private String pay1string = "0";
+    private String pay2string = "10000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
