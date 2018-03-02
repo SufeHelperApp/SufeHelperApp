@@ -47,17 +47,11 @@ public class DBTESTActivity extends AppCompatActivity {
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<user> users = DataSupport.where("myName = ?","bob")
-                        .find(user.class); //TODO: 用当前用户代替
-                user user = users.get(0);
-
-                List<String> demand = new ArrayList<String>();
-                demand.add("电子产品修理");
-
-                user.setDemand(demand);
-                user.save();
-
-                text.setText(user.getDemand().get(0));
+                List<task> taskList = DataSupport.findAll(task.class);
+                Log.d("taskNum",String.valueOf(taskList.size()));
+                for(task task: taskList){
+                    Log.d("task",task.getSubtaskType());
+                }
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
             }
         });
