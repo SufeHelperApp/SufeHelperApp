@@ -31,11 +31,7 @@ import butterknife.InjectView;
 
 public class Task_ErrandSelectActivity extends AppCompatActivity {
 
-    private static List<task> taskList = new ArrayList<>();
-
     private user user;
-
-    private TaskAdapter adapter;
 
     @InjectView(R.id.dropDownMenu) DropDownMenu mDropDownMenu;
     private String headers[] = {"分区", "位置", "报酬", "时间"};
@@ -53,13 +49,11 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
 
     private int ddlPosition = 0;
 
-    private static int position1=0;
-    private static int position2=0;
-    private static int position3=0;
-    private static int position4=0;
+    private int position1=0;
+    private int position2=0;
 
-    private static String pay1string = "0";
-    private static String pay2string = "10000";
+    private String pay1string = "0";
+    private String pay2string = "10000";
 
 
 
@@ -75,7 +69,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
         //接受user
         user = (user) getIntent().getSerializableExtra("user_data");
         Log.d("ErrandSelect",user.getMyName());
-
+/*
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -99,14 +93,6 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
             }
         });
 
-
-        List<task> tasks = DataSupport.findAll(task.class);
-        for(task task:tasks) {
-            task.checkWithin();
-            task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
-                    task.getLauncherName());
-
-        }
 
         //init city menu
         ListView cityView = new ListView(this);
@@ -180,11 +166,11 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
         }
 
 
-        final RecyclerView contentView = new RecyclerView(this);
+        RecyclerView contentView = new RecyclerView(this);
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         contentView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user);
+        TaskAdapter adapter = new TaskAdapter(taskList,user);
         contentView.setAdapter(adapter);
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
 
@@ -424,6 +410,8 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
             }
         });
+
+        */
 
     }
 

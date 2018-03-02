@@ -20,6 +20,8 @@ import java.util.List;
 
 public class Selection extends AppCompatActivity {
 
+    List<task> taskList = new ArrayList<>();
+
     private user user;
 
     private String subtaskType;
@@ -69,32 +71,25 @@ public class Selection extends AppCompatActivity {
                 position1 = position;
                 Log.d("position1",String.valueOf(position1));
                 if(position == 0){
-                    List<task> taskList1 = new ArrayList<>();
-                    taskList1 = DataSupport
+                    taskList = DataSupport
                             .where("payment >= ? and payment <= ?",
                                      pay1string, pay2string)
                             .find(task.class);
-                    Log.d("tasknum",String.valueOf(taskList1.size()));
-                    TaskAdapter adapter1 = new TaskAdapter(taskList1,user);
-                    RecyclerView recyclerView1 = (RecyclerView) findViewById(R.id.selection_recycler);
-                    GridLayoutManager layoutManager1 = new GridLayoutManager(Selection.this,1);
-                    recyclerView1.setLayoutManager(layoutManager1);
-                    recyclerView1.setAdapter(adapter1);
+                    Log.d("tasknum",String.valueOf(taskList.size()));
 
                 }else{
-                    List<task> taskList1 = new ArrayList<>();
-                    taskList1 = DataSupport
+                    taskList = DataSupport
                             .where("subtaskType = ? and payment >= ? and payment <= ?",
                                     subtaskType, pay1string, pay2string)
                             .find(task.class);
-                    Log.d("tasknum",String.valueOf(taskList1.size()));
-
-                    TaskAdapter adapter1 = new TaskAdapter(taskList1,user);
-                    RecyclerView recyclerView1 = (RecyclerView) findViewById(R.id.selection_recycler);
-                    GridLayoutManager layoutManager1 = new GridLayoutManager(Selection.this,1);
-                    recyclerView1.setLayoutManager(layoutManager1);
-                    recyclerView1.setAdapter(adapter1);
+                    Log.d("tasknum",String.valueOf(taskList.size()));
                 }
+
+                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
