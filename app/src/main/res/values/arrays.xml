@@ -78,9 +78,9 @@
 
     <string-array name="ddls" >
         <item>不限</item>
-        <item>三小时内</item>
-        <item>今天</item>
-        <item>三天内</item>
+        <item>3小时内</item>
+        <item>24小时内</item>
+        <item>3天内</item>
         <item>本周</item>
         <item>本月</item>
     </string-array>

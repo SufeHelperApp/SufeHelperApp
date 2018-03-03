@@ -138,12 +138,33 @@
                 android:layout_marginStart="7dp"
                 android:textSize="21sp"/>
 
+            <TextView
+                android:id="@+id/taskinfo_title_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_time"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:text="校区："
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/taskinfo_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_time"
+                android:layout_toEndOf="@id/taskinfo_title_area"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:textSize="21sp"/>
+
+
 
         <TextView
             android:id="@+id/taskinfo_title_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/taskinfo_title_time"
+            android:layout_below="@id/taskinfo_title_area"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:text="地点："
@@ -153,7 +174,7 @@
                 android:id="@+id/taskinfo_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_time"
+                android:layout_below="@id/taskinfo_title_area"
                 android:layout_toEndOf="@id/taskinfo_title_location"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"

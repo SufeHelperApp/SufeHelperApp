@@ -25,10 +25,13 @@ public class Selection extends AppCompatActivity {
     private user user;
 
     private String subtaskType;
+    private String area;
     private String payment;
 
     private int position1=0;
     private int position2=0;
+    private int position3=0;
+    private int position4=0;
 
     private String pay1string = "0";
     private String pay2string = "10000";
@@ -44,45 +47,134 @@ public class Selection extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("Selection",myName);
 
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item_task:
+                        break;
+                    case R.id.item_explore:
+                        Intent intent2 = new Intent(Selection.this, ExploreActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
+                        break;
+                    case R.id.item_my:
+                        Intent intent3 = new Intent(Selection.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
+                        startActivity(intent3);
+                        break;
+                }
+                return true;
+            }
+        });
+
         final Spinner subtaskView = (Spinner) findViewById(R.id.selection_subtask);
         final String[] subtaskTypes = getResources().getStringArray(R.array.subtasks_errand);
+
+        final Spinner areaView = (Spinner) findViewById(R.id.selection_area);
+        final String[] areas = getResources().getStringArray(R.array.areas);
 
         final Spinner paymentView = (Spinner) findViewById(R.id.selection_payment);
         final String[] payments = getResources().getStringArray(R.array.payments);
 
         final Spinner ddlView = (Spinner) findViewById(R.id.selection_ddl);
+        final String[] ddls = getResources().getStringArray(R.array.ddls);
 
 
-        List<task> tasks = DataSupport.findAll(task.class);
-        for(task task:tasks) {
-            task.checkWithin();
-            task.updateTaskStatus();
-            task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
-                    task.getLauncherName());
-        }
+
+        task.updateAllTaskStatus();
 
 
         subtaskView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("choose","selection1");
-                subtaskType = subtaskTypes[position];
-                Log.d("subtaskType",subtaskType);
                 position1 = position;
-                Log.d("position1",String.valueOf(position1));
-                if(position == 0){
-                    taskList = DataSupport
-                            .where("payment >= ? and payment <= ?",
-                                     pay1string, pay2string)
-                            .find(task.class);
-                    Log.d("tasknum",String.valueOf(taskList.size()));
+                subtaskType = subtaskTypes[position];
 
-                }else{
+                if(position1 == 0 && position2 == 0){
+
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? and payment <= ?",
-                                    subtaskType, pay1string, pay2string)
+                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
+                                    pay1string, pay2string,"1")
                             .find(task.class);
-                    Log.d("tasknum",String.valueOf(taskList.size()));
+
+                }else if(position1 != 0 && position2 == 0 ){
+
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                                            "and ifDisplayable = ?",
+                                    subtaskType, pay1string, pay2string,"1")
+                            .find(task.class);
+
+                }else if (position1 == 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("payment >= ? and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    pay1string, pay2string, area,"1")
+                            .find(task.class);
+
+                }else if (position1 != 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? " +
+                                            "and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    subtaskType,pay1string, pay2string, area,"1")
+                            .find(task.class);
+                }
+
+                List<task> demand;
+
+                switch (position4){
+                    case 0:
+                        break;
+                    case 1:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeHour(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 2:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 3:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 4:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneWeek(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 5:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneMonth(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
                 }
 
                 TaskAdapter adapter = new TaskAdapter(taskList,user);
@@ -97,14 +189,118 @@ public class Selection extends AppCompatActivity {
         });
 
 
+
+        areaView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                position2 = position;
+                area = areas[position];
+
+
+                if(position1 == 0 && position2 == 0){
+
+                    taskList = DataSupport
+                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
+                                    pay1string, pay2string,"1")
+                            .find(task.class);
+
+                }else if(position1 != 0 && position2 == 0 ){
+
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                                            "and ifDisplayable = ?",
+                                    subtaskType, pay1string, pay2string,"1")
+                            .find(task.class);
+
+                }else if (position1 == 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("payment >= ? and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    pay1string, pay2string, area,"1")
+                            .find(task.class);
+
+                }else if (position1 != 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? " +
+                                            "and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    subtaskType,pay1string, pay2string, area,"1")
+                            .find(task.class);
+                }
+
+                List<task> demand;
+
+                switch (position4){
+                    case 0:
+                        break;
+                    case 1:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeHour(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 2:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 3:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 4:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneWeek(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 5:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneMonth(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                }
+
+                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+
         paymentView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("choose","selection2");
-                position2 = position;
-                Log.d("position2",String.valueOf(position2));
+                position3 = position;
                 payment = payments[position];
-                Log.d("payment",payment);
+
 
                 switch (payment) {
                     case "不限": {
@@ -134,42 +330,204 @@ public class Selection extends AppCompatActivity {
                     }
                 }
 
-                if(position1 == 0){
+                if(position1 == 0 && position2 == 0){
 
-                    List<task> taskList1 = new ArrayList<>();
-                    taskList1 = DataSupport.
-                            where("payment >= ? and payment <= ?", pay1string, pay2string)
-                            .find(task.class);
-                    Log.d("tasknum",String.valueOf(taskList1.size()));
-                    TaskAdapter adapter1 = new TaskAdapter(taskList1,user);
-                    RecyclerView recyclerView1 = (RecyclerView) findViewById(R.id.selection_recycler);
-                    GridLayoutManager layoutManager1 = new GridLayoutManager(Selection.this,1);
-                    recyclerView1.setLayoutManager(layoutManager1);
-                    recyclerView1.setAdapter(adapter1);
-
-                }else{
-                    List<task> taskList1 = new ArrayList<>();
-                    Log.d("subtask in view2",subtaskType);
-
-                    Log.d("pay1",pay1string);
-                    Log.d("pay2",pay1string);
-
-
-                    taskList1 = DataSupport
-                            .where("subtaskType = ? and payment >= ? and payment <= ?",
-                                    subtaskType, pay1string, pay2string)
+                    taskList = DataSupport
+                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
+                                    pay1string, pay2string,"1")
                             .find(task.class);
 
-                    Log.d("tasknum",String.valueOf(taskList1.size()));
+                }else if(position1 != 0 && position2 == 0 ){
 
-                    TaskAdapter adapter1 = new TaskAdapter(taskList1,user);
-                    RecyclerView recyclerView1 = (RecyclerView) findViewById(R.id.selection_recycler);
-                    GridLayoutManager layoutManager1 = new GridLayoutManager(Selection.this,1);
-                    recyclerView1.setLayoutManager(layoutManager1);
-                    recyclerView1.setAdapter(adapter1);
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                                            "and ifDisplayable = ?",
+                                    subtaskType, pay1string, pay2string,"1")
+                            .find(task.class);
+
+                }else if (position1 == 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("payment >= ? and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    pay1string, pay2string, area,"1")
+                            .find(task.class);
+
+                }else if (position1 != 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? " +
+                                            "and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    subtaskType,pay1string, pay2string, area,"1")
+                            .find(task.class);
                 }
 
+                List<task> demand;
 
+                switch (position4){
+                    case 0:
+                        break;
+                    case 1:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeHour(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 2:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 3:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 4:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneWeek(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 5:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneMonth(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                }
+
+                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
+                }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
+        ddlView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                position4 = position;
+
+                if(position1 == 0 && position2 == 0){
+
+                    taskList = DataSupport
+                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
+                                    pay1string, pay2string,"1")
+                            .find(task.class);
+
+
+
+                }else if(position1 != 0 && position2 == 0 ){
+
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                                            "and ifDisplayable = ?",
+                                    subtaskType, pay1string, pay2string,"1")
+                            .find(task.class);
+
+                }else if (position1 == 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("payment >= ? and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    pay1string, pay2string, area,"1")
+                            .find(task.class);
+
+                }else if (position1 != 0 && position2 != 0){
+
+                    taskList = DataSupport
+                            .where("subtaskType = ? and payment >= ? " +
+                                            "and payment <= ? and area = ?" +
+                                            "and ifDisplayable = ?",
+                                    subtaskType,pay1string, pay2string, area,"1")
+                            .find(task.class);
+                }
+
+                List<task> demand;
+
+                switch (position4){
+                    case 0:
+                        break;
+                    case 1:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeHour(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 2:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 3:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinThreeDay(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 4:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneWeek(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                    case 5:
+                        demand = new ArrayList<>();
+                        for(task task:taskList){
+                            if(TimeUtils.isDateWithinOneMonth(task.getDdl())){
+                                demand.add(task);
+                            }
+                        }
+                        taskList = demand;
+                        break;
+                }
+
+                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
 
             }
 
@@ -181,6 +539,8 @@ public class Selection extends AppCompatActivity {
 
 
     }
+
+
 
 }
 

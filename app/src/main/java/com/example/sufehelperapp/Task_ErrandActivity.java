@@ -23,17 +23,6 @@ public class Task_ErrandActivity extends AppCompatActivity {
 
     private user user;
 
-    private task[] tasks =
-            {new task("文静", R.drawable.apple, "13912345678",
-                    "占座","二教206","18/2/12","9:00",
-                    5,"微信联系"),
-                    new task("戴晓东", R.drawable.banana, "13812345678",
-                            "拿快递","快递中心","18/2/10","10:00",
-                            7,"微信联系"),
-                    new task("刘宇涵", R.drawable.orange,"13712345678",
-                            "买饭","新食堂","18/2/17","11:00",
-                            6,"微信联系")};
-
     private List<task> taskList = new ArrayList<>();
 
     private TaskAdapter adapter;
@@ -74,7 +63,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         });
 
 
-        initTasks();
+        initTaskSuggestions();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_errand);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
@@ -93,25 +82,11 @@ public class Task_ErrandActivity extends AppCompatActivity {
 
     }
 
-    private void initTasks(){
-        taskList.clear();
-        for(int i=0; i<4; i++){
-            Random random = new Random();
-            int index = random.nextInt(tasks.length);
-            taskList.add(tasks[index]);
-        }
-    }
-
     //TODO: 推荐算法
 
     private void initTaskSuggestions(){
-        taskList.clear();
-        String Dormarea = user.getDormArea();
-
-        taskList= DataSupport.where("area = ?", "Dormarea")
-                .where("payment >= ?" , "pay1").where(
-                "payment <= ?", "pay2").where("ddl <= ?", "time").limit(4).find(task.class);
-
+        taskList = DataSupport.where("area = ?",user.getDormArea())
+                .order("payment").limit(4).find(task.class);
     }
 
 }
