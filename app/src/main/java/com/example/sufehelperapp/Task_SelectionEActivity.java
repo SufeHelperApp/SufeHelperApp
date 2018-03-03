@@ -78,7 +78,7 @@ public class Task_SelectionEActivity extends AppCompatActivity {
 
         List<task> tasks = DataSupport.findAll(task.class);
         for(task task:tasks) {
-            task.checkWithin();
+            task.checkSubWithin();
             task.updateTaskStatus();
             task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
                     task.getLauncherName());

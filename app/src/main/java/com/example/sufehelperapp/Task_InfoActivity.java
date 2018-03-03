@@ -145,7 +145,8 @@ public class Task_InfoActivity extends AppCompatActivity {
         TextView taskType = (TextView) findViewById(R.id.taskinfo_taskType);
         TextView subtaskType = (TextView) findViewById(R.id.taskinfo_subtaskType);
         TextView date = (TextView) findViewById(R.id.taskinfo_date);
-        TextView time= (TextView)findViewById(R.id.taskinfo_time);
+        TextView time = (TextView)findViewById(R.id.taskinfo_time);
+        TextView area = (TextView)findViewById(R.id.taskinfo_area);
         TextView location = (TextView) findViewById(R.id.taskinfo_location);
         TextView payment = (TextView) findViewById(R.id.taskinfo_payment);
         TextView description = (TextView) findViewById(R.id.taskinfo_description);
@@ -157,6 +158,7 @@ public class Task_InfoActivity extends AppCompatActivity {
         subtaskType.setText(task.getSubtaskType());
         date.setText(task.getDdlDate());
         time.setText(task.getDdlTime());
+        area.setText(task.getArea());
         location.setText(task.getLocation());
         String paymentString = Double.toString(task.getPayment());
         payment.setText(paymentString);

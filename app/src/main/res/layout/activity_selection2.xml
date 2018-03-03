@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/selection_area"
         android:layout_alignBottom="@+id/selection_area"
-        android:layout_alignParentStart="true"
-        android:entries="@array/subtasks_errand">
+        android:layout_marginEnd="88dp"
+        android:layout_toStartOf="@+id/selection_payment"
+        android:entries="@array/subtasks_skill">
 
     </Spinner>
 
@@ -26,7 +27,7 @@
         android:layout_alignBaseline="@+id/selection_ddl"
         android:layout_alignBottom="@+id/selection_ddl"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="98dp"
         android:entries="@array/areas">
 
     </Spinner>
@@ -48,8 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="57dp"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="56dp"
         android:layout_toEndOf="@+id/selection_area"
         android:entries="@array/ddls">
 
@@ -68,3 +69,4 @@
 
 
 </RelativeLayout>
+

@@ -15,7 +15,6 @@
         <item>求职经验</item>
         <item>票务转让</item>
         <item>二手闲置</item>
-        <item>其他</item>
     </string-array>
 
     <string-array name="subtasks_errand" >
@@ -29,20 +28,20 @@
 
     <string-array name="subtasks_skill" >
         <item>不限</item>
-        <item>占座</item>
-        <item>拿快递</item>
-        <item>买饭</item>
-        <item>买东西</item>
-        <item>拼单</item>
+        <item>电子产品修理</item>
+        <item>家具器件组装</item>
+        <item>学习作业辅导</item>
+        <item>技能培训</item>
+        <item>找同好</item>
     </string-array>
 
     <string-array name="subtasks_counsel" >
         <item>不限</item>
-        <item>占座</item>
-        <item>拿快递</item>
-        <item>买饭</item>
-        <item>买东西</item>
-        <item>拼单</item>
+        <item>选课指南</item>
+        <item>考研出国经验</item>
+        <item>求职经验</item>
+        <item>票务转让</item>
+        <item>二手闲置</item>
     </string-array>
 
     <string-array name="area" >
@@ -78,9 +77,9 @@
 
     <string-array name="ddls" >
         <item>不限</item>
-        <item>三小时内</item>
-        <item>今天</item>
-        <item>三天内</item>
+        <item>3小时内</item>
+        <item>24小时内</item>
+        <item>3天内</item>
         <item>本周</item>
         <item>本月</item>
     </string-array>
