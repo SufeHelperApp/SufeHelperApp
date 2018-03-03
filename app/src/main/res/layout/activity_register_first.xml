@@ -53,9 +53,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="●  ○  ○"
-        android:textSize="20dp"
+        android:text="●  ○  ○  ○  ○"
+        android:textSize="5dp"
         android:textColor="#909090"
         android:background="#00000000"/>
+
 </LinearLayout>
 
