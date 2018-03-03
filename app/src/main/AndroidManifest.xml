@@ -61,7 +61,9 @@
         <activity android:name=".My_RegisterFifthActivity" />
         <activity android:name=".MyActivity_Task_Details" />
         <activity android:name=".MyActivity_Edit_dormname" />
-        <activity android:name=".Selection"></activity>
+        <activity android:name=".Selection1" />
+        <activity android:name=".Selection2" />
+        <activity android:name=".Selection3"></activity>
     </application>
 
 </manifest>

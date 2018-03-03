@@ -18,11 +18,12 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Selection extends AppCompatActivity {
+public class Selection1 extends AppCompatActivity {
 
     List<task> taskList = new ArrayList<>();
 
     private user user;
+    String[] subtaskTypes;
 
     private String subtaskType;
     private String area;
@@ -42,10 +43,12 @@ public class Selection extends AppCompatActivity {
         setContentView(R.layout.activity_selection);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
 
+
         //接受user
         user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
-        Log.d("Selection",myName);
+        Log.d("Selection1",myName);
+
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -55,12 +58,12 @@ public class Selection extends AppCompatActivity {
                     case R.id.item_task:
                         break;
                     case R.id.item_explore:
-                        Intent intent2 = new Intent(Selection.this, ExploreActivity.class);
+                        Intent intent2 = new Intent(Selection1.this, ExploreActivity.class);
                         intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Selection.this, My_HomeActivity.class);
+                        Intent intent3 = new Intent(Selection1.this, My_HomeActivity.class);
                         intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
@@ -95,33 +98,34 @@ public class Selection extends AppCompatActivity {
                 if(position1 == 0 && position2 == 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
-                                    pay1string, pay2string,"1")
+                            .where("taskType = ? and payment >= ? and payment <= ?" +
+                                            " and ifDisplayable = ?",
+                                    "跑腿",pay1string, pay2string,"1")
                             .find(task.class);
 
                 }else if(position1 != 0 && position2 == 0 ){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
                                             "and ifDisplayable = ?",
-                                    subtaskType, pay1string, pay2string,"1")
+                                    "跑腿",subtaskType, pay1string, pay2string,"1")
                             .find(task.class);
 
                 }else if (position1 == 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and area = ?" +
+                            .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    pay1string, pay2string, area,"1")
+                                    "跑腿",pay1string, pay2string, area,"1")
                             .find(task.class);
 
                 }else if (position1 != 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? " +
                                             "and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    subtaskType,pay1string, pay2string, area,"1")
+                                    "跑腿",subtaskType,pay1string, pay2string, area,"1")
                             .find(task.class);
                 }
 
@@ -179,7 +183,7 @@ public class Selection extends AppCompatActivity {
 
                 TaskAdapter adapter = new TaskAdapter(taskList,user);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
-                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
             }
@@ -200,33 +204,33 @@ public class Selection extends AppCompatActivity {
                 if(position1 == 0 && position2 == 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
-                                    pay1string, pay2string,"1")
+                            .where("taskType = ? and payment >= ? and payment <= ? and ifDisplayable = ?",
+                                    "跑腿",pay1string, pay2string,"1")
                             .find(task.class);
 
                 }else if(position1 != 0 && position2 == 0 ){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
                                             "and ifDisplayable = ?",
-                                    subtaskType, pay1string, pay2string,"1")
+                                    "跑腿",subtaskType, pay1string, pay2string,"1")
                             .find(task.class);
 
                 }else if (position1 == 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and area = ?" +
+                            .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    pay1string, pay2string, area,"1")
+                                    "跑腿",pay1string, pay2string, area,"1")
                             .find(task.class);
 
                 }else if (position1 != 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? " +
                                             "and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    subtaskType,pay1string, pay2string, area,"1")
+                                    "跑腿",subtaskType,pay1string, pay2string, area,"1")
                             .find(task.class);
                 }
 
@@ -284,7 +288,7 @@ public class Selection extends AppCompatActivity {
 
                 TaskAdapter adapter = new TaskAdapter(taskList,user);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
-                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
             }
@@ -333,33 +337,33 @@ public class Selection extends AppCompatActivity {
                 if(position1 == 0 && position2 == 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
-                                    pay1string, pay2string,"1")
+                            .where("taskType = ? and payment >= ? and payment <= ? and ifDisplayable = ?",
+                                    "跑腿",pay1string, pay2string,"1")
                             .find(task.class);
 
                 }else if(position1 != 0 && position2 == 0 ){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
                                             "and ifDisplayable = ?",
-                                    subtaskType, pay1string, pay2string,"1")
+                                    "跑腿",subtaskType, pay1string, pay2string,"1")
                             .find(task.class);
 
                 }else if (position1 == 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and area = ?" +
+                            .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    pay1string, pay2string, area,"1")
+                                    "跑腿",pay1string, pay2string, area,"1")
                             .find(task.class);
 
                 }else if (position1 != 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? " +
                                             "and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    subtaskType,pay1string, pay2string, area,"1")
+                                    "跑腿",subtaskType,pay1string, pay2string, area,"1")
                             .find(task.class);
                 }
 
@@ -417,7 +421,7 @@ public class Selection extends AppCompatActivity {
 
                 TaskAdapter adapter = new TaskAdapter(taskList,user);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
-                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
                 }
@@ -439,35 +443,33 @@ public class Selection extends AppCompatActivity {
                 if(position1 == 0 && position2 == 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and ifDisplayable = ?",
-                                    pay1string, pay2string,"1")
+                            .where("taskType = ? and payment >= ? and payment <= ? and ifDisplayable = ?",
+                                    "跑腿",pay1string, pay2string,"1")
                             .find(task.class);
-
-
 
                 }else if(position1 != 0 && position2 == 0 ){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? and payment <= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
                                             "and ifDisplayable = ?",
-                                    subtaskType, pay1string, pay2string,"1")
+                                    "跑腿",subtaskType, pay1string, pay2string,"1")
                             .find(task.class);
 
                 }else if (position1 == 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("payment >= ? and payment <= ? and area = ?" +
+                            .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    pay1string, pay2string, area,"1")
+                                    "跑腿",pay1string, pay2string, area,"1")
                             .find(task.class);
 
                 }else if (position1 != 0 && position2 != 0){
 
                     taskList = DataSupport
-                            .where("subtaskType = ? and payment >= ? " +
+                            .where("taskType = ? and subtaskType = ? and payment >= ? " +
                                             "and payment <= ? and area = ?" +
                                             "and ifDisplayable = ?",
-                                    subtaskType,pay1string, pay2string, area,"1")
+                                    "跑腿",subtaskType,pay1string, pay2string, area,"1")
                             .find(task.class);
                 }
 
@@ -525,7 +527,7 @@ public class Selection extends AppCompatActivity {
 
                 TaskAdapter adapter = new TaskAdapter(taskList,user);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
-                GridLayoutManager layoutManager = new GridLayoutManager(Selection.this,1);
+                GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
 

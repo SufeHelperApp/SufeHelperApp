@@ -12,25 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Task_CounselActivity extends AppCompatActivity {
 
     private user user;
-
-    private task[] tasks =
-            {new task("文静", R.drawable.apple, "13912345678",
-                    "占座","二教206","18/2/12","9:00",
-                    5,"微信联系"),
-                    new task("戴晓东", R.drawable.banana, "13812345678",
-                            "拿快递","快递中心","18/2/10","10:00",
-                            7,"微信联系"),
-                    new task("刘宇涵", R.drawable.orange,"13712345678",
-                            "买饭","新食堂","18/2/17","11:00",
-                            6,"微信联系")};
-    // NOTE: 可删除，用数据库取代
 
     private List<task> taskList = new ArrayList<>();
 
@@ -74,32 +63,77 @@ public class Task_CounselActivity extends AppCompatActivity {
             }
         });
 
-        initTasks();
+        taskList = initTaskSuggestions();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_counsel);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user);
+        adapter = new TaskAdapter(taskList,user); //taskAdapter中获得当前user
         recyclerView.setAdapter(adapter);
 
-        //TODO
         ImageView img1 = findViewById(R.id.counsel_ic1);
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Task_CounselActivity.this, Task_CounselSelectActivity.class);
+                Intent intent1 = new Intent(Task_CounselActivity.this, Selection3.class);
+                intent1.putExtra("user_now", user);
                 startActivity(intent1);
             }
         });
 
     }
 
-    private void initTasks(){
-        taskList.clear();
-        for(int i=0; i<4; i++){
-            Random random = new Random();
-            int index = random.nextInt(tasks.length);
-            taskList.add(tasks[index]);
+    //推荐算法
+
+    private List<task> initTaskSuggestions(){
+
+        List<task> preferredTasks = new ArrayList<>();
+        List<task> taskMatched = DataSupport.where("taskType = ?","咨询").find(task.class);
+
+        for(task task:taskMatched){
+
+            int credit = 0;
+
+            //位置近
+            if(task.getArea() == user.getDormArea()){
+                credit++;
+            }
+            //符合特长
+            for(String specialty:user.getSpecialty()){
+                if(specialty.equals(task.getSubtaskType())){
+                    credit++;
+                }
+            }
+
+            //发布者是曾经帮助过的用户
+            List<task> userTaskList = DataSupport.where("helperName = ?",user.getMyName())
+                    .find(task.class);
+            for(task task1:userTaskList) {
+                if (task1.getLauncherName() == task.getLauncherName()){
+                    credit++;
+                }
+            }
+
+            //价格很高
+            if(task.getPayment()>=20){
+                credit++;
+            }
+
+            //时间紧急
+            if(TimeUtils.isDateWithinThreeHour(task.getDdl())){
+                credit++;
+            }
+
+            //符合两项即推荐
+            if(credit>=2 && preferredTasks.size()<4){
+
+                preferredTasks.add(task);
+
+            }
+
         }
+
+        return preferredTasks;
+
     }
 }
 

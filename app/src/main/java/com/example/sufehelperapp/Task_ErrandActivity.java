@@ -10,14 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Task_ErrandActivity extends AppCompatActivity {
 
@@ -63,7 +61,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         });
 
 
-        initTaskSuggestions();
+        taskList = initTaskSuggestions();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_errand);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
@@ -74,7 +72,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(Task_ErrandActivity.this, Selection.class);
+                Intent intent1 = new Intent(Task_ErrandActivity.this, Selection1.class);
                 intent1.putExtra("user_now", user);
                 startActivity(intent1);
             }
@@ -82,11 +80,58 @@ public class Task_ErrandActivity extends AppCompatActivity {
 
     }
 
-    //TODO: 推荐算法
+    //推荐算法
 
-    private void initTaskSuggestions(){
-        taskList = DataSupport.where("area = ?",user.getDormArea())
-                .order("payment").limit(4).find(task.class);
+    private List<task> initTaskSuggestions(){
+
+        List<task> preferredTasks = new ArrayList<>();
+        List<task> taskMatched = DataSupport.where("taskType = ?","跑腿").find(task.class);
+
+        for(task task:taskMatched){
+
+            int credit = 0;
+
+            //位置近
+            if(task.getArea() == user.getDormArea()){
+                credit++;
+            }
+            //符合特长
+            for(String specialty:user.getSpecialty()){
+                if(specialty.equals(task.getSubtaskType())){
+                    credit++;
+                }
+            }
+
+            //发布者是曾经帮助过的用户
+            List<task> userTaskList = DataSupport.where("helperName = ?",user.getMyName())
+                    .find(task.class);
+            for(task task1:userTaskList) {
+                if (task1.getLauncherName() == task.getLauncherName()){
+                    credit++;
+                }
+            }
+
+            //价格很高
+            if(task.getPayment()>=20){
+                credit++;
+            }
+
+            //时间紧急
+            if(TimeUtils.isDateWithinThreeHour(task.getDdl())){
+                credit++;
+            }
+
+            //符合两项即推荐
+            if(credit>=2 && preferredTasks.size()<4){
+
+                preferredTasks.add(task);
+
+            }
+
+        }
+
+        return preferredTasks;
+
     }
 
 }

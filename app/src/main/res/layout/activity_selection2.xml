@@ -1,0 +1,72 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/common_toolbar"/>
+
+
+    <Spinner
+        android:id="@+id/selection_subtask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/selection_area"
+        android:layout_alignBottom="@+id/selection_area"
+        android:layout_marginEnd="88dp"
+        android:layout_toStartOf="@+id/selection_payment"
+        android:entries="@array/subtasks_skill">
+
+    </Spinner>
+
+
+    <Spinner
+        android:id="@+id/selection_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/selection_ddl"
+        android:layout_alignBottom="@+id/selection_ddl"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="98dp"
+        android:entries="@array/areas">
+
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/selection_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/selection_area"
+        android:layout_alignBottom="@+id/selection_area"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="82dp"
+        android:entries="@array/payments">
+
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/selection_ddl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="56dp"
+        android:layout_toEndOf="@+id/selection_area"
+        android:entries="@array/ddls">
+
+    </Spinner>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/selection_recycler"
+        android:layout_below="@id/selection_subtask"
+        android:layout_above="@id/btn_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <include layout="@layout/common_bottom_navigation_bar"/>
+
+
+</RelativeLayout>
+
