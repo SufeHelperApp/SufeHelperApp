@@ -38,9 +38,33 @@
             android:layout_margin="5dp"
             android:background="#00000000" />
     </LinearLayout>
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/bmapView"
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"/>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"/>
+        android:layout_height="80dp">
+        <TextView
+            android:id="@+id/position_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_marginLeft="30dp"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/position_get"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/bottom_shadow"
+            android:text="确认"
+            android:textSize="16dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 </LinearLayout>

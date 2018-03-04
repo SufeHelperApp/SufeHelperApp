@@ -8,8 +8,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -34,6 +37,8 @@ import org.litepal.crud.DataSupport;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -48,6 +53,8 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
+    private static final int PHOTO_REQUEST_CUT = 3;// 结果
+
     private ImageView picture;
     private Uri imageUri;
 
@@ -71,33 +78,6 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
         });
 
-        //拍照
-        Button takePhoto = (Button) findViewById(R.id.button_take_a_picture);
-        picture = (ImageView) findViewById(R.id.picture_upload);
-        takePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //创建File对象，用于存储拍照后的图片
-                File outputImage = new File(getExternalCacheDir(),"output_image.jpg");
-                try {
-                    if (outputImage.exists()) {
-                        outputImage.delete();
-                    }
-                    outputImage.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (Build.VERSION.SDK_INT >= 24) {
-                    imageUri = FileProvider.getUriForFile(My_RegisterSecondActivity.this,"com.example.cameraalbumtest.fileprovider",outputImage);
-                } else {
-                    imageUri = Uri.fromFile(outputImage);
-                }
-                //启动相机程序
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                startActivityForResult(intent,TAKE_PHOTO);
-            }
-        });
         //从手机相册中选择
         Button chooseFromAlbum = (Button) findViewById(R.id.bottom_choose_from_album);
         chooseFromAlbum.setOnClickListener(new View.OnClickListener() {
@@ -191,17 +171,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent data) {
         switch (requestCode) {
-            case TAKE_PHOTO:
-                if(requestCode == RESULT_OK) {
-                    try {
-                        //将拍摄的照片显示出来
-                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        picture.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
+
             case CHOOSE_PHOTO:
                 if(requestCode == RESULT_OK) {
                     //判断手机系统版本号
@@ -213,15 +183,62 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                         handldImageBeforeKitKat(data);
                     }
                 }
+                if (data != null)
+                    startPhotoZoom(data.getData(), 100);
+
+                break;
+            case PHOTO_REQUEST_CUT:
+                if (data != null)
+                    setPicToView(data);
                 break;
             default:
                 break;
         }
     }
+    private Bitmap decodeUriBitmap(Uri uri) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return bitmap;
+    }
+    private void startPhotoZoom(Uri uri, int size) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        // crop为true是设置在开启的intent中设置显示的view可以剪裁
+        intent.putExtra("crop", "true");
+
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+
+        // outputX,outputY 是剪裁图片的宽高
+        intent.putExtra("outputX", size);
+        intent.putExtra("outputY", size);
+        intent.putExtra("scale", true);
+        intent.putExtra("return-data", true);
+
+        startActivityForResult(intent, PHOTO_REQUEST_CUT);
+    }
+    //将进行剪裁后的图片显示到UI界面上
+    private void setPicToView(Intent picdata) {
+        Bundle bundle = picdata.getExtras();
+        if (bundle != null) {
+            Bitmap photo = bundle.getParcelable("data");
+            Drawable drawable = new BitmapDrawable(photo);
+            picture.setBackgroundDrawable(drawable);
+        }
+    }
     private void openAlbum() {
-        Intent intent2 = new Intent("android.intent.action.GET_CONTENT");
+        /*Intent intent2 = new Intent("android.intent.action.GET_CONTENT");
         intent2.setType("image/*");
-        startActivityForResult(intent2,CHOOSE_PHOTO);//打开相册
+        startActivityForResult(intent2,CHOOSE_PHOTO);//打开相册*/
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+        startActivityForResult(intent, CHOOSE_PHOTO);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

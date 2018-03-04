@@ -26,9 +26,18 @@ public class Task_LaunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_task);
+        Button button1 = (Button) findViewById(R.id.launch_location_coordinator);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Task_LaunchActivity.this, Map.class);
+                startActivity(intent);
+            }
+        });
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         //从MainActivity接受user
         user = (user) getIntent().getSerializableExtra("user_now");
@@ -68,7 +77,6 @@ public class Task_LaunchActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
 
         //once clicked, build new task
         Button b1 = (Button) findViewById(R.id.launch_task_btn);
