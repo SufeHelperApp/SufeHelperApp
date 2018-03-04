@@ -30,6 +30,9 @@ public class task extends DataSupport implements Serializable{
 
     //任务时间
     private String launchtime; //任务发布时间（发布页） 。
+    private String preciseLaunchTime;
+    private String accepttime;
+    private String achievetime;
     private String finishtime; //TODO: 任务结束时间（我的任务）
     private String ddlDate;   //任务截止日期（发布页）
     private String ddlTime;   //任务截止时刻（发布页）
@@ -55,34 +58,19 @@ public class task extends DataSupport implements Serializable{
     //任务评分
     private float score;    //任务评分（我的任务-评价页）
 
-    //任务时间范围
-    private boolean within;
-    private boolean within0;
-    private boolean within1;
-    private boolean within2;
-    private boolean within3;
-    private boolean within4;
-    private boolean within5;
-
 
 
     //默认构造函数
 
     public task(){
         this.launchtime = TimeUtils.getNowTime();
+        this.preciseLaunchTime = TimeUtils.getNowTimePrecise();
         this.ifDisplayable = true;
         this.ifDefault = false;
         this.ifAccepted = false; //新建任务时，默认接收状态为false：未被接收
         this.ifOutdated = false;
         this.ifShutDown = false;
         this.progress = 1; //默认进度为1：已发布
-        this.within = true;
-        this.within0 = true;
-        this.within1 = false;
-        this.within2 = false;
-        this.within3 = false;
-        this.within4 = false;
-        this.within5 = false;
     }
 
 
@@ -123,97 +111,6 @@ public class task extends DataSupport implements Serializable{
                 || subtaskType.contentEquals("找同好"))
         {taskType = "技能";}
         else{taskType = "咨询";}
-    }
-
-
-    //函数：时间段
-
-
-    public void checkSubWithin(){
-        String ddl = this.getDdl();
-        within1 = TimeUtils.isDateWithinThreeHour(ddl);
-        within2 = TimeUtils.isDateWithinOneDay(ddl);
-        within3 = TimeUtils.isDateWithinThreeDay(ddl);
-        within4 = TimeUtils.isDateWithinOneWeek(ddl);
-        within5 = TimeUtils.isDateWithinOneMonth(ddl);
-    }
-
-    public boolean getSubWithin(int i) {
-        if (i == 0) {
-            return within0;
-        } else if (i == 1) {
-            return within1;
-        } else if (i == 2) {
-            return within2;
-        } else if (i == 3) {
-            return within3;
-        } else if (i == 4) {
-            return within4;
-        } else if(i == 5) {
-            return within5;
-        } else {
-            return true;
-        }
-    }
-
-
-    public void ifWithin(int position){
-        switch(position) {
-            case 0:
-                within = true;
-                break;
-            case 1:
-                if(within1) {
-                    within = true;
-                } else {
-                    within = false;
-                }
-                break;
-            case 2:
-                if(within2) {
-                    within = true;
-                } else {
-                    within = false;
-                }
-                break;
-            case 3:
-                if(within3) {
-                    within = true;
-                } else {
-                    within = false;
-                }
-                break;
-            case 4:
-                if(within4) {
-                    within = true;
-                } else {
-                    within = false;
-                }
-                break;
-            case 5:
-                if(within5) {
-                    within = true;
-                } else {
-                    within = false;
-                }
-                break;
-        }
-    }
-
-    public boolean getWithin(){
-        return within;
-    }
-
-    public void setWithin(boolean a){
-        this.within = a;
-    }
-
-    public void setSubWithin(){
-        this.within1 = true;
-        this.within2 = true;
-        this.within3 = true;
-        this.within4 = true;
-        this.within5 = true;
     }
 
 
@@ -261,7 +158,7 @@ public class task extends DataSupport implements Serializable{
                         task.ifOutdated = false;
                         task.ifDefault = true;
                         task.ifShutDown = true; //接收者未及时完成，关闭项目
-                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
                     } else {
@@ -269,7 +166,7 @@ public class task extends DataSupport implements Serializable{
                         task.ifOutdated = true;
                         task.ifDefault = false;
                         task.ifShutDown = true; //过期未接收，关闭项目
-                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
                     }
@@ -279,7 +176,7 @@ public class task extends DataSupport implements Serializable{
                         task.ifOutdated = false;
                         task.ifDefault = false;
                         task.ifShutDown = false;
-                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
                     } else {
@@ -287,7 +184,7 @@ public class task extends DataSupport implements Serializable{
                         task.ifOutdated = false;
                         task.ifDefault = false;
                         task.ifShutDown = false;
-                        task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
                     }
@@ -297,7 +194,7 @@ public class task extends DataSupport implements Serializable{
                 task.ifOutdated = false;
                 task.ifDefault = false;
                 task.ifShutDown = false;
-                task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                         task.getLauncherName());
 
             }else if(task.getProgress() == 4){
@@ -305,7 +202,7 @@ public class task extends DataSupport implements Serializable{
                 task.ifOutdated = false;
                 task.ifDefault = false;
                 task.ifShutDown = true;  //支付完成，关闭任务
-                task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                         task.getLauncherName());
             }
         }
@@ -379,6 +276,18 @@ public class task extends DataSupport implements Serializable{
 
 
     //函数：时间
+
+    public void setPreciseLaunchTime(){this.preciseLaunchTime = TimeUtils.getNowTimePrecise();}
+
+    public String getPreciseLaunchTime(){return preciseLaunchTime;}
+
+    public String getAchievetime(){return achievetime;}
+
+    public void setAchievetime(){this.achievetime = TimeUtils.getNowTime();}
+
+    public String getAccepttime(){return accepttime;}
+
+    public void setAccepttime(){this.accepttime = TimeUtils.getNowTime();}
 
     public String getLaunchtime() {
         return launchtime;

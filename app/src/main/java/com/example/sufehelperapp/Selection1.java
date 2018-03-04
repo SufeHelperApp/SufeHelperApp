@@ -181,7 +181,7 @@ public class Selection1 extends AppCompatActivity {
                         break;
                 }
 
-                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                TaskAdapter adapter = new TaskAdapter(taskList,user,1);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
                 GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);
@@ -286,7 +286,7 @@ public class Selection1 extends AppCompatActivity {
                         break;
                 }
 
-                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                TaskAdapter adapter = new TaskAdapter(taskList,user,1);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
                 GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);
@@ -419,7 +419,7 @@ public class Selection1 extends AppCompatActivity {
                         break;
                 }
 
-                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                TaskAdapter adapter = new TaskAdapter(taskList,user,1);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
                 GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);
@@ -525,7 +525,7 @@ public class Selection1 extends AppCompatActivity {
                         break;
                 }
 
-                TaskAdapter adapter = new TaskAdapter(taskList,user);
+                TaskAdapter adapter = new TaskAdapter(taskList,user,1);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.selection_recycler);
                 GridLayoutManager layoutManager = new GridLayoutManager(Selection1.this,1);
                 recyclerView.setLayoutManager(layoutManager);

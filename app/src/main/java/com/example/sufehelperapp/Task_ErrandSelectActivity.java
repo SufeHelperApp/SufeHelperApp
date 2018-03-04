@@ -149,7 +149,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         contentView.setLayoutManager(layoutManager);
-        TaskAdapter adapter = new TaskAdapter(taskList,user);
+        TaskAdapter adapter = new TaskAdapter(taskList,user,1);
         contentView.setAdapter(adapter);
         mDropDownMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
 
@@ -181,7 +181,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 GridLayoutManager layoutManager1 = new GridLayoutManager(Task_ErrandSelectActivity.this,1);
                 contentView1.setLayoutManager(layoutManager1);
 
-                TaskAdapter adapter1 = new TaskAdapter(taskList,user);
+                TaskAdapter adapter1 = new TaskAdapter(taskList,user,1);
                 contentView1.setAdapter(adapter1);
 
                 /*

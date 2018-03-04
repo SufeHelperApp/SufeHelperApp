@@ -82,7 +82,7 @@ public class MyActivity_credit extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_credit_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user);
+        adapter = new TaskAdapter(taskList,user,1);
         recyclerView.setAdapter(adapter);
 
 

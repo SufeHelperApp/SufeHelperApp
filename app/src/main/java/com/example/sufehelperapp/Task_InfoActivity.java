@@ -46,6 +46,8 @@ public class Task_InfoActivity extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("Task_InfoActivity",myName);
 
+        task = (task) getIntent().getSerializableExtra("task_selected");
+
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -73,10 +75,10 @@ public class Task_InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 switch(v.getId()) {
-                    case R.id.button_apply_for:
+                    case R.id.receive_task_btn:
                         AlertDialog.Builder dialog = new AlertDialog.Builder(Task_InfoActivity.this);
-                        dialog.setTitle("您确定申请称号吗？");
-                        dialog.setMessage("如果您未完成或者放弃该任务，将会减少您的积分。");
+                        dialog.setTitle("是否确定接收任务？");
+                        dialog.setMessage("如果您中途放弃该任务，将会降低您在SufeHelper上的信用评分。累计三次违约的账户将被冻结。");
                         dialog.setCancelable(false);
                         dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
@@ -91,15 +93,20 @@ public class Task_InfoActivity extends AppCompatActivity {
                                 }else {
 
                                     //更新该task信息
+                                    Log.d("msg","1");
                                     task.setIfAccepted(true);
-                                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
-                                            task.getLauncherName());
-                                    task.updateTaskStatus(); //TODO: 排查
+                                    task.setAccepttime();
                                     task.setProgress(2); //已接受
                                     task.setHelper(user);
                                     task.setHelperName(helperName);
-                                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                             task.getLauncherName());
+
+                                    task.updateTaskStatus(); //TODO: 排查
+                                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                                            task.getLauncherName());
+
+                                    Log.d("msg","2");
 
                                     user.increaseCredit(30);
                                     user.addTaskRNum(1);
@@ -112,6 +119,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     }
                                     user.addTaskNum(1);
 
+                                    Log.d("msg","3");
                                     user.updateAll("phonenumber = ?",user.getPhonenumber());
                                     Log.d("msg1",String.valueOf(user.getTaskRNum_errand()));
                                     Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
@@ -121,6 +129,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     intent1.putExtra("user_now", user);
                                     startActivity(intent1);
                                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
+                                    Log.d("msg","4");
                                 }
                             }
                         });

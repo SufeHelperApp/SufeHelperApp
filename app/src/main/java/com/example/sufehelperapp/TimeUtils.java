@@ -18,6 +18,14 @@ public class TimeUtils {
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
+
+
+    public static String getNowTimePrecise(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        return simpleDateFormat.format(date);
+    }
+
     /**
      * 获取时间戳
      *

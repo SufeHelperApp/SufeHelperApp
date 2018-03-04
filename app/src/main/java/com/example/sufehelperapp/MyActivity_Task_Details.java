@@ -40,8 +40,8 @@ public class MyActivity_Task_Details extends AppCompatActivity {
 
         task = (task) getIntent().getSerializableExtra("task_selected");
 
-        Button button1 = (Button) findViewById(R.id.title_back);
-        button1.setOnClickListener(new View.OnClickListener() {
+        Button button = (Button) findViewById(R.id.title_back);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
@@ -49,12 +49,45 @@ public class MyActivity_Task_Details extends AppCompatActivity {
             }
         });
 
+        Button button1 = (Button) findViewById(R.id.to_payoff);
         Button button2 = (Button) findViewById(R.id.to_finish);
-        if () {
-            button2.setVisibility(View.GONE);
+        if(user.getMyName().equals(task.getHelperName())){ //当前用户是helper，只显示finish按钮
+            button1.setVisibility(View.GONE);
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    task.setProgress(3);
+                    task.setAchievetime();
+                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                            task.getLauncherName());
+
+                    task.updateTaskStatus();
+                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                            task.getLauncherName());
+
+                    initData();
+                }
+            });
         }
-        Button button = (Button) findViewById(R.id.to_payoff);
-        
+        if (user.getMyName().equals(task.getLauncherName())) { //当前用户是launcher，只显示payoff按钮
+            button2.setVisibility(View.GONE);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    task.setProgress(4);
+                    task.setFinishtime();
+                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                            task.getLauncherName());
+
+                    task.updateTaskStatus();
+                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                            task.getLauncherName());
+
+                    initData();
+                }
+            });
+        }
+
 
         findView();
         initData();
@@ -65,12 +98,24 @@ public class MyActivity_Task_Details extends AppCompatActivity {
     private void findView() {
         rvTrace = (RecyclerView) findViewById(R.id.recycler_time_list);
     }
+
     private void initData() {
         //模拟一些假的数据
-        traceList.add(new Trace("2018-02-28","[任务发布] 任务已发布"));
-        traceList.add(new Trace("2018-02-28","[接受任务] 该任务已被接受"));
-        traceList.add(new Trace("2018-02-28","[完成情况] 接受者已完成任务"));
-        traceList.add(new Trace("2018-02-28","[支付情况] 发布者已支付报酬"));
+        String launchtime = task.getLaunchtime();
+        traceList.add(new Trace(launchtime,"[任务发布] 任务已发布"));
+        if(task.getProgress()>=2) {
+            String accepttime = task.getAccepttime();
+            traceList.add(new Trace(accepttime,"[接受任务] 该任务已被接受"));
+        }
+        if(task.getProgress()>=3) {
+            String achievetime = task.getAchievetime();
+            traceList.add(new Trace(achievetime,"[完成情况] 接受者已完成任务"));
+        }
+        if(task.getProgress()>=4) {
+            String finishtime = task.getFinishtime();
+            traceList.add(new Trace(finishtime,"[支付情况] 发布者已支付报酬"));
+        }
+
         adapter = new TraceListAdapter(this,traceList);
         rvTrace.setLayoutManager(new LinearLayoutManager(this));
         rvTrace.setAdapter(adapter);

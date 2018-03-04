@@ -100,7 +100,7 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
 
                         task = (task) getIntent().getSerializableExtra("task_selected");
                         task.setScore(ratingBar.getRating());
-                        task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
                         user.addToAverageScore(ratingBar.getRating());

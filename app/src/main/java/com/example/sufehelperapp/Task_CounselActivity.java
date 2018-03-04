@@ -67,7 +67,7 @@ public class Task_CounselActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_counsel);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user); //taskAdapter中获得当前user
+        adapter = new TaskAdapter(taskList,user,1); //taskAdapter中获得当前user
         recyclerView.setAdapter(adapter);
 
         ImageView img1 = findViewById(R.id.counsel_ic1);
