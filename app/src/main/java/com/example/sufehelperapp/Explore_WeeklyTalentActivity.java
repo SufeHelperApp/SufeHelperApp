@@ -21,7 +21,7 @@ import java.util.List;
 
 public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
-    private user user;
+    private user user_now;
 
     private static List<user> userList1 = new ArrayList<>();
     private static List<user> userList2 = new ArrayList<>();
@@ -35,8 +35,8 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接受user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
+        user_now = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user_now.getMyName();
         Log.d("Explore_WeeklyTalent",myName);
 
 
@@ -53,6 +53,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -67,6 +68,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -81,6 +83,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -95,6 +98,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -109,6 +113,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -123,6 +128,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -137,6 +143,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -151,6 +158,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+                    intent.putExtra("user_now", user_now);
                     startActivity(intent);
                 }
             }
@@ -165,6 +173,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
+
                     startActivity(intent);
                 }
             }

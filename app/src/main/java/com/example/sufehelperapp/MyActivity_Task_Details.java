@@ -56,16 +56,21 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         final Button btn_finish = (Button) findViewById(R.id.to_finish);
         final Button btn_wait_pay = (Button) findViewById(R.id.to_wait_pay);
         final Button btn_payoff = (Button) findViewById(R.id.to_payoff);
+        final Button btn_score = (Button) findViewById(R.id.to_score);
+        final Button btn_wait_score = (Button) findViewById(R.id.to_wait_score);
         final Button btn_close = (Button) findViewById(R.id.to_close);
         btn_wait_finish.setVisibility(View.GONE);
         btn_finish.setVisibility(View.GONE);
         btn_wait_pay.setVisibility(View.GONE);
         btn_payoff.setVisibility(View.GONE);
+        btn_score.setVisibility(View.GONE);
+        btn_wait_score.setVisibility(View.GONE);
         btn_close.setVisibility(View.GONE);
 
         if(user.getMyName().equals(task.getHelperName())){ //当前用户是helper
             initData();
             if(task.getProgress() == 2) { //待完成
+                Log.d("msg","接收者完成");
                 btn_finish.setVisibility(View.VISIBLE);
                 btn_finish.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -87,8 +92,13 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                     }
                 });
             }else if(task.getProgress() == 3){ //待支付
+                Log.d("msg","接收者待支付");
                 btn_wait_pay.setVisibility(View.VISIBLE);
-            }else if(task.getProgress() == 4){
+            }else if(task.getProgress() == 4){ //待评价
+                Log.d("msg","接收者待评价");
+                btn_wait_score.setVisibility(View.VISIBLE);
+            } else if (task.getProgress() == 5) { //已结束
+                Log.d("msg","接收者已结束");
                 btn_close.setVisibility(View.VISIBLE);
             }
         }
@@ -96,16 +106,17 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         if (user.getMyName().equals(task.getLauncherName())) { //当前用户是launcher
             initData();
             if(task.getProgress() == 2) { //待完成
+                Log.d("msg","发布者待完成");
                 btn_wait_finish.setVisibility(View.VISIBLE);
             }else if(task.getProgress() == 3){
+                Log.d("msg","发布者支付");
                 btn_payoff.setVisibility(View.VISIBLE);
                 btn_payoff.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         btn_payoff.setVisibility(View.GONE);
-                        btn_close.setVisibility(View.VISIBLE);
                         task.setProgress(4);
-                        task.setFinishtime();
+                        task.setPaytime();
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
@@ -114,11 +125,39 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                                 task.getLauncherName());
 
                         addData(2);//增加支付信息
-                        Log.d("progress",String.valueOf(task.getProgress()));
+
+                        btn_score.setVisibility(View.VISIBLE);
+                        btn_score.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("msg","发布者评价");
+                                Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_evaluation.class);
+                                intent.putExtra("user_now", user);
+                                intent.putExtra("task_selected", task);
+                                startActivity(intent);
+
+                            }
+                        });
                     }
                 });
-            }else if(task.getProgress() == 4){
+            }else if(task.getProgress() == 4){ //评价
+                Log.d("msg","发布者评价");
+                btn_score.setVisibility(View.VISIBLE);
+                btn_score.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_evaluation.class);
+                        intent.putExtra("user_now", user);
+                        intent.putExtra("task_selected", task);
+                        startActivity(intent);
+
+                    }
+                });
+            } else if (task.getProgress() == 5) { //已结束
+                Log.d("msg","发布者结束");
                 btn_close.setVisibility(View.VISIBLE);
+
             }
         }
 
@@ -151,8 +190,19 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                 traceList.add(new Trace(accepttime, "[接受任务] 任务已接收"));
                 String achievetime = task.getAchievetime();
                 traceList.add(new Trace(achievetime, "[完成情况] 接收者已完成任务"));
+                String paytime = task.getPaytime();
+                traceList.add(new Trace(paytime, "[支付情况] 发布者已支付报酬"));
+            } else if (task.getProgress() == 5) {
+                String launchtime = task.getLaunchtime();
+                traceList.add(new Trace(launchtime, "[任务发布] 任务已发布"));
+                String accepttime = task.getAccepttime();
+                traceList.add(new Trace(accepttime, "[接受任务] 任务已接收"));
+                String achievetime = task.getAchievetime();
+                traceList.add(new Trace(achievetime, "[完成情况] 接收者已完成任务"));
+                String paytime = task.getPaytime();
+                traceList.add(new Trace(paytime, "[支付情况] 发布者已支付报酬"));
                 String finishtime = task.getFinishtime();
-                traceList.add(new Trace(finishtime, "[支付情况] 发布者已支付报酬"));
+                traceList.add(new Trace(finishtime, "[支付情况] 发布者已完成评价"));
             }
         adapter = new TraceListAdapter(this,traceList,task);
         rvTrace.setLayoutManager(new LinearLayoutManager(this));
@@ -164,8 +214,8 @@ public class MyActivity_Task_Details extends AppCompatActivity {
             String achievetime = task.getAchievetime();
             traceList.add(new Trace(achievetime, "[完成情况] 接收者已完成任务"));
         }else if(type == 2){
-            String finishtime = task.getFinishtime();
-            traceList.add(new Trace(finishtime, "[支付情况] 发布者已支付报酬"));
+            String paytime = task.getPaytime();
+            traceList.add(new Trace(paytime, "[支付情况] 发布者已支付报酬"));
         }
 
         adapter = new TraceListAdapter(this,traceList,task);

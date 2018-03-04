@@ -145,7 +145,6 @@ public class Task_InfoActivity extends AppCompatActivity {
             }
         });
 
-        task = (task) getIntent().getSerializableExtra("task_selected");
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
         TextView launcher_name = (TextView) findViewById(R.id.taskinfo_name);
         TextView launcher_phoneNumber = (TextView) findViewById(R.id.taskinfo_phoneNumber);
@@ -171,7 +170,23 @@ public class Task_InfoActivity extends AppCompatActivity {
         payment.setText(paymentString);
         description.setText(task.getDescription());
 
-        //接收任务
+        Button btn = findViewById(R.id.chakan);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Task_InfoActivity.this, MyActivity_mytask_personalhome.class);
+                intent.putExtra("user_now", user);
+                user launcher = task.getLauncher();
+                Log.d("launcher",launcher.getMyName());
+                intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, launcher);
+                startActivity(intent);
+                Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+                //接收任务
         /*Button b1 = (Button) findViewById(R.id.receive_task_btn);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override

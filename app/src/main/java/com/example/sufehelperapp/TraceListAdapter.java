@@ -24,6 +24,7 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_NORMAL = 0x0001;
     private static final int TYPE_THIRD = 0x0002;
     private static final int TYPE_FORTH = 0x0003;
+    private static final int TYPE_FIFTH = 0x0004;
 
     private int progress;
     public TraceListAdapter(Context context,List<Trace> traceList,task task) {
@@ -97,8 +98,6 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (getItemViewType(position) == TYPE_FORTH && getItemProgress() == 4){
             //第四行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
-            //第四行尾的竖线不显示
-            itemHolder.tvBottomLine.setVisibility(View.INVISIBLE);
             //字体颜色加深
             itemHolder.tvAcceptTime.setTextColor(0xff555555);
             itemHolder.tvAcceptStation.setTextColor(0xff555555);
@@ -106,7 +105,23 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (getItemViewType(position) == TYPE_FORTH && getItemProgress() != 4){
             //第四行头的竖线显示
             itemHolder.tvTopLine.setVisibility(View.VISIBLE);
-            //第四行尾的竖线不显示
+            //字体颜色不加深
+            itemHolder.tvAcceptTime.setTextColor(0xff999999);
+            itemHolder.tvAcceptStation.setTextColor(0xff999999);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_normal);
+        }else if (getItemViewType(position) == TYPE_FIFTH && getItemProgress() == 5){
+            //第五行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //第五行尾的竖线不显示
+            itemHolder.tvBottomLine.setVisibility(View.INVISIBLE);
+            //字体颜色加深
+            itemHolder.tvAcceptTime.setTextColor(0xff555555);
+            itemHolder.tvAcceptStation.setTextColor(0xff555555);
+            itemHolder.tvDot.setBackgroundResource(R.drawable.timeline_dot_first);
+        }else if (getItemViewType(position) == TYPE_FIFTH && getItemProgress() != 5){
+            //第五行头的竖线显示
+            itemHolder.tvTopLine.setVisibility(View.VISIBLE);
+            //第五行尾的竖线不显示
             itemHolder.tvBottomLine.setVisibility(View.INVISIBLE);
             //字体颜色不加深
             itemHolder.tvAcceptTime.setTextColor(0xff999999);
@@ -134,10 +149,13 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             return TYPE_THIRD;
         } else if (position == 3) {
             return TYPE_FORTH;
+        } else if (position == 4) {
+            return TYPE_FIFTH;
         }
 
         return TYPE_NORMAL;
     }
+
     public int getItemProgress() {
         Log.d("task progress adapter",String.valueOf(task.getProgress()));
         return task.getProgress();

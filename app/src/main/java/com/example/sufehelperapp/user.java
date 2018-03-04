@@ -342,7 +342,11 @@ public class user extends DataSupport implements Serializable {
     }
 
     public void addToAverageScore(float newScore){
-        this.averageScore = (averageScore*(taskRNum-1)+newScore)/taskRNum;
+        if(averageScore == 0){
+            averageScore = averageScore + newScore;
+        }else {
+            this.averageScore = (averageScore * (taskRNum - 1) + newScore) / taskRNum;
+        }
     }
 
 }
