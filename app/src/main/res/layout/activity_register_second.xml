@@ -14,7 +14,6 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:src="@drawable/icon_image"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="30dp"
             />

@@ -16,12 +16,15 @@ import android.widget.ImageButton;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_mytask_historicaltask extends Fragment implements View.OnClickListener {
 
     private user user;
     private Bundle bundle;
+
+    private List<task> taskList = new ArrayList<>();
 
     @Nullable
     private TaskAdapter adapter;
@@ -36,9 +39,7 @@ public class MyActivity_mytask_historicaltask extends Fragment implements View.O
 
         task.updateAllTaskStatus();
 
-        List<task> taskList = DataSupport
-                .where("launcherName = ?",user.getMyName())
-                .where("ifShutDown = ?", "0")
+        taskList = DataSupport.where("launcherName = ? and ifShutDown = ?",user.getMyName(),"0")
                 .find(task.class);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.historicaltask_recycler);

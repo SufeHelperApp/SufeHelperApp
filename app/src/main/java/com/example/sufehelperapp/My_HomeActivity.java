@@ -2,6 +2,8 @@ package com.example.sufehelperapp;
 
 import android.content.Intent;
 import android.drm.DrmStore;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
@@ -59,6 +61,10 @@ public class My_HomeActivity extends AppCompatActivity {
 
         ImageView image = (ImageView) findViewById(R.id.button_picture);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
+        /*
+        byte[] images=user.getHeadshot();
+        Bitmap bitmap= BitmapFactory.decodeByteArray(images,0,images.length);
+        image.setImageBitmap(bitmap);*/
 
         TextView nicknameView = (TextView) findViewById(R.id.username_text);
         nicknameView.setText(user.getMyName());

@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
@@ -31,12 +33,12 @@ import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
 
@@ -259,7 +261,32 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
             imagePath = uri.getPath();
         }
         displayImage(imagePath);//根据图片路径显示图片
+
+        //获取到图片
+        Bitmap headShot= BitmapFactory.decodeFile(imagePath);
+    //把图片转换字节流
+        byte[] myimages=img(headShot);
+    //保存
+        user.setHeadshot(myimages); //todo
+        user.updateAll("phonenumber = ?",user.getPhonenumber());
+
+    //获取图片
+        byte[] images=user.getHeadshot();
+        Log.d("msg",String.valueOf(images.length));
+        Bitmap bitmap=BitmapFactory.decodeByteArray(images,0,images.length);
+        ImageView img = (ImageView) findViewById(R.id.picture_upload);
+        img.setImageBitmap(bitmap);
+
+
     }
+
+    private byte[] img(Bitmap headShot) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Bitmap bitmap = null;
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
     private void handldImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
         String imagePath = getImagePath(uri,null);
