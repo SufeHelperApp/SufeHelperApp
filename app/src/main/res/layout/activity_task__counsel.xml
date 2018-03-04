@@ -41,9 +41,9 @@
     <android.support.v7.widget.CardView
         android:id="@+id/counselCard2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="240dp"
         android:layout_below="@id/counselCard1"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
         android:layout_alignParentStart="false"
         android:layout_marginStart="2dp"
         android:layout_alignParentEnd="false"
@@ -58,7 +58,7 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/apple"/>
             <TextView
@@ -75,7 +75,7 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/banana"/>
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_height="65dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="45dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/orange"/>
             <TextView
@@ -112,7 +112,7 @@
                 android:layout_height="65dp"
                 android:layout_below="@id/counsel_tx1"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/apple"/>
             <TextView
@@ -129,7 +129,7 @@
                 android:layout_height="65dp"
                 android:layout_below="@id/counsel_tx2"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/banana"/>
             <TextView
@@ -147,7 +147,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="45dp"
                 android:layout_below="@id/counsel_tx3"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/orange"/>
             <TextView
@@ -159,6 +159,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="62dp"
                 android:textSize="16sp"/>
+            <Button
+                android:id="@+id/btn_select_counsel"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_below="@id/counsel_ic6"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="55dp"
+                android:background="#00000000"
+                android:layout_toEndOf="@id/counsel_ic5"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:text="进入筛选 >"/>
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

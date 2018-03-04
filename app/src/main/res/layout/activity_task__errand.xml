@@ -161,6 +161,7 @@
                 android:textSize="16sp"/>
 
             <Button
+                android:id="@+id/btn_select_errand"
                 android:layout_width="wrap_content"
                 android:layout_height="42dp"
                 android:layout_below="@id/errand_ic6"

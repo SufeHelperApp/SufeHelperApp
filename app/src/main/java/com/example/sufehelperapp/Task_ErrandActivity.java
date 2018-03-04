@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import org.litepal.crud.DataSupport;
@@ -68,8 +69,8 @@ public class Task_ErrandActivity extends AppCompatActivity {
         adapter = new TaskAdapter(taskList,user,1); //taskAdapter中获得当前user
         recyclerView.setAdapter(adapter);
 
-        ImageView img1 = findViewById(R.id.errand_ic1);
-        img1.setOnClickListener(new View.OnClickListener() {
+        Button btn1 = findViewById(R.id.btn_select_errand);
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Task_ErrandActivity.this, Selection1.class);
