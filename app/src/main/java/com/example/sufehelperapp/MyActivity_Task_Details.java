@@ -35,9 +35,18 @@ public class MyActivity_Task_Details extends AppCompatActivity {
             }
         });
 
+        Button button2 = (Button) findViewById(R.id.to_finish);
+        if () {
+            button2.setVisibility(View.GONE);
+        }
+        Button button = (Button) findViewById(R.id.to_payoff);
+        
+
         findView();
         initData();
     }
+
+
 
     private void findView() {
         rvTrace = (RecyclerView) findViewById(R.id.recycler_time_list);
