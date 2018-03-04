@@ -65,23 +65,48 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/taskinfo_image"
                 android:layout_below="@id/taskinfo_space1"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="13dp"
                 android:textSize="21sp"/>
+
+            <TextView
+                android:id="@+id/taskinfo_laixnifangshi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/taskinfo_title_launcher"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="联系方式："
+                android:textSize="22sp"/>
 
             <TextView
                 android:id="@+id/taskinfo_phoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/taskinfo_name"
-                android:layout_below="@id/taskinfo_space1"
+                android:layout_below="@id/taskinfo_title_launcher"
+                android:layout_toEndOf="@id/taskinfo_laixnifangshi"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="10dp"
                 android:textSize="21sp"/>
+
+
+            <Button
+                android:id="@+id/chakan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看主页 >"
+                android:textColor="#006666"
+                android:layout_below="@id/taskinfo_space1"
+                android:layout_toEndOf="@+id/taskinfo_image"
+                android:layout_marginTop="-10dp"
+                android:background="#00000000"
+                android:layout_marginStart="150dp"
+                android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/taskinfo_title_taskType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/taskinfo_title_launcher"
+            android:layout_below="@id/taskinfo_laixnifangshi"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
             android:text="任务分区："
@@ -91,7 +116,7 @@
                 android:id="@+id/taskinfo_taskType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_launcher"
+                android:layout_below="@id/taskinfo_laixnifangshi"
                 android:layout_toEndOf="@id/taskinfo_title_taskType"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="10dp"
@@ -101,7 +126,7 @@
                 android:id="@+id/taskinfo_subtaskType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/taskinfo_title_launcher"
+                android:layout_below="@id/taskinfo_laixnifangshi"
                 android:layout_toEndOf="@id/taskinfo_taskType"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="10dp"

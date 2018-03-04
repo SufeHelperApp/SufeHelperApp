@@ -33,6 +33,7 @@ public class task extends DataSupport implements Serializable{
     private String preciseLaunchTime;
     private String accepttime;
     private String achievetime;
+    private String paytime;
     private String finishtime; //TODO: 任务结束时间（我的任务）
     private String ddlDate;   //任务截止日期（发布页）
     private String ddlTime;   //任务截止时刻（发布页）
@@ -201,10 +202,17 @@ public class task extends DataSupport implements Serializable{
                 task.ifDisplayable = false;
                 task.ifOutdated = false;
                 task.ifDefault = false;
-                task.ifShutDown = true;  //支付完成，关闭任务
+                task.ifShutDown = false;
                 task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                         task.getLauncherName());
-            }
+            }else if(task.getProgress() == 5){
+            task.ifDisplayable = false;
+            task.ifOutdated = false;
+            task.ifDefault = false;
+            task.ifShutDown = true;  //评论完成，关闭任务
+            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                    task.getLauncherName());
+        }
         }
     }
 
@@ -245,8 +253,13 @@ public class task extends DataSupport implements Serializable{
             this.ifDisplayable = false;
             this.ifOutdated = false;
             this.ifDefault = false;
-            this.ifShutDown = true;  //支付完成，关闭任务
-        }
+            this.ifShutDown = false;
+        }else if(this.progress == 5){
+            this.ifDisplayable = false;
+            this.ifOutdated = false;
+            this.ifDefault = false;
+            this.ifShutDown = true;  //评论完成，关闭任务
+    }
     }
 
 
@@ -276,6 +289,10 @@ public class task extends DataSupport implements Serializable{
 
 
     //函数：时间
+
+    public String getPaytime(){return paytime;}
+
+    public void setPaytime(){this.paytime = TimeUtils.getNowTime();}
 
     public void setPreciseLaunchTime(){this.preciseLaunchTime = TimeUtils.getNowTimePrecise();}
 

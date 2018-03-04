@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MyActivity_evaluation extends AppCompatActivity implements View.OnClickListener{
-    public static final String TASK_SELECTED = "task_selected";
+public class MyActivity_evaluation extends AppCompatActivity {
+
     private RatingBar ratingBar;
     private TextView textView;
     private user user;
@@ -40,13 +40,16 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
         String myName = user.getMyName();
         Log.d("evaluation",myName);
 
-        //TODO: DELETE
+        task = (task) getIntent().getSerializableExtra("task_selected");
+
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Mytask.class);
+                Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                 intent.putExtra("user_now", user);
+                intent.putExtra("task_selected",task);
                 startActivity(intent);
             }
         });
@@ -84,12 +87,10 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
             }
         });
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.button_submit:
+        Button button2 = (Button) findViewById(R.id.button_submit);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_evaluation.this);
                 dialog.setTitle("提示");
                 dialog.setMessage("您确定提交您的评价吗？");
@@ -98,13 +99,25 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        task = (task) getIntent().getSerializableExtra("task_selected");
                         task.setScore(ratingBar.getRating());
+                        task.setProgress(5);
+                        task.setFinishtime(); //任务结束
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
-                        user.addToAverageScore(ratingBar.getRating());
-                        user.updateAll("phonenumber = ?",user.getPhonenumber());
+                        task.updateTaskStatus();
+                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                                task.getLauncherName());
+
+                        task.getHelper().addToAverageScore(ratingBar.getRating());
+                        user.updateAll("phonenumber = ?",task.getHelper().getPhonenumber());
+
+                        Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
+                        intent.putExtra("user_now", user);
+                        intent.putExtra("task_selected",task);
+                        startActivity(intent);
+
+
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -114,10 +127,10 @@ public class MyActivity_evaluation extends AppCompatActivity implements View.OnC
                     }
                 });
                 dialog.show();
-                break;
-            default:
-                break;
-        }
+            }
+        });
+
+
     }
 
 }
