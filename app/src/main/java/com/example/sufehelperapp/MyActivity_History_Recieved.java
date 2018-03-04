@@ -24,6 +24,8 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
 
     private user user;
     private Bundle bundle;
+    private List<task> taskList = new ArrayList<>();
+
     @Nullable
     private TaskAdapter adapter;
 
@@ -39,9 +41,7 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
 
         task.updateAllTaskStatus();
 
-        List<task> taskList = DataSupport
-                .where("helperName = ?",user.getMyName())
-                .where("ifShutDown = ?", "1")
+        taskList = DataSupport.where("helperName = ? and ifShutDown = ?",user.getMyName(),"1")
                 .find(task.class);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_recieved_recycler);

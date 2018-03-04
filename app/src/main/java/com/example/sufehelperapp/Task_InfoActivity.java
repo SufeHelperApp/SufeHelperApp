@@ -93,7 +93,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                 }else {
 
                                     //更新该task信息
-                                    Log.d("msg","1");
+                                    Log.d("msg","accepted");
                                     task.setIfAccepted(true);
                                     task.setAccepttime();
                                     task.setProgress(2); //已接受
@@ -106,7 +106,6 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                             task.getLauncherName());
 
-                                    Log.d("msg","2");
 
                                     user.increaseCredit(30);
                                     user.addTaskRNum(1);
@@ -119,7 +118,6 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     }
                                     user.addTaskNum(1);
 
-                                    Log.d("msg","3");
                                     user.updateAll("phonenumber = ?",user.getPhonenumber());
                                     Log.d("msg1",String.valueOf(user.getTaskRNum_errand()));
                                     Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
@@ -129,7 +127,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     intent1.putExtra("user_now", user);
                                     startActivity(intent1);
                                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
-                                    Log.d("msg","4");
+
                                 }
                             }
                         });

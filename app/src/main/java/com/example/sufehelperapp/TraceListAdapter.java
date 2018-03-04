@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private user user;
+    private task task;
 
     private LayoutInflater inflater;
     private List<Trace> traceList = new ArrayList<>(1);
@@ -24,9 +26,10 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_FORTH = 0x0003;
 
     private int progress;
-    public TraceListAdapter(Context context,List<Trace> traceList) {
+    public TraceListAdapter(Context context,List<Trace> traceList,task task) {
         this.inflater = LayoutInflater.from(context);
         this.traceList = traceList;
+        this.task = task;
     }
 
     @Override
@@ -136,7 +139,8 @@ public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return TYPE_NORMAL;
     }
     public int getItemProgress() {
-        return progress = 1;
+        Log.d("task progress adapter",String.valueOf(task.getProgress()));
+        return task.getProgress();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

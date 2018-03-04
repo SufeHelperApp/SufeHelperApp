@@ -60,10 +60,11 @@ public class My_HomeActivity extends AppCompatActivity {
         });
 
         ImageView image = (ImageView) findViewById(R.id.button_picture);
-        //Glide.with(getContext()).load(user.getMyImageId()).into(image);
+        Glide.with(getContext()).load(user.getMyImageId()).into(image);
+        /*
         byte[] images=user.getHeadshot();
         Bitmap bitmap= BitmapFactory.decodeByteArray(images,0,images.length);
-        image.setImageBitmap(bitmap);
+        image.setImageBitmap(bitmap);*/
 
         TextView nicknameView = (TextView) findViewById(R.id.username_text);
         nicknameView.setText(user.getMyName());

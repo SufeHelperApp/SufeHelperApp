@@ -423,7 +423,7 @@ public class task extends DataSupport implements Serializable{
 
     public int getProgress() {return progress;}
 
-    public void setProgress(int process) {
+    public void setProgress(int progress) {
         this.progress = progress;
     }
 
