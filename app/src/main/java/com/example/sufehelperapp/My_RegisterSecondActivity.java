@@ -1,6 +1,8 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Random;
 
@@ -93,6 +96,22 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                         case 4:user.setMyImageId(R.drawable.photo_lyh);break;
                     }//TODO: 上传图片保存图片
 
+
+                    //获取到图片
+                    //Bitmap headShot= BitmapFactory.decodeFile(imagePath);
+                    Bitmap headShot= BitmapFactory.decodeFile(imagePath);
+                    //把图片转换字节流
+                    byte[] myimages=img(headShot);
+                    //找到用户
+                    user users=DataSupport.findFirst(user.class);
+                    //保存
+                    users.setHeadshot(myimages);
+                    users.save();
+
+                    //获取图片
+                    byte[]images=user.getHeadshot();
+                    Bitmap bitmap=BitmapFactory.decodeByteArray(images,0,images.length);
+
                     user.setMyName(name);
                     user.setPassword(password);
                     user.updateAll("phonenumber = ?",user.getPhonenumber());
@@ -124,5 +143,12 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private byte[] img(Bitmap headShot) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Bitmap bitmap = null;
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 }

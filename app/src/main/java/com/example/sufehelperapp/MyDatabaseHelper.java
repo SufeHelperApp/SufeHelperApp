@@ -1,14 +1,24 @@
 package com.example.sufehelperapp;
 
+
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.widget.Toast;
+
+
 
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_USER = "create table user ("
             + "phonenumber integer primary key , "
+            + "headshot blob,"
             + "myName text, "
             + "nickname text,"
             + "gender text,"
@@ -55,6 +65,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //String sql = "create table " + TB_NAME + " ( " + ID + " integer primary key , " + IMAGE + " BLOB ) ";
         db.execSQL(CREATE_USER);
         db.execSQL(CREATE_TASK );
         db.execSQL(CREATE_WEEKLYDATA);
@@ -68,6 +79,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         //db.execSQL("drop table if exists weeklyData");
         onCreate(db);
     }
+
+
 }
 
 

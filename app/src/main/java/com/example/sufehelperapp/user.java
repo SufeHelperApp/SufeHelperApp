@@ -1,11 +1,16 @@
 package com.example.sufehelperapp;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import org.litepal.crud.DataSupport;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
-public class user extends DataSupport implements Serializable {
 
+public class user extends DataSupport implements Serializable {
+    private byte[] headshot;//头像
     private boolean isValid; //TODO: 是否被冻结（信用评价页-违约, 我的任务）。
 
     //基本信息
@@ -61,6 +66,7 @@ public class user extends DataSupport implements Serializable {
 
     //默认构造函数
     public user(){
+        this.headshot=headshot;
         this.isValid = true;
         this.taskLNum=0;
         this.taskRNum=0;
@@ -79,26 +85,67 @@ public class user extends DataSupport implements Serializable {
 
     //完整构造函数
 
-/*
-    public user(String phonenumber, String myName, String nickname, String gender, String password,
-                int myImageId, String dormitoryLocation, String demand, String specialty,
-                String talent, int credit, int level, int tasknumber){
-        this.phonenumber = phonenumber;
-        this.myName = myName;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.password = password;
-        this.myImageId = myImageId;
-        this.dormitoryLocation = dormitoryLocation;
-        this.demand = demand;
-        this.specialty = specialty;
-        this.talent = talent;
-        this.credit = credit;
-        this.level = level;
-        this.tasknumber = tasknumber;
-    }
-    */
+    /*
+        public user(String phonenumber, String myName, String nickname, String gender, String password,
+                    int myImageId, String dormitoryLocation, String demand, String specialty,
+                    String talent, int credit, int level, int tasknumber){
+            this.phonenumber = phonenumber;
+            this.myName = myName;
+            this.nickname = nickname;
+            this.gender = gender;
+            this.password = password;
+            this.myImageId = myImageId;
+            this.dormitoryLocation = dormitoryLocation;
+            this.demand = demand;
+            this.specialty = specialty;
+            this.talent = talent;
+            this.credit = credit;
+            this.level = level;
+            this.tasknumber = tasknumber;
+        }
+        */
+    public void onClick (View v){
 
+        if (0<= credit && credit < 30)
+            level = 1;
+
+        if (30<= credit && credit < 90)
+            level = 2;
+        if (90<= credit && credit < 180)
+            level = 3;
+        if (180<= credit && credit < 300)
+            level = 4;
+        if (300<= credit && credit < 450)
+            level = 5;
+        if (450<= credit && credit < 630)
+            level = 6;
+        if (630<= credit && credit < 8840)
+            level = 7;
+        if (840<= credit && credit < 1080)
+            level = 8;
+        if (1080<= credit && credit < 1350)
+            level = 9;
+        if (1350<= credit )
+            level = 10;
+
+    }
+
+    //图片转换为字节
+    private byte[]img(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    //函数：头像
+
+    public byte[] getHeadshot() {
+        return headshot;
+    }
+
+    public void setHeadshot(byte[] headshot) {
+        this.headshot = headshot;
+    }
 
     //函数：冻结
 
@@ -303,6 +350,10 @@ public class user extends DataSupport implements Serializable {
         this.credit = credit + num;
     }
 
+    public void decreaseCredit(int num){
+        this.credit = credit + num;
+    }
+
     public int getCredit() {
         return credit;
     }
@@ -324,6 +375,5 @@ public class user extends DataSupport implements Serializable {
     }
 
 }
-
 
 
