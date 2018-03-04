@@ -23,6 +23,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     private Context mContext;
     private List<task> mTaskList;
     private user user;
+    private int num;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -49,9 +50,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         }
     }
 
-    public TaskAdapter(List<task> taskList , user user1){
+    public TaskAdapter(List<task> taskList , user user1, int i ){
         mTaskList = taskList;
         user = user1; //接收user
+        num = i;
     }
 
     @Override
@@ -68,10 +70,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 task task = mTaskList.get(position);
-                Intent intent = new Intent(mContext, Task_InfoActivity.class);
-                intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
-                intent.putExtra(Task_InfoActivity.USER_NOW, user);//传送user
-                mContext.startActivity(intent);
+                if(num == 1) {
+                    Intent intent = new Intent(mContext, Task_InfoActivity.class);
+                    intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
+                    intent.putExtra(Task_InfoActivity.USER_NOW, user);//传送user
+                    mContext.startActivity(intent);
+                }else if (num == 2){
+                    Intent intent = new Intent(mContext, MyActivity_Task_Details.class);
+                    intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
+                    intent.putExtra(Task_InfoActivity.USER_NOW, user);//传送user
+                    mContext.startActivity(intent);
+                }
+
             }
         });
         return holder;

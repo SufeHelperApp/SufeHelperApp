@@ -182,7 +182,7 @@ public class Task_CounselSelectActivity extends AppCompatActivity {
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         contentView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user);
+        adapter = new TaskAdapter(taskList,user,1);
         contentView.setAdapter(adapter);
 
         //init dropdownview

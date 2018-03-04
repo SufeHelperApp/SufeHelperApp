@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -44,25 +46,17 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         TextView specialty = (TextView) findViewById(R.id.his_personalintention_text44);
         TextView averagescore = (TextView) findViewById(R.id.his_integral_text11);
 
+
         Glide.with(this).load(user_selected.getMyImageId()).into(launcher_image);
         launcher_sex.setText(user_selected.getSex());
         launcher_name.setText(user_selected.getMyName());
         launcher_dormName.setText(user_selected.getDormitoryLocation());
         launcher_phonenumber.setText(user.getPhonenumber());
         averagescore.setText(String.valueOf(user_selected.getAverageScore()));
-        if(user.getDemand().size()!=0) {
-            specialty.setText(user.getDemand().get(0));
+        if(user.getSpecialty().size()!=0) {
+            specialty.setText(user.getSpecialty().get(0));
         }
 
-        //TODO:删掉
-        Button button2 = (Button) findViewById(R.id.button_talk);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent intent = new Intent(MyActivity_mytask_personalhome.this, MyActivity_chat.class);
-                //startActivity(intent);
-            }
-        });
     }
 }
 

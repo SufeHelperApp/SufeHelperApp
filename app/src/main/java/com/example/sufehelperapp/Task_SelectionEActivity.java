@@ -78,9 +78,8 @@ public class Task_SelectionEActivity extends AppCompatActivity {
 
         List<task> tasks = DataSupport.findAll(task.class);
         for(task task:tasks) {
-            task.checkSubWithin();
             task.updateTaskStatus();
-            task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                     task.getLauncherName());
         }
 
@@ -113,7 +112,7 @@ public class Task_SelectionEActivity extends AppCompatActivity {
                 }
                 if(!taskList.isEmpty()) {
                     //update adapter
-                    adapter = new TaskAdapter(taskList,user);
+                    adapter = new TaskAdapter(taskList,user,1);
                     recyclerView.setAdapter(adapter);
                 }
             }

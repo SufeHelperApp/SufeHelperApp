@@ -1,12 +1,16 @@
 package com.example.sufehelperapp;
-import org.litepal.crud.DataSupport;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import org.litepal.crud.DataSupport;
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
 public class user extends DataSupport implements Serializable {
 
     private boolean isValid; //TODO: 是否被冻结（信用评价页-违约, 我的任务）。
+    private byte[] headshot;//头像
 
     //基本信息
     private String phonenumber; //手机号（注册1）
@@ -61,6 +65,7 @@ public class user extends DataSupport implements Serializable {
 
     //默认构造函数
     public user(){
+        this.headshot=headshot;
         this.isValid = true;
         this.taskLNum=0;
         this.taskRNum=0;
@@ -98,6 +103,23 @@ public class user extends DataSupport implements Serializable {
         this.tasknumber = tasknumber;
     }
     */
+
+    //图片转换为字节
+    private byte[]img(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+    //函数：头像
+
+    public byte[] getHeadshot() {
+        return headshot;
+    }
+
+    public void setHeadshot(byte[] headshot) {
+        this.headshot = headshot;
+    }
 
 
     //函数：冻结
@@ -320,7 +342,11 @@ public class user extends DataSupport implements Serializable {
     }
 
     public void addToAverageScore(float newScore){
-        this.averageScore = (averageScore*(taskRNum-1)+newScore)/taskRNum;
+        if(averageScore == 0){
+            averageScore = averageScore + newScore;
+        }else {
+            this.averageScore = (averageScore * (taskRNum - 1) + newScore) / taskRNum;
+        }
     }
 
 }

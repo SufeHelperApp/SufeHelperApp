@@ -34,24 +34,10 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<task> taskList = DataSupport.where("area = ?","国定校区").find(task.class);
+                List<task> taskList = DataSupport.findAll(task.class);
                 for(task task:taskList){
-                    task.changeDdl("2018/03/04 17:00");
-                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
-                            task.getLauncherName());
-                }
-
-                taskList = DataSupport.where("area = ?","武东校区").find(task.class);
-                for(task task:taskList){
-                    task.changeDdl("2018/03/07 17:00");
-                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
-                            task.getLauncherName());
-                }
-
-                taskList = DataSupport.where("area = ?","武川校区").find(task.class);
-                for(task task:taskList){
-                    task.changeDdl("2018/03/25 17:00");
-                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                    task.setProgress(2);
+                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                             task.getLauncherName());
                 }
 

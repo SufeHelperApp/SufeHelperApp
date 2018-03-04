@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import org.litepal.crud.DataSupport;
@@ -65,11 +66,11 @@ public class Task_ErrandActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_errand);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user); //taskAdapter中获得当前user
+        adapter = new TaskAdapter(taskList,user,1); //taskAdapter中获得当前user
         recyclerView.setAdapter(adapter);
 
-        ImageView img1 = findViewById(R.id.errand_ic1);
-        img1.setOnClickListener(new View.OnClickListener() {
+        Button btn1 = findViewById(R.id.btn_select_errand);
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Task_ErrandActivity.this, Selection1.class);
@@ -88,6 +89,10 @@ public class Task_ErrandActivity extends AppCompatActivity {
         List<task> taskMatched = DataSupport.where("taskType = ?","跑腿").find(task.class);
 
         for(task task:taskMatched){
+
+            if(task.getLauncherName().equals(user.getMyName())){
+                continue;
+            }
 
             int credit = 0;
 
@@ -122,7 +127,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
             }
 
             //符合两项即推荐
-            if(credit>=2 && preferredTasks.size()<4){
+            if(credit>=2 && preferredTasks.size()<3){
 
                 preferredTasks.add(task);
 

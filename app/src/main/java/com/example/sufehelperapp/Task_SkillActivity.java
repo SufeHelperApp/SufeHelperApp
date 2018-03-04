@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import org.litepal.crud.DataSupport;
@@ -64,11 +65,11 @@ public class Task_SkillActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view_skill);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user); //taskAdapter中获得当前user
+        adapter = new TaskAdapter(taskList,user,1); //taskAdapter中获得当前user
         recyclerView.setAdapter(adapter);
 
-        ImageView img1 = findViewById(R.id.skill_ic1);
-        img1.setOnClickListener(new View.OnClickListener() {
+        Button btn1 = findViewById(R.id.btn_select_skill);
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Task_SkillActivity.this, Selection2.class);
@@ -121,7 +122,7 @@ public class Task_SkillActivity extends AppCompatActivity {
             }
 
             //符合两项即推荐
-            if(credit>=2 && preferredTasks.size()<4){
+            if(credit>=2 && preferredTasks.size()<3){
 
                 preferredTasks.add(task);
 
