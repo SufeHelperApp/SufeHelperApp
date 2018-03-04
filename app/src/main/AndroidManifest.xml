@@ -35,7 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Task_HomeActivity" />
         <activity android:name=".ExploreActivity" />
         <activity android:name=".MyActivity" />
         <activity android:name=".Task_ErrandActivity" />
@@ -77,7 +77,9 @@
         <activity android:name=".My_RegisterFifthActivity" />
         <activity android:name=".MyActivity_Task_Details" />
         <activity android:name=".MyActivity_Edit_dormname" />
-        <activity android:name=".Selection" />
+        <activity android:name=".Selection1" />
+        <activity android:name=".Selection2" />
+        <activity android:name=".Selection3" />
 
         <service
             android:name="com.baidu.location.f"
@@ -94,9 +96,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
-        <activity android:name=".Selection1" />
-        <activity android:name=".Selection2" />
-        <activity android:name=".Selection3"></activity>
+   
     </application>
 
 </manifest>

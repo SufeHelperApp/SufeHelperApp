@@ -1,9 +1,6 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
-import android.drm.DrmStore;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
@@ -44,7 +41,7 @@ public class My_HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(My_HomeActivity.this,MainActivity.class);
+                        Intent intent1 = new Intent(My_HomeActivity.this,Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         break;
                     case R.id.item_explore:

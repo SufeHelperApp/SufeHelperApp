@@ -56,6 +56,9 @@ public class Selection1 extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
+                        Intent intent1 = new Intent(Selection1.this, Task_HomeActivity.class);
+                        intent1.putExtra("user_now", user);
+                        startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Selection1.this, ExploreActivity.class);

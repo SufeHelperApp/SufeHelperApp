@@ -37,11 +37,14 @@ public class Explore_MyTalent extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Explore_MyTalent.this, MainActivity.class);
+                        Intent intent1 = new Intent(Explore_MyTalent.this, Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
+                        Intent intent3 = new Intent(Explore_MyTalent.this, ExploreActivity.class);
+                        intent3.putExtra("user_now", user);
+                        startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(Explore_MyTalent.this, My_HomeActivity.class);

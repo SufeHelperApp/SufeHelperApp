@@ -109,12 +109,15 @@ public class MyActivity_evaluation extends AppCompatActivity {
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
 
-                        task.getHelper().addToAverageScore(ratingBar.getRating());
-                        user.updateAll("phonenumber = ?",task.getHelper().getPhonenumber());
+                        List<user> userList = DataSupport.where("myName = ?",task.getHelperName()).find(user.class);
+                        user helper = userList.get(0);
+                        Log.d("helperName",helper.getMyName());
 
-                        Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
+                        helper.addToAverageScore(ratingBar.getRating());
+                        user.updateAll("phonenumber = ?",helper.getPhonenumber());
+
+                        Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Mytask.class);
                         intent.putExtra("user_now", user);
-                        intent.putExtra("task_selected",task);
                         startActivity(intent);
 
 

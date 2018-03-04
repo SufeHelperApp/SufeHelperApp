@@ -1,16 +1,12 @@
 package com.example.sufehelperapp;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -123,7 +119,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
                                     Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));
 
-                                    Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
+                                    Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
                                     intent1.putExtra("user_now", user);
                                     startActivity(intent1);
                                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
@@ -176,7 +172,8 @@ public class Task_InfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Task_InfoActivity.this, MyActivity_mytask_personalhome.class);
                 intent.putExtra("user_now", user);
-                user launcher = task.getLauncher();
+                List<user> userList = DataSupport.where("myName = ?",task.getLauncherName()).find(user.class);
+                user launcher = userList.get(0);
                 Log.d("launcher",launcher.getMyName());
                 intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, launcher);
                 startActivity(intent);
@@ -227,7 +224,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                     Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
                     Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));
 
-                    Intent intent1 = new Intent(Task_InfoActivity.this, MainActivity.class);
+                    Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
                     intent1.putExtra("user_now", user);
                     startActivity(intent1);
                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();

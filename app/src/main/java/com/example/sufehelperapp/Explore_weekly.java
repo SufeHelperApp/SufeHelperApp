@@ -56,7 +56,7 @@ public class Explore_weekly extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Explore_weekly.this, MainActivity.class);
+                        Intent intent1 = new Intent(Explore_weekly.this, Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
@@ -83,7 +83,7 @@ public class Explore_weekly extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Explore_weekly.this, My_HomeActivity.class);
+                Intent intent = new Intent(Explore_weekly.this, ExploreActivity.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }
