@@ -106,6 +106,17 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"/>
+        <Button
+            android:id="@+id/to_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="确认完成"
+            android:textSize="15dp"
+            android:textColor="@drawable/btn_text"
+            android:background="@drawable/btn_click"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
