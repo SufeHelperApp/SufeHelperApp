@@ -34,9 +34,27 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user user = new user();
-                user.setDormitoryLocation("第一宿舍");
-                user.updateAll();
+                List<task> taskList = DataSupport.where("area = ?","国定校区").find(task.class);
+                for(task task:taskList){
+                    task.changeDdl("2018/03/04 17:00");
+                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                            task.getLauncherName());
+                }
+
+                taskList = DataSupport.where("area = ?","武东校区").find(task.class);
+                for(task task:taskList){
+                    task.changeDdl("2018/03/07 17:00");
+                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                            task.getLauncherName());
+                }
+
+                taskList = DataSupport.where("area = ?","武川校区").find(task.class);
+                for(task task:taskList){
+                    task.changeDdl("2018/03/25 17:00");
+                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
+                            task.getLauncherName());
+                }
+
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
         });

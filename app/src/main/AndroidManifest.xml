@@ -94,6 +94,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
+        <activity android:name=".Selection1" />
+        <activity android:name=".Selection2" />
+        <activity android:name=".Selection3"></activity>
     </application>
 
 </manifest>

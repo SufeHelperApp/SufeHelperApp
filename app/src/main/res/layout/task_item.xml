@@ -44,7 +44,7 @@
             android:layout_marginTop="12dp"
             android:singleLine="true"
             android:textSize="20sp"
-            autofit:minTextSize="16sp" />
+            autofit:minTextSize="14sp" />
 
         <TextView
             android:id="@+id/locationTitle"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="250dp"
             android:layout_marginTop="22dp"
-            android:text="时间:"
+            android:text="截止:"
             android:textSize="16sp" />
 
     <me.grantland.widget.AutofitTextView

@@ -128,7 +128,8 @@ public class task extends DataSupport implements Serializable{
 
     //函数：时间段
 
-    public void checkWithin(){
+
+    public void checkSubWithin(){
         String ddl = this.getDdl();
         within1 = TimeUtils.isDateWithinThreeHour(ddl);
         within2 = TimeUtils.isDateWithinOneDay(ddl);
@@ -137,31 +138,82 @@ public class task extends DataSupport implements Serializable{
         within5 = TimeUtils.isDateWithinOneMonth(ddl);
     }
 
+    public boolean getSubWithin(int i) {
+        if (i == 0) {
+            return within0;
+        } else if (i == 1) {
+            return within1;
+        } else if (i == 2) {
+            return within2;
+        } else if (i == 3) {
+            return within3;
+        } else if (i == 4) {
+            return within4;
+        } else if(i == 5) {
+            return within5;
+        } else {
+            return true;
+        }
+    }
+
 
     public void ifWithin(int position){
-        if(position==0){
-            within = true;
+        switch(position) {
+            case 0:
+                within = true;
+                break;
+            case 1:
+                if(within1) {
+                    within = true;
+                } else {
+                    within = false;
+                }
+                break;
+            case 2:
+                if(within2) {
+                    within = true;
+                } else {
+                    within = false;
+                }
+                break;
+            case 3:
+                if(within3) {
+                    within = true;
+                } else {
+                    within = false;
+                }
+                break;
+            case 4:
+                if(within4) {
+                    within = true;
+                } else {
+                    within = false;
+                }
+                break;
+            case 5:
+                if(within5) {
+                    within = true;
+                } else {
+                    within = false;
+                }
+                break;
         }
-        if(position==1){
-            if(within1=true) within = true;
-            else within = false;
-        }
-        if(position==2){
-            if(within2=true) within = true;
-            else within = false;
-        }
-        if(position==3){
-            if(within3=true) within = true;
-            else within = false;
-        }
-        if(position==4){
-            if(within4=true) within = true;
-            else within = false;
-        }
-        if(position==5){
-            if(within5=true) within = true;
-            else within = false;
-        }
+    }
+
+    public boolean getWithin(){
+        return within;
+    }
+
+    public void setWithin(boolean a){
+        this.within = a;
+    }
+
+    public void setSubWithin(){
+        this.within1 = true;
+        this.within2 = true;
+        this.within3 = true;
+        this.within4 = true;
+        this.within5 = true;
     }
 
 
@@ -240,22 +292,27 @@ public class task extends DataSupport implements Serializable{
 
                     }
                 }
-            }else if(task.getProgress()==3){
+            }else if(task.getProgress() == 3){
                 task.ifDisplayable = false;
                 task.ifOutdated = false;
                 task.ifDefault = false;
                 task.ifShutDown = false;
-            }else if(task.getProgress()==4){
+                task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                        task.getLauncherName());
+
+            }else if(task.getProgress() == 4){
                 task.ifDisplayable = false;
                 task.ifOutdated = false;
                 task.ifDefault = false;
                 task.ifShutDown = true;  //支付完成，关闭任务
+                task.updateAll("launchtime = ? and launcherName = ?", task.getLaunchtime(),
+                        task.getLauncherName());
             }
         }
     }
 
     public void updateTaskStatus() {
-        if (progress < 3) {
+        if (this.progress < 3) {
             if (TimeUtils.isDateOneBigger(TimeUtils.getNowTime(), this.ddl)) {
                 if (ifAccepted) {
                     this.ifDisplayable = false;
@@ -281,12 +338,13 @@ public class task extends DataSupport implements Serializable{
                     this.ifShutDown = false;
                 }
             }
-        }else if(this.progress==3){
+        }else if(this.progress == 3){
             this.ifDisplayable = false;
             this.ifOutdated = false;
             this.ifDefault = false;
             this.ifShutDown = false;
-        }else if(this.progress==4){
+
+        }else if(this.progress == 4){
             this.ifDisplayable = false;
             this.ifOutdated = false;
             this.ifDefault = false;
@@ -341,6 +399,7 @@ public class task extends DataSupport implements Serializable{
     public void setDdl(){
         this.ddl = ddlDate + " " + ddlTime; //ddl:2018/12/31 17:00
     }
+    public void changeDdl(String d){this.ddl = d;}
 
     public String getDdlDate() {
         return ddlDate;
