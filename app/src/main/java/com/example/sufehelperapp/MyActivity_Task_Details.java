@@ -161,7 +161,6 @@ public class MyActivity_Task_Details extends AppCompatActivity {
             }
         }
 
-
     }
 
 
