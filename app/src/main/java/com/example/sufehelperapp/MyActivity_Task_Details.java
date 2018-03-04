@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,6 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_Task_Details extends AppCompatActivity {
+
+    private task task;
+
+    public static final String TASK_SELECTED = "task_selected";
+    public static final String USER_NOW = "user_now";
+
+    private user user;
 
     private RecyclerView rvTrace;
     private List<Trace> traceList = new ArrayList<>(4);
@@ -25,6 +33,12 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("MyActivity_Task_Details",myName);
+
+        task = (task) getIntent().getSerializableExtra("task_selected");
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {

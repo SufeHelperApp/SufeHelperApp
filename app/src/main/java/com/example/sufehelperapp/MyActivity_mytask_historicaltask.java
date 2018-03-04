@@ -44,7 +44,7 @@ public class MyActivity_mytask_historicaltask extends Fragment implements View.O
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.historicaltask_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user);
+        adapter = new TaskAdapter(taskList,user,1);
         recyclerView.setAdapter(adapter);
 
         return view;

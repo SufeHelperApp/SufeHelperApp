@@ -40,7 +40,7 @@ public class MyActivity_History_Republish extends Fragment implements View.OnCli
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_republish_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user);
+        adapter = new TaskAdapter(taskList,user,1);
         recyclerView.setAdapter(adapter);
 
         return view;

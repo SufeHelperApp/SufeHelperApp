@@ -47,7 +47,7 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_recieved_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user);
+        adapter = new TaskAdapter(taskList,user,1);
         recyclerView.setAdapter(adapter);
 
         return view;

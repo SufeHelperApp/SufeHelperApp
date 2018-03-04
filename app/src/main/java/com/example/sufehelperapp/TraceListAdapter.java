@@ -14,6 +14,8 @@ import java.util.List;
 
 public class TraceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private user user;
+
     private LayoutInflater inflater;
     private List<Trace> traceList = new ArrayList<>(1);
     private static final int TYPE_TOP = 0x0000;
