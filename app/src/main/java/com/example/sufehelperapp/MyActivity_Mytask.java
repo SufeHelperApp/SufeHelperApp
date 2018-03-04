@@ -1,36 +1,22 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.SpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.sufehelperapp.fragmentAdapter;
-import com.example.sufehelperapp.viewAdapter;
-
-import org.litepal.crud.DataSupport;
 
 public class MyActivity_Mytask extends AppCompatActivity {
 
@@ -77,7 +63,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent( MyActivity_Mytask.this,MainActivity.class);
+                        Intent intent1 = new Intent( MyActivity_Mytask.this,Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         break;
                     case R.id.item_explore:
@@ -86,6 +72,9 @@ public class MyActivity_Mytask extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
+                        Intent intent3 = new Intent( MyActivity_Mytask.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
+                        startActivity(intent3);
                         break;
                 }
                 return true;

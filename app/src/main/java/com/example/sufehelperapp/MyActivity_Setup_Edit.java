@@ -1,6 +1,5 @@
 package com.example.sufehelperapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -48,7 +47,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent( MyActivity_Setup_Edit.this,MainActivity.class);
+                        Intent intent1 = new Intent( MyActivity_Setup_Edit.this,Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         break;
                     case R.id.item_explore:
@@ -57,6 +56,9 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
+                        Intent intent3 = new Intent( MyActivity_Setup_Edit.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
+                        startActivity(intent3);
                         break;
                 }
                 return true;

@@ -53,7 +53,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/errand_ic1"
             android:layout_width="65dp"
             android:layout_height="65dp"
@@ -70,7 +70,7 @@
             android:layout_marginStart="60dp"
             android:layout_marginTop="2dp"
             android:textSize="16sp"/>
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/errand_ic2"
             android:layout_width="65dp"
             android:layout_height="65dp"
@@ -87,7 +87,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/errand_ic3"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
@@ -106,7 +106,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="62dp"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/errand_ic4"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
@@ -123,7 +123,7 @@
                 android:layout_marginStart="53dp"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/errand_ic5"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
@@ -140,7 +140,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/errand_ic6"
                 android:layout_width="65dp"
                 android:layout_height="65dp"

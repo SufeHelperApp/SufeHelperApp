@@ -11,10 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.litepal.crud.DataSupport;
-
-import java.util.List;
-
 public class Task_LaunchActivity extends AppCompatActivity {
 
     public String subtaskType;
@@ -118,7 +114,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                     user.updateAll("phonenumber = ?",user.getPhonenumber());
 
-                    Intent intent1 = new Intent(Task_LaunchActivity.this, MainActivity.class);
+                    Intent intent1 = new Intent(Task_LaunchActivity.this, Task_HomeActivity.class);
                     intent1.putExtra("user_now", user);
                     startActivity(intent1);
                     Toast.makeText(Task_LaunchActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();

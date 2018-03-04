@@ -80,7 +80,7 @@ public class Task_SkillSelectActivity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_SkillSelectActivity.this, MainActivity.class);
+                        Intent intent1 = new Intent(Task_SkillSelectActivity.this, Task_HomeActivity.class);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:

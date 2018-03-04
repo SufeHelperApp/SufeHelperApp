@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -63,7 +62,7 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent( MyActivity_Historical_Task.this,MainActivity.class);
+                        Intent intent1 = new Intent( MyActivity_Historical_Task.this,Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         break;
                     case R.id.item_explore:
@@ -72,6 +71,9 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
+                        Intent intent3 = new Intent( MyActivity_Historical_Task.this, My_HomeActivity.class);
+                        intent3.putExtra("user_now", user);
+                        startActivity(intent3);
                         break;
                 }
                 return true;

@@ -1,8 +1,6 @@
 package com.example.sufehelperapp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +23,6 @@ import org.litepal.crud.DataSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -85,7 +81,7 @@ public class Task_ErrandSelectActivity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_ErrandSelectActivity.this, MainActivity.class);
+                        Intent intent1 = new Intent(Task_ErrandSelectActivity.this, Task_HomeActivity.class);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:

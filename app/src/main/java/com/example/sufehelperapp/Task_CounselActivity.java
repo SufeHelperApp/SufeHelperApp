@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import org.litepal.crud.DataSupport;
 
@@ -45,7 +44,7 @@ public class Task_CounselActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(Task_CounselActivity.this, MainActivity.class);
+                        Intent intent1 = new Intent(Task_CounselActivity.this, Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;

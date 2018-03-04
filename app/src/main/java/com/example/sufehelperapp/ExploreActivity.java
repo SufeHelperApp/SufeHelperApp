@@ -33,7 +33,7 @@ public class ExploreActivity extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(ExploreActivity.this, MainActivity.class);
+                        Intent intent1 = new Intent(ExploreActivity.this, Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
