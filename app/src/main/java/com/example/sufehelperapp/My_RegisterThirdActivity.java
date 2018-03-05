@@ -203,7 +203,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
                     } else if(location.getLocType() == BDLocation.TypeNetWorkLocation) {
                         currentPosition.append("网络");
                     }
-                    positionText.setText(currentPosition);
+                    positionText.setText(currentPosition);  //TODO：报错: positionText为空
                 }
             });
         }

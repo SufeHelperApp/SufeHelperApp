@@ -151,11 +151,11 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     int index = random.nextInt(5);
 
                     switch(index){
-                        case 0:user.setMyImageId(R.drawable.apple);break;
-                        case 1:user.setMyImageId(R.drawable.banana);break;
-                        case 2:user.setMyImageId(R.drawable.orange);break;
-                        case 3:user.setMyImageId(R.drawable.icon_image);break;
-                        case 4:user.setMyImageId(R.drawable.photo_lyh);break;
+                        case 0:user.setMyImageId(R.drawable.df1);break;
+                        case 1:user.setMyImageId(R.drawable.df2);break;
+                        case 2:user.setMyImageId(R.drawable.df3);break;
+                        case 3:user.setMyImageId(R.drawable.df4);break;
+                        case 4:user.setMyImageId(R.drawable.df5);break;
                     }//TODO: 上传图片保存图片
 
                     user.setMyName(name);
