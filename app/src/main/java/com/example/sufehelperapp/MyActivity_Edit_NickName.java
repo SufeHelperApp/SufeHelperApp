@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 
@@ -48,30 +49,32 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch(v.getId()) {
-                    case R.id.button_conserve_nickname:
-                        String newName = nameView.getText().toString();
 
-                        user.setMyName(newName);
-                        user.updateAll("phonenumber = ?",user.getPhonenumber());
+                String newName = nameView.getText().toString();
 
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_NickName.this);
-                        dialog.setTitle("提示");
-                        dialog.setMessage("昵称修改成功！");
-                        //dialog.setCancelable(false);
-                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Intent intent = new Intent(MyActivity_Edit_NickName.this, MyActivity_Setup_Edit.class);
-                                intent.putExtra("user_now", user);
-                                startActivity(intent);
-                            }
-                        });
-                        dialog.show();
-                        break;
-                    default:
-                        break;
+                List<user> userWithName = DataSupport.where("myName = ?", newName).find(user.class);
+                if (!userWithName.isEmpty()) {
+                    Toast.makeText(MyActivity_Edit_NickName.this, "该用户名已被注册！", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    user.setMyName(newName);
+                    user.updateAll("phonenumber = ?", user.getPhonenumber());
+
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_NickName.this);
+                    dialog.setTitle("提示");
+                    dialog.setMessage("昵称修改成功！");
+                    //dialog.setCancelable(false);
+                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            Intent intent = new Intent(MyActivity_Edit_NickName.this, MyActivity_Setup_Edit.class);
+                            intent.putExtra("user_now", user);
+                            startActivity(intent);
+                        }
+                    });
+                    dialog.show();
+
                 }
             }
         });

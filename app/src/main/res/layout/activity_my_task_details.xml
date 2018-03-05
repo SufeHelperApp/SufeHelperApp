@@ -78,7 +78,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:textSize="15dp"
-                android:background="#989898"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/text11"/>
@@ -173,6 +172,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -180,7 +180,7 @@
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/task_details1"
+            android:id="@+id/details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="任务详情"
@@ -188,40 +188,50 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>
         <TextView
-            android:id="@+id/task_details2"
+            android:id="@+id/details_launcher"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_details1"
+            android:layout_below="@id/details"
             android:layout_marginLeft="50dp"
             android:text="发起人："
             android:textSize="15sp"
             android:layout_marginTop="10dp"/>
 
         <TextView
-            android:id="@+id/task_details3"
+            android:id="@+id/details_launcher_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/task_details2"
-            android:layout_below="@id/task_details1"
+            android:layout_below="@id/details"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/details_launcher"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/details_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/details_launcher"
+            android:layout_marginLeft="50dp"
+            android:text="接受人："
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/details_helper_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/details_helper"
+            android:layout_below="@id/details_launcher"
             android:layout_marginLeft="10dp"
             android:textSize="15sp"
             android:layout_marginTop="10dp"/>
 
         <TextView
-            android:id="@+id/task_details4"
+            android:id="@+id/details_subtask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/task_details3"
-            android:layout_below="@id/task_details1"
-            android:layout_marginLeft="10dp"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:id="@+id/task_details5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/task_details2"
+            android:layout_below="@id/details_helper"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"
             android:text="任务分区："
@@ -229,95 +239,67 @@
             />
 
         <TextView
-            android:id="@+id/task_details6"
+            android:id="@+id/details_subtask_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_details2"
-            android:layout_toEndOf="@id/task_details5"
+            android:layout_below="@id/details_helper"
+            android:layout_toEndOf="@id/details_subtask"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/task_details7"
+            android:id="@+id/details_ddl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_details2"
-            android:layout_toEndOf="@id/task_details6"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/task_details_title_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/task_details6"
+            android:layout_below="@id/details_subtask"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"
             android:text="截止时间："
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/task_details_date"
+            android:id="@+id/details_ddl_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_details6"
-            android:layout_toEndOf="@id/task_details_title_time"
+            android:layout_below="@id/details_subtask"
+            android:layout_toEndOf="@id/details_ddl"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="15sp"/>
 
 
         <TextView
-            android:id="@+id/task_details_time"
+            android:id="@+id/details_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_details6"
-            android:layout_toEndOf="@id/task_details_date"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="8dp"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/task_details_title_payment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/task_details_title_time"
+            android:layout_below="@id/details_ddl"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"
             android:text="报酬："
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/task_details_payment"
+            android:id="@+id/details_payment_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_details_title_time"
-            android:layout_toEndOf="@id/task_details_title_payment"
+            android:layout_below="@id/details_ddl"
+            android:layout_toEndOf="@id/details_payment"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="15sp"/>
 
-        <TextView
-            android:id="@+id/task_details_title_description"
+        <Button
+            android:id="@+id/more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/task_details_title_payment"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="50dp"
-            android:text="任务描述："
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/task_details_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/task_details_title_description"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="8dp"
-            android:textStyle="italic"
-            android:maxLines="5"
+            android:layout_below="@id/details_ddl"
+            android:text = "更多 >"
+            android:background="#00000000"
+            android:textColor="@drawable/btn_text"
+            android:layout_toEndOf="@id/details_payment"
+            android:layout_marginTop="-5dp"
+            android:layout_marginLeft="205dp"
             android:textSize="15sp"/>
 
     </RelativeLayout>

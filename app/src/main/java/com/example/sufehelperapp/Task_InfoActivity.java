@@ -24,6 +24,7 @@ import java.util.List;
 public class Task_InfoActivity extends AppCompatActivity {
 
     private task task;
+    private int num;
 
     public static final String TASK_SELECTED = "task_selected";
     public static final String USER_NOW = "user_now";
@@ -37,6 +38,8 @@ public class Task_InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_info);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        num = getIntent().getIntExtra("num",1);
 
         user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
@@ -67,6 +70,11 @@ public class Task_InfoActivity extends AppCompatActivity {
         });
 
         Button button3 = (Button) findViewById(R.id.receive_task_btn);
+
+        if(num == 2){
+            button3.setVisibility(View.GONE);
+        }else if(num == 1){
+
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,6 +190,8 @@ public class Task_InfoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        }
 
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
         TextView launcher_name = (TextView) findViewById(R.id.taskinfo_name);

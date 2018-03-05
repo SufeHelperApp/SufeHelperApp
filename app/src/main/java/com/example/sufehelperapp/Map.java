@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,8 @@ import java.util.List;
 
 public class Map extends AppCompatActivity {
 
+    private user user;
+
     private MapView mapView;
     private BaiduMap baiduMap;
     private boolean isFirstLocate = true;
@@ -67,6 +70,10 @@ public class Map extends AppCompatActivity {
         mapView = (MapView) findViewById(R.id.bmapView);
         baiduMap = mapView.getMap();
         baiduMap.setMyLocationEnabled(true);
+
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("Map",myName);
 
         positionText = (TextView) findViewById(R.id.position_text_view);
         //申请运行时权限
@@ -100,6 +107,8 @@ public class Map extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Map.this, Task_LaunchActivity.class);
+
+                intent1.putExtra("user_now",user);
                 startActivity(intent1);
             }
         });

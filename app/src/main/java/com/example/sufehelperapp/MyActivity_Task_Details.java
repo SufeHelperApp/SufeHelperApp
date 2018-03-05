@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,39 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         });
 
         findView();
+
+        TextView locationView = findViewById(R.id.get_address);
+        locationView.setText(task.getLocation());
+
+        TextView launcherView = findViewById(R.id.details_launcher_text);
+        launcherView.setText(task.getLauncherName());
+
+        TextView helperView = findViewById(R.id.details_helper_text);
+        helperView.setText(task.getHelperName());
+
+        TextView subtaskView = findViewById(R.id.details_subtask_text);
+        subtaskView.setText(task.getSubtaskType());
+
+        TextView ddlView = findViewById(R.id.details_ddl_text);
+        ddlView.setText(task.getDdl());
+
+        TextView paymentView = findViewById(R.id.details_payment_text);
+        paymentView.setText(String.valueOf(task.getPayment()));
+
+        Button btn_more = findViewById(R.id.more);
+        btn_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MyActivity_Task_Details.this, Task_InfoActivity.class);
+                intent.putExtra("num",2);
+                intent.putExtra("user_now", user);
+                intent.putExtra("task_selected", task);
+                startActivity(intent);
+
+            }
+        });
+
 
         final Button btn_wait_finish = (Button) findViewById(R.id.to_wait_finish);
         final Button btn_finish = (Button) findViewById(R.id.to_finish);

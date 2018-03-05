@@ -54,6 +54,8 @@ public class task extends DataSupport implements Serializable{
     private double payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
+    private float latitude;
+    private float longtitude;
     private String description;  //任务描述
 
     //任务评分
@@ -432,6 +434,22 @@ public class task extends DataSupport implements Serializable{
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setLatitude(float latitude){
+        this.latitude = latitude;
+    }
+
+    public float getLatitude(){
+        return this.latitude;
+    }
+
+    public void setLongtitude(float longtitude){
+        this.latitude = longtitude;
+    }
+
+    public float getLongtitude(){
+        return this.longtitude;
     }
 
 

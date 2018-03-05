@@ -23,8 +23,6 @@ public class user extends DataSupport implements Serializable {
     //个性信息
     private String dormArea; //寝室校区（注册3）
     private String dormitoryLocation; //寝室名（注册3）
-    private double dormitoryX; //TODO: 寝室坐标（注册3）
-    private double dormitoryY;
     private List<String> demand; //TODO: 常见需求（注册3）
     private List<String> specialty;  //TODO: 个人特长（注册3）
 

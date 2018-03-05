@@ -73,6 +73,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                 if(num == 1) {
                     Intent intent = new Intent(mContext, Task_InfoActivity.class);
                     intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
+                    intent.putExtra("num",1);
                     intent.putExtra(Task_InfoActivity.USER_NOW, user);//传送user
                     mContext.startActivity(intent);
                 }else if (num == 2){
