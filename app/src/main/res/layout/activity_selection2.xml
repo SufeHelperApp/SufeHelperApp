@@ -27,7 +27,7 @@
         android:layout_alignBaseline="@+id/selection_ddl"
         android:layout_alignBottom="@+id/selection_ddl"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="98dp"
+        android:layout_marginStart="84dp"
         android:entries="@array/areas">
 
     </Spinner>
@@ -39,7 +39,7 @@
         android:layout_alignBaseline="@+id/selection_area"
         android:layout_alignBottom="@+id/selection_area"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="82dp"
+        android:layout_marginEnd="88dp"
         android:entries="@array/payments">
 
     </Spinner>
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="83dp"
+        android:layout_marginStart="90dp"
         android:layout_marginTop="56dp"
         android:layout_toEndOf="@+id/selection_area"
         android:entries="@array/ddls">
