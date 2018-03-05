@@ -39,6 +39,32 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         String myName = user_now.getMyName();
         Log.d("Explore_WeeklyTalent",myName);
 
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId())
+                {
+                    case R.id.item_task:
+                        Intent intent1 = new Intent(Explore_WeeklyTalentActivity.this, Task_HomeActivity.class);
+                        intent1.putExtra("user_now", user_now);
+                        startActivity(intent1);
+                        break;
+                    case R.id.item_explore:
+                        Intent intent3 = new Intent(Explore_WeeklyTalentActivity.this, ExploreActivity.class);
+                        intent3.putExtra("user_now", user_now);
+                        startActivity(intent3);
+                        break;
+                    case R.id.item_my:
+                        Intent intent2 = new Intent(Explore_WeeklyTalentActivity.this, My_HomeActivity.class);
+                        intent2.putExtra("user_now", user_now);
+                        startActivity(intent2);
+                        break;
+                }
+                return true;
+            }
+        });
+
 
         userList1= DataSupport.order("taskRNum_errand desc").limit(3).find(user.class);
         userList2= DataSupport.order("taskRNum_skill desc").limit(3).find(user.class);
