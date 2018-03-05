@@ -53,14 +53,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/counsel_ic1"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/apple"/>
+                android:src="@drawable/c1"/>
             <TextView
                 android:id="@+id/counsel_tx1"
                 android:layout_width="wrap_content"
@@ -70,14 +69,13 @@
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/counsel_ic2"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/banana"/>
+                android:src="@drawable/c2"/>
             <TextView
                 android:id="@+id/counsel_tx2"
                 android:layout_width="wrap_content"
@@ -87,15 +85,14 @@
                 android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/counsel_ic3"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="45dp"
                 android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/orange"/>
+                android:src="@drawable/c3"/>
             <TextView
                 android:id="@+id/counsel_tx3"
                 android:layout_width="wrap_content"
@@ -106,15 +103,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="45dp"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/counsel_ic4"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_below="@id/counsel_tx1"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/apple"/>
+                android:src="@drawable/c4"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,15 +119,14 @@
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/counsel_ic5"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_below="@id/counsel_tx2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/banana"/>
+                android:src="@drawable/c5"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,22 +135,21 @@
                 android:layout_marginTop="2dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"/>
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/counsel_ic6"
                 android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="45dp"
                 android:layout_below="@id/counsel_tx3"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/orange"/>
+                android:layout_marginTop="13dp"
+                android:src="@drawable/e6"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="其他"
                 android:layout_below="@id/counsel_ic6"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="3dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="62dp"
                 android:textSize="16sp"/>

@@ -40,25 +40,28 @@ public class MyActivity_Setup extends AppCompatActivity {
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+                switch(item.getItemId())
+                {
                     case R.id.item_task:
-                        Intent intent1 = new Intent( MyActivity_Setup.this,Task_HomeActivity.class);
+                        Intent intent1 = new Intent(MyActivity_Setup.this, Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
+                        startActivity(intent1);
                         break;
                     case R.id.item_explore:
-                        Intent intent2 = new Intent( MyActivity_Setup.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
-                        startActivity(intent2);
-                        break;
-                    case R.id.item_my:
-                        Intent intent3 = new Intent( MyActivity_Setup.this, ExploreActivity.class);
+                        Intent intent3 = new Intent(MyActivity_Setup.this, ExploreActivity.class);
                         intent3.putExtra("user_now", user);
                         startActivity(intent3);
+                        break;
+                    case R.id.item_my:
+                        Intent intent2 = new Intent(MyActivity_Setup.this, My_HomeActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
                         break;
                 }
                 return true;
             }
         });
+
 
 
         ImageView image = (ImageView) findViewById(R.id.button_picture);

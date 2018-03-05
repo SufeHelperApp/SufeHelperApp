@@ -81,15 +81,18 @@ public class Task_SkillSelectActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_SkillSelectActivity.this, Task_HomeActivity.class);
+                        intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
-                        Intent intent2 = new Intent(Task_SkillSelectActivity.this, ExploreActivity.class);
-                        startActivity(intent2);
+                        Intent intent3 = new Intent(Task_SkillSelectActivity.this, ExploreActivity.class);
+                        intent3.putExtra("user_now", user);
+                        startActivity(intent3);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_SkillSelectActivity.this, MyActivity.class);
-                        startActivity(intent3);
+                        Intent intent2 = new Intent(Task_SkillSelectActivity.this, My_HomeActivity.class);
+                        intent2.putExtra("user_now", user);
+                        startActivity(intent2);
                         break;
                 }
                 return true;

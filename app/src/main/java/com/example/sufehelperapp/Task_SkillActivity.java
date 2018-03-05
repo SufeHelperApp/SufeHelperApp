@@ -43,16 +43,20 @@ public class Task_SkillActivity extends AppCompatActivity {
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+                switch(item.getItemId())
+                {
                     case R.id.item_task:
-                        break;
-                    case R.id.item_explore:
-                        Intent intent1 = new Intent(Task_SkillActivity.this, ExploreActivity.class);
+                        Intent intent1 = new Intent(Task_SkillActivity.this, Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
+                    case R.id.item_explore:
+                        Intent intent3 = new Intent(Task_SkillActivity.this, ExploreActivity.class);
+                        intent3.putExtra("user_now", user);
+                        startActivity(intent3);
+                        break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(Task_SkillActivity.this, MyActivity.class);
+                        Intent intent2 = new Intent(Task_SkillActivity.this, My_HomeActivity.class);
                         intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;

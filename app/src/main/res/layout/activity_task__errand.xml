@@ -55,10 +55,11 @@
             android:layout_height="match_parent">
         <ImageView
             android:id="@+id/errand_ic1"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="45dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/e1"
             android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/errand_tx1"
@@ -74,6 +75,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/e2"
             android:layout_marginTop="10dp"
             android:scaleType="centerCrop"/>
             <TextView
@@ -90,6 +92,7 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_alignParentEnd="true"
+                android:background="@drawable/e3"
                 android:layout_marginEnd="45dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"/>
@@ -108,6 +111,7 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_below="@id/errand_tx1"
+                android:background="@drawable/e4"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"/>
@@ -124,6 +128,7 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_below="@id/errand_tx2"
+                android:background="@drawable/e5"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:scaleType="centerCrop"/>
@@ -137,19 +142,20 @@
                 android:textSize="16sp"/>
             <ImageView
                 android:id="@+id/errand_ic6"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="35dp"
+                android:layout_height="55dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="45dp"
+                android:background="@drawable/e6"
+                android:layout_marginEnd="60dp"
                 android:layout_below="@id/errand_tx3"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:scaleType="centerCrop"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="其他"
                 android:layout_below="@id/errand_ic6"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="62dp"
                 android:textSize="16sp"/>
