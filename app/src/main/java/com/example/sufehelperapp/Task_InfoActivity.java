@@ -70,26 +70,27 @@ public class Task_InfoActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch(v.getId()) {
+                switch (v.getId()) {
                     case R.id.receive_task_btn:
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(Task_InfoActivity.this);
-                        dialog.setTitle("是否确定接收任务？");
-                        dialog.setMessage("如果您中途放弃该任务，将会降低您在SufeHelper上的信用评分。累计三次违约的账户将被冻结。");
-                        dialog.setCancelable(false);
-                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                                String helperName = user.getMyName();
+                        String helperName = user.getMyName();
+                        if (task.getLauncherName().equals(helperName)) {
+                            Toast.makeText(Task_InfoActivity.this, "请勿接收自己的任务！",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
 
-                                //不得接收自己的任务
-                                if(task.getLauncherName().equals(helperName)){
-                                    Toast.makeText(Task_InfoActivity.this, "请勿接收自己的任务！",
-                                            Toast.LENGTH_SHORT).show();
-                                }else {
+                            AlertDialog.Builder dialog = new AlertDialog.Builder(Task_InfoActivity.this);
+                            dialog.setTitle("是否确定接收任务？");
+                            dialog.setMessage("如果您中途放弃任务，将会降低您在SufeHelper上的信用评分。账户累计三次违约将被冻结。");
+                            dialog.setCancelable(false);
+                            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    String helperName = user.getMyName();
 
                                     //更新该task信息
-                                    Log.d("msg","accepted");
+                                    Log.d("msg", "accepted");
                                     task.setIfAccepted(true);
                                     task.setAccepttime();
                                     task.setProgress(2); //已接受
@@ -108,56 +109,56 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     if (task.getSubtaskType() == "占座") {
                                         user.taskRNum_e1++;
                                         user.addTaskRNum_errand(1);
-                                    }else if(task.getSubtaskType() == "拿快递") {
+                                    } else if (task.getSubtaskType() == "拿快递") {
                                         user.taskRNum_e2++;
                                         user.addTaskRNum_errand(1);
-                                    }else if(task.getSubtaskType() == "买饭") {
+                                    } else if (task.getSubtaskType() == "买饭") {
                                         user.taskRNum_e3++;
                                         user.addTaskRNum_errand(1);
-                                    }else if(task.getSubtaskType() == "买东西") {
+                                    } else if (task.getSubtaskType() == "买东西") {
                                         user.taskRNum_e4++;
                                         user.addTaskRNum_errand(1);
-                                    }else if(task.getSubtaskType() == "拼单") {
+                                    } else if (task.getSubtaskType() == "拼单") {
                                         user.taskRNum_e5++;
                                         user.addTaskRNum_errand(1);
-                                    }else if(task.getSubtaskType() == "电子产品修理") {
+                                    } else if (task.getSubtaskType() == "电子产品修理") {
                                         user.taskRNum_s1++;
                                         user.addTaskRNum_skill(1);
-                                    }else if(task.getSubtaskType() == "家具器件组装") {
+                                    } else if (task.getSubtaskType() == "家具器件组装") {
                                         user.taskRNum_s2++;
                                         user.addTaskRNum_skill(1);
-                                    }else if(task.getSubtaskType() == "学习作业辅导") {
+                                    } else if (task.getSubtaskType() == "学习作业辅导") {
                                         user.taskRNum_s3++;
                                         user.addTaskRNum_skill(1);
-                                    }else if(task.getSubtaskType() == "技能培训") {
+                                    } else if (task.getSubtaskType() == "技能培训") {
                                         user.taskRNum_s4++;
                                         user.addTaskRNum_skill(1);
-                                    }else if(task.getSubtaskType() == "找同好") {
+                                    } else if (task.getSubtaskType() == "找同好") {
                                         user.taskRNum_s5++;
                                         user.addTaskRNum_skill(1);
-                                    }else if(task.getSubtaskType() == "选课指南") {
+                                    } else if (task.getSubtaskType() == "选课指南") {
                                         user.taskRNum_c1++;
                                         user.addTaskRNum_counsel(1);
-                                    }else if(task.getSubtaskType() == "考研出国经验"){
+                                    } else if (task.getSubtaskType() == "考研出国经验") {
                                         user.taskRNum_c2++;
                                         user.addTaskRNum_counsel(1);
-                                    }else if(task.getSubtaskType() == "求职经验") {
+                                    } else if (task.getSubtaskType() == "求职经验") {
                                         user.taskRNum_c3++;
                                         user.addTaskRNum_counsel(1);
-                                    }else if(task.getSubtaskType() == "票务转让") {
+                                    } else if (task.getSubtaskType() == "票务转让") {
                                         user.taskRNum_c4++;
                                         user.addTaskRNum_counsel(1);
-                                    }else if(task.getSubtaskType() == "二手闲置") {
+                                    } else if (task.getSubtaskType() == "二手闲置") {
                                         user.taskRNum_c5++;
                                         user.addTaskRNum_counsel(1);
-                                }
+                                    }
 
                                     user.addTaskNum(1);
 
-                                    user.updateAll("phonenumber = ?",user.getPhonenumber());
-                                    Log.d("msg1",String.valueOf(user.getTaskRNum_errand()));
-                                    Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
-                                    Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));
+                                    user.updateAll("phonenumber = ?", user.getPhonenumber());
+                                    Log.d("msg1", String.valueOf(user.getTaskRNum_errand()));
+                                    Log.d("msg2", String.valueOf(user.getTaskRNum_skill()));
+                                    Log.d("msg3", String.valueOf(user.getTaskRNum_counsel()));
 
                                     Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
                                     intent1.putExtra("user_now", user);
@@ -165,15 +166,16 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
 
                                 }
-                            }
-                        });
-                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                            });
+                            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        });
-                        dialog.show();
+                                }
+                            });
+                            dialog.show();
+
+                        }
                         break;
                     default:
                         break;
@@ -217,7 +219,6 @@ public class Task_InfoActivity extends AppCompatActivity {
                 Log.d("launcher",launcher.getMyName());
                 intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, launcher);
                 startActivity(intent);
-                Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
             }
         });
 
