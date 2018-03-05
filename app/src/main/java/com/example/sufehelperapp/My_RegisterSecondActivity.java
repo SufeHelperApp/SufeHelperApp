@@ -77,6 +77,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
             }
 
         });
+        picture = (ImageView) findViewById(R.id.picture_upload);
 
         //从手机相册中选择
         Button chooseFromAlbum = (Button) findViewById(R.id.bottom_choose_from_album);
