@@ -36,37 +36,11 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
     String dormArea;
     String dormName;
 
-    public LocationClient mLocationClient;
-    private TextView positionText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //定位监听器
-        mLocationClient = new LocationClient(getApplicationContext());
-        mLocationClient.registerLocationListener(new MyLocationListener());
-        setContentView(R.layout.activity_my_register_third);
 
-        //positionText = (TextView) findViewById(R.id.position_text_view);
-        //申请运行时权限
-        List<String> permissionList = new ArrayList<>();
-        if(ContextCompat.checkSelfPermission(My_RegisterThirdActivity.this, Manifest.
-                permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
-        }
-        if(ContextCompat.checkSelfPermission(My_RegisterThirdActivity.this,Manifest.
-                permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.READ_PHONE_STATE);
-        }
-        if(ContextCompat.checkSelfPermission(My_RegisterThirdActivity.this,Manifest.
-                permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if(!permissionList.isEmpty()) {
-            String [] permissions = permissionList.toArray(new String[permissionList.size()]);
-            ActivityCompat.requestPermissions(My_RegisterThirdActivity.this,permissions,1);
-        } else {
-            requestLocation();
-        }
+        setContentView(R.layout.activity_my_register_third);
 
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("RegisterThirdActivity",user.getMyName());
@@ -134,6 +108,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
 
     }
+
     //开始定位
     private void requestLocation() {
         initLocation();
@@ -213,5 +188,6 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
         }
     }
+
 
 }
