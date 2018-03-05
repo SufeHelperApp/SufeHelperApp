@@ -88,4 +88,12 @@ public class MyActivity_Vip extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Vip.this, My_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
+
 }

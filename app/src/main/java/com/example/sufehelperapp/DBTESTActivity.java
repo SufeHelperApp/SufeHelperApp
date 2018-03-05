@@ -1,5 +1,6 @@
 package com.example.sufehelperapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,13 +43,10 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    user.taskRNum_e1 = 0;
-                    user.taskRNum_c1 = 0;
-                    user.taskRNum_s1 = 0;
+                    user.setMyName("amy3");
                     user.updateAll("phonenumber = ?",user.getPhonenumber());
 
-                    text.setText(String.valueOf(user.taskRNum_e1));
-
+                    text.setText(String.valueOf(user.getMyName()));
 
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
@@ -64,5 +62,26 @@ public class DBTESTActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        Button button1 = (Button) findViewById(R.id.title_back);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DBTESTActivity.this, Task_HomeActivity.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
+            }
+        });*/
+
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(DBTESTActivity.this, Task_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
+
+
 }

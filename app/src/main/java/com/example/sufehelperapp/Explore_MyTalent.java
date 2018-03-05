@@ -92,6 +92,7 @@ public class Explore_MyTalent extends AppCompatActivity {
             }
         });
 
+
         user.updateTalentTitles();
 
         final Button mPerson1 = (Button) findViewById(R.id.person1);
@@ -230,10 +231,14 @@ public class Explore_MyTalent extends AppCompatActivity {
             mPerson15.setActivated(false);
         }
 
+    }
 
-
-
-
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Explore_MyTalent.this, Task_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
     }
 
 

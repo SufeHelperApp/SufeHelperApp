@@ -218,4 +218,12 @@ public class Task_SelectionEActivity extends AppCompatActivity {
 */
 
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Task_SelectionEActivity.this, Task_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

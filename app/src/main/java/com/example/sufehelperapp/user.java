@@ -80,13 +80,13 @@ public class user extends DataSupport implements Serializable {
     //达人信息
     private boolean ifTalent;  //TODO: 是否是达人（达人榜）。
     //TODO: 对接：获取所有达人称号字符串：显示在"我的达人"页面。
-    private List<String> talentTitles;  //TODO: 达人称号（达人榜，我的达人）。
+    private List<String> talentTitles = new ArrayList<>();  //TODO: 达人称号（达人榜，我的达人）。
     //private int invitedTimes;  //被邀请多少次
 
     public void updateTalentTitles(){
 
         this.talentTitles = new ArrayList<>();
-        talentTitles.clear();
+        this.talentTitles.clear();
 
         if(this.taskRNum_e1 >= 3){
             this.talentTitles.add("占座达人");
@@ -382,10 +382,6 @@ public class user extends DataSupport implements Serializable {
 
     public void setTalentTitles(List<String> talentTitles) {
         this.talentTitles = talentTitles;
-    }
-
-    public List<String> getTalent() {
-        return talentTitles;
     }
 
     public void addTalentTitle(String talent) {

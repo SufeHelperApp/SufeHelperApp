@@ -96,4 +96,12 @@ public class Explore_weekly extends AppCompatActivity {
             interalList.add(explore_weekly_interals[i]);
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Explore_weekly.this, ExploreActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

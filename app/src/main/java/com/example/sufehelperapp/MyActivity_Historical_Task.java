@@ -155,4 +155,12 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
         vp_pager2.setAdapter(fAdapter);
         tab_title2.setupWithViewPager(vp_pager2);
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Historical_Task.this, MyActivity_Mytask.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

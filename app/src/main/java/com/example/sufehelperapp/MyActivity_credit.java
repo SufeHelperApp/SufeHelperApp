@@ -100,6 +100,13 @@ public class MyActivity_credit extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_credit.this, My_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
     }
 }

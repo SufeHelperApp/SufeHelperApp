@@ -78,4 +78,9 @@ public class ExploreActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+
+    }
+
 }

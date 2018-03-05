@@ -328,4 +328,5 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
             Toast.makeText(this,"failed to get image",Toast.LENGTH_SHORT).show();
         }
     }
+
 }
