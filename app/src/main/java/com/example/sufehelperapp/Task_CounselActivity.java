@@ -55,7 +55,7 @@ public class Task_CounselActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_CounselActivity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_CounselActivity.this, My_HomeActivity.class);
                         intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
@@ -135,6 +135,14 @@ public class Task_CounselActivity extends AppCompatActivity {
 
         return preferredTasks;
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Task_CounselActivity.this, Task_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
     }
 }
 

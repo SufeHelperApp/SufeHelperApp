@@ -137,5 +137,13 @@ public class Task_SkillActivity extends AppCompatActivity {
         return preferredTasks;
 
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Task_SkillActivity.this, Task_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }
 

@@ -37,7 +37,6 @@
         </activity>
         <activity android:name=".Task_HomeActivity" />
         <activity android:name=".ExploreActivity" />
-        <activity android:name=".MyActivity" />
         <activity android:name=".Task_ErrandActivity" />
         <activity android:name=".Task_SkillActivity" />
         <activity android:name=".Task_CounselActivity" />

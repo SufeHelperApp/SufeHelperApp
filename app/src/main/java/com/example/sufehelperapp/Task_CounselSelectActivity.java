@@ -90,7 +90,7 @@ public class Task_CounselSelectActivity extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
-                        Intent intent3 = new Intent(Task_CounselSelectActivity.this, MyActivity.class);
+                        Intent intent3 = new Intent(Task_CounselSelectActivity.this, My_HomeActivity.class);
                         startActivity(intent3);
                         break;
                 }

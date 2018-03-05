@@ -325,4 +325,12 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Explore_WeeklyTalentActivity.this, ExploreActivity.class);
+        intent.putExtra("user_now",user_now);
+        startActivity(intent);
+        finish();
+    }
+
 }

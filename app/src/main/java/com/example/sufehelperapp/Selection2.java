@@ -544,7 +544,13 @@ public class Selection2 extends AppCompatActivity {
 
 
     }
-
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Selection2.this, Task_SkillActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 
 
 }

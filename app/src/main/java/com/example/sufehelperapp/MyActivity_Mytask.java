@@ -167,4 +167,12 @@ public class MyActivity_Mytask extends AppCompatActivity {
         vp_pager.setAdapter(fAdapter);
         tab_title.setupWithViewPager(vp_pager);
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Mytask.this, My_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

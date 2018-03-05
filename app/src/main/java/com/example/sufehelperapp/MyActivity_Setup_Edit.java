@@ -160,4 +160,12 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Setup.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

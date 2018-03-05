@@ -36,4 +36,12 @@ public class MyActivity_Myaward extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Myaward.this, MyActivity_credit.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

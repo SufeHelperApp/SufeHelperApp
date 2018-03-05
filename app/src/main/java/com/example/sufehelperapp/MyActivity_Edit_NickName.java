@@ -76,4 +76,12 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Edit_NickName.this, MyActivity_Setup_Edit.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

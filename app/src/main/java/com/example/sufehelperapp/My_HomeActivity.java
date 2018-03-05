@@ -52,9 +52,6 @@ public class My_HomeActivity extends AppCompatActivity {
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(My_HomeActivity.this, My_HomeActivity.class);
-                        intent2.putExtra("user_now", user);
-                        startActivity(intent2);
                         break;
                 }
                 return true;
@@ -116,29 +113,10 @@ public class My_HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
 
-        /** BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId())
-        {
-        case R.id.item_task:
-        Intent intent1 = new Intent(My_HomeActivity.this, Task_Home.class);
-        startActivity(intent1);
-        break;
-        case R.id.item_explore:
-        Intent intent2 = new Intent(My_HomeActivity.this, ExploreActivity.class);
-        startActivity(intent2);
-        break;
-        case R.id.item_my:
-        Intent intent3 = new Intent(My_HomeActivity.this, My_HomeActivity.class);
-        startActivity(intent3);
-        break;
-        }
-        return true;
-        }
-        });*/
+    @Override
+    public void onBackPressed(){
 
     }
 }

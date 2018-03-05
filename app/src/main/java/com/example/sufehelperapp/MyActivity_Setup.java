@@ -121,4 +121,12 @@ public class MyActivity_Setup extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Setup.this, My_HomeActivity.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

@@ -84,5 +84,13 @@ public class MyActivity_recievedaward extends AppCompatActivity implements View.
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_recievedaward.this, MyActivity_credit.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }
 

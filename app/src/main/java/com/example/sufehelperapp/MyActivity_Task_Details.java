@@ -222,4 +222,13 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         rvTrace.setAdapter(adapter);
 
     }
+
+    //TODO: 完善
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
+        intent.putExtra("user_now",user);
+        startActivity(intent);
+        finish();
+    }
 }

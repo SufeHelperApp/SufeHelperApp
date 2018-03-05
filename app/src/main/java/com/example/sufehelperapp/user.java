@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import org.litepal.crud.DataSupport;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class user extends DataSupport implements Serializable {
@@ -28,12 +29,32 @@ public class user extends DataSupport implements Serializable {
     private List<String> specialty;  //TODO: 个人特长（注册3）
 
     //任务信息
+    private int taskNum;  //任务总数（发布页，信息页）。
     private int taskLNum;  //发布任务总数（发布页）。
     private int taskRNum;  //接受任务总数（信息页）。
+
     private int taskRNum_errand; //跑腿任务总数（信息页）。
-    private int taskRNum_skill; //技能任务总数（信息页）。
-    private int taskRNum_counsel; //咨询任务总数（信息页）。
-    private int taskNum;  //任务总数（发布页，信息页）。
+    public int taskRNum_e1=0;
+    public int taskRNum_e2=0;
+    public int taskRNum_e3=0;
+    public int taskRNum_e4=0;
+    public int taskRNum_e5=0;
+
+    public int taskRNum_skill; //技能任务总数（信息页）。
+    public int taskRNum_s1=0;
+    public int taskRNum_s2=0;
+    public int taskRNum_s3=0;
+    public int taskRNum_s4=0;
+    public int taskRNum_s5=0;
+
+
+    public int taskRNum_counsel; //咨询任务总数（信息页）。
+    public int taskRNum_c1=0;
+    public int taskRNum_c2=0;
+    public int taskRNum_c3=0;
+    public int taskRNum_c4=0;
+    public int taskRNum_c5=0;
+
     private int default_taskNum;  //TODO：违约任务总数（alarm）。
 
     //评价信息
@@ -59,8 +80,61 @@ public class user extends DataSupport implements Serializable {
     //达人信息
     private boolean ifTalent;  //TODO: 是否是达人（达人榜）。
     //TODO: 对接：获取所有达人称号字符串：显示在"我的达人"页面。
-    private List<String> talentTitles;  //TODO: 达人称号（达人榜，我的达人）。
+    private List<String> talentTitles = new ArrayList<>();  //TODO: 达人称号（达人榜，我的达人）。
     //private int invitedTimes;  //被邀请多少次
+
+    public void updateTalentTitles(){
+
+        this.talentTitles = new ArrayList<>();
+        this.talentTitles.clear();
+
+        if(this.taskRNum_e1 >= 3){
+            this.talentTitles.add("占座达人");
+        }
+        if(this.taskRNum_e2 >= 3){
+            this.talentTitles.add("拿快递达人");
+        }
+        if(this.taskRNum_e3 >= 3){
+            this.talentTitles.add("买饭达人");
+        }
+        if(this.taskRNum_e4 >= 3){
+            this.talentTitles.add("买东西达人");
+        }
+        if(this.taskRNum_e5 >= 3){
+            this.talentTitles.add("拼单达人");
+        }
+        if(this.taskRNum_s1 >= 3){
+            this.talentTitles.add("电子产品修理达人");
+        }
+        if(this.taskRNum_e2 >= 3){
+            this.talentTitles.add("家具器件组装达人");
+        }
+        if(this.taskRNum_e3 >= 3){
+            this.talentTitles.add("学习作业辅导达人");
+        }
+        if(this.taskRNum_e4 >= 3){
+            this.talentTitles.add("技能培训达人");
+        }
+        if(this.taskRNum_e5 >= 3){
+            this.talentTitles.add("找同好达人");
+        }
+        if(this.taskRNum_c1 >= 3){
+            this.talentTitles.add("选课指南达人");
+        }
+        if(this.taskRNum_c2 >= 3){
+            this.talentTitles.add("考研出国经验达人");
+        }
+        if(this.taskRNum_c3 >= 3){
+            this.talentTitles.add("求职经验达人");
+        }
+        if(this.taskRNum_c4 >= 3){
+            this.talentTitles.add("票务转让达人");
+        }
+        if(this.taskRNum_c5 >= 3){
+            this.talentTitles.add("二手闲置达人");
+        }
+
+    }
 
 
     //默认构造函数
@@ -308,10 +382,6 @@ public class user extends DataSupport implements Serializable {
 
     public void setTalentTitles(List<String> talentTitles) {
         this.talentTitles = talentTitles;
-    }
-
-    public List<String> getTalent() {
-        return talentTitles;
     }
 
     public void addTalentTitle(String talent) {
