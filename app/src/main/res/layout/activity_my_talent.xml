@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/all"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -69,7 +70,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="400dp"
         android:layout_marginTop="5dp"
         app:cardCornerRadius="4dp">
 
@@ -81,7 +82,7 @@
                 android:id="@+id/text_1"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
-                android:text="现有达人称号"
+                android:text="达人称号"
                 android:textColor="#000000"
                 android:textSize="25dp"
                 android:layout_marginLeft="30dp"
@@ -94,124 +95,198 @@
                 android:background="@drawable/ic_line"
                 android:layout_below="@id/text_1"
                 android:layout_marginLeft="20dp"/>
-            <TextView
-                android:id="@+id/name1"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:textSize="20dp"
-                android:text="占座达人"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark"
-                android:layout_below="@id/picture1"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-            <TextView
-                android:id="@+id/name2"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="修理达人"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark"
-                android:layout_below="@id/name1"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-            <TextView
-                android:id="@+id/name3"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="学习达人"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark"
-                android:layout_below="@id/picture1"
-                android:layout_toRightOf="@id/name1"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_gravity="center_horizontal">
+                <Button
+                    android:id="@+id/person1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="占座达人"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="10dp"
+                    />
+                <Button
+                    android:id="@+id/person2"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:text="拿快递达人"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/person1"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person3"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="买饭达人"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/person2"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person4"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="买东西达人"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/person3"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person5"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="拼单"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/person4"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电子产品修理"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person1"
+                    />
+                <Button
+                    android:id="@+id/person7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="家具器件组装"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person1"
+                    android:layout_toRightOf="@id/person6"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person8"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="找同好"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person1"
+                    android:layout_toRightOf="@id/person7"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="学习作业辅导"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person6"
+                    />
+                <Button
+                    android:id="@+id/person10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="技能培训"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person6"
+                    android:layout_toRightOf="@id/person9"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="选课指南"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person6"
+                    android:layout_toRightOf="@id/person10"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="考研出国经验"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person9"
+                    />
+                <Button
+                    android:id="@+id/person13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="求职经验"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person9"
+                    android:layout_toRightOf="@id/person12"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="票务转让"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person9"
+                    android:layout_toRightOf="@id/person13"
+                    android:layout_marginLeft="5dp"/>
+                <Button
+                    android:id="@+id/person15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="二手闲置"
+                    android:textSize="15dp"
+                    android:textColor="@drawable/btn_text"
+                    android:background="@drawable/btn_click"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/person14"
+                    />
+            </RelativeLayout>
+
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/btn_navigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        app:cardCornerRadius="4dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/text_2"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:text="申请常驻达人"
-                android:textColor="#000000"
-                android:textSize="25dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center"/>
-            <ImageView
-                android:id="@+id/picture2"
-                android:layout_width="180dp"
-                android:layout_height="5dp"
-                android:background="@drawable/ic_line"
-                android:layout_below="@id/text_2"
-                android:layout_marginLeft="20dp"/>
-            <TextView
-                android:id="@+id/name4"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="奶茶达人"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark"
-                android:layout_below="@id/picture2"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-            <TextView
-                android:id="@+id/name5"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="水果达人"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark"
-                android:layout_below="@id/name4"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-            <TextView
-                android:id="@+id/name6"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="火锅达人"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark"
-                android:layout_below="@id/picture2"
-                android:layout_toRightOf="@id/name4"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="30dp"
-                android:gravity="center"/>
-            <Button
-                android:id="@+id/button_apply_for"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="申请"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimary"
-                android:layout_alignLeft="@id/name6"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="200dp"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-    <include layout="@layout/common_bottom_navigation_bar"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:menu="@menu/bottom_navigation_main"
+        />
 
 </LinearLayout>

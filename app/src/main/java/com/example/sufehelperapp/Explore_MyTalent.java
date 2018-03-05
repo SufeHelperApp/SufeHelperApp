@@ -17,6 +17,22 @@ public class Explore_MyTalent extends AppCompatActivity {
 
     private user user;
 
+    private int flag1 = 0;
+    private int flag2 = 0;
+    private int flag3 = 0;
+    private int flag4 = 0;
+    private int flag5 = 0;
+    private int flag6 = 0;
+    private int flag7 = 0;
+    private int flag8 = 0;
+    private int flag9 = 0;
+    private int flag10 = 0;
+    private int flag11 = 0;
+    private int flag12 = 0;
+    private int flag13 = 0;
+    private int flag14 = 0;
+    private int flag15 = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +72,7 @@ public class Explore_MyTalent extends AppCompatActivity {
             }
         });
 
+        user.updateTalentTitles();
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +83,7 @@ public class Explore_MyTalent extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         Button button2 = (Button) findViewById(R.id.button_to_see_ivt);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,35 +93,34 @@ public class Explore_MyTalent extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button button3 = (Button) findViewById(R.id.button_apply_for);
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(v.getId()) {
-                    case R.id.button_apply_for:
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(Explore_MyTalent.this);
-                        dialog.setTitle("提示");
-                        dialog.setMessage("您确定申请称号吗？");
-                        dialog.setCancelable(false);
-                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                            }
-                        });
-                        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+        final Button mPerson1 = (Button) findViewById(R.id.person1);
+        if(user.getTalentTitles().contains("占座达人")) {
+            flag1 = 1;
+            mPerson1.setActivated(true);
+        }else{
+            flag1 = 0;
+            mPerson1.setActivated(false);
+        }
 
-                            }
-                        });
-                        dialog.show();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
+        final Button mPerson2 = (Button) findViewById(R.id.person2);
+        if(user.getTalentTitles().contains("拿快递达人")) {
+            flag2 = 1;
+            mPerson2.setActivated(true);
+        }else{
+            flag2 = 0;
+            mPerson2.setActivated(false);
+        }
+
+        final Button mPerson3 = (Button) findViewById(R.id.person3);
+        if(user.getTalentTitles().contains("买饭达人")) {
+            flag3 = 1;
+            mPerson3.setActivated(true);
+        }else{
+            flag3 = 0;
+            mPerson3.setActivated(false);
+        }
+
     }
 
 

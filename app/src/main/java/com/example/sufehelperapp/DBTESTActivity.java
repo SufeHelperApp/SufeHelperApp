@@ -34,11 +34,10 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<task> taskList = DataSupport.findAll(task.class);
-                for(task task:taskList){
-                    task.setProgress(2);
-                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                            task.getLauncherName());
+                List<user> userList = DataSupport.findAll(user.class);
+                for(user user:userList){
+                    user.taskRNum_e1 = 5;
+                    user.updateAll("phonenumber = ?",user.getPhonenumber());
                 }
 
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
@@ -51,11 +50,9 @@ public class DBTESTActivity extends AppCompatActivity {
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<task> taskList = DataSupport.findAll(task.class);
-                Log.d("taskNum",String.valueOf(taskList.size()));
-                for(task task: taskList){
-                    Log.d("task",task.getSubtaskType());
-                }
+                List<user> userList = DataSupport.where("myName = ?","amy").find(user.class);
+                user user = userList.get(0);
+                text.setText(String.valueOf(user.taskRNum_e1));
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
             }
         });

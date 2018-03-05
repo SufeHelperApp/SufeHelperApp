@@ -105,13 +105,53 @@ public class Task_InfoActivity extends AppCompatActivity {
 
                                     user.increaseCredit(30);
                                     user.addTaskRNum(1);
-                                    if (task.getTaskType() == "跑腿") {
+                                    if (task.getSubtaskType() == "占座") {
+                                        user.taskRNum_e1++;
                                         user.addTaskRNum_errand(1);
-                                    }else if(task.getTaskType() == "技能"){
+                                    }else if(task.getSubtaskType() == "拿快递") {
+                                        user.taskRNum_e2++;
+                                        user.addTaskRNum_errand(1);
+                                    }else if(task.getSubtaskType() == "买饭") {
+                                        user.taskRNum_e3++;
+                                        user.addTaskRNum_errand(1);
+                                    }else if(task.getSubtaskType() == "买东西") {
+                                        user.taskRNum_e4++;
+                                        user.addTaskRNum_errand(1);
+                                    }else if(task.getSubtaskType() == "拼单") {
+                                        user.taskRNum_e5++;
+                                        user.addTaskRNum_errand(1);
+                                    }else if(task.getSubtaskType() == "电子产品修理") {
+                                        user.taskRNum_s1++;
                                         user.addTaskRNum_skill(1);
-                                    }else if(task.getTaskType() == "咨询"){
+                                    }else if(task.getSubtaskType() == "家具器件组装") {
+                                        user.taskRNum_s2++;
+                                        user.addTaskRNum_skill(1);
+                                    }else if(task.getSubtaskType() == "学习作业辅导") {
+                                        user.taskRNum_s3++;
+                                        user.addTaskRNum_skill(1);
+                                    }else if(task.getSubtaskType() == "技能培训") {
+                                        user.taskRNum_s4++;
+                                        user.addTaskRNum_skill(1);
+                                    }else if(task.getSubtaskType() == "找同好") {
+                                        user.taskRNum_s5++;
+                                        user.addTaskRNum_skill(1);
+                                    }else if(task.getSubtaskType() == "选课指南") {
+                                        user.taskRNum_c1++;
                                         user.addTaskRNum_counsel(1);
-                                    }
+                                    }else if(task.getSubtaskType() == "考研出国经验"){
+                                        user.taskRNum_c2++;
+                                        user.addTaskRNum_counsel(1);
+                                    }else if(task.getSubtaskType() == "求职经验") {
+                                        user.taskRNum_c3++;
+                                        user.addTaskRNum_counsel(1);
+                                    }else if(task.getSubtaskType() == "票务转让") {
+                                        user.taskRNum_c4++;
+                                        user.addTaskRNum_counsel(1);
+                                    }else if(task.getSubtaskType() == "二手闲置") {
+                                        user.taskRNum_c5++;
+                                        user.addTaskRNum_counsel(1);
+                                }
+
                                     user.addTaskNum(1);
 
                                     user.updateAll("phonenumber = ?",user.getPhonenumber());
