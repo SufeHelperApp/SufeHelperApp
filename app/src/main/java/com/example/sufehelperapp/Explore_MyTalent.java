@@ -72,8 +72,6 @@ public class Explore_MyTalent extends AppCompatActivity {
             }
         });
 
-        user.updateTalentTitles();
-
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,10 +92,13 @@ public class Explore_MyTalent extends AppCompatActivity {
             }
         });
 
+        user.updateTalentTitles();
+
         final Button mPerson1 = (Button) findViewById(R.id.person1);
         if(user.getTalentTitles().contains("占座达人")) {
             flag1 = 1;
             mPerson1.setActivated(true);
+            Log.d("msg","1");
         }else{
             flag1 = 0;
             mPerson1.setActivated(false);
@@ -120,6 +121,118 @@ public class Explore_MyTalent extends AppCompatActivity {
             flag3 = 0;
             mPerson3.setActivated(false);
         }
+
+        final Button mPerson4 = (Button) findViewById(R.id.person4);
+        if(user.getTalentTitles().contains("买东西达人")) {
+            flag4 = 1;
+            mPerson4.setActivated(true);
+        }else{
+            flag4 = 0;
+            mPerson4.setActivated(false);
+        }
+
+        final Button mPerson5 = (Button) findViewById(R.id.person5);
+        if(user.getTalentTitles().contains("拼单达人")) {
+            flag5 = 1;
+            mPerson5.setActivated(true);
+        }else{
+            flag5 = 0;
+            mPerson5.setActivated(false);
+        }
+
+        final Button mPerson6 = (Button) findViewById(R.id.person6);
+        if(user.getTalentTitles().contains("电子产品修理达人")) {
+            flag6 = 1;
+            mPerson6.setActivated(true);
+        }else{
+            flag6 = 0;
+            mPerson6.setActivated(false);
+        }
+
+        final Button mPerson7 = (Button) findViewById(R.id.person7);
+        if(user.getTalentTitles().contains("家具器件组装达人")) {
+            flag7 = 1;
+            mPerson7.setActivated(true);
+        }else{
+            flag7 = 0;
+            mPerson7.setActivated(false);
+        }
+
+        final Button mPerson8 = (Button) findViewById(R.id.person8);
+        if(user.getTalentTitles().contains("学习作业辅导达人")) {
+            flag8 = 1;
+            mPerson8.setActivated(true);
+        }else{
+            flag8 = 0;
+            mPerson8.setActivated(false);
+        }
+
+        final Button mPerson9 = (Button) findViewById(R.id.person9);
+        if(user.getTalentTitles().contains("技能培训达人")) {
+            flag9 = 1;
+            mPerson9.setActivated(true);
+        }else{
+            flag9 = 0;
+            mPerson9.setActivated(false);
+        }
+
+        final Button mPerson10 = (Button) findViewById(R.id.person10);
+        if(user.getTalentTitles().contains("找同好达人")) {
+            flag10 = 1;
+            mPerson10.setActivated(true);
+        }else{
+            flag10 = 0;
+            mPerson10.setActivated(false);
+        }
+
+        final Button mPerson11 = (Button) findViewById(R.id.person11);
+        if(user.getTalentTitles().contains("选课指南达人")) {
+            flag11 = 1;
+            mPerson11.setActivated(true);
+        }else{
+            flag11 = 0;
+            mPerson11.setActivated(false);
+        }
+
+        final Button mPerson12 = (Button) findViewById(R.id.person12);
+        if(user.getTalentTitles().contains("考研出国经验达人")) {
+            flag12 = 1;
+            mPerson12.setActivated(true);
+        }else{
+            flag12 = 0;
+            mPerson12.setActivated(false);
+        }
+
+        final Button mPerson13 = (Button) findViewById(R.id.person13);
+        if(user.getTalentTitles().contains("求职经验达人")) {
+            flag13 = 1;
+            mPerson13.setActivated(true);
+        }else{
+            flag13 = 0;
+            mPerson13.setActivated(false);
+        }
+
+        final Button mPerson14 = (Button) findViewById(R.id.person14);
+        if(user.getTalentTitles().contains("票务转让达人")) {
+            flag14 = 1;
+            mPerson14.setActivated(true);
+        }else{
+            flag14 = 0;
+            mPerson14.setActivated(false);
+        }
+
+        final Button mPerson15 = (Button) findViewById(R.id.person15);
+        if(user.getTalentTitles().contains("二手闲置达人")) {
+            flag15 = 1;
+            mPerson15.setActivated(true);
+        }else{
+            flag15 = 0;
+            mPerson15.setActivated(false);
+        }
+
+
+
+
 
     }
 

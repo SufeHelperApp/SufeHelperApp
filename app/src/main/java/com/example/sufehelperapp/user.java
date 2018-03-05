@@ -86,6 +86,7 @@ public class user extends DataSupport implements Serializable {
     public void updateTalentTitles(){
 
         this.talentTitles = new ArrayList<>();
+        talentTitles.clear();
 
         if(this.taskRNum_e1 >= 3){
             this.talentTitles.add("占座达人");

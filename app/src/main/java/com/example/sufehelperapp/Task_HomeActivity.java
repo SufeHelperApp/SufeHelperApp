@@ -53,6 +53,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Task_HomeActivity.this, DBTESTActivity.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });

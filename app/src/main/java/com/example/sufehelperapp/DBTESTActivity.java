@@ -15,10 +15,18 @@ import java.util.List;
 
 public class DBTESTActivity extends AppCompatActivity {
 
+    private user user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dbtest);
+
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("DBTESTActivity",myName);
+
+        final TextView text = (TextView) findViewById(R.id.text_db_test);
 
         Button delete = (Button) findViewById(R.id.button_delete);
         delete.setOnClickListener(new View.OnClickListener() {
@@ -34,11 +42,13 @@ public class DBTESTActivity extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<user> userList = DataSupport.findAll(user.class);
-                for(user user:userList){
-                    user.taskRNum_e1 = 5;
+                    user.taskRNum_e1 = 0;
+                    user.taskRNum_c1 = 0;
+                    user.taskRNum_s1 = 0;
                     user.updateAll("phonenumber = ?",user.getPhonenumber());
-                }
+
+                    text.setText(String.valueOf(user.taskRNum_e1));
+
 
                 Toast.makeText(DBTESTActivity.this, "任务修改成功！", Toast.LENGTH_SHORT).show();
             }
@@ -46,13 +56,10 @@ public class DBTESTActivity extends AppCompatActivity {
 
 
         Button select = (Button) findViewById(R.id.button_select);
-        final TextView text = (TextView) findViewById(R.id.text_db_test);
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<user> userList = DataSupport.where("myName = ?","amy").find(user.class);
-                user user = userList.get(0);
-                text.setText(String.valueOf(user.taskRNum_e1));
+
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
             }
         });
