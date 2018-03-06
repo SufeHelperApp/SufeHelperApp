@@ -75,6 +75,10 @@ public class Mailbox extends AppCompatActivity {
         taskStringList = user.getMsgTaskList();
         Log.d("taskStringList",String.valueOf(user.getMsgTaskList().size()));
 
+        if(user.getMsgTaskList().size()==0){
+
+        }
+
         for(String time:taskStringList){
             searchList = DataSupport.where("preciseLaunchTime = ?",time).find(task.class);
             task task = searchList.get(0);

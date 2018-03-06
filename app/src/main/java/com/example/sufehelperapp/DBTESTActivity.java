@@ -60,7 +60,7 @@ public class DBTESTActivity extends AppCompatActivity {
                 List<user> userList = DataSupport.findAll(user.class);
                 for(user user:userList){
                     Log.d("name",user.getMyName());
-                    Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
+                    Log.d("msg num",String.valueOf(user.getMsg()));
                 }
 
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
