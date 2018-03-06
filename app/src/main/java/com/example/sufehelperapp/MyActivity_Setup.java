@@ -103,7 +103,6 @@ public class MyActivity_Setup extends AppCompatActivity {
                                 dialogInterface.dismiss();
                                 Intent intent = new Intent(MyActivity_Setup.this, My_LoginFirstActivity.class);
                                 //传输user的终点
-                                intent.putExtra("user_now", user);
                                 startActivity(intent);
                             }
                         });

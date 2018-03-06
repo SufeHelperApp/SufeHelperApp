@@ -62,7 +62,9 @@
             android:id="@+id/vip_text_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:text="123"
             android:layout_centerVertical="true"
             android:textSize="20dp" />
     </RelativeLayout>
@@ -95,7 +97,8 @@
             android:id="@+id/vip_text_credit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
             android:layout_centerVertical="true"
             android:textSize="20dp" />
     </RelativeLayout>
@@ -112,7 +115,7 @@
         android:layout_height="80dp"
         android:paddingLeft="30dp"
         android:gravity="center_vertical"
-        android:text="积分的作用？                                               >"
+        android:text="积分的作用？                                         >"
         android:textSize="20dp"
         android:background="@color/white"
         android:layout_below="@+id/LinearLayout11"/>

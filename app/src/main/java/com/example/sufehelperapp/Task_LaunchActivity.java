@@ -114,13 +114,13 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 String time = timeView.getText().toString();
                 String location = locationView.getText().toString();
                 String payment = paymentView.getText().toString();
-                double paymentDouble = Double.parseDouble(payment);
                 String description = descriptionView.getText().toString();
 
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
 
+                    double paymentDouble = Double.parseDouble(payment);
                     task task = new task();
                     task.setLauncher(user);
                     task.setLauncherName(user.getMyName());

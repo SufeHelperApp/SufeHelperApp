@@ -18,7 +18,7 @@
     </string-array>
 
     <string-array name="subtasks_errand" >
-        <item>种类不限</item>
+        <item>种类</item>
         <item>占座</item>
         <item>拿快递</item>
         <item>买饭</item>
@@ -27,7 +27,7 @@
     </string-array>
 
     <string-array name="subtasks_skill" >
-        <item>种类不限</item>
+        <item>种类</item>
         <item>电子产品修理</item>
         <item>家具器件组装</item>
         <item>学习作业辅导</item>
@@ -36,7 +36,7 @@
     </string-array>
 
     <string-array name="subtasks_counsel" >
-        <item>种类不限</item>
+        <item>种类</item>
         <item>选课指南</item>
         <item>考研出国经验</item>
         <item>求职经验</item>
@@ -51,7 +51,7 @@
     </string-array>
 
     <string-array name="areas" >
-        <item>校区不限</item>
+        <item>校区</item>
         <item>国定校区</item>
         <item>武东校区</item>
         <item>武川校区</item>
@@ -68,7 +68,7 @@
     </string-array>
 
     <string-array name="payments" >
-        <item>报酬不限</item>
+        <item>报酬</item>
         <item>0-5元</item>
         <item>6-10元</item>
         <item>11-15元</item>
@@ -76,7 +76,7 @@
     </string-array>
 
     <string-array name="ddls" >
-        <item>时间不限</item>
+        <item>时间</item>
         <item>3小时内</item>
         <item>24小时内</item>
         <item>3天内</item>

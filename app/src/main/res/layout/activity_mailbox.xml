@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include layout="@layout/common_toolbar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mail"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/btn_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <include layout="@layout/common_bottom_navigation_bar"/>
+
+</RelativeLayout>
+
+

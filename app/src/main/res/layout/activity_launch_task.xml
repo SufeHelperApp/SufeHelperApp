@@ -210,6 +210,7 @@
                 android:layout_height="wrap_content"
                 android:hint=" 输入必要的任务细节"
                 android:maxLines="5"
+                android:maxLength="150"
                 />
 
             <TextView

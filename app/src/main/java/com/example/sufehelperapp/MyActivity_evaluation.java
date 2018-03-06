@@ -97,7 +97,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
                 dialog.setCancelable(false);
                 dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    public void onClick(DialogInterface dialogInterface, int i) { //progress5
 
                         task.setScore(ratingBar.getRating());
                         task.setProgress(5);
@@ -114,7 +114,16 @@ public class MyActivity_evaluation extends AppCompatActivity {
                         Log.d("helperName",helper.getMyName());
 
                         helper.addToAverageScore(ratingBar.getRating());
-                        user.updateAll("phonenumber = ?",helper.getPhonenumber());
+                        //给接收者一个提醒
+                        if(!helper.getMsgTaskList().contains(task)) {
+                            helper.addMsgTaskList(task.getPreciseLaunchTime());
+                            helper.addMsg();
+                            helper.updateAll("phonenumber = ?",helper.getPhonenumber());
+                            Log.d("评价->接收者",helper.getMyName()
+                                    +" "+String.valueOf(helper.getMsg())+" "+String.valueOf(helper.
+                                    getMsgTaskList().size()));
+                        }
+                        helper.updateAll("phonenumber = ?",helper.getPhonenumber());
 
                         Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Mytask.class);
                         intent.putExtra("user_now", user);

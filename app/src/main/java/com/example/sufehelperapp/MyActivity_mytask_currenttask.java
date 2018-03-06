@@ -38,6 +38,7 @@ public class MyActivity_mytask_currenttask extends Fragment implements View.OnCl
         Log.d("mytask_currenttask",user.getMyName());
 
         task.updateAllTaskStatus();
+        task.updateAllStatusText();
 
         taskList = DataSupport.where("helperName = ? and ifShutDown = ?",user.getMyName(),"0")
                 .find(task.class);

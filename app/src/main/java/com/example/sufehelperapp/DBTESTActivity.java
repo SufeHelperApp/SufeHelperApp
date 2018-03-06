@@ -24,7 +24,7 @@ public class DBTESTActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dbtest);
 
         user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
+        final String myName = user.getMyName();
         Log.d("DBTESTActivity",myName);
 
         final TextView text = (TextView) findViewById(R.id.text_db_test);
@@ -57,6 +57,11 @@ public class DBTESTActivity extends AppCompatActivity {
         select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<user> userList = DataSupport.findAll(user.class);
+                for(user user:userList){
+                    Log.d("name",user.getMyName());
+                    Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
+                }
 
                 Toast.makeText(DBTESTActivity.this, "任务筛选成功！", Toast.LENGTH_SHORT).show();
             }

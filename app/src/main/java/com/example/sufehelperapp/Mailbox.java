@@ -12,33 +12,34 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MyActivity_credit extends AppCompatActivity {
+public class Mailbox extends AppCompatActivity {
 
     private user user;
+
+    private List<String> taskStringList = new ArrayList<>();
+    private List<task> searchList = new ArrayList<>();
+    private List<task> taskList = new ArrayList<>();
+
 
     private TaskAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_credit);
-
+        setContentView(R.layout.activity_mailbox);
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.hide();
         }
 
-        //接受user
         user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("MyActivity_credit",user.getMyName());
-
+        Log.d("My_HomeActivity",user.getMyName());
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,17 +48,17 @@ public class MyActivity_credit extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
-                        Intent intent1 = new Intent(MyActivity_credit.this, Task_HomeActivity.class);
+                        Intent intent1 = new Intent(Mailbox.this, Task_HomeActivity.class);
                         intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
-                        Intent intent3 = new Intent(MyActivity_credit.this, ExploreActivity.class);
+                        Intent intent3 = new Intent(Mailbox.this, ExploreActivity.class);
                         intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
-                        Intent intent2 = new Intent(MyActivity_credit.this, My_HomeActivity.class);
+                        Intent intent2 = new Intent(Mailbox.this, My_HomeActivity.class);
                         intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
@@ -66,46 +67,50 @@ public class MyActivity_credit extends AppCompatActivity {
             }
         });
 
+        user.clearMsg(); //todo: 根本没清掉
+        user.updateAll("phonenumber = ?",user.getPhonenumber());
+        Log.d("maibox:after clear",user.getMyName() + " " + String.valueOf(user.getMsg()));
 
-        //从数据库显示rating
+        //将时间转化为任务
+        taskStringList = user.getMsgTaskList();
+        Log.d("taskStringList",String.valueOf(user.getMsgTaskList().size()));
 
-        RatingBar ratingBar = findViewById(R.id.my_credit_rating_bar);
-        ratingBar.setRating(user.getAverageScore());
+        for(String time:taskStringList){
+            searchList = DataSupport.where("preciseLaunchTime = ?",time).find(task.class);
+            task task = searchList.get(0);
+            taskList.add(task);
+        }
+        Log.d("msgtaskList",String.valueOf(taskList.size()));
 
-        TextView ratingTextView = findViewById(R.id.my_credit_average_score_text);
-        ratingTextView.setText(String.valueOf(user.getAverageScore()));
-
-
-        //显示违约任务卡片
-
-        //检查所有任务当前是否违约
-        task.updateAllTaskStatus();
-        task.updateAllStatusText();
-
-        List<task> taskList = DataSupport.where("helperName = ?",user.getMyName())
-                .where("ifDefault = ? ","1").find(task.class);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_credit_recycler);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mail);
         GridLayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user,4);
+        adapter = new TaskAdapter(taskList,user,5); //taskAdapter中获得当前user
         recyclerView.setAdapter(adapter);
 
+        /*
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_credit.this, My_HomeActivity.class);
+                user.clearMsgTaskList(); //清空消息列表
+                user.clearMsg();
+                user.updateAll("phonenumber = ?",user.getPhonenumber());
+                Intent intent = new Intent(Mailbox.this, My_HomeActivity.class);
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(MyActivity_credit.this, My_HomeActivity.class);
+        user.clearMsg();
+        user.updateAll("phonenumber = ?",user.getPhonenumber());
+        Log.d("mailbox:back",user.getMyName() + " " + String.valueOf(user.getMsg()));
+        Intent intent = new Intent(Mailbox.this, My_HomeActivity.class);
         intent.putExtra("user_now",user);
         startActivity(intent);
         finish();

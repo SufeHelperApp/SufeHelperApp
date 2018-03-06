@@ -81,6 +81,10 @@ public class user extends DataSupport implements Serializable {
     private List<String> talentTitles = new ArrayList<>();  //TODO: 达人称号（达人榜，我的达人）。
     //private int invitedTimes;  //被邀请多少次
 
+    //消息
+    private int msg=0;
+    private List<String> msgTaskList = new ArrayList<>();
+
     public void updateTalentTitles(){
 
         this.talentTitles = new ArrayList<>();
@@ -416,6 +420,36 @@ public class user extends DataSupport implements Serializable {
             this.averageScore = (averageScore * (taskRNum - 1) + newScore) / taskRNum;
         }
     }
+
+
+    //消息
+
+    public int getMsg(){
+        return this.msg;
+    }
+
+    public void setMsg(int i){
+        this.msg = i;
+    }
+
+    public void clearMsg(){this.msg = 0;}
+
+    public void addMsg(){
+        this.msg++;
+    }
+
+    public void addMsgTaskList(String time){
+        this.msgTaskList.add(time);
+    }
+
+    public List<String> getMsgTaskList(){
+        return this.msgTaskList;
+    }
+
+    public void clearMsgTaskList(){
+        this.msgTaskList = new ArrayList<>();
+    }
+
 
 }
 

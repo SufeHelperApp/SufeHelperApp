@@ -227,32 +227,12 @@
             android:textSize="15sp"
             android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:id="@+id/details_subtask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/details_helper"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="50dp"
-            android:text="任务分区："
-            android:textSize="15sp"
-            />
-
-        <TextView
-            android:id="@+id/details_subtask_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/details_helper"
-            android:layout_toEndOf="@id/details_subtask"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:textSize="15sp"/>
 
         <TextView
             android:id="@+id/details_ddl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/details_subtask"
+            android:layout_below="@id/details_helper"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"
             android:text="截止时间："
@@ -262,7 +242,7 @@
             android:id="@+id/details_ddl_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/details_subtask"
+            android:layout_below="@id/details_helper"
             android:layout_toEndOf="@id/details_ddl"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -289,6 +269,27 @@
             android:layout_marginLeft="10dp"
             android:textSize="15sp"/>
 
+        <TextView
+            android:id="@+id/details_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/details_payment"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:text="任务评分："
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:id="@+id/details_score_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/details_payment"
+            android:layout_toEndOf="@id/details_score"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"/>
+
         <Button
             android:id="@+id/more"
             android:layout_width="wrap_content"
@@ -303,4 +304,7 @@
             android:textSize="15sp"/>
 
     </RelativeLayout>
+
+
+
 </LinearLayout>

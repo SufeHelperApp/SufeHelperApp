@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/launcher_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -28,23 +28,24 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/launcher_phoneNumber"
+            android:id="@+id/launcher_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/launcher_name"
             android:layout_marginStart="68dp"
             android:layout_marginTop="30dp"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <me.grantland.widget.AutofitTextView
             android:id="@+id/launcher_subtaskType"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:singleLine="true"
             android:textSize="20sp"
             autofit:minTextSize="14sp" />
+
 
         <TextView
             android:id="@+id/locationTitle"

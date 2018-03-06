@@ -11,17 +11,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_Task_Details extends AppCompatActivity {
 
     private task task;
+    private user user;
+    private int num;
 
     public static final String TASK_SELECTED = "task_selected";
     public static final String USER_NOW = "user_now";
-
-    private user user;
 
     private RecyclerView rvTrace;
     private List<Trace> traceList = new ArrayList<>(4);
@@ -41,13 +43,33 @@ public class MyActivity_Task_Details extends AppCompatActivity {
 
         task = (task) getIntent().getSerializableExtra("task_selected");
 
+        num = getIntent().getIntExtra("num",1);
+
         Button button = (Button) findViewById(R.id.title_back);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
-                intent.putExtra("user_now", user);
-                startActivity(intent);
+                if(num ==2) {
+                    Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
+                    intent.putExtra("user_now", user);
+                    startActivity(intent);
+                    finish();
+                }else if(num == 3){
+                    Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Historical_Task.class);
+                    intent.putExtra("user_now", user);
+                    startActivity(intent);
+                    finish();
+                }else if(num == 4){
+                    Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_credit.class);
+                    intent.putExtra("user_now", user);
+                    startActivity(intent);
+                    finish();
+                }else if (num == 5) {
+                    Intent intent = new Intent(MyActivity_Task_Details.this, Mailbox.class);
+                    intent.putExtra("user_now", user);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -62,8 +84,8 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         TextView helperView = findViewById(R.id.details_helper_text);
         helperView.setText(task.getHelperName());
 
-        TextView subtaskView = findViewById(R.id.details_subtask_text);
-        subtaskView.setText(task.getSubtaskType());
+        TextView scoreView = findViewById(R.id.details_score_text);
+        scoreView.setText(String.valueOf(task.getScore()));
 
         TextView ddlView = findViewById(R.id.details_ddl_text);
         ddlView.setText(task.getDdl());
@@ -108,9 +130,9 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                 btn_finish.setVisibility(View.VISIBLE);
                 btn_finish.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v) { //点击按钮，接收者完成任务（progress3）
                         btn_finish.setVisibility(View.GONE);
-                        btn_wait_pay.setVisibility(View.VISIBLE); //待支付
+                        btn_wait_pay.setVisibility(View.VISIBLE); //显示待支付
                         task.setProgress(3);
                         task.setAchievetime();
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
@@ -119,6 +141,20 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                         task.updateTaskStatus();
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
+
+                        //给发布者一个提醒
+                        String launcherName = task.getLauncherName();
+                        List<user> userList = DataSupport.where("myName = ?",launcherName).find(user.class);
+                        user launcher = userList.get(0);
+                        if(!launcher.getMsgTaskList().contains(task)) {
+                            launcher.addMsg();
+                            launcher.addMsgTaskList(task.getPreciseLaunchTime());
+                            launcher.updateAll("myName = ?",launcherName);
+                            Log.d("完成->发布者",launcher.getMyName()
+                                    +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
+                                    getMsgTaskList().size()));
+                        }
+                        launcher.updateAll("myName = ?",launcherName);
 
                         addData(1); //增加完成信息
 
@@ -147,7 +183,7 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                 btn_payoff.setVisibility(View.VISIBLE);
                 btn_payoff.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v) {//点击按钮，发布者支付(progress4)
                         btn_payoff.setVisibility(View.GONE);
                         task.setProgress(4);
                         task.setPaytime();
@@ -157,6 +193,20 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                         task.updateTaskStatus();
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
+
+                        //给接收者一个提醒
+                        String helperName = task.getHelperName();
+                        List<user> userList = DataSupport.where("myName = ?",helperName).find(user.class);
+                        user helper = userList.get(0);
+                        if(!helper.getMsgTaskList().contains(task)) {
+                            helper.addMsg();
+                            helper.addMsgTaskList(task.getPreciseLaunchTime());
+                            helper.updateAll("myName = ?",helperName);
+                            Log.d("支付->接收者",helper.getMyName()
+                                    +" "+String.valueOf(helper.getMsg())+" "+String.valueOf(helper.
+                                    getMsgTaskList().size()));
+                        }
+                        helper.updateAll("myName = ?",helperName);
 
                         addData(2);//增加支付信息
 
@@ -236,6 +286,18 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                 traceList.add(new Trace(paytime, "[支付情况] 发布者已支付报酬"));
                 String finishtime = task.getFinishtime();
                 traceList.add(new Trace(finishtime, "[支付情况] 发布者已完成评价"));
+            } else if(task.getProgress() ==6){
+                String launchtime = task.getLaunchtime();
+                traceList.add(new Trace(launchtime, "[任务发布] 任务已发布"));
+                String finishtime = task.getDdl();
+                traceList.add(new Trace(finishtime, "[支付情况] 逾期未被接收"));
+            } else if(task.getProgress() ==7){
+                String launchtime = task.getLaunchtime();
+                traceList.add(new Trace(launchtime, "[任务发布] 任务已发布"));
+                String accepttime = task.getAccepttime();
+                traceList.add(new Trace(accepttime, "[接受任务] 任务已接收"));
+                String finishtime = task.getDdl();
+                traceList.add(new Trace(finishtime, "[支付情况] 接受者未及时完成"));
             }
         adapter = new TraceListAdapter(this,traceList,task);
         rvTrace.setLayoutManager(new LinearLayoutManager(this));
@@ -257,12 +319,28 @@ public class MyActivity_Task_Details extends AppCompatActivity {
 
     }
 
-    //TODO: 完善
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
-        intent.putExtra("user_now",user);
-        startActivity(intent);
-        finish();
+        if(num ==2) {
+            Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
+            intent.putExtra("user_now", user);
+            startActivity(intent);
+            finish();
+        }else if(num == 3){
+            Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Historical_Task.class);
+            intent.putExtra("user_now", user);
+            startActivity(intent);
+            finish();
+        }else if(num == 4){
+            Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_credit.class);
+            intent.putExtra("user_now", user);
+            startActivity(intent);
+            finish();
+        }else if (num == 5) {
+            Intent intent = new Intent(MyActivity_Task_Details.this, Mailbox.class);
+            intent.putExtra("user_now", user);
+            startActivity(intent);
+            finish();
+        }
     }
 }
