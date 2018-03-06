@@ -1,16 +1,20 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +24,9 @@ import static org.litepal.LitePalApplication.getContext;
 public class My_HomeActivity extends AppCompatActivity {
 
     private user user;
+    private TextView bar_num;
+    private int MsgCount;
+    private ImageView reddot;
 
     //接受user
 
@@ -34,6 +41,25 @@ public class My_HomeActivity extends AppCompatActivity {
 
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("My_HomeActivity",user.getMyName());
+
+        Log.d("My_HomeActivity:msg",String.valueOf(user.getMsg()));
+
+        bar_num = (TextView) findViewById(R.id.bar_num);
+        reddot = findViewById(R.id.reddot);
+        MsgCount = user.getMsg();
+        setMessageCount(MsgCount);
+
+        ImageButton mailbox = findViewById(R.id.bar_iv);
+        mailbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user.clearMsg();
+                user.updateAll("phonenumber = ?",user.getPhonenumber());
+                Intent intent = new Intent(My_HomeActivity.this, Mailbox.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
+            }
+        });
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -113,7 +139,25 @@ public class My_HomeActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+    public void setMessageCount(int count) {
+
+        if (count == 0) {
+            bar_num.setVisibility(View.GONE);
+            reddot.setVisibility(View.GONE);
+        } else {
+            bar_num.setVisibility(View.VISIBLE);
+            if (count < 100) {
+                bar_num.setText(count + "");
+            } else {
+                bar_num.setText("99+");
+            }
+        }
+    }
+
 
     @Override
     public void onBackPressed(){

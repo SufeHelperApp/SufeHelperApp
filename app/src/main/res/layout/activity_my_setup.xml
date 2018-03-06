@@ -73,7 +73,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="30dp"
-        android:text="基本信息                                                        >"
+        android:text="基本信息                                                 >"
         android:textSize="20dp"
         android:background="@color/white"
         android:layout_below="@id/LinearLayout13"/>
@@ -84,7 +84,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="30dp"
-        android:text="意见反馈                                                        >"
+        android:text="意见反馈                                                 >"
         android:textSize="20dp"
         android:background="@color/white"
         android:layout_below="@id/button_information"/>
@@ -95,7 +95,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="30dp"
-        android:text="清除缓存                                                        >"
+        android:text="清除缓存                                                 >"
         android:textSize="20dp"
         android:background="@color/white"
         android:layout_below="@id/button_feedback"/>
@@ -106,7 +106,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:paddingLeft="30dp"
-        android:text="注销账号                                                        >"
+        android:text="注销账号                                                 >"
         android:textSize="20dp"
         android:background="@color/white"
         android:layout_below="@id/button_clearCache"/>

@@ -9,12 +9,10 @@
 
     <Spinner
         android:id="@+id/selection_subtask"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/selection_area"
-        android:layout_alignBottom="@+id/selection_area"
-        android:layout_marginEnd="96dp"
-        android:layout_toStartOf="@+id/selection_payment"
+        android:layout_marginTop="55dp"
+        android:layout_alignParentStart="true"
         android:entries="@array/subtasks_counsel">
 
     </Spinner>
@@ -22,36 +20,30 @@
 
     <Spinner
         android:id="@+id/selection_area"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/selection_ddl"
-        android:layout_alignBottom="@+id/selection_ddl"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="83dp"
+        android:layout_toEndOf="@id/selection_subtask"
+        android:layout_marginTop="55dp"
         android:entries="@array/areas">
 
     </Spinner>
 
     <Spinner
         android:id="@+id/selection_payment"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/selection_area"
-        android:layout_alignBottom="@+id/selection_area"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="82dp"
+        android:layout_toEndOf="@id/selection_area"
+        android:layout_marginTop="55dp"
         android:entries="@array/payments">
 
     </Spinner>
 
     <Spinner
         android:id="@+id/selection_ddl"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="57dp"
-        android:layout_toEndOf="@+id/selection_area"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="55dp"
         android:entries="@array/ddls">
 
     </Spinner>

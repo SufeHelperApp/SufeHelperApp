@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.util.Log;
 
 import org.litepal.crud.DataSupport;
 
@@ -27,6 +28,7 @@ public class task extends DataSupport implements Serializable{
 
     //任务进度
     private int progress;     //任务进度(1-4)
+    private String StatusText;
 
     //任务时间
     private String launchtime; //任务发布时间（发布页） 。
@@ -54,6 +56,8 @@ public class task extends DataSupport implements Serializable{
     private double payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
+    private float latitude;
+    private float longtitude;
     private String description;  //任务描述
 
     //任务评分
@@ -72,6 +76,7 @@ public class task extends DataSupport implements Serializable{
         this.ifOutdated = false;
         this.ifShutDown = false;
         this.progress = 1; //默认进度为1：已发布
+        this.StatusText = "待接收";
     }
 
 
@@ -150,7 +155,7 @@ public class task extends DataSupport implements Serializable{
 
 
     public static void updateAllTaskStatus() {
-        List<task> taskAllList = DataSupport.findAll(task.class);
+        List<task> taskAllList = DataSupport.where("ifShutDown = ?","0").find(task.class);
         for (task task : taskAllList) {
             if (task.getProgress() < 3) {
                 if (TimeUtils.isDateOneBigger(TimeUtils.getNowTime(), task.getDdl())) {
@@ -159,16 +164,63 @@ public class task extends DataSupport implements Serializable{
                         task.ifOutdated = false;
                         task.ifDefault = true;
                         task.ifShutDown = true; //接收者未及时完成，关闭项目
+                        task.setProgress(7);
+                        task.updateStatusText();
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
+
+                        //给发布者发一条消息
+                        List<user> launcherList = DataSupport.where("myName = ?",task.getLauncherName())
+                                .find(user.class);
+                        user launcher = launcherList.get(0);
+                        if(!launcher.getMsgTaskList().contains(task)) {
+                            launcher.addMsg();
+                            launcher.addMsgTaskList(task.getPreciseLaunchTime());
+                            launcher.updateAll("phonenumber = ?",launcher.getPhonenumber());
+                            Log.d("违约->发布者",launcher.getMyName()
+                                    +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
+                                    getMsgTaskList().size()));
+                        }
+
+                        //给接收者发一条消息
+                        List<user> helperList = DataSupport.where("myName = ?",task.getHelperName())
+                                .find(user.class);
+                        user helper = helperList.get(0);
+
+                        if(!helper.getMsgTaskList().contains(task)) {
+                            helper.addMsg();
+                            helper.addMsgTaskList(task.getPreciseLaunchTime());
+                            helper.updateAll("phonenumber = ?",helper.getPhonenumber());
+                            Log.d("违约->接收者",helper.getMyName()
+                                    +" "+String.valueOf(helper.getMsg())+" "+String.valueOf(helper.
+                                    getMsgTaskList().size()));
+                        }
+
 
                     } else {
                         task.ifDisplayable = false;
                         task.ifOutdated = true;
                         task.ifDefault = false;
                         task.ifShutDown = true; //过期未接收，关闭项目
+                        task.setProgress(6);
+                        task.updateStatusText();
                         task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                 task.getLauncherName());
+
+                        //给发布者发一条消息
+                        List<user> launcherList = DataSupport.where("myName = ?",task.getLauncherName())
+                                .find(user.class);
+                        user launcher = launcherList.get(0);
+
+                        if(!launcher.getMsgTaskList().contains(task)) {
+                            launcher.addMsg();
+                            launcher.addMsgTaskList(task.getPreciseLaunchTime());
+                            launcher.updateAll("phonenumber = ?",launcher.getPhonenumber());
+                            Log.d("过期->发布者",launcher.getMyName()
+                                    +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
+                                    getMsgTaskList().size()));
+                        }
+
 
                     }
                 } else {
@@ -212,7 +264,10 @@ public class task extends DataSupport implements Serializable{
             task.ifShutDown = true;  //评论完成，关闭任务
             task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                     task.getLauncherName());
-        }
+            }
+            task.updateStatusText();
+            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                    task.getLauncherName());
         }
     }
 
@@ -224,11 +279,60 @@ public class task extends DataSupport implements Serializable{
                     this.ifOutdated = false;
                     this.ifDefault = true;
                     this.ifShutDown = true;
+                    this.progress = 7;
+                    this.updateStatusText();
+
+                    //给发布者发一条消息
+                    List<user> launcherList = DataSupport.where("myName = ?",this.getLauncherName())
+                            .find(user.class);
+                    user launcher = launcherList.get(0);
+                    if(!launcher.getMsgTaskList().contains(this)) {
+                        launcher.addMsg();
+                        launcher.addMsgTaskList(this.getPreciseLaunchTime());
+                        launcher.updateAll("phonenumber = ?",launcher.getPhonenumber());
+                        Log.d("违约->发布者",launcher.getMyName()
+                                +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
+                                getMsgTaskList().size()));
+                    }
+
+
+                    //给接收者发一条消息
+                    List<user> helperList = DataSupport.where("myName = ?",this.getHelperName())
+                            .find(user.class);
+                    user helper = helperList.get(0);
+
+                    if(!helper.getMsgTaskList().contains(this)) {
+                        helper.addMsg();
+                        helper.addMsgTaskList(this.getPreciseLaunchTime());
+                        helper.updateAll("phonenumber = ?",helper.getPhonenumber());
+                        Log.d("违约->接收者",helper.getMyName()
+                                +" "+String.valueOf(helper.getMsg())+" "+String.valueOf(helper.
+                                getMsgTaskList().size()));
+                    }
+
+
                 } else {
                     this.ifDisplayable = false;
                     this.ifOutdated = true;
                     this.ifDefault = false;
                     this.ifShutDown = true;
+                    this.progress = 6;
+                    this.updateStatusText();
+
+                    //给发布者发一条消息
+                    List<user> launcherList = DataSupport.where("myName = ?",this.getLauncherName())
+                            .find(user.class);
+                    user launcher = launcherList.get(0);
+
+                    if(!launcher.getMsgTaskList().contains(this)) {
+                        launcher.addMsg();
+                        launcher.addMsgTaskList(this.getPreciseLaunchTime());
+                        launcher.updateAll("phonenumber = ?",launcher.getPhonenumber());
+                        Log.d("过期->发布者",launcher.getMyName()
+                                +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
+                                getMsgTaskList().size()));
+                    }
+
                 }
             } else {
                 if (ifAccepted) {
@@ -259,7 +363,8 @@ public class task extends DataSupport implements Serializable{
             this.ifOutdated = false;
             this.ifDefault = false;
             this.ifShutDown = true;  //评论完成，关闭任务
-    }
+        }
+        this.updateStatusText();
     }
 
 
@@ -289,6 +394,63 @@ public class task extends DataSupport implements Serializable{
 
 
     //函数：时间
+
+    public void updateStatusText(){
+        if(this.progress == 1){
+            this.StatusText = "待接收";
+        }else if (this.progress == 2){
+            this.StatusText = "待完成";
+        }else if(this.progress == 3){
+            this.StatusText = "已完成,待支付";
+        }else if(this.progress == 4){
+            this.StatusText = "待评价";
+        }else if(this.progress == 5){
+            this.StatusText = "任务已结束";
+        }else if (this.progress == 6){
+            this.StatusText = "逾期未被接收";
+        }else if(this.progress == 7){
+            this.StatusText = "接受者违约";
+        }
+    }
+
+    public static void updateAllStatusText(){
+        List<task> taskAllList = DataSupport.findAll(task.class);
+        for (task task : taskAllList) {
+            if(task.getProgress() == 1){
+                task.StatusText = "待接收";
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                        task.getLauncherName());
+            }else if (task.getProgress() == 2){
+                task.StatusText = "待完成";
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                        task.getLauncherName());
+            }else if(task.getProgress() == 3){
+                task.StatusText = "待支付";
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                        task.getLauncherName());
+            }else if(task.getProgress() == 4){
+                task.StatusText = "待评价";
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                        task.getLauncherName());
+            }else if(task.getProgress() == 5){
+                task.StatusText = "任务已结束";
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                        task.getLauncherName());
+            }else if (task.getProgress() == 6){
+                task.StatusText = "逾期未被接收";
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                        task.getLauncherName());
+            }else if(task.getProgress() == 7){
+                task.StatusText = "接受者违约";
+                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
+                        task.getLauncherName());
+            }
+        }
+    }
+
+    public String getStatusText(){
+        return this.StatusText;
+    }
 
     public String getPaytime(){return paytime;}
 
@@ -432,6 +594,22 @@ public class task extends DataSupport implements Serializable{
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setLatitude(float latitude){
+        this.latitude = latitude;
+    }
+
+    public float getLatitude(){
+        return this.latitude;
+    }
+
+    public void setLongtitude(float longtitude){
+        this.latitude = longtitude;
+    }
+
+    public float getLongtitude(){
+        return this.longtitude;
     }
 
 

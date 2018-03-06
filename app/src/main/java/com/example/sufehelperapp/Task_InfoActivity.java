@@ -24,6 +24,7 @@ import java.util.List;
 public class Task_InfoActivity extends AppCompatActivity {
 
     private task task;
+    private int num;
 
     public static final String TASK_SELECTED = "task_selected";
     public static final String USER_NOW = "user_now";
@@ -37,6 +38,8 @@ public class Task_InfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_info);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        num = getIntent().getIntExtra("num",1);
 
         user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
@@ -67,6 +70,11 @@ public class Task_InfoActivity extends AppCompatActivity {
         });
 
         Button button3 = (Button) findViewById(R.id.receive_task_btn);
+
+        if(num == 2){
+            button3.setVisibility(View.GONE);
+        }else if(num == 1){
+
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,10 +107,22 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                             task.getLauncherName());
 
-                                    task.updateTaskStatus(); //TODO: 排查
+                                    task.updateTaskStatus();//更新项目进度文字
                                     task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                             task.getLauncherName());
 
+                                    //给发布者一个提醒
+                                    String launcherName = task.getLauncherName();
+                                    List<user> userList = DataSupport.where("myName = ?",launcherName).find(user.class);
+                                    user launcher = userList.get(0);
+                                    if(!launcher.getMsgTaskList().contains(task)) {
+                                        launcher.addMsg();
+                                        launcher.addMsgTaskList(task.getPreciseLaunchTime());
+                                        launcher.updateAll("myName = ?",launcherName);
+                                        Log.d("被接收->发布者",launcher.getMyName()
+                                            +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
+                                            getMsgTaskList().size()));
+                                }
 
                                     user.increaseCredit(30);
                                     user.addTaskRNum(1);
@@ -160,6 +180,14 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     Log.d("msg2", String.valueOf(user.getTaskRNum_skill()));
                                     Log.d("msg3", String.valueOf(user.getTaskRNum_counsel()));
 
+
+                                    List<user> userList1 = DataSupport.findAll(user.class);
+                                    Log.d("info","after sending msg");
+                                    for(user user:userList1){
+                                        Log.d("name",user.getMyName());
+                                        Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
+                                    }
+
                                     Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
                                     intent1.putExtra("user_now", user);
                                     startActivity(intent1);
@@ -182,6 +210,8 @@ public class Task_InfoActivity extends AppCompatActivity {
                 }
             }
         });
+
+        }
 
         ImageView launcher_image = (ImageView) findViewById(R.id.taskinfo_image);
         TextView launcher_name = (TextView) findViewById(R.id.taskinfo_name);

@@ -90,7 +90,8 @@ public class Task_ErrandActivity extends AppCompatActivity {
     private List<task> initTaskSuggestions(){
 
         List<task> preferredTasks = new ArrayList<>();
-        List<task> taskMatched = DataSupport.where("taskType = ?","跑腿").find(task.class);
+        List<task> taskMatched = DataSupport.where("taskType = ? and ifDisplayable = ?"
+                ,"跑腿","1").find(task.class);
 
         for(task task:taskMatched){
 
@@ -131,7 +132,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
             }
 
             //符合两项即推荐
-            if(credit>=2 && preferredTasks.size()<3){
+            if(credit>=2 && preferredTasks.size()<3 && !task.getLauncherName().equals(user.getMyName())){
 
                 preferredTasks.add(task);
 

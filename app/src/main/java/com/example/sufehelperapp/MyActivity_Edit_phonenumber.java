@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 
@@ -47,31 +48,32 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch(v.getId()) {
-                    case R.id.button_conserve_phonenumber:
-                        String newPhonenumber = phonenumberView.getText().toString();
+                String newPhonenumber = phonenumberView.getText().toString();
 
-                        user.setPhonenumber(newPhonenumber);
-                        user.updateAll("phonenumber = ?",user.getPhonenumber());
+                List<user> userWithPN = DataSupport.where("phonenumber = ?", newPhonenumber).find(user.class);
+                if (!userWithPN.isEmpty()) {
+                    Toast.makeText(MyActivity_Edit_phonenumber.this, "该手机号已被注册！", Toast.LENGTH_SHORT).show();
+                } else {
 
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_phonenumber.this);
-                        dialog.setTitle("提示");
-                        dialog.setMessage("手机号修改成功！");
-                        //dialog.setCancelable(false);
-                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                Intent intent = new Intent(MyActivity_Edit_phonenumber.this, MyActivity_Setup_Edit.class);
-                                Log.d("MyActivity_Setup_Edit",user.getMyName());
-                                intent.putExtra("user_now", user);
-                                startActivity(intent);
-                            }
-                        });
-                        dialog.show();
-                        break;
-                    default:
-                        break;
+                    user.setPhonenumber(newPhonenumber);
+                    user.updateAll("phonenumber = ?", user.getPhonenumber());
+
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_phonenumber.this);
+                    dialog.setTitle("提示");
+                    dialog.setMessage("手机号修改成功！");
+                    //dialog.setCancelable(false);
+                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            Intent intent = new Intent(MyActivity_Edit_phonenumber.this, MyActivity_Setup_Edit.class);
+                            Log.d("MyActivity_Setup_Edit", user.getMyName());
+                            intent.putExtra("user_now", user);
+                            startActivity(intent);
+                        }
+                    });
+                    dialog.show();
+
                 }
             }
         });

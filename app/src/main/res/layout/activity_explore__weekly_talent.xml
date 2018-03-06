@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/toolbar"
         android:layout_marginTop="2dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentStart="false"
         android:backgroundTint="@color/LightCyan"
         android:layout_marginStart="2dp"
@@ -25,19 +25,19 @@
         app:cardElevation="3dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="跑腿类达人"
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
-            android:textSize="20sp" />
+            android:textSize="23sp" />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/wt1_card1"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/exploreCard1"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
         android:layout_marginStart="2dp"
         android:layout_alignParentEnd="false"
@@ -51,12 +51,21 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w1c1"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt1_name1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
             android:layout_gravity="center_vertical"
+            android:text="sophia"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/wt1_num1"
@@ -77,7 +86,8 @@
             android:id="@+id/wt1_dot1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -87,7 +97,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/wt1_card2"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/wt1_card1"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -103,6 +113,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w1c2"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt1_name2"
             android:layout_width="wrap_content"
@@ -129,7 +147,8 @@
             android:id="@+id/wt1_dot2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -138,7 +157,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/wt1_card3"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/wt1_card2"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -154,6 +173,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w1c3"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt1_name3"
             android:layout_width="wrap_content"
@@ -180,7 +207,8 @@
             android:id="@+id/wt1_dot3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -192,7 +220,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/wt1_card3"
         android:layout_marginTop="6dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentStart="false"
         android:backgroundTint="@color/LightCyan"
         android:layout_marginStart="2dp"
@@ -206,13 +234,13 @@
             android:text="技能类达人"
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
-            android:textSize="20sp" />
+            android:textSize="23sp" />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/wt2_card1"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/exploreCard2"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -228,6 +256,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w2c1"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt2_name1"
             android:layout_width="wrap_content"
@@ -254,7 +290,8 @@
             android:id="@+id/wt2_dot1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -263,7 +300,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/wt2_card2"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/wt2_card1"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -279,6 +316,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w2c2"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt2_name2"
             android:layout_width="wrap_content"
@@ -305,7 +350,8 @@
             android:id="@+id/wt2_dot2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -314,7 +360,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/wt2_card3"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/wt2_card2"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -330,6 +376,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w2c3"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt2_name3"
             android:layout_width="wrap_content"
@@ -356,7 +410,8 @@
             android:id="@+id/wt2_dot3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -367,7 +422,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/wt2_card3"
         android:layout_marginTop="6dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentStart="false"
         android:backgroundTint="@color/LightCyan"
         android:layout_marginStart="2dp"
@@ -381,13 +436,13 @@
             android:text="咨询类达人"
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
-            android:textSize="20sp" />
+            android:textSize="23sp" />
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/wt3_card1"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/exploreCard3"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -403,6 +458,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w3c1"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt3_name1"
             android:layout_width="wrap_content"
@@ -429,7 +492,8 @@
             android:id="@+id/wt3_dot1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -438,7 +502,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/wt3_card2"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/wt3_card1"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -454,6 +518,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w3c2"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt3_name2"
             android:layout_width="wrap_content"
@@ -480,7 +552,8 @@
             android:id="@+id/wt3_dot2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
@@ -489,7 +562,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/wt3_card3"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="36dp"
         android:layout_below="@id/wt3_card2"
         android:layout_marginTop="1dp"
         android:layout_alignParentStart="false"
@@ -505,6 +578,14 @@
             android:layout_marginStart="12dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />
+        <ImageView
+            android:id="@+id/ic_w3c3"
+            android:layout_marginStart="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/df1"
+            />
         <TextView
             android:id="@+id/wt3_name3"
             android:layout_width="wrap_content"
@@ -531,7 +612,8 @@
             android:id="@+id/wt3_dot3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=">"
+            android:text="   >"
+            android:textColor="@color/colorPrimary"
             android:layout_marginStart="350dp"
             android:layout_gravity="center_vertical"
             android:textSize="20sp" />

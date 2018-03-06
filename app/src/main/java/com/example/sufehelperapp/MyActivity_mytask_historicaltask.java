@@ -38,6 +38,7 @@ public class MyActivity_mytask_historicaltask extends Fragment implements View.O
         Log.d("History_Recieved",user.getMyName());
 
         task.updateAllTaskStatus();
+        task.updateAllStatusText();
 
         taskList = DataSupport.where("launcherName = ? and ifShutDown = ?",user.getMyName(),"0")
                 .find(task.class);

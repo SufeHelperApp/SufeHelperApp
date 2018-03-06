@@ -23,8 +23,6 @@ public class user extends DataSupport implements Serializable {
     //个性信息
     private String dormArea; //寝室校区（注册3）
     private String dormitoryLocation; //寝室名（注册3）
-    private double dormitoryX; //TODO: 寝室坐标（注册3）
-    private double dormitoryY;
     private List<String> demand; //TODO: 常见需求（注册3）
     private List<String> specialty;  //TODO: 个人特长（注册3）
 
@@ -82,6 +80,10 @@ public class user extends DataSupport implements Serializable {
     //TODO: 对接：获取所有达人称号字符串：显示在"我的达人"页面。
     private List<String> talentTitles = new ArrayList<>();  //TODO: 达人称号（达人榜，我的达人）。
     //private int invitedTimes;  //被邀请多少次
+
+    //消息
+    private int msg=0;
+    private List<String> msgTaskList = new ArrayList<>();
 
     public void updateTalentTitles(){
 
@@ -418,6 +420,36 @@ public class user extends DataSupport implements Serializable {
             this.averageScore = (averageScore * (taskRNum - 1) + newScore) / taskRNum;
         }
     }
+
+
+    //消息
+
+    public int getMsg(){
+        return this.msg;
+    }
+
+    public void setMsg(int i){
+        this.msg = i;
+    }
+
+    public void clearMsg(){this.msg = 0;}
+
+    public void addMsg(){
+        this.msg++;
+    }
+
+    public void addMsgTaskList(String time){
+        this.msgTaskList.add(time);
+    }
+
+    public List<String> getMsgTaskList(){
+        return this.msgTaskList;
+    }
+
+    public void clearMsgTaskList(){
+        this.msgTaskList = new ArrayList<>();
+    }
+
 
 }
 

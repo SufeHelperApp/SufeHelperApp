@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginStart="330dp"
+    android:layout_marginTop="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/bar_iv"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/mail6" />
+
+    <TextView
+        android:id="@+id/bar_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bar_iv"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:text="状态更新" />
+
+    <ImageView
+        android:id="@+id/reddot"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="-7dp"
+        android:layout_marginStart="37dp"
+        android:src="@drawable/reddot" />
+
+    <TextView
+        android:id="@+id/bar_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-12dp"
+        android:layout_toRightOf="@+id/bar_iv"
+        android:text="12"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp" />
+</RelativeLayout>

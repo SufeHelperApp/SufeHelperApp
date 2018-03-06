@@ -121,7 +121,13 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     Toast.makeText(My_RegisterSecondActivity.this, "性别不得为空！", Toast.LENGTH_SHORT).show();
                 }
 
-                if(!name.isEmpty() && !password.isEmpty() && !sex.isEmpty()){
+                List<user> userWithName = DataSupport.where("myName = ?",name).find(user.class);
+                if(!userWithName.isEmpty()){
+                    Toast.makeText(My_RegisterSecondActivity.this, "用户名已被注册！", Toast.LENGTH_SHORT).show();
+                }
+
+
+                if(userWithName.isEmpty() && !name.isEmpty() && !password.isEmpty() && !sex.isEmpty()){
 
                     user.setSex(sex);
                     Log.d("sex",user.getSex());
@@ -190,7 +196,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 break;
             case PHOTO_REQUEST_CUT:
                 if (data != null)
-                    setPicToView(data);
+                    setPicToView(data);//
                 break;
             default:
                 break;
@@ -229,8 +235,15 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
         Bundle bundle = picdata.getExtras();
         if (bundle != null) {
             Bitmap photo = bundle.getParcelable("data");
-            Drawable drawable = new BitmapDrawable(photo);
+            byte[] myimages=img(photo);//
+            user.setHeadshot(myimages);
+            user.updateAll("phonenumber = ?",user.getPhonenumber());
+
+            byte[] images=user.getHeadshot();
+            Bitmap bitmap=BitmapFactory.decodeByteArray(images,0,images.length);
+            Drawable drawable = new BitmapDrawable(bitmap);
             picture.setBackgroundDrawable(drawable);
+
         }
     }
     private void openAlbum() {
@@ -278,6 +291,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
         }
         displayImage(imagePath);//根据图片路径显示图片
 
+        /*
         //获取到图片
         Bitmap headShot= BitmapFactory.decodeFile(imagePath);
     //把图片转换字节流
@@ -291,7 +305,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
         Log.d("msg",String.valueOf(images.length));
         Bitmap bitmap=BitmapFactory.decodeByteArray(images,0,images.length);
         ImageView img = (ImageView) findViewById(R.id.picture_upload);
-        img.setImageBitmap(bitmap);
+        img.setImageBitmap(bitmap);*/
 
 
     }
@@ -299,7 +313,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
     private byte[] img(Bitmap headShot) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Bitmap bitmap = null;
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);//
         return baos.toByteArray();
     }
 

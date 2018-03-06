@@ -211,7 +211,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             TextView nameView1 = (TextView) findViewById(R.id.wt1_name1);
             TextView tasknumView1 = (TextView) findViewById(R.id.wt1_num1);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w1c1);
 
+            icView1.setImageResource(R.drawable.df1);
             nameView1.setText(userList1.get(0).getMyName());
             tasknumView1.setText(String.valueOf(userList1.get(0).getTaskRNum()));
 
@@ -225,7 +227,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         if(userList1.size()>=2) {
             TextView nameView2 = (TextView) findViewById(R.id.wt1_name2);
             TextView tasknumView2 = (TextView) findViewById(R.id.wt1_num2);
+            ImageView icView2 = (ImageView) findViewById(R.id.ic_w1c2);
 
+            icView2.setImageResource(R.drawable.df1);
             nameView2.setText(userList1.get(1).getMyName());
             tasknumView2.setText(String.valueOf(userList1.get(1).getTaskRNum()));
 
@@ -237,6 +241,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         if(userList1.size()>=3) {
             TextView nameView3 = (TextView) findViewById(R.id.wt1_name3);
             TextView tasknumView3 = (TextView) findViewById(R.id.wt1_num3);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w1c3);
+
+            icView1.setImageResource(R.drawable.df1);
 
             nameView3.setText(userList1.get(2).getMyName());
             tasknumView3.setText(String.valueOf(userList1.get(2).getTaskRNum()));
@@ -249,6 +256,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             TextView nameView4 = (TextView) findViewById(R.id.wt2_name1);
             TextView tasknumView4 = (TextView) findViewById(R.id.wt2_num1);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w2c1);
+
+            icView1.setImageResource(R.drawable.df1);
 
             nameView4.setText(userList2.get(0).getMyName());
             tasknumView4.setText(String.valueOf(userList2.get(0).getTaskRNum()));
@@ -262,6 +272,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             TextView nameView5 = (TextView) findViewById(R.id.wt2_name2);
             TextView tasknumView5 = (TextView) findViewById(R.id.wt2_num2);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w2c2);
+
+            icView1.setImageResource(R.drawable.df1);
 
             nameView5.setText(userList2.get(1).getMyName());
             tasknumView5.setText(String.valueOf(userList2.get(1).getTaskRNum()));
@@ -275,6 +288,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             TextView nameView6 = (TextView) findViewById(R.id.wt2_name3);
             TextView tasknumView6 = (TextView) findViewById(R.id.wt2_num3);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w2c3);
+
+            icView1.setImageResource(R.drawable.df1);
 
             nameView6.setText(userList2.get(2).getMyName());
             tasknumView6.setText(String.valueOf(userList2.get(2).getTaskRNum()));
@@ -288,6 +304,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             TextView nameView7 = (TextView) findViewById(R.id.wt3_name1);
             TextView tasknumView7 = (TextView) findViewById(R.id.wt3_num1);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w3c1);
+
+            icView1.setImageResource(R.drawable.df1);
 
             nameView7.setText(userList3.get(0).getMyName());
             tasknumView7.setText(String.valueOf(userList3.get(0).getTaskRNum()));
@@ -301,6 +320,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             TextView nameView8 = (TextView) findViewById(R.id.wt3_name2);
             TextView tasknumView8 = (TextView) findViewById(R.id.wt3_num2);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w3c2);
+
+            icView1.setImageResource(R.drawable.df1);
 
             nameView8.setText(userList3.get(1).getMyName());
             tasknumView8.setText(String.valueOf(userList3.get(1).getTaskRNum()));
@@ -314,6 +336,9 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             TextView nameView9 = (TextView) findViewById(R.id.wt3_name3);
             TextView tasknumView9 = (TextView) findViewById(R.id.wt3_num3);
+            ImageView icView1 = (ImageView) findViewById(R.id.ic_w3c3);
+
+            icView1.setImageResource(R.drawable.df1);
 
             nameView9.setText(userList3.get(2).getMyName());
             tasknumView9.setText(String.valueOf(userList3.get(2).getTaskRNum()));

@@ -33,6 +33,7 @@ public class MyActivity_History_Republish extends Fragment implements View.OnCli
         Log.d("History_Republish",user.getMyName());
 
         task.updateAllTaskStatus();
+        task.updateAllStatusText();
 
         taskList = DataSupport.where("launcherName = ? and ifShutDown = ?",user.getMyName(),"1")
                 .find(task.class);
@@ -40,7 +41,7 @@ public class MyActivity_History_Republish extends Fragment implements View.OnCli
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_republish_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user,2);//TODO
+        adapter = new TaskAdapter(taskList,user,3);//TODO
         recyclerView.setAdapter(adapter);
 
         return view;

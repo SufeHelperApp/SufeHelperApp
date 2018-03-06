@@ -10,6 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 public class Task_HomeActivity extends AppCompatActivity {
 
     private user user;
@@ -46,6 +50,13 @@ public class Task_HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        List<user> userList = DataSupport.findAll(user.class);
+        Log.d("task home","after switching page");
+        for(user user:userList){
+            Log.d("name",user.getMyName());
+            Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
+        }
 
 
         Button db_test = (Button) findViewById(R.id.button_db_test);
