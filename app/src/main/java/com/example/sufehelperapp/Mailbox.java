@@ -68,29 +68,29 @@ public class Mailbox extends AppCompatActivity {
         });
 
         user.clearMsg(); //todo: 根本没清掉
-        user.updateAll("phonenumber = ?",user.getPhonenumber());
+        user.updateAll("phonenumber = ? and myName = ?",user.getPhonenumber(),user.getMyName());
         Log.d("maibox:after clear",user.getMyName() + " " + String.valueOf(user.getMsg()));
 
         //将时间转化为任务
         taskStringList = user.getMsgTaskList();
         Log.d("taskStringList",String.valueOf(user.getMsgTaskList().size()));
 
-        if(user.getMsgTaskList().size()==0){
+        if(!user.getMsgTaskList().isEmpty()){
+
+            for(String time:taskStringList){
+                searchList = DataSupport.where("preciseLaunchTime = ?",time).find(task.class);
+                task task = searchList.get(0);
+                taskList.add(task);
+            }
+            Log.d("msgtaskList",String.valueOf(taskList.size()));
+
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mail);
+            GridLayoutManager layoutManager = new GridLayoutManager(this,1);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new TaskAdapter(taskList,user,5); //taskAdapter中获得当前user
+            recyclerView.setAdapter(adapter);
 
         }
-
-        for(String time:taskStringList){
-            searchList = DataSupport.where("preciseLaunchTime = ?",time).find(task.class);
-            task task = searchList.get(0);
-            taskList.add(task);
-        }
-        Log.d("msgtaskList",String.valueOf(taskList.size()));
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.mail);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,1);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user,5); //taskAdapter中获得当前user
-        recyclerView.setAdapter(adapter);
 
         /*
 
@@ -112,7 +112,7 @@ public class Mailbox extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         user.clearMsg();
-        user.updateAll("phonenumber = ?",user.getPhonenumber());
+        user.updateAll("phonenumber = ? and myName = ?",user.getPhonenumber(),user.getMyName());
         Log.d("mailbox:back",user.getMyName() + " " + String.valueOf(user.getMsg()));
         Intent intent = new Intent(Mailbox.this, My_HomeActivity.class);
         intent.putExtra("user_now",user);

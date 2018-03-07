@@ -12,6 +12,7 @@ public class user extends DataSupport implements Serializable {
 
     private boolean isValid; //TODO: 是否被冻结（信用评价页-违约, 我的任务）。
     private byte[] headshot;//头像
+    private boolean ifClicked;
 
     //基本信息
     private String phonenumber; //手机号（注册1）
@@ -448,6 +449,14 @@ public class user extends DataSupport implements Serializable {
 
     public void clearMsgTaskList(){
         this.msgTaskList = new ArrayList<>();
+    }
+
+    public void setIfClicked(boolean i){
+        this.ifClicked = i;
+    }
+
+    public boolean getIfClicked(){
+        return ifClicked;
     }
 
 
