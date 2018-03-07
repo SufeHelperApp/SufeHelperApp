@@ -1,12 +1,17 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
 
 public class My_LoginFirstActivity extends AppCompatActivity {
 
@@ -20,6 +25,10 @@ public class My_LoginFirstActivity extends AppCompatActivity {
         if(actionBar != null) {
             actionBar.hide();
         }
+
+        List<user> userList = DataSupport.where("myName = ?","amy").find(user.class);
+        user amy = userList.get(0);
+        Log.d("msg amy",String.valueOf(amy.getMsg()));
 
 
         Button button1 = (Button) findViewById(R.id.button_1);

@@ -101,7 +101,10 @@ public class MyActivity_Setup extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
-                                user.updateAll("phonenumber = ?",user.getPhonenumber());
+                                user.clearMsg();
+                                user.updateAll("phonenumber = ? and myName = ?",user.getPhonenumber(),
+                                        user.getMyName());
+                                Log.d("My_HomeActivity:msg",String.valueOf(user.getMsg()));
                                 Intent intent = new Intent(MyActivity_Setup.this, My_LoginFirstActivity.class);
                                 //传输user的终点
                                 startActivity(intent);

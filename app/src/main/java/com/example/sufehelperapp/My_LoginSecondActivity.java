@@ -65,6 +65,11 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }else {
                     user user = userList.get(0);
+                    if(user.getIfClicked()){
+                        user.clearMsg();
+                        user.updateAll("phonenumber = ? and myName = ?",user.getPhonenumber(),
+                                user.getMyName());
+                    }
                     String myName = user.getMyName();
                     String txt = "欢迎回来, "+user.getMyName()+"!";
                     Log.d("log:msg",String.valueOf(user.getMsg()));
