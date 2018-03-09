@@ -1,69 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <RelativeLayout
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:background="#009088"
+        android:id="@+id/LinearLayout12">
 
-        <android.support.design.widget.AppBarLayout
+        <Button
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="#00000000"
+            android:text="返回"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"/>
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="我的周报"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"/>
+        <Button
+            android:id="@+id/pickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:background="#00000000" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LinearLayout12"
+        android:layout_above="@id/btn_navigation">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#009088">
+                android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/title_back"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:background="#00000000"
-                    android:text="返回"
-                    android:textSize="20dp"
-                    android:textColor="#FFFFFF"/>
-                <TextView
-                    android:id="@+id/title_text"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp">
+                        <TextView
+                            android:id="@+id/interal_name1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="20dp"
+                            android:text="发布量"
+                            android:textColor="@color/colorPrimary"
+                            />
+                        <TextView
+                            android:id="@+id/interal_name7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="20dp"
+                            android:text="/"
+                            android:textColor="@color/gray" />
+                        <TextView
+                            android:id="@+id/interal_name2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="20dp"
+                            android:text="完成量"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_line"/>
+
+                    <lecho.lib.hellocharts.view.ComboLineColumnChartView
+                        android:id="@+id/launch_chartview"
+                        android:layout_width="350dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="我的周报"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"/>
-                <Button
-                    android:id="@+id/title_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:background="#00000000" />
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp">
+                        <TextView
+                            android:id="@+id/interal_name3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="20dp"
+                            android:text="发布时间"
+                            android:textColor="@color/colorPrimary"
+                            />
+                        <TextView
+                            android:id="@+id/interal_name5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="20dp"
+                            android:text="/"
+                            android:textColor="@color/gray" />
+                        <TextView
+                            android:id="@+id/interal_name6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="20dp"
+                            android:text="完成时间"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_line"/>
+                    <lecho.lib.hellocharts.view.LineChartView
+                        android:id="@+id/launch_time"
+                        android:layout_width="350dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"/>
 
-            </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-        </android.support.design.widget.AppBarLayout>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/interal_name4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="20dp"
+                        android:text="任务报酬"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginTop="5dp"/>
+                    <ImageView
+                        android:id="@+id/image_line"
+                        android:layout_below="@+id/interal_name4"
+                        android:layout_width="250dp"
+                        android:layout_height="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_line"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/blue"
+                        android:layout_below="@id/image_line"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:background="#33CCFF"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/blue_name"
+                        android:layout_marginLeft="5dp"
+                        android:layout_below="@id/image_line"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@id/blue"
+                        android:text="收入/元"
+                        android:textSize="12sp"
+                        android:gravity="center"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="15dp"
+                        android:id="@+id/purple"
+                        android:layout_below="@id/blue"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="30dp"
+                        android:background="#9966FF"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/purple_name"
+                        android:layout_marginLeft="5dp"
+                        android:layout_below="@id/blue"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@id/purple"
+                        android:text="支出/元"
+                        android:textSize="12sp"
+                        android:gravity="center"/>
+                    <lecho.lib.hellocharts.view.PieChartView
+                        android:id="@+id/payment_chartview"
+                        android:layout_below="@+id/image_line"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"/>
 
-
-    </android.support.design.widget.CoordinatorLayout>
-
-    </RelativeLayout>
-
-</android.support.v4.widget.DrawerLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/btn_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
+        app:menu="@menu/bottom_navigation_main"
+        />
+</RelativeLayout>

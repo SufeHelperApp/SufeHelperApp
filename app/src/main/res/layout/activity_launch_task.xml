@@ -71,26 +71,26 @@
                 android:text="时间："
                 android:textSize="22sp"/>
 
-            <EditText
+            <Button
                 android:id="@+id/editDate"
                 android:layout_width="104dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tasklaunch_title_taskType"
                 android:layout_toEndOf="@+id/tasklaunch_title_taskType"
-                android:ems="10"
-                android:inputType="date"
-                android:hint="2018/12/31"/>
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:background="#00000000"/>
 
-            <EditText
+            <Button
                 android:id="@+id/editTime"
                 android:layout_width="55dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tasklaunch_title_taskType"
                 android:layout_toEndOf="@id/editDate"
                 android:layout_marginStart="5dp"
-                android:ems="10"
-                android:inputType="time"
-                android:hint="17:00"/>
+                android:textColor="#000000"
+                android:textSize="18dp"
+                android:background="#00000000" />
 
             <TextView
                 android:id="@+id/tasklaunch_time_text"
