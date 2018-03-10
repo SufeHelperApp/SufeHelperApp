@@ -22,7 +22,7 @@ public class mysqlTest extends AppCompatActivity {
         setContentView(R.layout.activity_mysql_test);
 
         testDB1();
-        //tastDB2();
+        testDB2();
 
     }
 
@@ -57,8 +57,18 @@ public class mysqlTest extends AppCompatActivity {
 
 
 
+
     public void testDB2() {
 
+        String[] strings = {"Main","testDB2"};
+
+        try {
+            Main.main(strings);
+        }catch(InstantiationException | IllegalAccessException | IllegalArgumentException | ClassNotFoundException ex){
+            ex.printStackTrace();
+        }
+
+        /*
         Connection conn = DbUtils.getConn();
         ResultSet rs = null;
         PreparedStatement psmt = null;
@@ -67,9 +77,9 @@ public class mysqlTest extends AppCompatActivity {
         try {
             psmt = conn.prepareStatement(" select * from user where myName = " + name + " ");
             rs = psmt.executeQuery();
-            //List list = DbUtils.populate(rs,user.class);
-            //user per = (user) list.get(0);
-            //System.out.println("person : myName = " + per.getMyName() + " password = " + per.getPassword() + " phonenumber = " + per.getPhonenumber());
+            List list = DbUtils.populate(rs,user.class);
+            user per = (user) list.get(0);
+            System.out.println("person : myName = " + per.getMyName() + " password = " + per.getPassword() + " phonenumber = " + per.getPhonenumber());
         } catch (SQLException e) {
             e.printStackTrace();
 
@@ -99,6 +109,7 @@ public class mysqlTest extends AppCompatActivity {
                 conn = null;
             }
         }
+        */
 
     }
 
