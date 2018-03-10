@@ -25,11 +25,13 @@ import java.util.List;
 public class My_LoginSecondActivity extends AppCompatActivity {
 
     private MyDatabaseHelper dbHelper;
-    private user user_now;
+    private user user;
 
+    /*
     private static final String url = "jdbc:mysql://101.94.5.73:3306/sufehelper";
     private static final String user ="test123";
     private static final String pass = "1234";
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +72,10 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                 String name = nameView.getText().toString();
                 String password = passwordView.getText().toString();
 
-                /*
                 List<user> userList = DataSupport.where("myName = ? and password = ?",
-                        name,password).find(user.class);*/
+                        name,password).find(user.class);
+
+                /*
 
                 try{
                     StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -101,7 +104,9 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                     //t1.setText(e.toString());
                 }
 
-/*
+                */
+
+
                 if(userList.isEmpty()){
                     Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",
                             Toast.LENGTH_SHORT).show();
@@ -122,7 +127,7 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                     Toast.makeText(My_LoginSecondActivity.this,txt,
                             Toast.LENGTH_SHORT).show();
 
-                }*/
+                }
             }
         });
 
