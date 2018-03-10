@@ -26,11 +26,6 @@ public class My_LoginFirstActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        List<user> userList = DataSupport.where("myName = ?","amy").find(user.class);
-        user amy = userList.get(0);
-        Log.d("msg amy",String.valueOf(amy.getMsg()));
-
-
         Button button1 = (Button) findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

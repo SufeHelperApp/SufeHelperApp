@@ -62,12 +62,14 @@ public class Task_HomeActivity extends AppCompatActivity {
             }
         });
 
+        /*
+
         List<user> userList = DataSupport.findAll(user.class);
         Log.d("task home","after switching page");
         for(user user:userList){
             Log.d("name",user.getMyName());
             Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
-        }
+        }*/
 
 
         Button db_test = (Button) findViewById(R.id.button_db_test);
