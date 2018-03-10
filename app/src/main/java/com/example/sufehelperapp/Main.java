@@ -20,7 +20,7 @@ public class Main {
             List list = DbUtils.populate(rs, user.class);
             for(int i = 0 ; i<list.size() ; i++){
                 user per = (user) list.get(i);
-                System.out.println("person : id = "+per.getId()+" name = "+per.getName()+" age = "+per.getAge());
+                //System.out.println("person : id = "+per.getId()+" name = "+per.getName()+" age = "+per.getAge());
             }
         } catch (SQLException e) {
             e.printStackTrace();
