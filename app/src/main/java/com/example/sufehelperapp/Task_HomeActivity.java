@@ -10,13 +10,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
 public class Task_HomeActivity extends AppCompatActivity {
 
-    private user user;
+    private user user_now;
+    private static final String url = "jdbc:mysql://101.94.5.73:3306/sufehelper";
+    private static final String user ="test123";
+    private static final String pass = "1234";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +36,9 @@ public class Task_HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接收user
+        /*
         user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("Task_HomeActivity:",user.getMyName());
+        Log.d("Task_HomeActivity:",user.getMyName());*/
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

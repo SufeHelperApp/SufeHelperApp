@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="33dp"
+        android:layout_centerHorizontal="true"
+        />
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/et2"
+        android:layout_marginBottom="20dp"
+        android:hint=" enter user to insert "/>
+    <EditText
+        android:id="@+id/et2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/et3"
+        android:layout_marginBottom="20dp"
+        android:hint=" enter pass to insert "/>
+    <EditText
+        android:id="@+id/et3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/et4"
+        android:layout_marginBottom="20dp"
+        android:hint=" enter pn to insert "/>
+
+    <EditText
+        android:id="@+id/et4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:hint=" enter sex to insert "/>
+
+    <Button
+        android:id="@+id/sql_addbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et4"
+        android:onClick="btnSend"
+        android:layout_centerHorizontal="true"
+        android:text="send"
+        android:layout_marginTop="40dp"/>
+
+</RelativeLayout>
