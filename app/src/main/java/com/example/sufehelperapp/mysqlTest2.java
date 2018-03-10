@@ -23,7 +23,10 @@ public class mysqlTest2 extends AppCompatActivity {
     private static final String pass = "1234";
 
     private TextView textView;
-    private EditText editText;
+    private EditText editText1;
+    private EditText editText2;
+    private EditText editText3;
+    private EditText editText4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,11 @@ public class mysqlTest2 extends AppCompatActivity {
         setContentView(R.layout.activity_mysql_test2);
 
         textView = (TextView) findViewById(R.id.textView);
-        editText = (EditText) findViewById(R.id.et);
+        editText1 = (EditText) findViewById(R.id.et1);
+        editText2 = (EditText) findViewById(R.id.et2);
+        editText3 = (EditText) findViewById(R.id.et3);
+        editText4 = (EditText) findViewById(R.id.et4);
+
     }
 
     public void btnSend(View view){
@@ -42,7 +49,10 @@ public class mysqlTest2 extends AppCompatActivity {
 
     private class Send extends AsyncTask<String,String,String>{
         String msg = "";
-        String text = editText.getText().toString();
+        String text1 = editText1.getText().toString();
+        String text2 = editText2.getText().toString();
+        String text3 = editText3.getText().toString();
+        String text4 = editText4.getText().toString();
 
         @Override
         protected void onPreExecute(){
@@ -57,7 +67,7 @@ public class mysqlTest2 extends AppCompatActivity {
                 if(conn == null){
                     msg = "Connection goes wrong";
                 }else{
-                    String query = "INSERT INTO user (sex) VALUES('"+text+"')";
+                    String query = "INSERT INTO user (myName, password, phonenumber, sex) VALUES('"+text1+"','"+text2+"','"+text3+"','"+text4+"')";
                     Statement stmt = conn.createStatement();
                     stmt.executeUpdate(query);
                     msg = "Connection Successful!";
