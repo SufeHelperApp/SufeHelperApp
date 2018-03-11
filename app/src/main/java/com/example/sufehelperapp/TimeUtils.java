@@ -205,5 +205,90 @@ public class TimeUtils {
     }
 
 
+    public static boolean WithinOneWeek(String launchTime){
+        //格式化时间
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        try {
+            Date launch = CurrentTime.parse(launchTime);
+            Date now = CurrentTime.parse(getNowTime());
+
+            if(((now.getTime() - launch.getTime())/(24*60*60*1000))<=7) {
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public static boolean WithinTwoWeek(String launchTime){
+        //格式化时间
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        try {
+            Date launch = CurrentTime.parse(launchTime);
+            Date now = CurrentTime.parse(getNowTime());
+
+            if(((now.getTime() - launch.getTime())/(24*60*60*1000))<=14) {
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public static boolean WithinThreeWeek(String launchTime){
+        //格式化时间
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        try {
+            Date launch = CurrentTime.parse(launchTime);
+            Date now = CurrentTime.parse(getNowTime());
+
+            if(((now.getTime() - launch.getTime())/(24*60*60*1000))<=21) {
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public static boolean WithinFourWeek(String launchTime){
+        //格式化时间
+        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        try {
+            Date launch = CurrentTime.parse(launchTime);
+            Date now = CurrentTime.parse(getNowTime());
+
+            if(((now.getTime() - launch.getTime())/(24*60*60*1000))<=28) {
+                return true;
+            }else{
+                return false;
+            }
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
 
 }

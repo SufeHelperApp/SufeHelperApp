@@ -23,8 +23,10 @@ public class MyActivity_evaluation extends AppCompatActivity {
 
     private RatingBar ratingBar;
     private TextView textView;
+
     private user user;
     private task task;
+    private int num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class MyActivity_evaluation extends AppCompatActivity {
 
         task = (task) getIntent().getSerializableExtra("task_selected");
 
+        num = getIntent().getIntExtra("num",1);
+
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +54,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
                 Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                 intent.putExtra("user_now", user);
                 intent.putExtra("task_selected",task);
+                intent.putExtra("num",num);
                 startActivity(intent);
             }
         });
@@ -125,8 +130,10 @@ public class MyActivity_evaluation extends AppCompatActivity {
                         }
                         helper.updateAll("phonenumber = ?",helper.getPhonenumber());
 
-                        Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Mytask.class);
+                        Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                         intent.putExtra("user_now", user);
+                        intent.putExtra("task_selected", user);
+                        intent.putExtra("num", user);
                         startActivity(intent);
 
 
