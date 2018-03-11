@@ -141,7 +141,6 @@ public class Explore_weekly extends AppCompatActivity {
             @Override
             public void onClick (View view){
                 Intent intent = new Intent(Explore_weekly.this, ExploreActivity.class);
-                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
