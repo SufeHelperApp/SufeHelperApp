@@ -21,6 +21,15 @@ public class ExploreActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Button b1 = (Button) findViewById(R.id.btn_weekly_data);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(ExploreActivity.this, Explore_weekly.class);
+                intent1.putExtra("user_now", user);
+                startActivity(intent1);
+            }
+        });
         //接受user
         user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
@@ -49,15 +58,7 @@ public class ExploreActivity extends AppCompatActivity {
             }
         });
 
-        Button b1 = (Button) findViewById(R.id.btn_weekly_data);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(ExploreActivity.this, Explore_weekly.class);
-                intent1.putExtra("user_now", user);
-                startActivity(intent1);
-            }
-        });
+
         Button b2 = (Button) findViewById(R.id.btn_weekly_talent);
         b2.setOnClickListener(new View.OnClickListener() {
             @Override

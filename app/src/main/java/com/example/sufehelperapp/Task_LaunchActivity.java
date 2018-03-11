@@ -63,6 +63,14 @@ public class Task_LaunchActivity extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("Task_LaunchActivity",myName);
 
+        Button button = (Button) findViewById(R.id.title_back);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Task_LaunchActivity.this, My_HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
