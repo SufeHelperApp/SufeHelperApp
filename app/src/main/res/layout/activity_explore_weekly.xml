@@ -69,25 +69,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:textSize="20dp"
-                            android:text="发布量"
+                            android:text="本月发布量"
                             android:textColor="@color/colorPrimary"
                             />
-                        <TextView
-                            android:id="@+id/interal_name7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textSize="20dp"
-                            android:text="/"
-                            android:textColor="@color/gray" />
-                        <TextView
-                            android:id="@+id/interal_name2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textSize="20dp"
-                            android:text="完成量"
-                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
                     <ImageView
                         android:layout_width="250dp"
@@ -128,25 +112,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:textSize="20dp"
-                            android:text="发布时间"
+                            android:text="本月完成量"
                             android:textColor="@color/colorPrimary"
                             />
-                        <TextView
-                            android:id="@+id/interal_name5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textSize="20dp"
-                            android:text="/"
-                            android:textColor="@color/gray" />
-                        <TextView
-                            android:id="@+id/interal_name6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:textSize="20dp"
-                            android:text="完成时间"
-                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
                     <ImageView
                         android:layout_width="250dp"

@@ -38,6 +38,9 @@ public class Task_LaunchActivity extends AppCompatActivity {
     static final int TIME_DIALOG_ID = 1;
     private Button mPickTime;
 
+    private String showdate;
+    private String showtime;
+
     private user user;
 
     @Override
@@ -67,7 +70,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Task_LaunchActivity.this, My_HomeActivity.class);
+                Intent intent = new Intent(Task_LaunchActivity.this, Task_HomeActivity.class);
+                intent.putExtra("user_now",user);
                 startActivity(intent);
             }
         });
@@ -180,8 +184,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     task.setLauncherImageId(user.getMyImageId());
                     task.setSubtaskType(subtaskType);
                     task.setTaskType(subtaskType);
-                    task.setDdlDate(date);
-                    task.setDdlTime(time);
+                    task.setDdlDate(showdate);
+                    task.setDdlTime(showtime);
                     task.setDdl();
                     task.setArea(area);
                     task.setLocation(location);
@@ -211,18 +215,44 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
     }
     private void updateDisplay() {
-        mPickDate.setText(new StringBuffer()
-                //Month is 0 base so add 1
-                .append(mYear).append("-")
-                .append(mMonth + 1).append("-")
-                .append(mDay).append(" ")
 
-        );
+        if(mMonth+1<10){//month前添零
+            if(mDay<10){//day前添零
+                showdate = String.valueOf(mYear) + "/" + "0" + String.valueOf(mMonth+1) + "/" +
+                        "0" + String.valueOf(mDay);
+            }else{//day前无需添零
+                showdate = String.valueOf(mYear) + "/" + "0" + String.valueOf(mMonth+1) + "/" +
+                        String.valueOf(mDay);
+            }
+        }else{//month前无需添零
+            if(mDay<10){//day前添零
+                showdate = String.valueOf(mYear) + "/" + String.valueOf(mMonth+1) + "/" +
+                        "0" +String.valueOf(mDay);
+            }else{//day前无需添零
+                showdate = String.valueOf(mYear) + "/" + String.valueOf(mMonth+1) + "/" +
+                        String.valueOf(mDay);
+            }
+        }
+
+        mPickDate.setText(showdate);
     }
     private void uptimeDisplay() {
-        mPickTime.setText(new StringBuffer()
-                .append(mHour).append(":")
-                .append(mMinute).append(" "));
+
+        if(mHour<10){//hour前添零
+            if(mMinute<10){//minute前添零
+                showtime = "0" + String.valueOf(mHour) + ":" + "0" + String.valueOf(mMinute);
+            }else{//minute前无需添零
+                showtime = "0" + String.valueOf(mHour) + ":" + String.valueOf(mMinute);
+            }
+        }else{//hour前无需添零
+            if(mMinute<10){//minute前添零
+                showtime = String.valueOf(mHour) + ":" + "0" + String.valueOf(mMinute);
+            }else{//minute前无需添零
+                showtime = String.valueOf(mHour) + ":" + String.valueOf(mMinute);
+            }
+        }
+
+        mPickTime.setText(showtime);
     }
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -254,6 +284,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     uptimeDisplay();
                 }
             };
+
 
     //未添加返回值
 

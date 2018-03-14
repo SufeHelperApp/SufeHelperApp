@@ -234,7 +234,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
     private void setPicToView(Intent picdata) {
         Bundle bundle = picdata.getExtras();
         if (bundle != null) {
-            Bitmap photo = bundle.getParcelable("data");
+           /* Bitmap photo = bundle.getParcelable("data");
             byte[] myimages=img(photo);//
             user.setHeadshot(myimages);
             user.updateAll("phonenumber = ?",user.getPhonenumber());
@@ -242,6 +242,9 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
             byte[] images=user.getHeadshot();
             Bitmap bitmap=BitmapFactory.decodeByteArray(images,0,images.length);
             Drawable drawable = new BitmapDrawable(bitmap);
+            picture.setBackgroundDrawable(drawable);*/
+            Bitmap photo = bundle.getParcelable("data");
+            Drawable drawable = new BitmapDrawable(photo);
             picture.setBackgroundDrawable(drawable);
 
         }

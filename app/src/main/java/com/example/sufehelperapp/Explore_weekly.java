@@ -21,6 +21,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -52,20 +54,20 @@ import lecho.lib.hellocharts.view.PieChartView;
 public class Explore_weekly extends AppCompatActivity {
     private user user;
     private ComboLineColumnChartView comboChart;
-    private int[] taskNum = {2,4,3,6,4,3,5};
+    private int[] taskNum = {0,0,0,0};
     private ComboLineColumnChartData comboLineColumnChartData;
     private List<PointValue> pointValues = new ArrayList<PointValue>();
 
     private LineChartView lineChartView;
-    private String [] weekend = new String[] {"Mon","Tues","Wed","Thur","Fri","Sat","Sun"};
-    private int[] score = {3,4,7,2,9,4,6};
+    private String [] weekend = new String[] {"Mon","Tues","Wed","Thur"};
+    private int[] score = {0,0,0,0};
     private List<PointValue> mPointValues = new ArrayList<PointValue>();
     private List<AxisValue> mAxisXValues = new ArrayList<AxisValue>();
 
     private PieChartView pieChartView;
     private List<SliceValue> values = new ArrayList<SliceValue>();
     private PieChartData pieChartData;
-    private int[] payment = {20,10};
+    private double[] payment = {0,0};
     private int[] color = {Color.parseColor("#33CCFF"),Color.parseColor("#9966FF")};
     private String[] stateChar = {"收入","支出"};
 
@@ -76,6 +78,20 @@ public class Explore_weekly extends AppCompatActivity {
     private int mDay;
     static final int DATE_DIALOG_ID = 0;
 
+    private int launch_w1 = 0;
+    private int launch_w2 = 0;
+    private int launch_w3 = 0;
+    private int launch_w4 = 0;
+
+    private int receive_w1 = 0;
+    private int receive_w2 = 0;
+    private int receive_w3 = 0;
+    private int receive_w4 = 0;
+
+    private double pay = 0;
+    private double earn = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +100,13 @@ public class Explore_weekly extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        user = (user) getIntent().getSerializableExtra("user_now");
+        String myName = user.getMyName();
+        Log.d("Explore_weekly", myName);
+
+        getLaunchAndPay();
+        getReceiveAndEarn();
 
         //综合图
         comboChart = (ComboLineColumnChartView) findViewById(R.id.launch_chartview);
@@ -102,10 +125,6 @@ public class Explore_weekly extends AppCompatActivity {
         pieChartView.setOnValueTouchListener(selectListener1);//设置点击事件监听
         setPieChartData();
         initPieChart();
-
-        //user = (user) getIntent().getSerializableExtra("user_now");
-        //String myName = user.getMyName();
-        //Log.d("Explore_weekly", myName);
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -388,4 +407,88 @@ public class Explore_weekly extends AppCompatActivity {
         startActivity(intent);
         finish();
     }*/
+
+    private void getLaunchAndPay(){
+        List<task>taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
+        if(!taskList.isEmpty()){
+            for(task task:taskList){
+                if(TimeUtils.WithinOneWeek(task.getLaunchtime())){
+                    launch_w1++;
+                    if(task.getProgress()>=4) {
+                        pay = pay + task.getPayment();
+                    }
+                    continue;
+                }
+                if(TimeUtils.WithinTwoWeek(task.getLaunchtime())){
+                    launch_w2++;
+                    if(task.getProgress()>=4) {
+                        pay = pay + task.getPayment();
+                    }
+                    continue;
+                }
+                if(TimeUtils.WithinThreeWeek(task.getLaunchtime())){
+                    launch_w3++;
+                    if(task.getProgress()>=4) {
+                        pay = pay + task.getPayment();
+                    }
+                    continue;
+                }
+                if(TimeUtils.WithinFourWeek(task.getLaunchtime())){
+                    launch_w4++;
+                    if(task.getProgress()>=4) {
+                        pay = pay + task.getPayment();
+                    }
+                }
+            }
+        }
+        taskNum[0] = launch_w1;
+        taskNum[1] = launch_w2;
+        taskNum[2] = launch_w3;
+        taskNum[3] = launch_w4;
+        payment[1] = pay;
+    }
+
+    private void getReceiveAndEarn(){
+
+        List<task>taskList = DataSupport.where("helperName = ?",user.getMyName()).find(task.class);
+        if(!taskList.isEmpty()){
+            for(task task:taskList){
+                if(TimeUtils.WithinOneWeek(task.getLaunchtime())){
+                    receive_w1++;
+                    if(task.getProgress()>=4) {
+                        earn = earn + task.getPayment();
+                    }
+                    continue;
+                }
+                if(TimeUtils.WithinTwoWeek(task.getLaunchtime())){
+                    receive_w2++;
+                    if(task.getProgress()>=4) {
+                        earn = earn + task.getPayment();
+                    }
+                    continue;
+                }
+                if(TimeUtils.WithinThreeWeek(task.getLaunchtime())){
+                    receive_w3++;
+                    if(task.getProgress()>=4) {
+                        earn = earn + task.getPayment();
+                    }
+                    continue;
+                }
+                if(TimeUtils.WithinFourWeek(task.getLaunchtime())){
+                    receive_w4++;
+                    if(task.getProgress()>=4) {
+                        earn = earn + task.getPayment();
+                    }
+                }
+            }
+        }
+
+        score[0] = receive_w1;
+        score[1] = receive_w2;
+        score[2] = receive_w3;
+        score[3] = receive_w4;
+        payment[0] = earn;
+    }
+
+
 }

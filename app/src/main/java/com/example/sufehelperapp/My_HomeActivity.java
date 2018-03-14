@@ -111,6 +111,7 @@ public class My_HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this, MyActivity_Mytask.class);
                 intent.putExtra("user_now", user1);
+                intent.putExtra("tabNum", 0);
                 startActivity(intent);
             }
         });
