@@ -22,6 +22,8 @@ public class MyActivity_Task_Details extends AppCompatActivity {
     private user user;
     private int num;
 
+    private int tabNum;
+
     public static final String TASK_SELECTED = "task_selected";
     public static final String USER_NOW = "user_now";
 
@@ -49,22 +51,46 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(num ==2) {
+                if(num ==2) { //mytask
                     Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
                     intent.putExtra("user_now", user);
+                    if (task.getLauncherName().equals(user.getMyName())) {
+                        tabNum = 1;
+                    }else if(task.getProgress() >= 2){
+                        if(task.getHelperName().equals(user.getMyName())){
+                            tabNum = 0;
+                        }
+                    }else{
+                        tabNum = 1;
+                    }
+
+                    Log.d("detail-curr-tabNum",String.valueOf(tabNum));
+                    intent.putExtra("tabNum", tabNum);
                     startActivity(intent);
                     finish();
-                }else if(num == 3){
+                }else if(num == 3){ //history
                     Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Historical_Task.class);
                     intent.putExtra("user_now", user);
+                    if (task.getLauncherName().equals(user.getMyName())) {
+                        tabNum = 1;
+                    }else if(task.getProgress() >= 2){
+                        if(task.getHelperName().equals(user.getMyName())){
+                            tabNum = 0;
+                        }
+                    }else{
+                        tabNum = 1;
+                    }
+
+                    Log.d("detail-hist-tabNum",String.valueOf(tabNum));
+                    intent.putExtra("tabNum", tabNum);
                     startActivity(intent);
                     finish();
-                }else if(num == 4){
+                }else if(num == 4){ //credit
                     Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_credit.class);
                     intent.putExtra("user_now", user);
                     startActivity(intent);
                     finish();
-                }else if (num == 5) {
+                }else if (num == 5) { //mailbox
                     Intent intent = new Intent(MyActivity_Task_Details.this, Mailbox.class);
                     intent.putExtra("user_now", user);
                     startActivity(intent);
@@ -234,6 +260,7 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                         Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_evaluation.class);
                         intent.putExtra("user_now", user);
                         intent.putExtra("task_selected", task);
+                        intent.putExtra("num", num);
                         startActivity(intent);
 
                     }
@@ -321,22 +348,46 @@ public class MyActivity_Task_Details extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        if(num ==2) {
+        if(num ==2) { //mytask
             Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
             intent.putExtra("user_now", user);
+            if (task.getLauncherName().equals(user.getMyName())) {
+                tabNum = 1;
+            }else if(task.getProgress() >= 2){
+                if(task.getHelperName().equals(user.getMyName())){
+                    tabNum = 0;
+                }
+            }else{
+                tabNum = 1;
+            }
+
+            Log.d("detail-curr-tabNum",String.valueOf(tabNum));
+            intent.putExtra("tabNum", tabNum);
             startActivity(intent);
             finish();
-        }else if(num == 3){
+        }else if(num == 3){ //history
             Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Historical_Task.class);
             intent.putExtra("user_now", user);
+            if (task.getLauncherName().equals(user.getMyName())) {
+                tabNum = 1;
+            }else if(task.getProgress() >= 2){
+                if(task.getHelperName().equals(user.getMyName())){
+                    tabNum = 0;
+                }
+            }else{
+                tabNum = 1;
+            }
+
+            Log.d("detail-hist-tabNum",String.valueOf(tabNum));
+            intent.putExtra("tabNum", tabNum);
             startActivity(intent);
             finish();
-        }else if(num == 4){
+        }else if(num == 4){ //credit
             Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_credit.class);
             intent.putExtra("user_now", user);
             startActivity(intent);
             finish();
-        }else if (num == 5) {
+        }else if (num == 5) { //mailbox
             Intent intent = new Intent(MyActivity_Task_Details.this, Mailbox.class);
             intent.putExtra("user_now", user);
             startActivity(intent);

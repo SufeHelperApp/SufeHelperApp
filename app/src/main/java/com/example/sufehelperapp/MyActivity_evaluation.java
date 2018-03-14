@@ -43,6 +43,8 @@ public class MyActivity_evaluation extends AppCompatActivity {
 
         task = (task) getIntent().getSerializableExtra("task_selected");
 
+        num = getIntent().getIntExtra("num",1);
+
 
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -50,9 +52,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                 intent.putExtra("user_now", user);
-
                 intent.putExtra("task_selected",task);
-
                 intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
                 intent.putExtra("num",num);
 
@@ -131,12 +131,11 @@ public class MyActivity_evaluation extends AppCompatActivity {
                         }
                         helper.updateAll("phonenumber = ?",helper.getPhonenumber());
 
-                        Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Mytask.class);
+                        Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                         intent.putExtra("user_now", user);
-
+                        intent.putExtra("task_selected",task);
                         intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
-                        intent.putExtra("num", num);
-
+                        intent.putExtra("num",num);
                         startActivity(intent);
 
 

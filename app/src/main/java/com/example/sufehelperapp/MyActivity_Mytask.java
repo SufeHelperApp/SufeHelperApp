@@ -22,6 +22,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
 
     private user user;
     private Bundle bundle;
+    private int tabNum;
 
     private TabLayout tab_title;
     private ViewPager vp_pager;
@@ -54,6 +55,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
 
         //接受user
         user = (user) getIntent().getSerializableExtra("user_now");
+        tabNum = getIntent().getIntExtra("tabNum",0);
         Log.d("Mytask",user.getMyName());
 
 
@@ -106,6 +108,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Mytask.this, MyActivity_Historical_Task.class);
                 intent.putExtra("user_now", user);
+                intent.putExtra("tabNum", 0);
                 startActivity(intent);
             }
         });
@@ -166,6 +169,8 @@ public class MyActivity_Mytask extends AppCompatActivity {
         fAdapter = new fragmentAdapter(getSupportFragmentManager(),list_fragment,list_title);
         vp_pager.setAdapter(fAdapter);
         tab_title.setupWithViewPager(vp_pager);
+        vp_pager.setCurrentItem(1);
+        tab_title.getTabAt(tabNum).select();
     }
 
     @Override

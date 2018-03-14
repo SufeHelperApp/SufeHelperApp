@@ -22,6 +22,7 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
 
     private user user;
     private Bundle bundle;
+    private int tabNum;
 
     private TabLayout tab_title2;
     private ViewPager vp_pager2;
@@ -54,6 +55,7 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
 
         //接受user
         user = (user) getIntent().getSerializableExtra("user_now");
+        tabNum = getIntent().getIntExtra("tabNum",0);
         Log.d("Historical_Task",user.getMyName());
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
@@ -90,6 +92,7 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Historical_Task.this, MyActivity_Mytask.class);
                 intent.putExtra("user_now", user);
+                intent.putExtra("tabNum", 0);
                 startActivity(intent);
             }
         });
@@ -154,12 +157,15 @@ public class MyActivity_Historical_Task extends AppCompatActivity {
         fAdapter = new fragmentAdapter_history(getSupportFragmentManager(),list_fragment2,list_title2);
         vp_pager2.setAdapter(fAdapter);
         tab_title2.setupWithViewPager(vp_pager2);
+        vp_pager2.setCurrentItem(1);
+        tab_title2.getTabAt(tabNum).select();
     }
 
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(MyActivity_Historical_Task.this, MyActivity_Mytask.class);
         intent.putExtra("user_now",user);
+        intent.putExtra("tabNum", 0);
         startActivity(intent);
         finish();
     }
