@@ -71,7 +71,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
         }*/
 
-
+/*
         Button db_test = (Button) findViewById(R.id.button_db_test);
         db_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +80,7 @@ public class Task_HomeActivity extends AppCompatActivity {
                 intent.putExtra("user_now", user);
                 startActivity(intent);
             }
-        });
+        });*/
 
         Button b1 = (Button) findViewById(R.id.btn_errand);
         b1.setOnClickListener(new View.OnClickListener() {

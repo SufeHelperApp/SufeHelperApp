@@ -121,37 +121,37 @@
                 android:textSize="16sp"/>
             <ImageView
                 android:id="@+id/errand_ic5"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="75dp"
+                android:layout_height="73dp"
                 android:layout_below="@id/errand_tx2"
                 android:background="@drawable/e5"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="拼单"
                 android:layout_below="@id/errand_ic5"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="-5dp"
                 android:layout_centerHorizontal="true"
                 android:textSize="16sp"/>
             <ImageView
                 android:id="@+id/errand_ic6"
-                android:layout_width="35dp"
-                android:layout_height="55dp"
+                android:layout_width="32dp"
+                android:layout_height="54dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/e6"
                 android:layout_marginEnd="60dp"
                 android:layout_below="@id/errand_tx3"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="13dp"
                 android:scaleType="centerCrop"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="其他"
                 android:layout_below="@id/errand_ic6"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="62dp"
                 android:textSize="16sp"/>

@@ -25,6 +25,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
     private TextView textView;
     private user user;
     private task task;
+    private int num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,12 @@ public class MyActivity_evaluation extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                 intent.putExtra("user_now", user);
+
                 intent.putExtra("task_selected",task);
+
+                intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
+                intent.putExtra("num",num);
+
                 startActivity(intent);
             }
         });
@@ -127,6 +133,10 @@ public class MyActivity_evaluation extends AppCompatActivity {
 
                         Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Mytask.class);
                         intent.putExtra("user_now", user);
+
+                        intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
+                        intent.putExtra("num", num);
+
                         startActivity(intent);
 
 

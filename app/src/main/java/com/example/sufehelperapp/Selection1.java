@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import org.litepal.crud.DataSupport;
@@ -575,8 +576,20 @@ public class Selection1 extends AppCompatActivity {
             }
         });
 
+        Button button1 = (Button) findViewById(R.id.title_back);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Selection1.this, Task_ErrandActivity.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
+            }
+        });
+
 
     }
+
+
 
     @Override
     public void onBackPressed(){
