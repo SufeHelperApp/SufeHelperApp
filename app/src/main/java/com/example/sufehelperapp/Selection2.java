@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import org.litepal.crud.DataSupport;
@@ -568,6 +569,16 @@ public class Selection2 extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        Button button1 = (Button) findViewById(R.id.title_back);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Selection2.this, Task_SkillActivity.class);
+                intent.putExtra("user_now", user);
+                startActivity(intent);
             }
         });
 

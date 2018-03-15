@@ -44,6 +44,7 @@ public class My_RegisterFirstActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String phone = phoneView.getText().toString();
+                //TODO: 检查数据库中是否已经有用户的手机与phone相同
                 if(phone.isEmpty())
                 {
                     Toast.makeText(My_RegisterFirstActivity.this, "手机号不得为空！",
@@ -56,6 +57,7 @@ public class My_RegisterFirstActivity extends AppCompatActivity {
                     } else {
                         user user = new user();
                         user.setPhonenumber(phone);
+                        //TODO：新建用户，设置其手机为phone
                         user.save();
                         Intent intent = new Intent(My_RegisterFirstActivity.this, My_RegisterSecondActivity.class);
                         intent.putExtra("user_now", user);

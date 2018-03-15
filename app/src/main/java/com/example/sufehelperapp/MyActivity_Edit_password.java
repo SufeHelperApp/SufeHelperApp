@@ -32,7 +32,7 @@ public class MyActivity_Edit_password extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("Edit_password",user.getMyName());
 
-        //TODO: delete
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,12 +52,13 @@ public class MyActivity_Edit_password extends AppCompatActivity {
                     case R.id.button_conserve_password:
                         String newPassword = passwordView.getText().toString();
 
+                        //TODO: 设置当前用户的password为newPassword
                         user.setPassword(newPassword);
                         user.updateAll("phonenumber = ?",user.getPhonenumber());
 
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_password.this);
                         dialog.setTitle("提示");
-                        dialog.setMessage("密码修改成功！"); //TODO:改错：密码
+                        dialog.setMessage("密码修改成功！");
                         //dialog.setCancelable(false);
                         dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override

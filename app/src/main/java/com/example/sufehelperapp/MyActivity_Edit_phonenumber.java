@@ -33,7 +33,7 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("Edit_phonenumber",user.getMyName());
 
-        //TODO: delete
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,13 +48,14 @@ public class MyActivity_Edit_phonenumber extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String newPhonenumber = phonenumberView.getText().toString();
 
                 List<user> userWithPN = DataSupport.where("phonenumber = ?", newPhonenumber).find(user.class);
                 if (!userWithPN.isEmpty()) {
                     Toast.makeText(MyActivity_Edit_phonenumber.this, "该手机号已被注册！", Toast.LENGTH_SHORT).show();
                 } else {
-
+                    //TODO: 设置当前用户的phonenumber为newPhonenumber
                     user.setPhonenumber(newPhonenumber);
                     user.updateAll("phonenumber = ?", user.getPhonenumber());
 

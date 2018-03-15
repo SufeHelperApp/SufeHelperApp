@@ -44,6 +44,7 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         Log.d("MyActivity_Task_Details",myName);
 
         task = (task) getIntent().getSerializableExtra("task_selected");
+        //TODO:调出选中的task
 
         num = getIntent().getIntExtra("num",1);
 
@@ -54,6 +55,7 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                 if(num ==2) { //mytask
                     Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_Mytask.class);
                     intent.putExtra("user_now", user);
+                    //TODO:调出选中的task的launcherName，helperName,progress,当前user的myName
                     if (task.getLauncherName().equals(user.getMyName())) {
                         tabNum = 1;
                     }else if(task.getProgress() >= 2){

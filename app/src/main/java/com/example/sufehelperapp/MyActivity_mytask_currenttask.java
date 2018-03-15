@@ -32,7 +32,6 @@ public class MyActivity_mytask_currenttask extends Fragment implements View.OnCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_mytask_currenttask, container, false);
 
-        //TODO:接受user
         bundle = getArguments();
         user = (user) bundle.getSerializable("user_now");
         Log.d("mytask_currenttask",user.getMyName());
@@ -40,13 +39,14 @@ public class MyActivity_mytask_currenttask extends Fragment implements View.OnCl
         task.updateAllTaskStatus();
         task.updateAllStatusText();
 
+        //TODO:获得接收者为当前用户，ifShutDown = false 的所有任务
         taskList = DataSupport.where("helperName = ? and ifShutDown = ?",user.getMyName(),"0")
                 .find(task.class);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.currenttask_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user,2);//TODO
+        adapter = new TaskAdapter(taskList,user,2);
         recyclerView.setAdapter(adapter);
 
         return view;

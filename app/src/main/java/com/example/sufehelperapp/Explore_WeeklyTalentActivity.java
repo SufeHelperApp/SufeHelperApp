@@ -65,9 +65,11 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             }
         });
 
-
+        //TODO: 获得taskRNum_errand最多的三个用户，放入userList1
         userList1= DataSupport.order("taskRNum_errand desc").limit(3).find(user.class);
+        //TODO：获得taskRNum_skill最多的三个用户,放入userList2
         userList2= DataSupport.order("taskRNum_skill desc").limit(3).find(user.class);
+        //TODO：获得taskRNum_counsel最多的三个用户,放入userList3
         userList3= DataSupport.order("taskRNum_counsel desc").limit(3).find(user.class);
 
         android.support.v7.widget.CardView card1 = findViewById(R.id.wt1_card1);

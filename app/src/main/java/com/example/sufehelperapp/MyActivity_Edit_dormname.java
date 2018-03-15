@@ -29,7 +29,7 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("Edit_dormname",user.getMyName());
 
-        //TODO: delete
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +48,7 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
                     case R.id.button_conserve_dormname:
                         String newDormname = dormnameView.getText().toString();
 
+                        //TODO: 设置当前用户的dormLocation为newDormname
                         user.setDormitoryLocation(newDormname);
                         user.updateAll("phonenumber = ?",user.getPhonenumber());
 

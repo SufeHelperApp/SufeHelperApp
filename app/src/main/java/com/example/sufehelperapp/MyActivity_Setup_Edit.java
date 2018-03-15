@@ -70,24 +70,28 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
 
 
 
-        //TODO: DB：1.数据库中调用头像
 
         ImageView image = (ImageView) findViewById(R.id.picture_upload);
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
 
         TextView sexView = (TextView) findViewById(R.id.sex_text);
+        //TODO:调用当前用户的sex
         sexView.setText(user.getSex());
 
         TextView nicknameView = (TextView) findViewById(R.id.nickname_text11);
+        //TODO:调用当前用户的myName
         nicknameView.setText(user.getMyName());
 
         TextView dormitoryView = (TextView) findViewById(R.id.dormname_text22);
+        //TODO:调用当前用户的dormitoryLocation
         dormitoryView.setText(user.getDormitoryLocation());
 
         TextView phoneView = (TextView) findViewById(R.id.nickname_text33);
+        //TODO:调用当前用户的phonenumber
         phoneView.setText(user.getPhonenumber());
 
         TextView intentionView = (TextView) findViewById(R.id.nickname_text44);
+        //TODO:调用当前用户的demand(数组)
         intentionView.setText(user.getDemand().get(0));
 
 

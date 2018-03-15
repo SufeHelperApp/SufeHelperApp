@@ -33,8 +33,7 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_my_history_recieved, container, false);
-      
-        //TODO:接受user
+
         bundle = getArguments();
         user = (user) bundle.getSerializable("user_now");
         Log.d("History_Recieved",user.getMyName());
@@ -42,13 +41,14 @@ public class MyActivity_History_Recieved extends Fragment implements View.OnClic
         task.updateAllTaskStatus();
         task.updateAllStatusText();
 
+        //TODO:获得接收者为当前用户，ifShutDown = true 的所有任务
         taskList = DataSupport.where("helperName = ? and ifShutDown = ?",user.getMyName(),"1")
                 .find(task.class);
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.history_recieved_recycler);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TaskAdapter(taskList,user,3);//TODO
+        adapter = new TaskAdapter(taskList,user,3);
         recyclerView.setAdapter(adapter);
 
         return view;

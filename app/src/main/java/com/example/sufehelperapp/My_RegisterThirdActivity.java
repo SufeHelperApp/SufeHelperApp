@@ -92,7 +92,9 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }else {
 
+                    //TODO:设置当前用户的dormArea
                     user.setDormArea(dormArea);
+                    //TODO:设置当前用户的寝室位置
                     user.setDormitoryLocation(dormName);
 
                     user.updateAll("phonenumber = ?",user.getPhonenumber());

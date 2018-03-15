@@ -33,7 +33,7 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("MyActivity_Setup_Edit",user.getMyName());
 
-        //TODO: delete
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +57,7 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
                     Toast.makeText(MyActivity_Edit_NickName.this, "该用户名已被注册！", Toast.LENGTH_SHORT).show();
                 } else {
 
+                    //TODO: 设置当前用户的myName为newName
                     user.setMyName(newName);
                     user.updateAll("phonenumber = ?", user.getPhonenumber());
 

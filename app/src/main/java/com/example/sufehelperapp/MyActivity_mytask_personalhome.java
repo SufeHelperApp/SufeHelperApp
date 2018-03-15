@@ -17,8 +17,10 @@ import com.bumptech.glide.Glide;
 public class MyActivity_mytask_personalhome extends AppCompatActivity {
 
     public static final String USER_SELECTED = "user_selected";
-    private user user_selected;
-    private user user;
+    private user user_selected; //2
+    private user user; //1
+    private task task; //3
+    private int num; //4
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,14 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("personalhome",myName);
 
-        //接收选中的user
+        //TODO: 调出从taskLaunchActivity中选中的user_selected
         user_selected = (user) getIntent().getSerializableExtra("user_selected");
         Log.d("name",user_selected.getMyName());
+
+        task = (task) getIntent().getSerializableExtra("task_selected");
+
+        num = getIntent().getIntExtra("num",1);
+
 
         ImageView launcher_image = (ImageView) findViewById(R.id.picture_upload);
         TextView launcher_name = (TextView) findViewById(R.id.his_nickname_text11);
@@ -46,7 +53,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         TextView specialty = (TextView) findViewById(R.id.his_personalintention_text44);
         TextView averagescore = (TextView) findViewById(R.id.his_integral_text11);
 
-
+        //TODO: 调出user_selected的sex,myName,dormitoryLocation,phonenumber,averageScore,speciality(数组)
         Glide.with(this).load(user_selected.getMyImageId()).into(launcher_image);
         launcher_sex.setText(user_selected.getSex());
         launcher_name.setText(user_selected.getMyName());
@@ -57,8 +64,22 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
             specialty.setText(user.getSpecialty().get(0));
         }
 
+
     }
 
     //未添加back返回值
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyActivity_mytask_personalhome.this, Task_InfoActivity.class);
+        intent.putExtra(Task_InfoActivity.USER_NOW, user);
+        intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
+        intent.putExtra("num",1);
+        startActivity(intent);
+        finish();
+    }
+
+
+
 }
 

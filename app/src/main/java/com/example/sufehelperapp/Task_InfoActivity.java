@@ -23,13 +23,12 @@ import java.util.List;
 
 public class Task_InfoActivity extends AppCompatActivity {
 
+    private user user;
     private task task;
     private int num;
 
     public static final String TASK_SELECTED = "task_selected";
     public static final String USER_NOW = "user_now";
-
-    private user user;
 
 
     @Override
@@ -181,12 +180,13 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     Log.d("msg3", String.valueOf(user.getTaskRNum_counsel()));
 
 
+                                    /*
                                     List<user> userList1 = DataSupport.findAll(user.class);
                                     Log.d("info","after sending msg");
                                     for(user user:userList1){
                                         Log.d("name",user.getMyName());
                                         Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
-                                    }
+                                    }*/
 
                                     Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
                                     intent1.putExtra("user_now", user);
@@ -243,11 +243,13 @@ public class Task_InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Task_InfoActivity.this, MyActivity_mytask_personalhome.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_now", user); //1
                 List<user> userList = DataSupport.where("myName = ?",task.getLauncherName()).find(user.class);
                 user launcher = userList.get(0);
                 Log.d("launcher",launcher.getMyName());
-                intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, launcher);
+                intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, launcher); //2
+                intent.putExtra("task_selected", task); //3
+                intent.putExtra("num", 1); //4
                 startActivity(intent);
             }
         });
@@ -272,7 +274,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                     task.setIfAccepted(true);
                     task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
                             task.getLauncherName());
-                    task.updateTaskStatus(); //TODO: 排查
+                    task.updateTaskStatus(); //
                     task.setProgress(2); //已接受
                     task.setHelper(user);
                     task.setHelperName(helperName);

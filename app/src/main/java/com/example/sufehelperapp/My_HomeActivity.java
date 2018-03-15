@@ -46,6 +46,7 @@ public class My_HomeActivity extends AppCompatActivity {
 
         bar_num = (TextView) findViewById(R.id.bar_num);
         reddot = findViewById(R.id.reddot);
+        //TODO：获得Msg
         MsgCount = user1.getMsg();
         setMessageCount(MsgCount);
 

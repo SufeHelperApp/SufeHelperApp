@@ -160,6 +160,7 @@ public class Explore_weekly extends AppCompatActivity {
             @Override
             public void onClick (View view){
                 Intent intent = new Intent(Explore_weekly.this, ExploreActivity.class);
+                intent.putExtra("user_now", user);
                 startActivity(intent);
             }
         });
@@ -287,7 +288,7 @@ public class Explore_weekly extends AppCompatActivity {
 
         @Override
         public void onValueDeselected() {
-            // TODO Auto-generated method stub
+
 
         }
 
@@ -408,6 +409,8 @@ public class Explore_weekly extends AppCompatActivity {
         finish();
     }*/
 
+//TODO:数据库调用：调出当前用户所发布的所有任务
+
     private void getLaunchAndPay(){
         List<task>taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
         if(!taskList.isEmpty()){
@@ -447,6 +450,9 @@ public class Explore_weekly extends AppCompatActivity {
         taskNum[3] = launch_w4;
         payment[1] = pay;
     }
+
+
+    //TODO:数据库调用：调出当前用户所接收的所有任务
 
     private void getReceiveAndEarn(){
 
