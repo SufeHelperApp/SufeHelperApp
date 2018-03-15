@@ -36,7 +36,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         String myName = user.getMyName();
         Log.d("personalhome",myName);
 
-        //接收选中的user
+        //TODO: 调出从taskLaunchActivity中选中的user_selected
         user_selected = (user) getIntent().getSerializableExtra("user_selected");
         Log.d("name",user_selected.getMyName());
 
@@ -53,7 +53,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         TextView specialty = (TextView) findViewById(R.id.his_personalintention_text44);
         TextView averagescore = (TextView) findViewById(R.id.his_integral_text11);
 
-
+        //TODO: 调出user_selected的sex,myName,dormitoryLocation,phonenumber,averageScore,speciality(数组)
         Glide.with(this).load(user_selected.getMyImageId()).into(launcher_image);
         launcher_sex.setText(user_selected.getSex());
         launcher_name.setText(user_selected.getMyName());

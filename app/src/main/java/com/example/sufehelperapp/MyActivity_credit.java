@@ -70,6 +70,7 @@ public class MyActivity_credit extends AppCompatActivity {
         //从数据库显示rating
 
         RatingBar ratingBar = findViewById(R.id.my_credit_rating_bar);
+        //TODO: 获取当前user的averageScore
         ratingBar.setRating(user.getAverageScore());
 
         TextView ratingTextView = findViewById(R.id.my_credit_average_score_text);
@@ -82,6 +83,7 @@ public class MyActivity_credit extends AppCompatActivity {
         task.updateAllTaskStatus();
         task.updateAllStatusText();
 
+        //TODO: 调用所有帮助者为当前用户的任务，ifDefault = true，放入taskList
         List<task> taskList = DataSupport.where("helperName = ?",user.getMyName())
                 .where("ifDefault = ? ","1").find(task.class);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_credit_recycler);

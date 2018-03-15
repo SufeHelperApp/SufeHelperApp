@@ -42,6 +42,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
         Log.d("evaluation",myName);
 
         task = (task) getIntent().getSerializableExtra("task_selected");
+        //TODO:获得MyActivity_Task_Details中传入的task
 
         num = getIntent().getIntExtra("num",1);
 
@@ -105,6 +106,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) { //progress5
 
+                        //TODO：设置task的一系列参数
                         task.setScore(ratingBar.getRating());
                         task.setProgress(5);
                         task.setFinishtime(); //任务结束

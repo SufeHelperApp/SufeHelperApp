@@ -93,7 +93,8 @@ public class Explore_MyTalent extends AppCompatActivity {
         });
 
 
-        user.updateTalentTitles();
+        user.updateTalentTitles(); //TODO: 数据库调用：这个方法需要调用taskRNum_e1等15个记录任务接受量的变量
+        // TODO：具体见user类
 
         final Button mPerson1 = (Button) findViewById(R.id.person1);
         if(user.getTalentTitles().contains("占座达人")) {

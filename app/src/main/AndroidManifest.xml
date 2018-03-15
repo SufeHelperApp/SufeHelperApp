@@ -28,7 +28,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="6XBYdiYeyZkxQYh3IKDtnv7p6mGGRQhk" />
 
-        <activity android:name=".My_LoginFirstActivity">
+        <activity android:name=".MySQLTest1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -71,7 +71,7 @@
         <activity android:name=".My_HomeActivity" />
         <activity android:name=".MyActivity_Historical_Task" />
         <activity android:name=".DBTESTActivity" />
-        <activity android:name=".mysqlTest" />
+        <activity android:name=".My_LoginFirstActivity" />
         <activity android:name=".My_RegisterForthActivity" />
         <activity android:name=".My_RegisterFifthActivity" />
         <activity android:name=".MyActivity_Task_Details" />
@@ -98,8 +98,7 @@
         </provider>
 
         <activity android:name=".Mailbox" />
-        <activity android:name=".My_LoginSecondActivity" />
-        <activity android:name=".mysqlTest2"></activity>
+        <activity android:name=".My_LoginSecondActivity" ></activity>
     </application>
 
 </manifest>

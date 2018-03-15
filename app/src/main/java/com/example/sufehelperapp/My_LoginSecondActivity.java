@@ -38,6 +38,7 @@ public class My_LoginSecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_second);
 
+        //TODO: Litepal建数据库语句还要不要？
         dbHelper = new MyDatabaseHelper(this,"USER.db",null,1);
         LitePal.getDatabase();
 
@@ -71,6 +72,7 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                 TextView passwordView = findViewById(R.id.login_second_password);
                 String name = nameView.getText().toString();
                 String password = passwordView.getText().toString();
+                //TODO：查找数据库中是否有用户对应上面两行的name和password
 
                 List<user> userList = DataSupport.where("myName = ? and password = ?",
                         name,password).find(user.class);
@@ -105,7 +107,6 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                 }
 
                 */
-
 
                 if(userList.isEmpty()){
                     Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",

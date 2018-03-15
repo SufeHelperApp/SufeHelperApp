@@ -274,7 +274,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                     task.setIfAccepted(true);
                     task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
                             task.getLauncherName());
-                    task.updateTaskStatus(); //TODO: 排查
+                    task.updateTaskStatus(); //
                     task.setProgress(2); //已接受
                     task.setHelper(user);
                     task.setHelperName(helperName);

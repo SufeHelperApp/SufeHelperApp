@@ -129,6 +129,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
                 if(userWithName.isEmpty() && !name.isEmpty() && !password.isEmpty() && !sex.isEmpty()){
 
+                    //TODO: 将sex存入当前用户
                     user.setSex(sex);
                     Log.d("sex",user.getSex());
 
@@ -141,9 +142,11 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                         case 2:user.setMyImageId(R.drawable.df3);break;
                         case 3:user.setMyImageId(R.drawable.df4);break;
                         case 4:user.setMyImageId(R.drawable.df5);break;
-                    }//TODO: 上传图片保存图片
+                    }
 
+                    //TODO: 将name存入当前用户
                     user.setMyName(name);
+                    //TODO: 将password存入当前用户
                     user.setPassword(password);
                     user.updateAll("phonenumber = ?",user.getPhonenumber());
 
@@ -160,7 +163,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
         rg = (RadioGroup) findViewById(R.id.rg_sex);
         rb_Male = (RadioButton) findViewById(R.id.rb_Male);
         rb_Female = (RadioButton) findViewById(R.id.rb_FeMale);
-        //TODO:sex点击事件
+
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -300,7 +303,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
     //把图片转换字节流
         byte[] myimages=img(headShot);
     //保存
-        user.setHeadshot(myimages); //todo
+        user.setHeadshot(myimages);
         user.updateAll("phonenumber = ?",user.getPhonenumber());
 
     //获取图片

@@ -20,10 +20,10 @@ import com.example.sufehelperapp.TimeUtils;
 public class task extends DataSupport implements Serializable{
 
     //任务状态
-    private boolean ifDisplayable;    //TODO: 是否进入筛选（未接受+未过期）。
+    private boolean ifDisplayable;    //
     private boolean ifAccepted;   //任务是否被接受
     private boolean ifOutdated;     //是否过期（到ddl未被接受）
-    private boolean ifDefault;  //TODO: 接受者是否违约（ddl到期时未完成）。
+    private boolean ifDefault;  //
     private boolean ifShutDown;  //是否关闭
 
     //任务进度
@@ -36,7 +36,7 @@ public class task extends DataSupport implements Serializable{
     private String accepttime;
     private String achievetime;
     private String paytime;
-    private String finishtime; //TODO: 任务结束时间（我的任务）
+    private String finishtime; //
     private String ddlDate;   //任务截止日期（发布页）
     private String ddlTime;   //任务截止时刻（发布页）
     private String ddl;  //任务截至时间（发布页）
@@ -370,7 +370,7 @@ public class task extends DataSupport implements Serializable{
 
 
 
-    //TODO: 是否过期Alarm
+    //
     /*
     public class IfValid extends Service {
         @Override

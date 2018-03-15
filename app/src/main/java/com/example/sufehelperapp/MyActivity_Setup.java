@@ -68,6 +68,7 @@ public class MyActivity_Setup extends AppCompatActivity {
         Glide.with(getContext()).load(user.getMyImageId()).into(image);
 
         TextView nicknameView = (TextView) findViewById(R.id.username_text);
+        //TODO:调用当前用户的myName
         nicknameView.setText(user.getMyName());
 
         Button button1 = (Button) findViewById(R.id.title_back);

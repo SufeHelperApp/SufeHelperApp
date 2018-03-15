@@ -67,11 +67,12 @@ public class Mailbox extends AppCompatActivity {
             }
         });
 
-        user.clearMsg(); //todo: 根本没清掉
+        user.clearMsg();
         user.updateAll("phonenumber = ? and myName = ?",user.getPhonenumber(),user.getMyName());
         Log.d("maibox:after clear",user.getMyName() + " " + String.valueOf(user.getMsg()));
 
         //将时间转化为任务
+        //TODO:1.获得Msg 2.获得MsgTaskList(这是一个数组，能不能作为数据库中的一个变量？)
         taskStringList = user.getMsgTaskList();
         Log.d("taskStringList",String.valueOf(user.getMsgTaskList().size()));
 

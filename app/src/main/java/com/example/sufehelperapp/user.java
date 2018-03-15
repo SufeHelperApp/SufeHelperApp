@@ -10,7 +10,7 @@ import java.util.List;
 
 public class user extends DataSupport implements Serializable {
 
-    private boolean isValid; //TODO: 是否被冻结（信用评价页-违约, 我的任务）。
+    private boolean isValid;
     private byte[] headshot;//头像
     private boolean ifClicked;
 
@@ -19,13 +19,13 @@ public class user extends DataSupport implements Serializable {
     private String password; //密码（注册2）
     private String myName;   //用户名（注册2）
     private String sex; //性别（注册2）
-    private int myImageId;//TODO：头像（注册3）
+    private int myImageId;
 
     //个性信息
     private String dormArea; //寝室校区（注册3）
     private String dormitoryLocation; //寝室名（注册3）
-    private List<String> demand; //TODO: 常见需求（注册3）
-    private List<String> specialty;  //TODO: 个人特长（注册3）
+    private List<String> demand;
+    private List<String> specialty;
 
     //任务信息
     private int taskNum;  //任务总数（发布页，信息页）。
@@ -54,7 +54,7 @@ public class user extends DataSupport implements Serializable {
     public int taskRNum_c4=0;
     public int taskRNum_c5=0;
 
-    private int default_taskNum;  //TODO：违约任务总数（alarm）。
+    private int default_taskNum;
 
     //评价信息
     private float averageScore;    //平均评分（信用评价页）。
@@ -64,7 +64,6 @@ public class user extends DataSupport implements Serializable {
     //TODO: *平均评分增减+1：+10）和积分总量之间的对应增减关系
     private int credit; //积分总量（个人主页）。
 
-    //TODO: 数据库设计（等级算法）：建立积分与等级的对应关系
     private int level; //个人等级(个人主页，他人主页)。
 
 
@@ -77,9 +76,8 @@ public class user extends DataSupport implements Serializable {
 
 
     //达人信息
-    private boolean ifTalent;  //TODO: 是否是达人（达人榜）。
-    //TODO: 对接：获取所有达人称号字符串：显示在"我的达人"页面。
-    private List<String> talentTitles = new ArrayList<>();  //TODO: 达人称号（达人榜，我的达人）。
+    private boolean ifTalent;
+    private List<String> talentTitles = new ArrayList<>();
     //private int invitedTimes;  //被邀请多少次
 
     //消息

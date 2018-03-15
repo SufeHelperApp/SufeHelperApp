@@ -25,7 +25,7 @@ public class MyActivity_Myaward extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("MyActivity_Vip",user.getMyName());
 
-        //TODO: 删除
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override

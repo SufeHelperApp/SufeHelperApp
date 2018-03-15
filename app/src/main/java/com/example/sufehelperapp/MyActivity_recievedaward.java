@@ -27,7 +27,6 @@ public class MyActivity_recievedaward extends AppCompatActivity implements View.
         String myName = user.getMyName();
         Log.d("recievedaward",myName);
 
-        //TODO
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
