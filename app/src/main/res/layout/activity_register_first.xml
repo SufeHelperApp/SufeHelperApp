@@ -13,14 +13,14 @@
         android:layout_marginTop="80dp">
 
         <TextView
+            android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="SufeHelper"
-            android:textSize="50dp"
             android:fontFamily="cursive"
-            android:textColor="@color/colorPrimaryDark"
             android:gravity="center"
-            android:id="@+id/text_title" />
+            android:text="iTask"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="50dp" />
         <EditText
             android:id="@+id/edit_text3"
             android:layout_gravity="center"

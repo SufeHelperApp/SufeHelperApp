@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SufeHelper</string>
+    <string name="app_name">iTask</string>
     <string name="btn_errand">跑腿</string>
     <string name="btn_skill">技能</string>
     <string name="btn_counsel">咨询</string>
