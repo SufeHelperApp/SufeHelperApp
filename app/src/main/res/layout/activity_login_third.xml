@@ -12,14 +12,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="80dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="SufeHelper"
-            android:textSize="50dp"
             android:fontFamily="cursive"
+            android:gravity="center"
+            android:text="iTask"
             android:textColor="@color/colorPrimaryDark"
-            android:gravity="center"/>
+            android:textSize="50dp" />
         <EditText
             android:id="@+id/edit_text1"
             android:layout_gravity="center"

@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MySQLTest1 extends AppCompatActivity {
+public class nav2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,9 @@ public class MySQLTest1 extends AppCompatActivity {
         Log.d("msg","123");
 
         TextView textView = findViewById(R.id.mysqlTest1_text);
-        textView.setText("123");
 
         try {
-            Class.forName("com.mysql57.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch(java.lang.ClassNotFoundException e) {
             System.err.print("ClassNotFoundException: ");
             System.err.println(e.getMessage());
@@ -51,6 +50,7 @@ public class MySQLTest1 extends AppCompatActivity {
 
             sql = " SELECT * FROM MYUSER";
             ResultSet rs = stmt.executeQuery(sql); //stmt: query
+            String result = " ";
             System.out.println("手机 密码 姓名"+
                     " 性别");
             while(rs.next()){
@@ -58,8 +58,9 @@ public class MySQLTest1 extends AppCompatActivity {
                 pass = rs.getString(2);
                 name = rs.getString(3);
                 sex = rs.getString(4);
-                System.out.println(phone+" "+pass+" "+name+" "+sex);
+                result = result + ";"+(phone+" "+pass+" "+name+" "+sex);
             }
+            textView.setText(result);
 
 
             sql="SELECT phonenumber,password,myName,sex "+
