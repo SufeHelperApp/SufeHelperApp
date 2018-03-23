@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nav2">
+    tools:context=".mysqlTest1">
 
     <include layout="@layout/common_toolbar"/>
 
     <TextView
+        android:text="123"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
