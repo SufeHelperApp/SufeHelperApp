@@ -82,7 +82,8 @@
                 android:layout_marginTop="2dp"
                 android:layout_toEndOf="@id/tasklaunch_title_taskType"
                 android:layout_marginEnd="20dp"
-                android:entries="@array/subtasks">
+                android:entries="@array/subtasks"
+                android:lines="1">
 
             </Spinner>
 
