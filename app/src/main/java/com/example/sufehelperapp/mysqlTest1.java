@@ -11,22 +11,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class nav2 extends AppCompatActivity {
+public class mysqlTest1 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_sqltest1);
 
-        Log.d("msg","mysqltest");
-
-        String url= "jdbc:mysql57://localhost:3306/myuser";
+        String url= "jdbc:mysql://localhost:3306/itask"; //TODO: check
         Connection con;
         String sql;
         Statement stmt;
         String phone,pass,name,sex;
-
-        Log.d("msg","123");
 
         TextView textView = findViewById(R.id.mysqlTest1_text);
 
@@ -38,17 +34,17 @@ public class nav2 extends AppCompatActivity {
         }
         try {
             Log.d("msg","before conn");
-            con = DriverManager.getConnection(url, "root", "root"); //get con
+            con = DriverManager.getConnection(url, "root", "root"); //TODO: check
             Log.d("msg","after conn");
             stmt = con.createStatement(); //get stmt
 
-            sql = "INSERT INTO MYUSER " +
-                    "VALUES('13912341234','1234','王五'，'女')";
+            sql = "INSERT INTO USER" +
+                    "VALUES('13312341234','1234','王五'，'女')";
             stmt.executeUpdate(sql); //stmt: update
             Log.d("msg","after insertion");
 
 
-            sql = " SELECT * FROM MYUSER";
+            sql = "SELECT * FROM USER";
             ResultSet rs = stmt.executeQuery(sql); //stmt: query
             String result = " ";
             System.out.println("手机 密码 姓名"+
@@ -64,7 +60,7 @@ public class nav2 extends AppCompatActivity {
 
 
             sql="SELECT phonenumber,password,myName,sex "+
-                    "FROM MYUSER "+
+                    "FROM USER "+
                     "WHERE sex='女'";
             rs = stmt.executeQuery(sql);
             System.out.println();

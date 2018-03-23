@@ -28,7 +28,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="6XBYdiYeyZkxQYh3IKDtnv7p6mGGRQhk" />
 
-        <activity android:name=".nav2">
+        <activity android:name=".mysqlTest1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -99,7 +99,6 @@
         <activity android:name=".Mailbox" />
         <activity android:name=".My_LoginSecondActivity" />
         <activity android:name=".My_LoginFirstActivity" />
-        <activity android:name=".nav1"></activity>
     </application>
 
 </manifest>
