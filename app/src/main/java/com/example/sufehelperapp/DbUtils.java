@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbUtils {
-    private static final String url =
-            "jdbc:mysql://localhost:3306/mysql?autoReconnect=true&failOverReadOnly=false"; //TODO: check
-    private static final String user ="root";
-    private static final String pass = "root";
+    private static final String url = "jdbc:mysql://10.64.29.232:3306/itask1?useUnicode=true&characterEncoding=UTF-8";
+    private static final String user = "test123";
+    private static final String pass = "1234";
     private static String driverClass = "com.mysql.jdbc.Driver";
     //获取数据库连接
     public static Connection getConn(){
@@ -71,4 +70,5 @@ public class DbUtils {
         }
         return list;
     }
+
 }

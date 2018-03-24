@@ -52,7 +52,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Task_LaunchActivity.this, Map.class);
-                intent.putExtra("user_now",user);
+                //intent.putExtra("user_now",user);
                 startActivity(intent);
             }
         });
@@ -62,16 +62,16 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
 
         //从MainActivity接受user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
-        Log.d("Task_LaunchActivity",myName);
+        //user = (user) getIntent().getSerializableExtra("user_now");
+        //String myName = user.getMyName();
+        //Log.d("Task_LaunchActivity",myName);
 
         Button button = (Button) findViewById(R.id.title_back);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Task_LaunchActivity.this, Task_HomeActivity.class);
-                intent.putExtra("user_now",user);
+                //intent.putExtra("user_now",user);
                 startActivity(intent);
             }
         });
@@ -83,17 +83,17 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_LaunchActivity.this, Task_HomeActivity.class);
-                        intent1.putExtra("user_now", user);
+                        //intent1.putExtra("user_now", user);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(Task_LaunchActivity.this, ExploreActivity.class);
-                        intent3.putExtra("user_now", user);
+                        //intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(Task_LaunchActivity.this, My_HomeActivity.class);
-                        intent2.putExtra("user_now", user);
+                        //intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                 }
@@ -174,7 +174,6 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
-
 
                     double paymentDouble = Double.parseDouble(payment);
                     task task = new task();

@@ -22,12 +22,7 @@ import java.util.List;
 
 public class Task_HomeActivity extends AppCompatActivity {
 
-    private user user;
-    /*
-    private static final String url = "jdbc:mysql://101.94.5.73:3306/sufehelper";
-    private static final String user ="test123";
-    private static final String pass = "1234";*/
-
+    //private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +32,8 @@ public class Task_HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //接收user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("Task_HomeActivity:",user.getMyName());
+        //user = (user) getIntent().getSerializableExtra("user_now");
+        //Log.d("Task_HomeActivity:",user.getMyName());
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,12 +44,12 @@ public class Task_HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_HomeActivity.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
+                        //intent2.putExtra("user_now", user);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Task_HomeActivity.this, My_HomeActivity.class);
-                        intent3.putExtra("user_now", user);
+                        //intent3.putExtra("user_now", user);
                         startActivity(intent3);
                         break;
                 }
@@ -87,7 +82,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Task_HomeActivity.this,Task_ErrandActivity.class);
-                intent1.putExtra("user_now", user);
+                //intent1.putExtra("user_now", user);
                 startActivity(intent1);
             }
         });
@@ -96,7 +91,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(Task_HomeActivity.this, Task_SkillActivity.class);
-                intent2.putExtra("user_now", user);
+                //intent2.putExtra("user_now", user);
                 startActivity(intent2);
             }
         });
@@ -105,7 +100,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent3 = new Intent(Task_HomeActivity.this, Task_CounselActivity.class);
-                intent3.putExtra("user_now", user);
+                //intent3.putExtra("user_now", user);
                 startActivity(intent3);
             }
         });
@@ -114,7 +109,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent4 = new Intent(Task_HomeActivity.this, Task_LaunchActivity.class);
-                intent4.putExtra("user_now", user);
+                //intent4.putExtra("user_now", user);
                 startActivity(intent4);
 
 
