@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbUtils {
-    private static final String url = "jdbc:mysql://localhost:3306/itask"; //TODO: check
+    private static final String url =
+            "jdbc:mysql://localhost:3306/mysql?autoReconnect=true&failOverReadOnly=false"; //TODO: check
     private static final String user ="root";
     private static final String pass = "root";
     private static String driverClass = "com.mysql.jdbc.Driver";
