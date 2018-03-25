@@ -88,7 +88,7 @@ public class Task_InfoActivity extends AppCompatActivity {
 
                             AlertDialog.Builder dialog = new AlertDialog.Builder(Task_InfoActivity.this);
                             dialog.setTitle("是否确定接收任务？");
-                            dialog.setMessage("如果您中途放弃任务，将会降低您在SufeHelper上的信用评分。账户累计三次违约将被冻结。");
+                            dialog.setMessage("如果您中途放弃任务，将会降低您在iTask上的信用评分。账户累计三次违约将被冻结。");
                             dialog.setCancelable(false);
                             dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                                 @Override

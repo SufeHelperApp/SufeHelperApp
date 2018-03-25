@@ -66,11 +66,40 @@
                 android:textSize="10sp"/>
 
             <TextView
-                android:id="@+id/tasklaunch_title_taskType"
+                android:id="@+id/tasklaunch_title_coordinator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tasklaunch_space1"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="地点："
+                android:textSize="22sp"/>
+
+            <EditText
+                android:id="@+id/launch_coodinator"
+                android:layout_below="@+id/tasklaunch_space1"
+                android:layout_toEndOf="@id/tasklaunch_title_coordinator"
+                android:layout_marginEnd="20dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint=" " />
+
+            <Button
+                android:id="@+id/launch_location_coordinator"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tasklaunch_space1"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="128dp"
+                android:layout_toEndOf="@+id/textView"
+                android:text="定位" />
+            <TextView
+                android:id="@+id/tasklaunch_title_taskType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tasklaunch_title_coordinator"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="分区："
                 android:textSize="22sp"/>
 
@@ -78,8 +107,8 @@
                 android:id="@+id/spinner_subtasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tasklaunch_space1"
-                android:layout_marginTop="2dp"
+                android:layout_below="@id/tasklaunch_title_coordinator"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@id/tasklaunch_title_taskType"
                 android:layout_marginEnd="20dp"
                 android:entries="@array/subtasks"
@@ -129,40 +158,13 @@
                 android:text="前完成"
                 android:textSize="17sp"/>
 
-            <TextView
-                android:id="@+id/tasklaunch_title_coordinator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tasklaunch_title_time"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:text="地点："
-                android:textSize="22sp"/>
 
-            <EditText
-                android:id="@+id/launch_coodinator"
-                android:layout_below="@id/tasklaunch_title_time"
-                android:layout_toEndOf="@id/tasklaunch_title_coordinator"
-                android:layout_marginEnd="20dp"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:hint=" " />
-
-            <Button
-                android:id="@+id/launch_location_coordinator"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/tasklaunch_title_time"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="38dp"
-                android:layout_toEndOf="@+id/textView"
-                android:text="定位" />
 
             <TextView
                 android:id="@+id/tasklaunch_title_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tasklaunch_title_coordinator"
+                android:layout_below="@id/tasklaunch_title_time"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:text="报酬："
@@ -170,7 +172,7 @@
 
             <EditText
                 android:id="@+id/launch_payment"
-                android:layout_below="@id/tasklaunch_title_coordinator"
+                android:layout_below="@id/tasklaunch_title_time"
                 android:layout_marginTop="0dp"
                 android:layout_toEndOf="@id/tasklaunch_title_payment"
                 android:layout_marginEnd="20dp"
@@ -182,7 +184,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tasklaunch_title_coordinator"
+                android:layout_below="@id/tasklaunch_title_time"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="150dp"
                 android:text="元"

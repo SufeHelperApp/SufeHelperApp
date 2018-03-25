@@ -115,6 +115,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent4 = new Intent(Task_HomeActivity.this, Task_LaunchActivity.class);
                 intent4.putExtra("user_now", user);
+                intent4.putExtra("num", 1);
                 startActivity(intent4);
 
 
