@@ -1,6 +1,7 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,12 +10,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class My_RegisterFifthActivity extends AppCompatActivity {
 
+    private String myPhone;
     private user user;
+    Connection con;
+    ResultSet rs;
 
     private int flag1 = 0;
     private int flag2 = 0;
@@ -33,14 +41,44 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
     private int flag15 = 0;
 
     List<String> specialty = new ArrayList<String>();
+    String specialtyString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_register_fifth);
 
-        user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("RegisterFifthActivity",user.getMyName());
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+        Log.d("RegisterSecondActivity",myPhone);
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
+
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
@@ -65,22 +103,103 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }else {
 
-                    user.setSpecialty(specialty);
+                    List<String> i = new ArrayList<>();
 
-                    user.updateAll("phonenumber = ?",user.getPhonenumber());
-                    for (String s : user.getSpecialty()) {
-                        Log.d("specialty", s);
+                    for(int k=0;k<15;k++){
+                        i.add("0");
+                    }
+
+                    for(String s:specialty){
+                        if(s.equals("占座")){
+                            i.set(0,"1");
+                            continue;
+                        }
+                        if(s.equals("拿快递")){
+                            i.set(1,"1");
+                            continue;
+                        }
+                        if(s.equals("买东西")){
+                            i.set(2,"1");
+                            continue;
+                        }
+                        if(s.equals("买饭")){
+                            i.set(3,"1");
+                            continue;
+                        }
+                        if(s.equals("拼单")){
+                            i.set(4,"1");
+                            continue;
+                        }
+                        if(s.equals("电子产品修理")){
+                            i.set(5,"1");
+                            continue;
+                        }
+                        if(s.equals("家具器件组装")){
+                            i.set(6,"1");
+                            continue;
+                        }
+                        if(s.equals("学习作业辅导")){
+                            i.set(7,"1");
+                            continue;
+                        }
+                        if(s.equals("技能培训")){
+                            i.set(8,"1");
+                            continue;
+                        }
+                        if(s.equals("找同好")){
+                            i.set(9,"1");
+                            continue;
+                        }
+                        if(s.equals("选课指南")){
+                            i.set(10,"1");
+                            continue;
+                        }
+                        if(s.equals("考研出国经验")){
+                            i.set(11,"1");
+                            continue;
+                        }
+                        if(s.equals("求职经验")){
+                            i.set(12,"1");
+                            continue;
+                        }
+                        if(s.equals("票务转让")){
+                            i.set(13,"1");
+                            continue;
+                        }
+                        if(s.equals("二手闲置")){
+                            i.set(14,"1");
+                        }
+                    }
+
+                    for(int k=0; k<15; k++){
+                        specialtyString = specialtyString + i.get(k);
+                    }
+
+                    try {
+                        StrictMode.ThreadPolicy policy =
+                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+
+                        con = DbUtils.getConn();
+                        Statement st2 = con.createStatement();
+                        st2.executeUpdate("UPDATE `user` SET `specialtyString` = '" + specialtyString + "' WHERE `phonenumber` = '" + myPhone + "'");
+
+                        con.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
                     String txt = "注册成功, " + user.getMyName() + "!";
 
                     Intent intent1 = new Intent(My_RegisterFifthActivity.this, Task_HomeActivity.class);
-                    //传输user的起点
-                    intent1.putExtra("user_now", user);
+
+                    intent1.putExtra("user_phone", myPhone);
                     startActivity(intent1);
                     Toast.makeText(My_RegisterFifthActivity.this, txt,
                             Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
         /*final Button mPerson1 = (Button) findViewById(R.id.person19);

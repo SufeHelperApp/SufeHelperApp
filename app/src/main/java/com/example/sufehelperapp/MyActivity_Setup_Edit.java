@@ -1,6 +1,7 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
@@ -16,11 +17,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.litepal.LitePalApplication.getContext;
 
 public class MyActivity_Setup_Edit extends AppCompatActivity {
 
     private user user;
+    private String myPhone;
+
+    Connection con;
+    ResultSet rs;
 
     ImageButton imgbtn1;
     ImageButton imgbtn2;
@@ -37,9 +49,35 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接收user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("MyActivity_Setup_Edit",user.getMyName());
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,17 +87,17 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(MyActivity_Setup_Edit.this, Task_HomeActivity.class);
-                        intent1.putExtra("user_now", user);
+                        intent1.putExtra("user_phone", myPhone);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(MyActivity_Setup_Edit.this, ExploreActivity.class);
-                        intent3.putExtra("user_now", user);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(MyActivity_Setup_Edit.this, My_HomeActivity.class);
-                        intent2.putExtra("user_now", user);
+                        intent2.putExtra("user_phone", myPhone);
                         startActivity(intent2);
                         break;
                 }
@@ -82,9 +120,11 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
         //TODO:调用当前用户的myName
         nicknameView.setText(user.getMyName());
 
+        /*
+
         TextView dormitoryView = (TextView) findViewById(R.id.dormname_text22);
         //TODO:调用当前用户的dormitoryLocation
-        dormitoryView.setText(user.getDormitoryLocation());
+        dormitoryView.setText(user.getDormitoryLocation());*/
 
         TextView phoneView = (TextView) findViewById(R.id.nickname_text33);
         //TODO:调用当前用户的phonenumber
@@ -92,7 +132,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
 
         TextView intentionView = (TextView) findViewById(R.id.nickname_text44);
         //TODO:调用当前用户的demand(数组)
-        intentionView.setText(user.getDemand().get(0));
+        //intentionView.setText(user.getDemand().get(0));
 
 
         imgbtn1=(ImageButton)findViewById(R.id.button_edit_nickname);
@@ -107,7 +147,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Setup.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });
@@ -117,27 +157,28 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_NickName.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
 
         });
+        /*
         imgbtn2.setOnClickListener(new Button.OnClickListener()
         {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_dormname.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
 
-        });
+        });*/
         imgbtn3.setOnClickListener(new Button.OnClickListener()
         {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_phonenumber.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
 
@@ -147,7 +188,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, My_RegisterForthActivity.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
 
@@ -157,7 +198,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Edit_password.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
 
@@ -168,7 +209,7 @@ public class MyActivity_Setup_Edit extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(MyActivity_Setup_Edit.this, MyActivity_Setup.class);
-        intent.putExtra("user_now",user);
+        intent.putExtra("user_phone", myPhone);
         startActivity(intent);
         finish();
     }

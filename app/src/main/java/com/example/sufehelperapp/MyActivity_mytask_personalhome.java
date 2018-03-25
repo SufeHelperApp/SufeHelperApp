@@ -1,6 +1,7 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyActivity_mytask_personalhome extends AppCompatActivity {
 
     public static final String USER_SELECTED = "user_selected";
@@ -21,6 +29,10 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
     private user user; //1
     private task task; //3
     private int num; //4
+
+    private String myPhone;
+    Connection con;
+    ResultSet rs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +43,35 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接收user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
-        Log.d("personalhome",myName);
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         //TODO: 调出从taskLaunchActivity中选中的user_selected
         user_selected = (user) getIntent().getSerializableExtra("user_selected");
@@ -58,11 +95,12 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         launcher_sex.setText(user_selected.getSex());
         launcher_name.setText(user_selected.getMyName());
         launcher_dormName.setText(user_selected.getDormitoryLocation());
-        launcher_phonenumber.setText(user.getPhonenumber());
+        launcher_phonenumber.setText(user_selected.getPhonenumber());
         averagescore.setText(String.valueOf(user_selected.getAverageScore()));
+        /*
         if(user.getSpecialty().size()!=0) {
             specialty.setText(user.getSpecialty().get(0));
-        }
+        }*/
 
 
     }
@@ -72,7 +110,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(MyActivity_mytask_personalhome.this, Task_InfoActivity.class);
-        intent.putExtra(Task_InfoActivity.USER_NOW, user);
+        intent.putExtra("user_phone",myPhone);
         intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
         intent.putExtra("num",1);
         startActivity(intent);

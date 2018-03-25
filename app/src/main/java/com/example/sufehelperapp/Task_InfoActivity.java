@@ -2,6 +2,7 @@ package com.example.sufehelperapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
@@ -19,6 +20,11 @@ import com.bumptech.glide.Glide;
 
 import org.litepal.crud.DataSupport;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Task_InfoActivity extends AppCompatActivity {
@@ -27,8 +33,11 @@ public class Task_InfoActivity extends AppCompatActivity {
     private task task;
     private int num;
 
+    private String myPhone;
+    Connection con;
+    ResultSet rs;
+
     public static final String TASK_SELECTED = "task_selected";
-    public static final String USER_NOW = "user_now";
 
 
     @Override
@@ -40,9 +49,37 @@ public class Task_InfoActivity extends AppCompatActivity {
 
         num = getIntent().getIntExtra("num",1);
 
-        user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
-        Log.d("Task_InfoActivity",myName);
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            Log.d("Info_phone",myPhone);
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            Log.d("userList",String.valueOf(userList.size()));
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         task = (task) getIntent().getSerializableExtra("task_selected");
 
@@ -55,12 +92,12 @@ public class Task_InfoActivity extends AppCompatActivity {
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_InfoActivity.this, ExploreActivity.class);
-                        intent2.putExtra("user_now", user);
+                        intent2.putExtra("user_phone", myPhone);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Task_InfoActivity.this, My_HomeActivity.class);
-                        intent3.putExtra("user_now", user);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                 }
@@ -95,9 +132,51 @@ public class Task_InfoActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
                                     String helperName = user.getMyName();
+                                    String id = task.getPreciseLaunchTime();
+                                    String accepttime = TimeUtils.getNowTime();
+                                    int credit = user.getCredit()+30;
+                                    int taskRNum = user.getTaskRNum()+1;
+                                    int taskNum = user.getTaskNum()+1;
+                                    int TaskRNum_errand = user.getTaskRNum_errand();
+                                    int TaskRNum_skill = user.getTaskRNum_skill();
+                                    int TaskRNum_counsel = user.getTaskRNum_counsel();
+                                    int taskRNum_e1 = user.taskRNum_e1;
+                                    int taskRNum_e2 = user.taskRNum_e2;
+                                    int taskRNum_e3 = user.taskRNum_e3;
+                                    int taskRNum_e4 = user.taskRNum_e4;
+                                    int taskRNum_e5 = user.taskRNum_e5;
+                                    int taskRNum_s1 = user.taskRNum_s1;
+                                    int taskRNum_s2 = user.taskRNum_s2;
+                                    int taskRNum_s3 = user.taskRNum_s3;
+                                    int taskRNum_s4 = user.taskRNum_s4;
+                                    int taskRNum_s5 = user.taskRNum_s5;
+                                    int taskRNum_c1 = user.taskRNum_c1;
+                                    int taskRNum_c2 = user.taskRNum_c2;
+                                    int taskRNum_c3 = user.taskRNum_c3;
+                                    int taskRNum_c4 = user.taskRNum_c4;
+                                    int taskRNum_c5 = user.taskRNum_c5;
 
                                     //更新该task信息
-                                    Log.d("msg", "accepted");
+
+                                    try {
+                                        StrictMode.ThreadPolicy policy =
+                                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                        StrictMode.setThreadPolicy(policy);
+
+                                        con = DbUtils.getConn();
+                                        Statement st = con.createStatement();
+                                        st.executeUpdate("UPDATE `task` SET `ifAccepted` = '1', `ifDisplayable` = '0',`accepttime` = '"+accepttime+"', " +
+                                                "`progress` = '2',`helperName` = '"+user.getMyName()+"',`StatusText` = '待完成' " +
+                                                "WHERE `preciseLaunchTime` = '" + task.getPreciseLaunchTime() + "'");
+
+                                        con.close();
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    /*
+
                                     task.setIfAccepted(true);
                                     task.setAccepttime();
                                     task.setProgress(2); //已接受
@@ -110,8 +189,13 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
                                             task.getLauncherName());
 
-                                    //给发布者一个提醒
+                                            */
+
+
                                     String launcherName = task.getLauncherName();
+                                    //给发布者一个提醒
+
+                                    /*
                                     List<user> userList = DataSupport.where("myName = ?",launcherName).find(user.class);
                                     user launcher = userList.get(0);
                                     if(!launcher.getMsgTaskList().contains(task)) {
@@ -121,63 +205,89 @@ public class Task_InfoActivity extends AppCompatActivity {
                                         Log.d("被接收->发布者",launcher.getMyName()
                                             +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
                                             getMsgTaskList().size()));
-                                }
 
-                                    user.increaseCredit(30);
-                                    user.addTaskRNum(1);
+                                    }*/
+
+                                    //TODO: ADD
+
                                     if (task.getSubtaskType() == "占座") {
-                                        user.taskRNum_e1++;
-                                        user.addTaskRNum_errand(1);
+                                        taskRNum_e1++;
+                                        TaskRNum_errand++;
                                     } else if (task.getSubtaskType() == "拿快递") {
-                                        user.taskRNum_e2++;
-                                        user.addTaskRNum_errand(1);
+                                        taskRNum_e2++;
+                                        TaskRNum_errand++;
                                     } else if (task.getSubtaskType() == "买饭") {
-                                        user.taskRNum_e3++;
-                                        user.addTaskRNum_errand(1);
+                                        taskRNum_e3++;
+                                        TaskRNum_errand++;
                                     } else if (task.getSubtaskType() == "买东西") {
-                                        user.taskRNum_e4++;
-                                        user.addTaskRNum_errand(1);
+                                        taskRNum_e4++;
+                                        TaskRNum_errand++;
                                     } else if (task.getSubtaskType() == "拼单") {
-                                        user.taskRNum_e5++;
-                                        user.addTaskRNum_errand(1);
+                                        taskRNum_e5++;
+                                        TaskRNum_errand++;
                                     } else if (task.getSubtaskType() == "电子产品修理") {
-                                        user.taskRNum_s1++;
-                                        user.addTaskRNum_skill(1);
+                                        taskRNum_s1++;
+                                        TaskRNum_skill++;
                                     } else if (task.getSubtaskType() == "家具器件组装") {
-                                        user.taskRNum_s2++;
-                                        user.addTaskRNum_skill(1);
+                                        taskRNum_s2++;
+                                        TaskRNum_skill++;
                                     } else if (task.getSubtaskType() == "学习作业辅导") {
-                                        user.taskRNum_s3++;
-                                        user.addTaskRNum_skill(1);
+                                        taskRNum_s3++;
+                                        TaskRNum_skill++;
                                     } else if (task.getSubtaskType() == "技能培训") {
-                                        user.taskRNum_s4++;
-                                        user.addTaskRNum_skill(1);
+                                        taskRNum_s4++;
+                                        TaskRNum_skill++;
                                     } else if (task.getSubtaskType() == "找同好") {
-                                        user.taskRNum_s5++;
-                                        user.addTaskRNum_skill(1);
+                                        taskRNum_s5++;
+                                        TaskRNum_skill++;
                                     } else if (task.getSubtaskType() == "选课指南") {
-                                        user.taskRNum_c1++;
-                                        user.addTaskRNum_counsel(1);
+                                        taskRNum_c1++;
+                                        TaskRNum_counsel++;
                                     } else if (task.getSubtaskType() == "考研出国经验") {
-                                        user.taskRNum_c2++;
-                                        user.addTaskRNum_counsel(1);
+                                        taskRNum_c2++;
+                                        TaskRNum_counsel++;
                                     } else if (task.getSubtaskType() == "求职经验") {
-                                        user.taskRNum_c3++;
-                                        user.addTaskRNum_counsel(1);
+                                        taskRNum_c3++;
+                                        TaskRNum_counsel++;
                                     } else if (task.getSubtaskType() == "票务转让") {
-                                        user.taskRNum_c4++;
-                                        user.addTaskRNum_counsel(1);
+                                        taskRNum_c4++;
+                                        TaskRNum_counsel++;
                                     } else if (task.getSubtaskType() == "二手闲置") {
-                                        user.taskRNum_c5++;
-                                        user.addTaskRNum_counsel(1);
+                                        taskRNum_c5++;
+                                        TaskRNum_counsel++;
                                     }
 
-                                    user.addTaskNum(1);
+                                        try {
+                                            StrictMode.ThreadPolicy policy =
+                                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                            StrictMode.setThreadPolicy(policy);
 
+                                            con = DbUtils.getConn();
+                                            Statement st = con.createStatement();
+                                            st.executeUpdate("UPDATE `user` SET `credit` = '"+credit+"', `credit` = '"+credit+"' ," +
+                                                    "`taskRNum` = '"+taskRNum+"',`taskNum` = '"+taskNum+"',`taskRNum_e1` = '"+taskRNum_e1+"'" +
+                                                    ",`taskRNum_e2` = '"+taskRNum_e2+"',`taskRNum_e3` = '"+taskRNum_e3+"',`taskRNum_e4` = '"+taskRNum_e4+"'" +
+                                                    ",`taskRNum_e5` = '"+taskRNum_e5+"',`taskRNum_s1` = '"+taskRNum_s1+"',`taskRNum_s2` = '"+taskRNum_s2+"'" +
+                                                    ",`taskRNum_s3` = '"+taskRNum_s3+"',`taskRNum_s4` = '"+taskRNum_s4+"',`taskRNum_s5` = '"+taskRNum_s5+"'" +
+                                                    " ,`taskRNum_c1` = '"+taskRNum_c1+"' ,`taskRNum_c2` = '"+taskRNum_c2+"' ,`taskRNum_c3` = '"+taskRNum_c3+"'" +
+                                                    ",`taskRNum_c4` = '"+taskRNum_c4+"' ,`taskRNum_c5` = '"+taskRNum_c5+"' WHERE `phonenumber` = '" + myPhone + "'");
+
+                                            con.close();
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+/*
+                                    user.increaseCredit(30);
+                                    user.addTaskRNum(1);*/
+                                    //user.addTaskNum(1);
+
+                                    /*
                                     user.updateAll("phonenumber = ?", user.getPhonenumber());
                                     Log.d("msg1", String.valueOf(user.getTaskRNum_errand()));
                                     Log.d("msg2", String.valueOf(user.getTaskRNum_skill()));
-                                    Log.d("msg3", String.valueOf(user.getTaskRNum_counsel()));
+                                    Log.d("msg3", String.valueOf(user.getTaskRNum_counsel()));*/
 
 
                                     /*
@@ -189,7 +299,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     }*/
 
                                     Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
-                                    intent1.putExtra("user_now", user);
+                                    intent1.putExtra("user_phone", myPhone);
                                     startActivity(intent1);
                                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
 
@@ -243,14 +353,30 @@ public class Task_InfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Task_InfoActivity.this, MyActivity_mytask_personalhome.class);
-                intent.putExtra("user_now", user); //1
-                List<user> userList = DataSupport.where("myName = ?",task.getLauncherName()).find(user.class);
-                user launcher = userList.get(0);
-                Log.d("launcher",launcher.getMyName());
-                intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, launcher); //2
-                intent.putExtra("task_selected", task); //3
-                intent.putExtra("num", 1); //4
-                startActivity(intent);
+                intent.putExtra("user_phone", myPhone); //1
+                try {
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+
+                    con = DbUtils.getConn();
+                    Statement st = con.createStatement();
+                    rs = st.executeQuery("SELECT * FROM user WHERE myName = '"+task.getLauncherName()+"'");
+                    List list = DbUtils.populate(rs,user.class);
+                    user launcher = (user) list.get(0);
+
+                    Log.d("launcher",launcher.getMyName());
+                    intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, launcher); //2
+                    intent.putExtra("task_selected", task); //3
+                    intent.putExtra("num", 1); //4
+                    startActivity(intent);
+
+                    con.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -298,7 +424,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                     Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));
 
                     Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
-                    intent1.putExtra("user_now", user);
+                    intent1.putExtra(""user_phone", myPhone);
                     startActivity(intent1);
                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
                 }

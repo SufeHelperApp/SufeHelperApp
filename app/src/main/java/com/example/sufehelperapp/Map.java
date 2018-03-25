@@ -4,6 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
+import android.graphics.Color;
+import android.graphics.Point;
+import android.os.StrictMode;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +38,10 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,14 +56,52 @@ public class Map extends AppCompatActivity {
         private MyLocationConfiguration config;
         private TextView positionText;
         private TextView positionText2;
+    private MapView mapView;
+    private BaiduMap baiduMap;
+    private boolean isFirstLocate = true;
+    public LocationClient mLocationClient;
+    private TextView positionText;
+    //创建自己的箭头定位
+    private BitmapDescriptor bitmapDescriptor;
+    private float mLastX;
+    private String myPhone;
+    Connection con;
+    ResultSet rs;
+  
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            //从MainActivity接受user
-            user = (user) getIntent().getSerializableExtra("user_now");
-            String myName = user.getMyName();
-            Log.d("Task_LaunchActivity",myName);
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
+
 
             //此方法要再setContentView方法之前实现
             SDKInitializer.initialize(getApplicationContext());
@@ -97,6 +144,7 @@ public class Map extends AppCompatActivity {
             } else {
                 requestLocation();
             }
+          
 
             Button button1 = (Button) findViewById(R.id.title_back);
             button1.setOnClickListener(new View.OnClickListener() {
@@ -110,12 +158,13 @@ public class Map extends AppCompatActivity {
                 }
             });
 
+
             Button button2 = (Button) findViewById(R.id.title_edit);
             button2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Map.this, Task_LaunchActivity.class);
-                    intent.putExtra("user_now", user);
+                    intent.putExtra("user_phone", user);
                     intent.putExtra("num", 2);
                     intent.putExtra("POIName", POIName);
                     startActivity(intent);
@@ -125,7 +174,61 @@ public class Map extends AppCompatActivity {
 
 
 
+
         }
+
+        if(ContextCompat.checkSelfPermission(Map.this,Manifest.
+                permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if(!permissionList.isEmpty()) {
+            String [] permissions = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(Map.this,permissions,1);
+        } else {
+            requestLocation();
+        }
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.hide();
+        }
+        Button button1 = (Button) findViewById(R.id.title_back);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(Map.this, Task_LaunchActivity.class);
+
+                intent1.putExtra("user_phone", myPhone);
+                startActivity(intent1);
+            }
+        });
+
+    }
+    //开始定位
+    private void requestLocation() {
+
+        initLocation();
+
+        /*baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                final String info = (String) marker.getExtraInfo().get("info");
+                InfoWindow infoWindow;
+                //动态生成一个Button对象，用户在地图中显示Infowindow
+                final Button textInfo = new Button(getApplicationContext());
+                textInfo.setBackgroundResource(R.drawable.locate_popup);
+                textInfo.setPadding(10,10,10,10);
+                textInfo.setTextColor(Color.BLACK);
+                textInfo.setTextSize(12);
+                textInfo.setText(info);
+                //得到点击的覆盖物的经纬度
+                LatLng ll = marker.getPosition();
+                textInfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(Map.this, "你点击了"+info, Toast.LENGTH_SHORT).show();
+
         public void requestLocation() {
             locationClient.registerLocationListener(new BDLocationListener() {
                 @Override

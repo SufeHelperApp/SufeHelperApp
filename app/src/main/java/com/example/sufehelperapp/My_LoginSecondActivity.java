@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.litepal.LitePal;
@@ -24,23 +25,14 @@ import java.util.List;
 
 public class My_LoginSecondActivity extends AppCompatActivity {
 
-    private MyDatabaseHelper dbHelper;
+    private Connection con;
+    private ResultSet rs;
     private user user;
-
-    /*
-    private static final String url = "jdbc:mysql://101.94.5.73:3306/sufehelper";
-    private static final String user ="test123";
-    private static final String pass = "1234";
-    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_second);
-
-        //TODO: Litepal建数据库语句还要不要？
-        dbHelper = new MyDatabaseHelper(this,"USER.db",null,1);
-        LitePal.getDatabase();
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
@@ -74,61 +66,53 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                 String password = passwordView.getText().toString();
                 //TODO：查找数据库中是否有用户对应上面两行的name和password
 
-                List<user> userList = DataSupport.where("myName = ? and password = ?",
-                        name,password).find(user.class);
+                    try{
+                        StrictMode.ThreadPolicy policy =
+                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
 
-                /*
+                        con = DbUtils.getConn();
+                        Statement st = con.createStatement();
+                        rs= st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+name+"' AND `password` = '"+password+"'");
+                        List list = DbUtils.populate(rs,user.class);
 
-                try{
-                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
+                        if (list.isEmpty()){
+                            Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",
+                                Toast.LENGTH_SHORT).show();
+                        }else {
 
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection con =DriverManager.getConnection(url, user, pass);
+                            try {
 
-                    String result = "Database connection success\n";
-                    Statement st = con.createStatement();
-                    ResultSet rs= st.executeQuery(" select * from user where myName = "+name+" ");
-                    //user_now = rs;
-                    ResultSetMetaData rsmd = rs.getMetaData();
+                                user = (user)list.get(0);
 
-                    while(rs.next()){
-                        result += rsmd.getColumnName(1) + ": " + rs.getString(1) + "\n";
-                        result += rsmd.getColumnName(2) + ": " + rs.getString(2) + "\n";
-                        result += rsmd.getColumnName(3) + ": " + rs.getString(3) + "\n";
-                        result += rsmd.getColumnName(4) + ": " + rs.getString(4) + "\n";
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            String userName = user.getMyName();
+                            String txt = "欢迎回来, "+userName+"!";
+
+                            Intent intent = new Intent(My_LoginSecondActivity.this, Task_HomeActivity.class);
+                            intent.putExtra("user_phone",user.getPhonenumber());
+                            startActivity(intent);
+                            Toast.makeText(My_LoginSecondActivity.this,txt,
+                                    Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        rs.close();
+                        st.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }finally {
+                        if (con != null)
+                            try {
+                                con.close();
+                            } catch (SQLException e) {
+                            }
                     }
-                    //t1.setText(result);
 
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                    //t1.setText(e.toString());
-                }
-
-                */
-
-                if(userList.isEmpty()){
-                    Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",
-                            Toast.LENGTH_SHORT).show();
-                }else {
-                    user user = userList.get(0);
-                    if(user.getIfClicked()){
-                        user.clearMsg();
-                        user.updateAll("phonenumber = ? and myName = ?",user.getPhonenumber(),
-                                user.getMyName());
-                    }
-                    String myName = user.getMyName();
-                    String txt = "欢迎回来, "+user.getMyName()+"!";
-                    Log.d("log:msg",String.valueOf(user.getMsg()));
-
-                    Intent intent = new Intent(My_LoginSecondActivity.this, Task_HomeActivity.class);
-                    intent.putExtra("user_now", user);
-                    startActivity(intent);
-                    Toast.makeText(My_LoginSecondActivity.this,txt,
-                            Toast.LENGTH_SHORT).show();
-
-                }
             }
         });
 
