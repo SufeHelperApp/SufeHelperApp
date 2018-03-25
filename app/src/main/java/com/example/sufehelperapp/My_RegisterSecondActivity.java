@@ -190,6 +190,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
                     intent.putExtra("user_phone", myPhone);
+
                     startActivity(intent);
                 }
 

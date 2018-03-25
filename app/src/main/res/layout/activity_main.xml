@@ -24,7 +24,9 @@
             android:layout_weight="1"
             android:text="@string/btn_errand"
             android:textSize="35sp"
-            android:textAlignment="textStart"
+            android:textColor="#404040"
+            android:background="@drawable/btn_button"
+            android:textAlignment="center"
             />
         <Button
             android:id="@+id/btn_skill"
@@ -33,15 +35,21 @@
             android:layout_weight="1"
             android:text="@string/btn_skill"
             android:textSize="35sp"
-            android:textAlignment="textStart"/>
+            android:textColor="#404040"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/btn_button2"
+            android:textAlignment="center"/>
         <Button
             android:id="@+id/btn_counsel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/btn_counsel"
+            android:textColor="#404040"
             android:textSize="35sp"
-            android:textAlignment="textStart"/>
+            android:background="@drawable/btn_button3"
+            android:layout_marginTop="1dp"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <include layout="@layout/common_bottom_navigation_bar"/>
