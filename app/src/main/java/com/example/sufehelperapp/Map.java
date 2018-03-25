@@ -2,6 +2,7 @@ package com.example.sufehelperapp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,6 +11,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -33,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map extends AppCompatActivity {
+    private user user;
+    private String POIName;
     private MapView mMapView;
         private LocationClient locationClient;
         private BaiduMap baiduMap;
@@ -44,6 +50,11 @@ public class Map extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+            //从MainActivity接受user
+            user = (user) getIntent().getSerializableExtra("user_now");
+            String myName = user.getMyName();
+            Log.d("Task_LaunchActivity",myName);
 
             //此方法要再setContentView方法之前实现
             SDKInitializer.initialize(getApplicationContext());
@@ -86,6 +97,33 @@ public class Map extends AppCompatActivity {
             } else {
                 requestLocation();
             }
+
+            Button button1 = (Button) findViewById(R.id.title_back);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View     view) {
+                    Intent intent = new Intent(Map.this, Task_LaunchActivity.class);
+                    intent.putExtra("user_now", user);
+                    intent.putExtra("num", 2);
+                    intent.putExtra("POIName", POIName);
+                    startActivity(intent);
+                }
+            });
+
+            Button button2 = (Button) findViewById(R.id.title_edit);
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Map.this, Task_LaunchActivity.class);
+                    intent.putExtra("user_now", user);
+                    intent.putExtra("num", 2);
+                    intent.putExtra("POIName", POIName);
+                    startActivity(intent);
+                }
+            });
+
+
+
 
         }
         public void requestLocation() {
@@ -139,7 +177,7 @@ public class Map extends AppCompatActivity {
                 @Override
                 public boolean onMapPoiClick(MapPoi mapPoi)
                 {
-                    final String POIName = mapPoi.getName();//POI点名称
+                    POIName = mapPoi.getName();//POI点名称
                     final LatLng POIPosition = mapPoi.getPosition();//POI点坐标
                     //下面就是自己随便应用了
                     //根据POI点坐标反向地理编码
@@ -219,4 +257,7 @@ public class Map extends AppCompatActivity {
             // 在activity执行onPause时执行mMapView. onPause ()
             mMapView.onPause();
         }
+
+
+
     }

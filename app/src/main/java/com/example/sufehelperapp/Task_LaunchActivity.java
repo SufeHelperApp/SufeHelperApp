@@ -26,7 +26,9 @@ import java.util.Locale;
 public class Task_LaunchActivity extends AppCompatActivity {
 
     public String subtaskType;
-    public String area;
+    private String POIName;
+
+    private int num;
 
     private Button mPickDate;
     private int mYear;
@@ -65,6 +67,13 @@ public class Task_LaunchActivity extends AppCompatActivity {
         user = (user) getIntent().getSerializableExtra("user_now");
         String myName = user.getMyName();
         Log.d("Task_LaunchActivity",myName);
+
+        num = getIntent().getIntExtra("num",1);
+
+        if(num ==2){
+            POIName = getIntent().getStringExtra("POIName");
+        }
+
 
         Button button = (Button) findViewById(R.id.title_back);
         button.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +116,10 @@ public class Task_LaunchActivity extends AppCompatActivity {
         //final Spinner areaView = (Spinner) findViewById(R.id.spinner_areas);
         final TextView dateView = (TextView) findViewById(R.id.editDate);
         final TextView timeView = (TextView) findViewById(R.id.editTime);
-        //final TextView locationView = (TextView) findViewById(R.id.launch_location);
+        final TextView locationView = (TextView) findViewById(R.id.launch_coodinator);
+        if(num ==2) {
+            locationView.setText(POIName);
+        }
         final TextView paymentView = (TextView) findViewById(R.id.launch_payment);
         final TextView descriptionView = (TextView) findViewById(R.id.launch_description);
 
@@ -168,12 +180,13 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                 String date = dateView.getText().toString();
                 String time = timeView.getText().toString();
-                //String location = locationView.getText().toString();
+                String location = locationView.getText().toString();
                 String payment = paymentView.getText().toString();
                 String description = descriptionView.getText().toString();
 
-                if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !payment.isEmpty()
-                        && !description.isEmpty()) {
+
+                if(!subtaskType.isEmpty() && !date.isEmpty() && !time.isEmpty() && !payment.isEmpty()
+                        && !description.isEmpty() && !location.isEmpty()) {
 
 
                     double paymentDouble = Double.parseDouble(payment);
@@ -187,8 +200,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     task.setDdlDate(showdate);
                     task.setDdlTime(showtime);
                     task.setDdl();
-                    task.setArea(area);
-                    //task.setLocation(location);
+                    if(num ==2)
+                    {task.setLocation(POIName);}
                     task.setPayment(paymentDouble);
                     task.setDescription(description);
 
