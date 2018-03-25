@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -27,12 +28,21 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class My_RegisterThirdActivity extends AppCompatActivity {
 
+    private String myPhone;
     private user user;
+
+    Connection con;
+    ResultSet rs;
+
     String dormArea;
     String dormName;
 
@@ -42,13 +52,41 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_my_register_third);
 
-        user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("RegisterThirdActivity",user.getMyName());
+        myPhone = getIntent().getStringExtra("user_phone");
+        Log.d("RegisterSecondActivity",myPhone);
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.hide();
         }
+
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,17 +130,23 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }else {
 
-                    //TODO:设置当前用户的dormArea
-                    user.setDormArea(dormArea);
-                    //TODO:设置当前用户的寝室位置
-                    user.setDormitoryLocation(dormName);
+                    try {
+                        StrictMode.ThreadPolicy policy =
+                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
 
-                    user.updateAll("phonenumber = ?",user.getPhonenumber());
-                    Log.d("dormArea", user.getDormArea());
-                    Log.d("dormLocation", user.getDormitoryLocation());
+                        con = DbUtils.getConn();
+                        Statement st2 = con.createStatement();
+                        st2.executeUpdate("UPDATE `user` SET `dormArea` = '" + dormArea + "' WHERE `phonenumber` = '" + myPhone + "'");
+
+                        con.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     Intent intent = new Intent(My_RegisterThirdActivity.this, My_RegisterForthActivity.class);
-                    intent.putExtra("user_now", user);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }

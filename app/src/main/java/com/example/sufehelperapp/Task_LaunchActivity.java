@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -20,10 +21,24 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class Task_LaunchActivity extends AppCompatActivity {
+
+    private String myPhone;
+
+    private Connection con;
+    private ResultSet rs;
 
     public String subtaskType;
     public String area;
@@ -52,7 +67,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Task_LaunchActivity.this, Map.class);
-                //intent.putExtra("user_now",user);
+                intent.putExtra("user_phone",myPhone);
                 startActivity(intent);
             }
         });
@@ -61,17 +76,42 @@ public class Task_LaunchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        //从MainActivity接受user
-        //user = (user) getIntent().getSerializableExtra("user_now");
-        //String myName = user.getMyName();
-        //Log.d("Task_LaunchActivity",myName);
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         Button button = (Button) findViewById(R.id.title_back);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Task_LaunchActivity.this, Task_HomeActivity.class);
-                //intent.putExtra("user_now",user);
+                intent.putExtra("user_phone",myPhone);
                 startActivity(intent);
             }
         });
@@ -83,17 +123,17 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Task_LaunchActivity.this, Task_HomeActivity.class);
-                        //intent1.putExtra("user_now", user);
+                        intent1.putExtra("user_phone",myPhone);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(Task_LaunchActivity.this, ExploreActivity.class);
-                        //intent3.putExtra("user_now", user);
+                        intent3.putExtra("user_phone",myPhone);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(Task_LaunchActivity.this, My_HomeActivity.class);
-                        //intent2.putExtra("user_now", user);
+                        intent2.putExtra("user_phone",myPhone);
                         startActivity(intent2);
                         break;
                 }
@@ -175,7 +215,85 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 if(!subtaskType.isEmpty() && !area.isEmpty() && !date.isEmpty() && !time.isEmpty() && !location.isEmpty() && !payment.isEmpty()
                         && !description.isEmpty()) {
 
+                    String phone = "";
+                    String taskType = task.setTaskType1(subtaskType);
+                    String ddl = task.setDdl(date,time);
+                    String launchtime = TimeUtils.getNowTime();
+                    String precisetime = TimeUtils.getNowTimePrecise();
+
+                    try{
+                        StrictMode.ThreadPolicy policy =
+                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+
+                        con = DbUtils.getConn();
+
+                        Statement st = con.createStatement();
+
+                        rs = st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+user.getMyName()+"'");
+
+                        while (rs.next()) {
+                            phone += rs.getString(3);
+                            int credit = rs.getInt("credit") + 15;
+                            int taskLNum = rs.getInt("taskLNum") + 1;
+                            int taskNum = rs.getInt("taskNum") + 1;
+
+                            String sql1 = "UPDATE `user` SET `credit`= '"+credit+"' WHERE myName='"+user.getMyName()+"'";
+                            st.executeUpdate(sql1);
+                            String sql2 = "UPDATE `user` SET `taskLNum`= '"+taskLNum+"' WHERE myName='"+user.getMyName()+"'";
+                            st.executeUpdate(sql2);
+                            String sql3 = "UPDATE `user` SET `taskNum`= '"+taskNum+"' WHERE myName='"+user.getMyName()+"'";
+                            st.executeUpdate(sql3);
+                        }
+                        Log.d("phone",phone);
+
+                        rs.close();
+                        st.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }finally {
+                        if (con != null)
+                            try {
+                                con.close();
+                            } catch (SQLException e) {
+                            }
+
+                    }
+
+                    try{
+                        StrictMode.ThreadPolicy policy =
+                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                        StrictMode.setThreadPolicy(policy);
+
+                        con = DbUtils.getConn();
+
+                        String sql = "INSERT INTO `task`(`launcherName`, `launcherPhoneNumber`, `subtaskType`, `taskType`, `ddlDate`, `ddlTime`, `ddl`, `area`, `location`, `payment`, `description`, `ifDisplayable`, `helperName`, `ifAccepted`, `ifOutdated`, `ifDefault`, `ifShutDown`, `progress`, `StatusText`, `launchtime`, `preciseLaunchTime`, `accepttime`, `achievetime`, `paytime`, `finishtime`, `latitude`, `longtitude`, `score`) VALUES ('"+user.getMyName()+"','"+user.getPhonenumber()+"','"+subtaskType+"','"+taskType+"','"+date+"','"+time+"','"+ddl+"','"+area+"','"+location+"','"+payment+"','"+description+"','1','','0','0','0','0','1','待接收','"+launchtime+"','"+precisetime+"','','','','','0','0','0')";
+                        Statement st = con.createStatement();
+                        st.executeUpdate(sql);
+
+                        st.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }finally {
+                        if (con != null)
+                            try {
+                                con.close();
+                            } catch (SQLException e) {
+                            }
+                    }
+
+
+                    Intent intent1 = new Intent(Task_LaunchActivity.this, Task_HomeActivity.class);
+                    intent1.putExtra("user_phone",myPhone);
+                    startActivity(intent1);
+                    Toast.makeText(Task_LaunchActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();
+
+                    /*
+
                     double paymentDouble = Double.parseDouble(payment);
+
                     task task = new task();
                     task.setLauncher(user);
                     task.setLauncherName(user.getMyName());
@@ -203,6 +321,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
                     intent1.putExtra("user_now", user);
                     startActivity(intent1);
                     Toast.makeText(Task_LaunchActivity.this, "任务发布成功！", Toast.LENGTH_SHORT).show();
+
+                    */
 
                 }else{
                     Toast.makeText(Task_LaunchActivity.this, "请检查空缺字段！", Toast.LENGTH_SHORT).show();

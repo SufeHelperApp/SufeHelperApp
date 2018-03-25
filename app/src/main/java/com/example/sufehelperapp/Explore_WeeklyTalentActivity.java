@@ -1,6 +1,7 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +17,20 @@ import com.bumptech.glide.Glide;
 
 import org.litepal.crud.DataSupport;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
     private user user_now;
+    private String myPhone;
+
+    Connection con;
+    ResultSet rs;
 
     private static List<user> userList1 = new ArrayList<>();
     private static List<user> userList2 = new ArrayList<>();
@@ -34,10 +43,35 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //接受user
-        user_now = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user_now.getMyName();
-        Log.d("Explore_WeeklyTalent",myName);
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user_now = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,17 +81,17 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Explore_WeeklyTalentActivity.this, Task_HomeActivity.class);
-                        intent1.putExtra("user_now", user_now);
+                        intent1.putExtra("user_phone", myPhone);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(Explore_WeeklyTalentActivity.this, ExploreActivity.class);
-                        intent3.putExtra("user_now", user_now);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(Explore_WeeklyTalentActivity.this, My_HomeActivity.class);
-                        intent2.putExtra("user_now", user_now);
+                        intent2.putExtra("user_phone", myPhone);
                         startActivity(intent2);
                         break;
                 }
@@ -65,12 +99,78 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: 获得taskRNum_errand最多的三个用户，放入userList1
-        userList1= DataSupport.order("taskRNum_errand desc").limit(3).find(user.class);
-        //TODO：获得taskRNum_skill最多的三个用户,放入userList2
-        userList2= DataSupport.order("taskRNum_skill desc").limit(3).find(user.class);
-        //TODO：获得taskRNum_counsel最多的三个用户,放入userList3
-        userList3= DataSupport.order("taskRNum_counsel desc").limit(3).find(user.class);
+
+
+        //TODO: 获得taskLNum最多的三个用户，放入userList1
+        try{
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+
+            rs= st.executeQuery("SELECT * from `user` order by `taskLNum` desc limit 3");
+
+            List<user> sampleList = new ArrayList<>(); //清空taskList
+
+            List list = DbUtils.populate(rs,user.class);
+            for(int i = 0; i < list.size(); i++){
+                sampleList.add((user)list.get(i));
+            }
+
+            userList1 = sampleList;
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //TODO：获得taskRNum最多的三个用户,放入userList2
+        try{
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+
+            rs= st.executeQuery("SELECT * from `user` order by `taskRNum` desc limit 3");
+
+            List<user> sampleList = new ArrayList<>(); //清空taskList
+
+            List list = DbUtils.populate(rs,user.class);
+            for(int i = 0; i < list.size(); i++){
+                sampleList.add((user)list.get(i));
+            }
+
+            userList2 = sampleList;
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //TODO：获得credit最多的三个用户,放入userList3
+
+        try{
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+
+            rs= st.executeQuery("SELECT * from `user` order by `credit` desc limit 3");
+
+            List<user> sampleList = new ArrayList<>(); //清空taskList
+
+            List list = DbUtils.populate(rs,user.class);
+            for(int i = 0; i < list.size(); i++){
+                sampleList.add((user)list.get(i));
+            }
+
+            userList3 = sampleList;
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         android.support.v7.widget.CardView card1 = findViewById(R.id.wt1_card1);
         card1.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +181,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -96,7 +196,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -111,7 +211,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -126,7 +226,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -141,7 +241,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -156,7 +256,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -171,7 +271,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -186,7 +286,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-                    intent.putExtra("user_now", user_now);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
                 }
             }
@@ -355,7 +455,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(Explore_WeeklyTalentActivity.this, ExploreActivity.class);
-        intent.putExtra("user_now",user_now);
+        intent.putExtra("user_phone", myPhone);
         startActivity(intent);
         finish();
     }

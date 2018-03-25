@@ -2,6 +2,7 @@ package com.example.sufehelperapp;
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
@@ -19,6 +20,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.litepal.LitePalApplication.getContext;
 
 public class My_HomeActivity extends AppCompatActivity {
@@ -28,7 +36,10 @@ public class My_HomeActivity extends AppCompatActivity {
     private int MsgCount;
     private ImageView reddot;
 
-    //接受user
+    private String myPhone;
+    Connection con;
+    ResultSet rs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +50,43 @@ public class My_HomeActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        user1 = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("My_HomeActivity",user1.getMyName());
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
 
-        Log.d("My_HomeActivity:msg",String.valueOf(user1.getMsg()));
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user1 = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         bar_num = (TextView) findViewById(R.id.bar_num);
         reddot = findViewById(R.id.reddot);
         //TODO：获得Msg
-        MsgCount = user1.getMsg();
-        setMessageCount(MsgCount);
+        //MsgCount = user1.getMsg();
+        //setMessageCount(MsgCount);
 
+        /*
         ImageButton mailbox = findViewById(R.id.bar_iv);
         mailbox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,10 +96,10 @@ public class My_HomeActivity extends AppCompatActivity {
                 user1.updateAll("phonenumber = ? and myName = ?",user1.getPhonenumber(),
                         user1.getMyName());
                 Intent intent = new Intent(My_HomeActivity.this, Mailbox.class);
-                intent.putExtra("user_now", user1);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
-        });
+        });*/
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -72,12 +109,12 @@ public class My_HomeActivity extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(My_HomeActivity.this, Task_HomeActivity.class);
-                        intent1.putExtra("user_now", user1);
+                        intent1.putExtra("user_phone", myPhone);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(My_HomeActivity.this, ExploreActivity.class);
-                        intent3.putExtra("user_now", user1);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
@@ -102,7 +139,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this, MyActivity_Setup.class);
-                intent.putExtra("user_now", user1);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });
@@ -111,7 +148,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this, MyActivity_Mytask.class);
-                intent.putExtra("user_now", user1);
+                intent.putExtra("user_phone", myPhone);
                 intent.putExtra("tabNum", 0);
                 startActivity(intent);
             }
@@ -121,7 +158,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this, MyActivity_Vip.class);
-                intent.putExtra("user_now", user1);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });
@@ -138,7 +175,7 @@ public class My_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(My_HomeActivity.this,  MyActivity_credit.class);
-                intent.putExtra("user_now", user1);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });

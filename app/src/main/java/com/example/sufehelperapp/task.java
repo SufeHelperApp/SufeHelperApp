@@ -119,6 +119,18 @@ public class task extends DataSupport implements Serializable{
         else{taskType = "咨询";}
     }
 
+    public static String setTaskType1(String subtaskType){
+        if(subtaskType.contentEquals("占座") || subtaskType.contentEquals("拿快递")
+                ||subtaskType.contentEquals("买饭") ||subtaskType.contentEquals("买东西")
+                || subtaskType.contentEquals("拼单"))
+        {return "跑腿";}
+        else if(subtaskType.contentEquals("电子产品修理") || subtaskType.contentEquals("家具器件组装")
+                ||subtaskType.contentEquals("学习作业辅导") || subtaskType.contentEquals("技能培训")
+                || subtaskType.contentEquals("找同好"))
+        {return "技能";}
+        else{return"咨询";}
+    }
+
 
 
     //函数：检查任务状态
@@ -155,6 +167,7 @@ public class task extends DataSupport implements Serializable{
 
 
     public static void updateAllTaskStatus() {
+
         List<task> taskAllList = DataSupport.where("ifShutDown = ?","0").find(task.class);
         for (task task : taskAllList) {
             if (task.getProgress() < 3) {
@@ -483,6 +496,10 @@ public class task extends DataSupport implements Serializable{
     }
 
     public String getDdl(){return ddl;}
+
+    public static String setDdl(String d1,String d2){
+        return (d1 + " " + d2); //ddl:2018/12/31 17:00
+    }
 
     public void setDdl(){
         this.ddl = ddlDate + " " + ddlTime; //ddl:2018/12/31 17:00

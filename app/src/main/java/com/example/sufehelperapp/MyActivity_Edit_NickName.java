@@ -2,6 +2,7 @@ package com.example.sufehelperapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +15,20 @@ import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_Edit_NickName extends AppCompatActivity {
 
     private user user;
+    private String myPhone;
+
+    Connection con;
+    ResultSet rs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +39,35 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("MyActivity_Setup_Edit",user.getMyName());
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
 
         Button button1 = (Button) findViewById(R.id.title_back);
@@ -39,7 +75,7 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Edit_NickName.this, MyActivity_Setup_Edit.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });
@@ -52,31 +88,52 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
 
                 String newName = nameView.getText().toString();
 
-                List<user> userWithName = DataSupport.where("myName = ?", newName).find(user.class);
-                if (!userWithName.isEmpty()) {
-                    Toast.makeText(MyActivity_Edit_NickName.this, "该用户名已被注册！", Toast.LENGTH_SHORT).show();
-                } else {
+                try{
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
 
-                    //TODO: 设置当前用户的myName为newName
-                    user.setMyName(newName);
-                    user.updateAll("phonenumber = ?", user.getPhonenumber());
+                    con = DbUtils.getConn();
+                    Statement st1 = con.createStatement();
+                    rs= st1.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+newName+"'");
 
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_NickName.this);
-                    dialog.setTitle("提示");
-                    dialog.setMessage("昵称修改成功！");
-                    //dialog.setCancelable(false);
-                    dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                            Intent intent = new Intent(MyActivity_Edit_NickName.this, MyActivity_Setup_Edit.class);
-                            intent.putExtra("user_now", user);
-                            startActivity(intent);
-                        }
-                    });
-                    dialog.show();
+                    List list = DbUtils.populate(rs,user.class);
 
+                    if (!list.isEmpty()) {
+                        Toast.makeText(MyActivity_Edit_NickName.this, "用户名已被注册！",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    if(list.isEmpty() && !newName.isEmpty()){
+
+                        //TODO: 将newName存入当前用户
+                        Statement st2 = con.createStatement();
+                        st2.executeUpdate("UPDATE `user` SET `myName` = '"+newName+"' WHERE `phonenumber` = '"+myPhone+"'");
+
+
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Edit_NickName.this);
+                        dialog.setTitle("提示");
+                        dialog.setMessage("昵称修改成功！");
+                        //dialog.setCancelable(false);
+                        dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                                Intent intent = new Intent(MyActivity_Edit_NickName.this, MyActivity_Setup_Edit.class);
+                                intent.putExtra("user_phone", myPhone);
+                                startActivity(intent);
+                            }
+                        });
+                        dialog.show();
+                    }
+
+                    con.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
         });
     }
@@ -84,7 +141,7 @@ public class MyActivity_Edit_NickName extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(MyActivity_Edit_NickName.this, MyActivity_Setup_Edit.class);
-        intent.putExtra("user_now",user);
+        intent.putExtra("user_phone", myPhone);
         startActivity(intent);
         finish();
     }

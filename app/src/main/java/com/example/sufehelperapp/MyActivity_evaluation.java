@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,11 @@ import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_evaluation extends AppCompatActivity {
@@ -27,6 +33,11 @@ public class MyActivity_evaluation extends AppCompatActivity {
     private task task;
     private int num;
 
+    private String myPhone;
+
+    Connection con;
+    ResultSet rs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +47,35 @@ public class MyActivity_evaluation extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
-        Log.d("evaluation",myName);
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         task = (task) getIntent().getSerializableExtra("task_selected");
         //TODO:获得MyActivity_Task_Details中传入的task
@@ -52,7 +88,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 intent.putExtra("task_selected",task);
                 intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
                 intent.putExtra("num",num);
@@ -105,8 +141,45 @@ public class MyActivity_evaluation extends AppCompatActivity {
                 dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) { //progress5
+                        String finishtime = TimeUtils.getNowTime();
+
+                        try{
+                            StrictMode.ThreadPolicy policy =
+                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+
+                            con = DbUtils.getConn();
+
+                            Statement st = con.createStatement();
+
+                            rs = st.executeQuery("SELECT * FROM `task` WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'");
+
+                            while (rs.next()) {
+
+                                String sql1 = "UPDATE `task` SET `score`= '"+ratingBar.getRating()+"' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
+                                st.executeUpdate(sql1);
+                                String sql2 = "UPDATE `task` SET `progress= '5' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
+                                st.executeUpdate(sql2);
+                                String sql3 = "UPDATE `task` SET `StatusText= '任务已结束' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
+                                st.executeUpdate(sql3);
+                                String sql4 = "UPDATE `task` SET `finishtime= '"+finishtime+"' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
+                                st.executeUpdate(sql4);
+
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }finally {
+                            if (con != null)
+                                try {
+                                    con.close();
+                                } catch (SQLException e) {
+                                }
+
+                        }
 
                         //TODO：设置task的一系列参数
+                        /*
                         task.setScore(ratingBar.getRating());
                         task.setProgress(5);
                         task.setFinishtime(); //任务结束
@@ -131,10 +204,10 @@ public class MyActivity_evaluation extends AppCompatActivity {
                                     +" "+String.valueOf(helper.getMsg())+" "+String.valueOf(helper.
                                     getMsgTaskList().size()));
                         }
-                        helper.updateAll("phonenumber = ?",helper.getPhonenumber());
+                        helper.updateAll("phonenumber = ?",helper.getPhonenumber()); */
 
                         Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
-                        intent.putExtra("user_now", user);
+                        intent.putExtra("user_phone", myPhone);
                         intent.putExtra("task_selected",task);
                         intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
                         intent.putExtra("num",num);

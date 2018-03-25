@@ -24,6 +24,8 @@ public class user extends DataSupport implements Serializable {
     //个性信息
     private String dormArea; //寝室校区（注册3）
     private String dormitoryLocation; //寝室名（注册3）
+    private String demandString;
+    private String specialtyString;
     private List<String> demand;
     private List<String> specialty;
 
@@ -77,11 +79,13 @@ public class user extends DataSupport implements Serializable {
 
     //达人信息
     private boolean ifTalent;
+    private String talentTitlesString;
     private List<String> talentTitles = new ArrayList<>();
     //private int invitedTimes;  //被邀请多少次
 
     //消息
     private int msg=0;
+    private String msgTaskListString;
     private List<String> msgTaskList = new ArrayList<>();
 
     public void updateTalentTitles(){
@@ -301,7 +305,17 @@ public class user extends DataSupport implements Serializable {
         return specialty;
     }
 
+    public void setDemandString(String d){this.demandString = d;}
 
+    public void setSpecialtyString(String s){this.specialtyString = s;}
+
+    public String getDemandString(){return demandString;}
+
+    public String getSpecialtyString(){return specialtyString;}
+
+    public void setTalentTitlesString(String d){this.talentTitlesString = d;}
+
+    public String getTalentTitlesString(){return this.talentTitlesString;}
 
 
     //函数：增减任务数量

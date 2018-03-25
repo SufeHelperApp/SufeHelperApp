@@ -1,6 +1,7 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -14,15 +15,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Task_HomeActivity extends AppCompatActivity {
 
-    //private user user;
+    private user user;
+    private String myPhone;
+
+    Connection con;
+    ResultSet rs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +38,35 @@ public class Task_HomeActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //接收user
-        //user = (user) getIntent().getSerializableExtra("user_now");
-        //Log.d("Task_HomeActivity:",user.getMyName());
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -44,12 +77,12 @@ public class Task_HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.item_explore:
                         Intent intent2 = new Intent(Task_HomeActivity.this, ExploreActivity.class);
-                        //intent2.putExtra("user_now", user);
+                        intent2.putExtra("user_phone", myPhone);
                         startActivity(intent2);
                         break;
                     case R.id.item_my:
                         Intent intent3 = new Intent(Task_HomeActivity.this, My_HomeActivity.class);
-                        //intent3.putExtra("user_now", user);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                 }
@@ -82,7 +115,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(Task_HomeActivity.this,Task_ErrandActivity.class);
-                //intent1.putExtra("user_now", user);
+                intent1.putExtra("user_phone", myPhone);
                 startActivity(intent1);
             }
         });
@@ -91,7 +124,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent2 = new Intent(Task_HomeActivity.this, Task_SkillActivity.class);
-                //intent2.putExtra("user_now", user);
+                intent2.putExtra("user_phone", myPhone);
                 startActivity(intent2);
             }
         });
@@ -100,7 +133,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent3 = new Intent(Task_HomeActivity.this, Task_CounselActivity.class);
-                //intent3.putExtra("user_now", user);
+                intent3.putExtra("user_phone", myPhone);
                 startActivity(intent3);
             }
         });
@@ -109,7 +142,7 @@ public class Task_HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent4 = new Intent(Task_HomeActivity.this, Task_LaunchActivity.class);
-                //intent4.putExtra("user_now", user);
+                intent4.putExtra("user_phone", myPhone);
                 startActivity(intent4);
 
 

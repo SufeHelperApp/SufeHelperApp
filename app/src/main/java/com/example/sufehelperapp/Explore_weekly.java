@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +24,10 @@ import android.widget.Toast;
 
 import org.litepal.crud.DataSupport;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -52,6 +57,9 @@ import lecho.lib.hellocharts.view.LineChartView;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class Explore_weekly extends AppCompatActivity {
+    private String myPhone;
+    Connection con;
+    ResultSet rs;
     private user user;
     private ComboLineColumnChartView comboChart;
     private int[] taskNum = {0,0,0,0};
@@ -101,9 +109,35 @@ public class Explore_weekly extends AppCompatActivity {
             actionBar.hide();
         }
 
-        user = (user) getIntent().getSerializableExtra("user_now");
-        String myName = user.getMyName();
-        Log.d("Explore_weekly", myName);
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
         getLaunchAndPay();
         getReceiveAndEarn();
@@ -134,17 +168,17 @@ public class Explore_weekly extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(Explore_weekly.this, Task_HomeActivity.class);
-                        intent1.putExtra("user_now", user);
+                        intent1.putExtra("user_phone", myPhone);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(Explore_weekly.this, ExploreActivity.class);
-                        intent3.putExtra("user_now", user);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(Explore_weekly.this, My_HomeActivity.class);
-                        intent2.putExtra("user_now", user);
+                        intent2.putExtra("user_phone", myPhone);
                         startActivity(intent2);
                         break;
                 }
@@ -160,7 +194,7 @@ public class Explore_weekly extends AppCompatActivity {
             @Override
             public void onClick (View view){
                 Intent intent = new Intent(Explore_weekly.this, ExploreActivity.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });
@@ -412,7 +446,32 @@ public class Explore_weekly extends AppCompatActivity {
 //TODO:数据库调用：调出当前用户所发布的所有任务
 
     private void getLaunchAndPay(){
-        List<task>taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
+        //List<task>taskList = DataSupport.where("launcherName = ?",user.getMyName()).find(task.class);
+
+        List<task>taskList = new ArrayList<>();
+
+        try{
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+
+            rs= st.executeQuery("SELECT * FROM `task` WHERE `launcherName` = '"+user.getMyName()+"'");
+
+            List<task> sampleList = new ArrayList<>(); //清空taskList
+
+            List list = DbUtils.populate(rs,task.class);
+            for(int i = 0; i < list.size(); i++){
+                sampleList.add((task)list.get(i));
+            }
+
+            taskList = sampleList;
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if(!taskList.isEmpty()){
             for(task task:taskList){
                 if(TimeUtils.WithinOneWeek(task.getLaunchtime())){
@@ -456,7 +515,33 @@ public class Explore_weekly extends AppCompatActivity {
 
     private void getReceiveAndEarn(){
 
-        List<task>taskList = DataSupport.where("helperName = ?",user.getMyName()).find(task.class);
+        //List<task>taskList = DataSupport.where("helperName = ?",user.getMyName()).find(task.class);
+
+        List<task>taskList = new ArrayList<>();
+
+        try{
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+
+            rs= st.executeQuery("SELECT * FROM `task` WHERE `helperName` = '"+user.getMyName()+"'");
+
+            List<task> sampleList = new ArrayList<>(); //清空taskList
+
+            List list = DbUtils.populate(rs,task.class);
+            for(int i = 0; i < list.size(); i++){
+                sampleList.add((task)list.get(i));
+            }
+
+            taskList = sampleList;
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         if(!taskList.isEmpty()){
             for(task task:taskList){
                 if(TimeUtils.WithinOneWeek(task.getLaunchtime())){

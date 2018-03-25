@@ -1,6 +1,7 @@
 package com.example.sufehelperapp;
 
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
@@ -15,10 +16,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageButton;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyActivity_Mytask extends AppCompatActivity {
+
+    private String myPhone;
+
+    Connection con;
+    ResultSet rs;
 
     private user user;
     private Bundle bundle;
@@ -53,10 +63,35 @@ public class MyActivity_Mytask extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接受user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        tabNum = getIntent().getIntExtra("tabNum",0);
-        Log.d("Mytask",user.getMyName());
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
@@ -67,17 +102,17 @@ public class MyActivity_Mytask extends AppCompatActivity {
                 {
                     case R.id.item_task:
                         Intent intent1 = new Intent(MyActivity_Mytask.this, Task_HomeActivity.class);
-                        intent1.putExtra("user_now", user);
+                        intent1.putExtra("user_phone", myPhone);
                         startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(MyActivity_Mytask.this, ExploreActivity.class);
-                        intent3.putExtra("user_now", user);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(MyActivity_Mytask.this, My_HomeActivity.class);
-                        intent2.putExtra("user_now", user);
+                        intent2.putExtra("user_phone", myPhone);
                         startActivity(intent2);
                         break;
                 }
@@ -89,7 +124,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
 
         //bundle用于传当前user
         bundle = new Bundle();
-        bundle.putSerializable("user_now",user);//将nameinfo填充入句柄
+        bundle.putString("user_phone", myPhone);//将nameinfo填充入句柄
 
 
         Button button1 = (Button) findViewById(R.id.title_back);
@@ -97,7 +132,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Mytask.this, My_HomeActivity.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });
@@ -107,7 +142,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Mytask.this, MyActivity_Historical_Task.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 intent.putExtra("tabNum", 0);
                 startActivity(intent);
             }
@@ -176,7 +211,7 @@ public class MyActivity_Mytask extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(MyActivity_Mytask.this, My_HomeActivity.class);
-        intent.putExtra("user_now",user);
+        intent.putExtra("user_phone", myPhone);
         startActivity(intent);
         finish();
     }

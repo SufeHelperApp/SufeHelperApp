@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -38,18 +39,29 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 public class My_RegisterSecondActivity extends AppCompatActivity {
 
+    private String myPhone;
+
     private user user;
+
     private RadioGroup rg;
     private RadioButton rb_Male;
     private RadioButton rb_Female;
     String sex;
+
+    Connection con;
+    ResultSet rs;
 
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
@@ -91,10 +103,38 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 }
             }
         });
-        //从My_RegisterFirstActivity获取user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        final String myPhone = user.getPhonenumber();
+
+        //从My_RegisterFirstActivity获取user phone
+        myPhone = getIntent().getStringExtra("user_phone");
         Log.d("RegisterSecondActivity",myPhone);
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
+
 
         //点击“确认”按钮
         Button button2 = (Button) findViewById(R.id.button_8);
@@ -121,38 +161,42 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     Toast.makeText(My_RegisterSecondActivity.this, "性别不得为空！", Toast.LENGTH_SHORT).show();
                 }
 
-                List<user> userWithName = DataSupport.where("myName = ?",name).find(user.class);
-                if(!userWithName.isEmpty()){
-                    Toast.makeText(My_RegisterSecondActivity.this, "用户名已被注册！", Toast.LENGTH_SHORT).show();
-                }
+                try{
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
 
+                    con = DbUtils.getConn();
+                    Statement st1 = con.createStatement();
+                    rs= st1.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+name+"'");
 
-                if(userWithName.isEmpty() && !name.isEmpty() && !password.isEmpty() && !sex.isEmpty()){
+                    List list = DbUtils.populate(rs,user.class);
 
-                    //TODO: 将sex存入当前用户
-                    user.setSex(sex);
-                    Log.d("sex",user.getSex());
-
-                    Random random = new Random();
-                    int index = random.nextInt(5);
-
-                    switch(index){
-                        case 0:user.setMyImageId(R.drawable.df1);break;
-                        case 1:user.setMyImageId(R.drawable.df2);break;
-                        case 2:user.setMyImageId(R.drawable.df3);break;
-                        case 3:user.setMyImageId(R.drawable.df4);break;
-                        case 4:user.setMyImageId(R.drawable.df5);break;
+                    if (!list.isEmpty()) {
+                        Toast.makeText(My_RegisterSecondActivity.this, "用户名已被注册！",
+                                Toast.LENGTH_SHORT).show();
                     }
 
-                    //TODO: 将name存入当前用户
-                    user.setMyName(name);
-                    //TODO: 将password存入当前用户
-                    user.setPassword(password);
-                    user.updateAll("phonenumber = ?",user.getPhonenumber());
+
+
+                if(list.isEmpty() && !name.isEmpty() && !password.isEmpty() && !sex.isEmpty()){
+
+                    //TODO: 将sex存入当前用户
+                    Statement st2 = con.createStatement();
+                    st2.executeUpdate("UPDATE `user` SET `myName` = '"+name+"' WHERE `phonenumber` = '"+myPhone+"'");
+                    st2.executeUpdate("UPDATE `user` SET `sex` = '"+sex+"' WHERE `phonenumber` = '"+myPhone+"'");
+                    st2.executeUpdate("UPDATE `user` SET `password` = '"+password+"' WHERE `phonenumber` = '"+myPhone+"'");
+
 
                     Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
-                    intent.putExtra("user_now", user);
+                    intent.putExtra("user_phone", myPhone);
                     startActivity(intent);
+                }
+
+                    con.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
 

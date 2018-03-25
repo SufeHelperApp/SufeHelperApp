@@ -2,6 +2,7 @@ package com.example.sufehelperapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MyActivity_Edit_dormname extends AppCompatActivity {
 
     private user user;
+
+    private String myPhone;
+
+    Connection con;
+    ResultSet rs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +38,35 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
             actionBar.hide();
         }
 
-        //接收user
-        user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("Edit_dormname",user.getMyName());
+        //user
+        myPhone = getIntent().getStringExtra("user_phone");
+
+        try{
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            Statement st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs,user.class);
+            for(int i=0; i<list.size(); i++){
+                userList.add((user)list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
 
 
         Button button1 = (Button) findViewById(R.id.title_back);
@@ -35,7 +74,7 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MyActivity_Edit_dormname.this, MyActivity_Setup_Edit.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
         });
@@ -61,7 +100,7 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
                                 Intent intent = new Intent(MyActivity_Edit_dormname.this, MyActivity_Setup_Edit.class);
-                                intent.putExtra("user_now", user);
+                                intent.putExtra("user_phone", myPhone);
                                 startActivity(intent);
                             }
                         });
@@ -77,7 +116,7 @@ public class MyActivity_Edit_dormname extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(MyActivity_Edit_dormname.this, MyActivity_Setup_Edit.class);
-        intent.putExtra("user_now",user);
+        intent.putExtra("user_phone", myPhone);
         startActivity(intent);
         finish();
     }

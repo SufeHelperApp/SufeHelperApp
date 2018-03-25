@@ -27,6 +27,7 @@ public class My_LoginSecondActivity extends AppCompatActivity {
 
     private Connection con;
     private ResultSet rs;
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,22 +73,27 @@ public class My_LoginSecondActivity extends AppCompatActivity {
 
                         con = DbUtils.getConn();
                         Statement st = con.createStatement();
-                        rs= st.executeQuery("SELECT * FROM `user` WHERE `name` = '"+name+"' AND `pass` = '"+password+"'");
+                        rs= st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+name+"' AND `password` = '"+password+"'");
+                        List list = DbUtils.populate(rs,user.class);
 
-                        if (rs.wasNull()){
+                        if (list.isEmpty()){
                             Toast.makeText(My_LoginSecondActivity.this, "用户名或密码错误！",
                                 Toast.LENGTH_SHORT).show();
                         }else {
 
-                            String result = "";
-                            while (rs.next()) {
-                                result += rs.getString(1);
+                            try {
+
+                                user = (user)list.get(0);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
 
-                            String userName = result;
+                            String userName = user.getMyName();
                             String txt = "欢迎回来, "+userName+"!";
 
                             Intent intent = new Intent(My_LoginSecondActivity.this, Task_HomeActivity.class);
+                            intent.putExtra("user_phone",user.getPhonenumber());
                             startActivity(intent);
                             Toast.makeText(My_LoginSecondActivity.this,txt,
                                     Toast.LENGTH_SHORT).show();
