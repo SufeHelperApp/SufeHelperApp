@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -26,6 +27,7 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.lljjcoder.citypickerview.widget.CityPickerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,25 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_my_register_third);
 
+        CityPickerView cityPickerView = new CityPickerView(My_RegisterThirdActivity.this);
+        cityPickerView.setOnCityItemClickListener(new CityPickerView.OnCityItemClickListener() {
+            @Override
+            public void onSelected(String... citySelected) {
+//省份
+                String province = citySelected[0];
+//城市
+                String city = citySelected[1];
+//区县
+                String district = citySelected[2];
+//邮编
+                String code = citySelected[3];
+            }
+        });
+        cityPickerView.setTextColor(Color.BLUE);//新增文字颜色修改
+        cityPickerView.setTextSize(20);//新增文字大小修改
+        cityPickerView.setVisibleItems(5);//新增滚轮内容可见数量
+        cityPickerView.setIsCyclic(true);//滚轮是否循环滚动
+        cityPickerView.show();
         user = (user) getIntent().getSerializableExtra("user_now");
         Log.d("RegisterThirdActivity",user.getMyName());
 

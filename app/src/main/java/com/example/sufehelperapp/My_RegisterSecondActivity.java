@@ -150,7 +150,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     user.setPassword(password);
                     user.updateAll("phonenumber = ?",user.getPhonenumber());
 
-                    Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
+                    Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterForthActivity.class);
                     intent.putExtra("user_now", user);
                     startActivity(intent);
                 }

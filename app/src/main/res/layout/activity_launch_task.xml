@@ -39,7 +39,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:textSize="35sp"
-        android:text="SufeHelper"
+        android:text="iTask"
         android:textColor="@color/colorPrimaryDark"
         android:fontFamily="cursive"/>
 
@@ -130,7 +130,7 @@
                 android:textSize="17sp"/>
 
             <TextView
-                android:id="@+id/tasklaunch_title_location"
+                android:id="@+id/tasklaunch_title_coordinator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tasklaunch_title_time"
@@ -139,39 +139,9 @@
                 android:text="地点："
                 android:textSize="22sp"/>
 
-            <Spinner
-                android:id="@+id/spinner_areas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tasklaunch_title_time"
-                android:layout_marginTop="12dp"
-                android:layout_toEndOf="@id/tasklaunch_title_location"
-                android:layout_marginEnd="20dp"
-                android:entries="@array/area">
-            </Spinner>
-
-            <EditText
-                android:id="@+id/launch_location"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tasklaunch_title_time"
-                android:layout_marginStart="190dp"
-                android:hint=" 二教101"
-                android:maxLines="4"/>
-
-            <TextView
-                android:id="@+id/tasklaunch_title_coordinator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tasklaunch_title_location"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:text="坐标："
-                android:textSize="22sp"/>
-
             <EditText
                 android:id="@+id/launch_coodinator"
-                android:layout_below="@id/tasklaunch_title_location"
+                android:layout_below="@id/tasklaunch_title_time"
                 android:layout_toEndOf="@id/tasklaunch_title_coordinator"
                 android:layout_marginEnd="20dp"
                 android:layout_width="120dp"
@@ -182,7 +152,7 @@
                 android:id="@+id/launch_location_coordinator"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
-                android:layout_below="@+id/tasklaunch_title_location"
+                android:layout_below="@+id/tasklaunch_title_time"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="38dp"
                 android:layout_toEndOf="@+id/textView"
@@ -233,6 +203,8 @@
                 android:id="@+id/launch_description"
                 android:layout_below="@id/tasklaunch_title_description"
                 android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_height="wrap_content"
                 android:hint=" 输入必要的任务细节"
                 android:maxLines="5"
