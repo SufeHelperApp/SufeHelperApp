@@ -16,7 +16,7 @@
             android:id="@+id/ic_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/icon_image_left"/>
+            android:src="@drawable/ic_back"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
