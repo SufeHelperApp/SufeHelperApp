@@ -281,7 +281,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                         con = DbUtils.getConn();
 
-                        String sql = "INSERT INTO `task`(`launcherName`, `launcherPhoneNumber`, `subtaskType`, `taskType`, `ddlDate`, `ddlTime`, `ddl`, `area`, `location`, `payment`, `description`, `ifDisplayable`, `helperName`, `ifAccepted`, `ifOutdated`, `ifDefault`, `ifShutDown`, `progress`, `StatusText`, `launchtime`, `preciseLaunchTime`, `accepttime`, `achievetime`, `paytime`, `finishtime`, `latitude`, `longtitude`, `score`) VALUES ('"+user.getMyName()+"','"+user.getPhonenumber()+"','"+subtaskType+"','"+taskType+"','"+date+"','"+time+"','"+ddl+"','"+area+"','"+location+"','"+payment+"','"+description+"','1','','0','0','0','0','1','待接收','"+launchtime+"','"+precisetime+"','','','','','0','0','0')";
+                        String sql = "INSERT INTO `task`(`launcherName`, `launcherPhoneNumber`, `subtaskType`, `taskType`, `ddlDate`, `ddlTime`, `ddl`, `area`, `location`, `payment`, `description`, `ifDisplayable`, `helperName`, `ifAccepted`, `ifOutdated`, `ifDefault`, `ifShutDown`, `progress`, `StatusText`, `launchtime`, `preciseLaunchTime`, `accepttime`, `achievetime`, `paytime`, `finishtime`, `latitude`, `longtitude`, `score`) VALUES ('"+user.getMyName()+"','"+user.getPhonenumber()+"','"+subtaskType+"','"+taskType+"','"+date+"','"+time+"','"+ddl+"','','"+location+"','"+payment+"','"+description+"','1','','0','0','0','0','1','待接收','"+launchtime+"','"+precisetime+"','','','','','0','0','0')";
                         Statement st = con.createStatement();
                         st.executeUpdate(sql);
 
