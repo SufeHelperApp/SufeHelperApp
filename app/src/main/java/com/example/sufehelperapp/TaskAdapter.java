@@ -81,31 +81,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                 task task = mTaskList.get(position);
                 if(num == 1) {
                     Intent intent = new Intent(mContext, Task_InfoActivity.class);
-                    intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
+                    intent.putExtra("task_selected", task);
                     intent.putExtra("num",1);
                     intent.putExtra("user_phone", user.getPhonenumber());//传送user
                     mContext.startActivity(intent);
                 }else if (num == 2){
                     Intent intent = new Intent(mContext, MyActivity_Task_Details.class);
-                    intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
+                    intent.putExtra("task_selected",task);
                     intent.putExtra("num",2); //我的任务-当前
                     intent.putExtra("user_phone", user.getPhonenumber());//传送user
                     mContext.startActivity(intent);
                 }else if (num == 3){
                     Intent intent = new Intent(mContext, MyActivity_Task_Details.class);
-                    intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
+                    intent.putExtra("task_selected",task);
                     intent.putExtra("num",3); //我的任务-历史
                     intent.putExtra("user_phone", user.getPhonenumber());//传送user
                     mContext.startActivity(intent);
                 }else if (num == 4){
                     Intent intent = new Intent(mContext, MyActivity_Task_Details.class);
-                    intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
+                    intent.putExtra("task_selected",task);
                     intent.putExtra("num",4); //我的违约
                     intent.putExtra("user_phone", user.getPhonenumber());//传送user
                     mContext.startActivity(intent);
                 }else if (num == 5){
                     Intent intent = new Intent(mContext, MyActivity_Task_Details.class);
-                    intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
+                    intent.putExtra("task_selected",task);
                     intent.putExtra("num",5); //信箱
                     intent.putExtra("user_phone", user.getPhonenumber());//传送user
                     mContext.startActivity(intent);

@@ -15,6 +15,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+
 import org.litepal.crud.DataSupport;
 
 import java.sql.Connection;
@@ -40,7 +44,6 @@ public class Selection1 extends AppCompatActivity {
     private int num = 0;
 
     private String subtaskType;
-    private String area;
     private String payment;
 
     private int position1=0;
@@ -50,6 +53,20 @@ public class Selection1 extends AppCompatActivity {
 
     private String pay1string = "0";
     private String pay2string = "10000";
+
+    private LocationClient locationClient = new LocationClient(this);
+    private double latNow = 31.2459531645; //TODO
+    private double lngNow = 121.5059477735; //TODO
+
+    public void requestLocation() {
+        locationClient.registerLocationListener(new BDLocationListener() {
+            @Override
+            public void onReceiveLocation(final BDLocation location) {
+                latNow = location.getLatitude();
+                lngNow = location.getLongitude();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,8 +136,7 @@ public class Selection1 extends AppCompatActivity {
         final Spinner subtaskView = (Spinner) findViewById(R.id.selection_subtask);
         final String[] subtaskTypes = getResources().getStringArray(R.array.subtasks_errand);
 
-        final Spinner areaView = (Spinner) findViewById(R.id.selection_area);
-        final String[] areas = getResources().getStringArray(R.array.areas);
+        final Spinner distView = (Spinner) findViewById(R.id.selection_area);
 
         final Spinner paymentView = (Spinner) findViewById(R.id.selection_payment);
         final String[] payments = getResources().getStringArray(R.array.payments);
@@ -129,16 +145,13 @@ public class Selection1 extends AppCompatActivity {
         final String[] ddls = getResources().getStringArray(R.array.ddls);
 
 
-        updateAllTaskStatus();
+        StatusUtils.updateAllTaskStatus();
 
+        double dis = MapUtils.getDistance(latNow,lngNow,31.2454145690,121.5059477735);
+        Log.d("dis",String.valueOf(dis));
 
         if(num == 0 ) {
 
-            /*
-
-            taskList = DataSupport
-                    .where("taskType = ? and ifDisplayable = ?",
-                            "跑腿", "1").find(task.class);*/
 
             try{
 
@@ -186,14 +199,7 @@ public class Selection1 extends AppCompatActivity {
 
                 if(num!=0) {
 
-                    if (position1 == 0 && position2 == 0) {
-
-                        /*
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ?" +
-                                                " and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, "1")
-                                .find(task.class);*/
+                    if (position1 == 0) {
 
                         try{
 
@@ -220,15 +226,7 @@ public class Selection1 extends AppCompatActivity {
 
 
 
-                    } else if (position1 != 0 && position2 == 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, "1")
-                                .find(task.class);*/
+                    } else if (position1 != 0) {
 
                         try{
                             con = DbUtils.getConn();
@@ -254,76 +252,46 @@ public class Selection1 extends AppCompatActivity {
                         }
 
 
-
-                    } else if (position1 == 0 && position2 != 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, area, "1")
-                                .find(task.class);*/
-
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
-                            }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    } else if (position1 != 0 && position2 != 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? " +
-                                                "and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, area, "1")
-                                .find(task.class);*/
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `subtaskType` = '"+subtaskType+"' AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
-                            }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
                     }
+
+                    //check dist
+
+                    List<task> demand1;
+
+                    switch (position2) {
+                        case 0:
+                            break;
+                        case 1:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin500m(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
+                            }
+                            taskList = demand1;
+                            break;
+                        case 2:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin1km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
+                            }
+                            taskList = demand1;
+                            break;
+                        case 3:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin3km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
+                            }
+                            taskList = demand1;
+                            break;
+                    }
+
+                    //check ddl
 
                     List<task> demand;
 
@@ -391,24 +359,17 @@ public class Selection1 extends AppCompatActivity {
 
 
 
-        areaView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        distView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 position2 = position;
-                area = areas[position];
 
 
                 if(num!=0) {
 
 
-                    if (position1 == 0 && position2 == 0) {
+                    if (position1 == 0) {
 
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ? and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, "1")
-                                .find(task.class);*/
 
                         try{
 
@@ -433,15 +394,8 @@ public class Selection1 extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    } else if (position1 != 0 && position2 == 0) {
+                    } else if (position1 != 0) {
 
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, "1")
-                                .find(task.class);*/
 
                         try{
                             con = DbUtils.getConn();
@@ -466,74 +420,42 @@ public class Selection1 extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    } else if (position1 == 0 && position2 != 0) {
+                    }
 
-                        /*
+                    //check dist
 
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, area, "1")
-                                .find(task.class);*/
+                    List<task> demand1;
 
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
+                    switch (position2) {
+                        case 0:
+                            break;
+                        case 1:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin500m(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
                             }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    } else if (position1 != 0 && position2 != 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? " +
-                                                "and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, area, "1")
-                                .find(task.class);*/
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `subtaskType` = '"+subtaskType+"' AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
+                            taskList = demand1;
+                            break;
+                        case 2:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin1km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
                             }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
+                            taskList = demand1;
+                            break;
+                        case 3:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin3km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
+                            }
+                            taskList = demand1;
+                            break;
                     }
 
                     List<task> demand;
@@ -639,14 +561,7 @@ public class Selection1 extends AppCompatActivity {
 
                 if (num != 0) {
 
-                    if (position1 == 0 && position2 == 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ? and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, "1")
-                                .find(task.class);*/
+                    if (position1 == 0) {
 
                         try{
 
@@ -671,15 +586,8 @@ public class Selection1 extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    } else if (position1 != 0 && position2 == 0) {
+                    } else if (position1 != 0) {
 
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, "1")
-                                .find(task.class);*/
 
                         try{
                             con = DbUtils.getConn();
@@ -704,74 +612,42 @@ public class Selection1 extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    } else if (position1 == 0 && position2 != 0) {
+                    }
 
-                        /*
+                    //check dist
 
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, area, "1")
-                                .find(task.class);*/
+                    List<task> demand1;
 
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
+                    switch (position2) {
+                        case 0:
+                            break;
+                        case 1:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin500m(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
                             }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    } else if (position1 != 0 && position2 != 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? " +
-                                                "and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, area, "1")
-                                .find(task.class);*/
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `subtaskType` = '"+subtaskType+"' AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
+                            taskList = demand1;
+                            break;
+                        case 2:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin1km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
                             }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
+                            taskList = demand1;
+                            break;
+                        case 3:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin3km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
+                            }
+                            taskList = demand1;
+                            break;
                     }
 
                     List<task> demand;
@@ -850,14 +726,7 @@ public class Selection1 extends AppCompatActivity {
 
                 if(num!=0) {
 
-                    if (position1 == 0 && position2 == 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ? and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, "1")
-                                .find(task.class);*/
+                    if (position1 == 0) {
 
                         try{
 
@@ -882,15 +751,8 @@ public class Selection1 extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    } else if (position1 != 0 && position2 == 0) {
+                    } else if (position1 != 0) {
 
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? and payment <= ? " +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, "1")
-                                .find(task.class);*/
 
                         try{
                             con = DbUtils.getConn();
@@ -915,74 +777,42 @@ public class Selection1 extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    } else if (position1 == 0 && position2 != 0) {
+                    }
 
-                        /*
+                    //check dist
 
-                        taskList = DataSupport
-                                .where("taskType = ? and payment >= ? and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", pay1string, pay2string, area, "1")
-                                .find(task.class);*/
+                    List<task> demand1;
 
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
+                    switch (position2) {
+                        case 0:
+                            break;
+                        case 1:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin500m(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
                             }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    } else if (position1 != 0 && position2 != 0) {
-
-                        /*
-
-                        taskList = DataSupport
-                                .where("taskType = ? and subtaskType = ? and payment >= ? " +
-                                                "and payment <= ? and area = ?" +
-                                                "and ifDisplayable = ?",
-                                        "跑腿", subtaskType, pay1string, pay2string, area, "1")
-                                .find(task.class);*/
-                        try{
-
-                            con = DbUtils.getConn();
-                            st = con.createStatement();
-
-                            rs= st.executeQuery("SELECT * FROM `task` WHERE `taskType` = '跑腿' " +
-                                    " AND `subtaskType` = '"+subtaskType+"' AND `payment` >= '"+pay1string+"' AND `payment` <= '"+pay2string+"'" +
-                                    "  AND `area` = '"+area+"' AND `ifDisplayable` = '1'");
-
-                            List<task> sampleList = new ArrayList<>(); //清空taskList
-
-                            List list = DbUtils.populate(rs,task.class);
-                            for(int i = 0; i < list.size(); i++){
-                                sampleList.add((task)list.get(i));
+                            taskList = demand1;
+                            break;
+                        case 2:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin1km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
                             }
-
-                            taskList = sampleList;
-
-                            con.close();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
+                            taskList = demand1;
+                            break;
+                        case 3:
+                            demand1 = new ArrayList<>();
+                            for (task task : taskList) {
+                                if (MapUtils.isTaskWithin3km(latNow,lngNow,task.getLatitude(),task.getLongtitude())) {
+                                    demand1.add(task);
+                                }
+                            }
+                            taskList = demand1;
+                            break;
                     }
 
                     List<task> demand;
@@ -1076,195 +906,6 @@ public class Selection1 extends AppCompatActivity {
         finish();
     }
 
-
-    public void updateAllTaskStatus() {
-
-            List<task> taskAllList = new ArrayList<>();
-
-            try {
-                con = DbUtils.getConn(); //initialize connection
-                st = con.createStatement(); //initialize connection
-                rs = st.executeQuery("SELECT * FROM `task` WHERE `ifShutDown` = '0'");
-
-                List list = DbUtils.populate(rs, task.class);
-                for (int i = 0; i < list.size(); i++) {
-                    taskAllList.add((task) list.get(i));
-                }
-
-                Log.d("select:updateAllnum",String.valueOf(taskAllList.size()));
-
-                for (task task : taskAllList) {
-
-                    String id = task.getPreciseLaunchTime();
-
-                    if (task.getProgress() < 3) {
-                        if (TimeUtils.isDateOneBigger(TimeUtils.getNowTime(), task.getDdl())) {
-                            if (task.getIfAccepted()) {
-                                String sql ="UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '1' " +
-                                        ", `ifShutDown` = '1', `progress` = '7', `statusText` = '接受者违约' " +
-                                        "WHERE `preciseLaunchTime` = '"+id+"'";
-                                st.executeUpdate(sql);
-                            /*
-                            task.setIfDisplayable = false;
-                            task.ifOutdated = false;
-                            task.ifDefault = true;
-                            task.ifShutDown = true; //接收者未及时完成，关闭项目
-                            task.setProgress(7);
-                            task.updateStatusText();
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());
-                                    */
-
-                            /*
-
-                            //给发布者发一条消息
-                            List<user> launcherList = DataSupport.where("myName = ?", task.getLauncherName())
-                                    .find(user.class);
-                            user launcher = launcherList.get(0);
-                            if (!launcher.getMsgTaskList().contains(task)) {
-                                launcher.addMsg();
-                                launcher.addMsgTaskList(task.getPreciseLaunchTime());
-                                launcher.updateAll("phonenumber = ?", launcher.getPhonenumber());
-                                Log.d("违约->发布者", launcher.getMyName()
-                                        + " " + String.valueOf(launcher.getMsg()) + " " + String.valueOf(launcher.
-                                        getMsgTaskList().size()));
-                            }
-
-                            //给接收者发一条消息
-                            List<user> helperList = DataSupport.where("myName = ?", task.getHelperName())
-                                    .find(user.class);
-                            user helper = helperList.get(0);
-
-                            if (!helper.getMsgTaskList().contains(task)) {
-                                helper.addMsg();
-                                helper.addMsgTaskList(task.getPreciseLaunchTime());
-                                helper.updateAll("phonenumber = ?", helper.getPhonenumber());
-                                Log.d("违约->接收者", helper.getMyName()
-                                        + " " + String.valueOf(helper.getMsg()) + " " + String.valueOf(helper.
-                                        getMsgTaskList().size()));
-                            }
-
-                            */
-
-
-                            } else {
-                            /*
-                            task.ifDisplayable = false;
-                            task.ifOutdated = true;
-                            task.ifDefault = false;
-                            task.ifShutDown = true; //过期未接收，关闭项目
-                            task.setProgress(6);
-                            task.updateStatusText();
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());*/
-
-                                String sql ="UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '1' , `ifDefault` = '0' " +
-                                        ", `ifShutDown` = '1', `progress` = '6', `statusText` = '逾期未被接收' " +
-                                        "WHERE `preciseLaunchTime` = '"+id+"'";
-                                st.executeUpdate(sql);
-
-                            /*
-
-                            //给发布者发一条消息
-                            List<user> launcherList = DataSupport.where("myName = ?", task.getLauncherName())
-                                    .find(user.class);
-                            user launcher = launcherList.get(0);
-
-                            if (!launcher.getMsgTaskList().contains(task)) {
-                                launcher.addMsg();
-                                launcher.addMsgTaskList(task.getPreciseLaunchTime());
-                                launcher.updateAll("phonenumber = ?", launcher.getPhonenumber());
-                                Log.d("过期->发布者", launcher.getMyName()
-                                        + " " + String.valueOf(launcher.getMsg()) + " " + String.valueOf(launcher.
-                                        getMsgTaskList().size()));
-                            }
-                            */
-
-
-                            }
-                        } else {
-                            if (task.getIfAccepted()) {
-                            /*
-                            task.ifDisplayable = false;
-                            task.ifOutdated = false;
-                            task.ifDefault = false;
-                            task.ifShutDown = false;
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());*/
-
-                                String sql ="UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                                        ", `ifShutDown` = '0' WHERE `preciseLaunchTime` = '"+id+"'";
-                                st.executeUpdate(sql);
-
-                            } else {
-                            /*
-                            task.ifDisplayable = true;
-                            task.ifOutdated = false;
-                            task.ifDefault = false;
-                            task.ifShutDown = false;
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());*/
-
-                                String sql ="UPDATE `task` SET `ifDisplayable` = '1' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                                        ", `ifShutDown` = '0' WHERE `preciseLaunchTime` = '"+id+"'";
-                                st.executeUpdate(sql);
-
-                            }
-                        }
-                    } else if (task.getProgress() == 3) {
-                    /*
-                    task.ifDisplayable = false;
-                    task.ifOutdated = false;
-                    task.ifDefault = false;
-                    task.ifShutDown = false;
-                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                            task.getLauncherName());*/
-
-                        String sql ="UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                                ", `ifShutDown` = '0', `statusText` = '已完成,待支付' WHERE `preciseLaunchTime` = '"+id+"'";
-                        st.executeUpdate(sql);
-
-
-                    } else if (task.getProgress() == 4) {
-                    /*
-                    task.ifDisplayable = false;
-                    task.ifOutdated = false;
-                    task.ifDefault = false;
-                    task.ifShutDown = false;
-                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                            task.getLauncherName());*/
-
-                        String sql ="UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                                ", `ifShutDown` = '0', `statusText` = '待评价' WHERE `preciseLaunchTime` = '"+id+"'";
-                        st.executeUpdate(sql);
-
-                    } else if (task.getProgress() == 5) {
-                    /*
-                    task.ifDisplayable = false;
-                    task.ifOutdated = false;
-                    task.ifDefault = false;
-                    task.ifShutDown = true;  //评论完成，关闭任务
-                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                            task.getLauncherName());*/
-
-                        String sql ="UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                                ", `ifShutDown` = '1', `statusText` = '任务已结束' WHERE `preciseLaunchTime` = '"+id+"'";
-                        st.executeUpdate(sql);
-
-                    }
-        /*
-                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                        task.getLauncherName());*/
-
-                }
-
-                con.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-        }
-
-    }
 
 }
 

@@ -89,30 +89,11 @@ public class My_RegisterFirstActivity extends AppCompatActivity {
 
 
                             String sql = "INSERT INTO `user`" +
-                                    "(`myName`, `password`, `phonenumber`, `sex`, `credit`, `dormArea`, `taskLNum`, `taskNum`, " +
-                                    "`isValid`, `myImageId`, `demandString`, `specialtyString`, `taskRNum`, `taskRNum_errand`, " +
-                                    "`taskRNum_e1`, `taskRNum_e2`, `taskRNum_e3`, `taskRNum_e4`, `taskRNum_e5`, `taskRNum_skill`, " +
-                                    "`taskRNum_s1`, `taskRNum_s2`, `taskRNum_s3`, `taskRNum_s4`, `taskRNum_s5`, `taskRNum_counsel`," +
-                                    " `taskRNum_c1`, `taskRNum_c2`, `taskRNum_c3`, `taskRNum_c4`, `taskRNum_c5`, `default_taskNum`," +
-                                    " `averageScore`, `level`, `ifTalent`, `talentTitlesString`, `msg`, `msgTaskListString`) " +
-                                    "VALUES ('','','"+phone+"','','0','','0','0','1','"+imageReso+"','000000000000000','000000000000000','0'," +
-                                    "'0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1','0'," +
-                                    "'000000000000000','0','')";
+                                    "(`phonenumber`,`myImageId`) " +
+                                    "VALUES ('"+phone+"','"+imageReso+"')";
 
                             Statement st2 = con.createStatement();
                             st2.executeUpdate(sql);
-
-                            /*
-
-                            String sql = "UPDATE `user` " +
-                                    "SET `myName`='',`password`='',`phonenumber`='',`sex`='',`credit`='0',`dormArea`='',`taskLNum`='0'," +
-                                    "`taskNum`='0',`isValid`='1',`myImageId`='"+imageReso+"',`demandString`='000000000000000'," +
-                                    "`specialtyString`='000000000000000',`taskRNum`='0',`taskRNum_errand`='0',`taskRNum_e1`='0'," +
-                                    "`taskRNum_e2`='0',`taskRNum_e3`='0',`taskRNum_e4`='0',`taskRNum_e5`='0',`taskRNum_skill`='0'," +
-                                    "`taskRNum_s1`='0',`taskRNum_s2`='0',`taskRNum_s3`='0',`taskRNum_s4`='0',`taskRNum_s5`='0'," +
-                                    "`taskRNum_counsel`='0',`taskRNum_c1`='0',`taskRNum_c2`='0',`taskRNum_c3`='0',`taskRNum_c4`='0'," +
-                                    "`taskRNum_c5`='0',`default_taskNum`='0',`averageScore`='0',`level`='1',`ifTalent`='0'," +
-                                    "`talentTitlesString`='000000000000000',`msg`='0',`msgTaskListString`='' WHERE 1";*/
 
 
                             Intent intent = new Intent(My_RegisterFirstActivity.this, My_RegisterSecondActivity.class);

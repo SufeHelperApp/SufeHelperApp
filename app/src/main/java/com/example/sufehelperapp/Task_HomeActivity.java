@@ -40,6 +40,7 @@ public class Task_HomeActivity extends AppCompatActivity {
 
         //user
         myPhone = getIntent().getStringExtra("user_phone");
+        Log.d("myPhone",myPhone);
 
         try{
             StrictMode.ThreadPolicy policy =

@@ -85,7 +85,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         ImageView launcher_image = (ImageView) findViewById(R.id.picture_upload);
         TextView launcher_name = (TextView) findViewById(R.id.his_nickname_text11);
         TextView launcher_sex = (TextView) findViewById(R.id.sex_text);
-        TextView launcher_dormName = (TextView) findViewById(R.id.his_address_text22);
+        //TextView launcher_dormName = (TextView) findViewById(R.id.his_address_text22);
         TextView launcher_phonenumber = (TextView) findViewById(R.id.his_phonenumber_text33);
         TextView specialty = (TextView) findViewById(R.id.his_personalintention_text44);
         TextView averagescore = (TextView) findViewById(R.id.his_integral_text11);
@@ -94,13 +94,23 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         Glide.with(this).load(user_selected.getMyImageId()).into(launcher_image);
         launcher_sex.setText(user_selected.getSex());
         launcher_name.setText(user_selected.getMyName());
-        launcher_dormName.setText(user_selected.getDormitoryLocation());
+        //launcher_dormName.setText(user_selected.getDormitoryLocation());
         launcher_phonenumber.setText(user_selected.getPhonenumber());
         averagescore.setText(String.valueOf(user_selected.getAverageScore()));
         /*
         if(user.getSpecialty().size()!=0) {
             specialty.setText(user.getSpecialty().get(0));
         }*/
+        String[] specialties = {"占座", "拿快递", "买饭", "买东西", "拼单", "电子产品修理", "家具器件组装",
+                "学习作业辅导", "技能培训", "找同好", "周边服务", "考研出国经验", "求职经验", "票务转让", "二手闲置"};
+
+        String str = user.getSpecialtyString();
+        for(int i = 0; i < 15; i++){
+            if(str.charAt(i)=='1'){
+                specialty.setText(specialties[i]);
+                break;
+            }
+        }
 
 
     }
@@ -109,11 +119,17 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(MyActivity_mytask_personalhome.this, Task_InfoActivity.class);
-        intent.putExtra("user_phone",myPhone);
-        intent.putExtra(Task_InfoActivity.TASK_SELECTED, task);
-        intent.putExtra("num",1);
-        startActivity(intent);
+        Intent intent1 = new Intent(MyActivity_mytask_personalhome.this, Task_InfoActivity.class);
+        Intent intent2 = new Intent(MyActivity_mytask_personalhome.this, Explore_WeeklyTalentActivity.class);
+        if(num == 1) {
+            intent1.putExtra("user_phone", myPhone);
+            intent1.putExtra("task_selected", task);
+            intent1.putExtra("num", 1);
+            startActivity(intent1);
+        }else if(num ==2){
+            intent2.putExtra("user_phone", myPhone);
+            startActivity(intent2);
+        }
         finish();
     }
 

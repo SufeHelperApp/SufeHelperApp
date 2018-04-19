@@ -44,6 +44,9 @@ import java.util.List;
 public class Map extends AppCompatActivity {
     private user user;
     private String POIName;
+    private LatLng POIPosition;
+    private double lat;
+    private double lng;
     private MapView mMapView;
     private LocationClient locationClient;
     private BaiduMap baiduMap;
@@ -134,11 +137,13 @@ public class Map extends AppCompatActivity {
         Button button1 = (Button) findViewById(R.id.title_back);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View     view) {
+            public void onClick(View view) {
                 Intent intent = new Intent(Map.this, Task_LaunchActivity.class);
                 intent.putExtra("user_now", user);
                 intent.putExtra("num", 2);
                 intent.putExtra("POIName", POIName);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
                 startActivity(intent);
             }
         });
@@ -151,6 +156,8 @@ public class Map extends AppCompatActivity {
                 intent.putExtra("user_now", user);
                 intent.putExtra("num", 2);
                 intent.putExtra("POIName", POIName);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
                 startActivity(intent);
             }
         });
@@ -210,7 +217,7 @@ public class Map extends AppCompatActivity {
             public boolean onMapPoiClick(MapPoi mapPoi)
             {
                 POIName = mapPoi.getName();//POI点名称
-                final LatLng POIPosition = mapPoi.getPosition();//POI点坐标
+                POIPosition = mapPoi.getPosition();//POI点坐标
                 //下面就是自己随便应用了
                 //根据POI点坐标反向地理编码
                 //reverseSearch(POIPosition);
@@ -232,8 +239,8 @@ public class Map extends AppCompatActivity {
                             StringBuilder currentPosition = new StringBuilder();
                             currentPosition.append(POIName);
                             positionText2.setText(currentPosition);
-                            //POIPosition.latitude
-                            //POIPosition.longitude
+                            lat = POIPosition.latitude;
+                            lng = POIPosition.longitude;
                         }
                     });
                 }

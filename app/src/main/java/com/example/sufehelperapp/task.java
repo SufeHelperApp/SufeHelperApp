@@ -19,6 +19,12 @@ import com.example.sufehelperapp.TimeUtils;
 
 public class task extends DataSupport implements Serializable{
 
+    private int taskID;
+
+    public int getTaskID(){
+        return taskID;
+    }
+
     //任务状态
     private boolean ifDisplayable;    //
     private boolean ifAccepted;   //任务是否被接受
@@ -56,8 +62,8 @@ public class task extends DataSupport implements Serializable{
     private double payment;  //任务报酬
     private String area;     //任务校区
     private String location;   //任务位置
-    private float latitude;
-    private float longtitude;
+    private double latitude;
+    private double longtitude;
     private String description;  //任务描述
 
     //任务评分
@@ -166,6 +172,7 @@ public class task extends DataSupport implements Serializable{
     }
 
 
+    /*
     public static void updateAllTaskStatus() {
 
         List<task> taskAllList = DataSupport.where("ifShutDown = ?","0").find(task.class);
@@ -378,7 +385,7 @@ public class task extends DataSupport implements Serializable{
             this.ifShutDown = true;  //评论完成，关闭任务
         }
         this.updateStatusText();
-    }
+    }*/
 
 
 
@@ -461,8 +468,13 @@ public class task extends DataSupport implements Serializable{
         }
     }
 
+
     public String getStatusText(){
         return this.StatusText;
+    }
+
+    public void setStatusText(String s){
+        this.StatusText = s;
     }
 
     public String getPaytime(){return paytime;}
@@ -493,6 +505,10 @@ public class task extends DataSupport implements Serializable{
 
     public void setFinishtime(){
         this.finishtime = TimeUtils.getNowTime();
+    }
+
+    public void setFinishtime1(String t){
+        this.finishtime = t;
     }
 
     public String getDdl(){return ddl;}
@@ -613,19 +629,19 @@ public class task extends DataSupport implements Serializable{
         this.location = location;
     }
 
-    public void setLatitude(float latitude){
+    public void setLatitude(double latitude){
         this.latitude = latitude;
     }
 
-    public float getLatitude(){
+    public double getLatitude(){
         return this.latitude;
     }
 
-    public void setLongtitude(float longtitude){
+    public void setLongtitude(double longtitude){
         this.latitude = longtitude;
     }
 
-    public float getLongtitude(){
+    public double getLongtitude(){
         return this.longtitude;
     }
 

@@ -123,6 +123,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                 userList.add((user)list.get(i));
             }
             user = userList.get(0);
+            picture.setImageResource(user.getMyImageId());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,7 +189,7 @@ public class My_RegisterSecondActivity extends AppCompatActivity {
                     st2.executeUpdate("UPDATE `user` SET `password` = '"+password+"' WHERE `phonenumber` = '"+myPhone+"'");
 
 
-                    Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterThirdActivity.class);
+                    Intent intent = new Intent(My_RegisterSecondActivity.this, My_RegisterForthActivity.class);
                     intent.putExtra("user_phone", myPhone);
 
                     startActivity(intent);
