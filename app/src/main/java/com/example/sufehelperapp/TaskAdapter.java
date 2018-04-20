@@ -109,6 +109,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                     intent.putExtra("num",5); //信箱
                     intent.putExtra("user_phone", user.getPhonenumber());//传送user
                     mContext.startActivity(intent);
+                }else if(num == 6){
+                    Intent intent = new Intent(mContext, Task_InfoActivity.class);
+                    intent.putExtra("task_selected", task);
+                    intent.putExtra("num",3); //任务地图列表
+                    intent.putExtra("user_phone", user.getPhonenumber());//传送user
+                    mContext.startActivity(intent);
                 }
 
             }
@@ -120,7 +126,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         task task = mTaskList.get(position);
         holder.launcherNameView.setText(task.getLauncherName());
-        Glide.with(mContext).load(R.drawable.df1).into(holder.launcherImageView);
+        Glide.with(mContext).load(task.getLauncherImageId()).into(holder.launcherImageView);
         holder.launcherStatusView.setText(task.getStatusText());
         holder.launcherSubtaskTypeView.setText(task.getSubtaskType());
         holder.launcherLocationView.setText(task.getLocation());

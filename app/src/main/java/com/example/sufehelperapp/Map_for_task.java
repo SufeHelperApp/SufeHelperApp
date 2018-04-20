@@ -1,6 +1,9 @@
 package com.example.sufehelperapp;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,6 +47,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.TextOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.model.LatLngBounds;
 
@@ -67,7 +71,19 @@ public class Map_for_task extends AppCompatActivity {
     private BitmapDescriptor mCurrentMarker;
     private MyLocationConfiguration config;
 
-    private Marker mMarkerA;
+    private Connection con;
+    private Statement st;
+    private ResultSet rs;
+
+    private String myPhone;
+    user user;
+
+    private double latNow = 31.2463430229; //TODO
+    private double lngNow = 121.5088982034; //TODO
+
+    private List<Marker> marker = new ArrayList<>();
+    private List<InfoWindow> window = new ArrayList<>();
+    private Marker mMarker;
     private MarkerInfoUtil Info;
 
 
@@ -75,11 +91,45 @@ public class Map_for_task extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //获得当前user
+        myPhone = getIntent().getStringExtra("user_phone");
+        Log.d("myPhone", myPhone);
+
+        try {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn();
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '" + myPhone + "'");
+
+            List<user> userList = new ArrayList<>();
+            List list = DbUtils.populate(rs, user.class);
+            for (int i = 0; i < list.size(); i++) {
+                userList.add((user) list.get(i));
+            }
+            user = userList.get(0);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null)
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                }
+
+        }
+
 
         //此方法要再setContentView方法之前实现
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_map_for_task);
-        mMapView =(MapView)findViewById(R.id.bmapView_task);
+        mMapView = (MapView) findViewById(R.id.bmapView_task);
         baiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(16f);
         baiduMap.setMapStatus(msu);
@@ -88,7 +138,7 @@ public class Map_for_task extends AppCompatActivity {
 
         // 定位初始化
         locationClient = new LocationClient(this);
-        firstLocation =true;
+        firstLocation = true;
         // 设置定位的相关配置
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
@@ -137,6 +187,7 @@ public class Map_for_task extends AppCompatActivity {
         requestLocation();
         setMarkerInfo();
     }
+
     public void requestLocation() {
         locationClient.registerLocationListener(new BDLocationListener() {
             @Override
@@ -144,23 +195,39 @@ public class Map_for_task extends AppCompatActivity {
                 // map view 销毁后不在处理新接收的位置
                 if (location == null || mMapView == null)
                     return;
+                //获得当前经纬度
+                //latNow = location.getLatitude();
+                //lngNow = location.getLongitude();
+
                 // 构造定位数据
+                /*
                 MyLocationData locData = new MyLocationData.Builder()
                         .accuracy(location.getRadius())
                         // 此处设置开发者获取到的方向信息，顺时针0-360
                         .direction(100).latitude(location.getLatitude())
-                        .longitude(location.getLongitude()).build();
+                        .longitude(location.getLongitude()).build();*/
+                MyLocationData locData = new MyLocationData.Builder()
+                        .accuracy(location.getRadius())
+                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        .direction(100).latitude(latNow)
+                        .longitude(lngNow).build();
                 // 设置定位数据
                 baiduMap.setMyLocationData(locData);
 
+
                 // 第一次定位时，将地图位置移动到当前位置
-                if (firstLocation)
-                {
+                if (firstLocation) {/*
                     firstLocation = false;
                     LatLng xy = new LatLng(location.getLatitude(),
                             location.getLongitude());
                     MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(xy);
+                    baiduMap.animateMapStatus(status);*/
+                    firstLocation = false;
+                    LatLng xy = new LatLng(latNow,
+                            lngNow);
+                    MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(xy);
                     baiduMap.animateMapStatus(status);
+
                 }
 
                /* runOnUiThread(new Runnable() {
@@ -183,12 +250,74 @@ public class Map_for_task extends AppCompatActivity {
     }
 
     private void setMarkerInfo() {
-        //TODO:info.add(new...(获取各满足条件地点经,纬度,null,null));
+
         List<MarkerInfoUtil> infos = new ArrayList<MarkerInfoUtil>();
-        infos.add(new MarkerInfoUtil(31.307327052096305, 121.50846834627889,null,null));
-        //infos.add.........
-        addOverlay(infos);
+        List<task> taskMatched = new ArrayList<task>();
+        String sum;
+        String name;
+
+        //选出有任务的地点
+        try {
+
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            con = DbUtils.getConn(); //initialize connection
+            st = con.createStatement(); //initialize connection
+
+            String sql = "select * from `task` group by `location` ";
+
+            rs = st.executeQuery(sql);
+            rs.last();// 移动到最后                                
+            Log.d("rs", String.valueOf(rs.getRow()));// 获得结果集长度
+            rs.beforeFirst();//获得该location的任务数
+
+            //rs转化为task
+            List list = DbUtils.populate(rs, task.class);
+            for (int i = 0; i < list.size(); i++) {
+                taskMatched.add((task) list.get(i));
+            }
+
+            rs.close();
+
+            for (int i = 0; i < taskMatched.size(); i++) {
+                double latitude = taskMatched.get(i).getLatitude();
+                double longitude = taskMatched.get(i).getLongtitude();
+                name = taskMatched.get(i).getLocation();
+                Log.d("地点", name);
+
+
+                //确保任务未被接受
+                String sql2 = "select count(*) from `task` where `location` = '" + name + "' AND `ifDisplayable` = '1' ";
+                ResultSet rs1 = st.executeQuery(sql2);
+
+                //提出Location
+                if (rs1.next()) {
+                    sum = String.valueOf(rs1.getInt(1));
+                    Log.d("任务数量", sum);
+                } else {
+                    sum = "0";
+                }
+
+                rs1.close();
+
+                //添加Location
+                //TODO: info.add(new...(获取各满足条件地点经,纬度,地点名称,地点任务总数));
+                infos.add(new MarkerInfoUtil(latitude, longitude, name, sum));
+            }
+
+            addOverlay(infos);
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -212,53 +341,91 @@ public class Map_for_task extends AppCompatActivity {
         return true;
     }
 
+
     //显示marker
-    private void addOverlay(List<MarkerInfoUtil> infos) {
+    private void addOverlay(final List<MarkerInfoUtil> infos) {
         //清空地图
         baiduMap.clear();
         //创建marker的显示图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_location_fortask);
         LatLng latLng = null;
         OverlayOptions options;
-        for(MarkerInfoUtil info:infos){
-            //获取经纬度
-            latLng = new LatLng(info.getLatitude(),info.getLongitude());
-            //设置marker
+
+        for (MarkerInfoUtil info : infos) {
+
+            //添加每个marker
+
+            latLng = new LatLng(info.getLatitude(), info.getLongitude());
+
             options = new MarkerOptions()
                     .position(latLng)//设置位置
                     .icon(bitmap)//设置图标样式
                     .zIndex(9) // 设置marker所在层级
-                    ;
-            //添加marker
-            mMarkerA = (Marker) baiduMap.addOverlay(options);
+            ;
+
+            mMarker = (Marker) baiduMap.addOverlay(options);
+            marker.add(mMarker);
             //使用marker携带info信息，当点击事件的时候可以通过marker获得info信息
             Bundle bundle = new Bundle();
             //info必须实现序列化接口
-            bundle.putSerializable("info", info);
+            bundle.putSerializable("location", info.getName());
+            marker.get(marker.size() - 1).setExtraInfo(bundle);
 
-            InfoWindow mInfoWindow;
-            mMarkerA.setExtraInfo(bundle);
+            /*
+
+            //添加infowindow
+
             TextView sum = new TextView(getApplicationContext());
-            //TODO:sum.setText("任务数量");  (8是我随便写的数字)
-            sum.setText("8");
+            Log.d("该地任务数量", info.getsum());
+            sum.setText(info.getsum());
             TextPaint tp = sum.getPaint();
             tp.setFakeBoldText(true);
-            bitmap = BitmapDescriptorFactory.fromView(sum);
-            LatLng latLng1 = new LatLng(info.getLatitude(),info.getLongitude());
+            //info文字
+            BitmapDescriptor bitmap_text = BitmapDescriptorFactory.fromView(sum);
+            //info位置
+            LatLng latLng1 = new LatLng(info.getLatitude(), info.getLongitude());
+            //info监听器
             InfoWindow.OnInfoWindowClickListener listener = new InfoWindow.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick() {
-                    baiduMap.hideInfoWindow();
+                    //baiduMap.hideInfoWindow();
                 }
             };
-            InfoWindow infoWindow = new InfoWindow(bitmap,latLng,-30,listener);
-            baiduMap.showInfoWindow(infoWindow);
+            InfoWindow w = new InfoWindow(bitmap_text, latLng1, -30, listener);
+            window.add(w);
+            //baiduMap.showInfoWindow(w);*/
+
+
+            //定义文字所显示的坐标点
+
+            //构建文字Option对象，用于在地图上添加文字
+            OverlayOptions textOption = new TextOptions()
+                    .bgColor(0xAAFFFF00)
+                    .fontSize(25)
+                    .zIndex(10)
+                    .fontColor(0xFFFF00FF)
+                    .text(info.getsum())
+                    .position(latLng);
+
+            //在地图上添加该文字对象并显示
+            baiduMap.addOverlay(textOption);
+
         }
+
+
+        Log.d("marker数量", String.valueOf(marker.size()));
+        Log.d("window数量", String.valueOf(window.size()));
+
+
 //TODO:各图标点击跳转的界面不一样，ALL_task是新增的用来做任务listview的，点击跳转到该界面
         baiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Intent intent1 = new Intent(Map_for_task.this, All_task.class);
+                String location = marker.getExtraInfo().getString("location");
+                Log.d("转到该任务列表",location);
+                intent1.putExtra("location",location);
+                intent1.putExtra("user_phone", myPhone);
                 startActivity(intent1);
                 return true;
             }

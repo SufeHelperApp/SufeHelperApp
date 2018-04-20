@@ -72,33 +72,6 @@ public class MyActivity_mytask_currenttask extends Fragment implements View.OnCl
 
         }
 
-        try{
-            StrictMode.ThreadPolicy policy =
-                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-
-            con = DbUtils.getConn();
-            Statement st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM `user` WHERE `phonenumber` = '"+myPhone+"'");
-
-            List<user> userList = new ArrayList<>();
-            List list = DbUtils.populate(rs,user.class);
-            for(int i=0; i<list.size(); i++){
-                userList.add((user)list.get(i));
-            }
-            user = userList.get(0);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            if (con != null)
-                try {
-                    con.close();
-                } catch (SQLException e) {
-                }
-
-        }
-
         StatusUtils.updateAllTaskStatus();
 
         //TODO:获得接收者为当前用户，ifShutDown = false 的所有任务

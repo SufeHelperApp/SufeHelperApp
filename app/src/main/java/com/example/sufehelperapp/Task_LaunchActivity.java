@@ -225,7 +225,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                 String date = dateView.getText().toString();
                 String time = timeView.getText().toString();
                 //TODO :String location = locationView.getText().toString(); 真机测试时加上
-                String location = "东方明珠";
+                String location = "中国金融信息大厦";
                 String payment = paymentView.getText().toString();
                 String description = descriptionView.getText().toString();
 
@@ -295,7 +295,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
                         id = id + 1;
 
                         //TODO: '"+lat+"','"+lng+"' 真机测试时加上
-                        String sql = "INSERT INTO `task`(`taskID`,`launcherName`, `launcherPhoneNumber`, `subtaskType`, `taskType`, `ddlDate`, `ddlTime`, `ddl`, `location`, `payment`, `description`, `ifDisplayable`, `helperName`, `ifAccepted`, `ifOutdated`, `ifDefault`, `ifShutDown`, `progress`, `StatusText`, `launchtime`, `preciseLaunchTime`, `accepttime`, `achievetime`, `paytime`, `finishtime`, `latitude`, `longtitude`, `score`, `launcherImageId`) VALUES ('"+id+"','"+user.getMyName()+"','"+user.getPhonenumber()+"','"+subtaskType+"','"+taskType+"','"+date+"','"+time+"','"+ddl+"','"+location+"','"+payment+"','"+description+"','1','','0','0','0','0','1','待接收','"+launchtime+"','"+precisetime+"','','','','','31.2454145690','121.5059477735','0','"+user.getMyImageId()+"')";
+                        String sql = "INSERT INTO `task`(`taskID`,`launcherName`, `launcherPhoneNumber`, `subtaskType`, `taskType`, `ddlDate`, `ddlTime`, `ddl`, `location`, `payment`, `description`, `ifDisplayable`, `helperName`, `ifAccepted`, `ifOutdated`, `ifDefault`, `ifShutDown`, `progress`, `StatusText`, `launchtime`, `preciseLaunchTime`, `accepttime`, `achievetime`, `paytime`, `finishtime`, `latitude`, `longtitude`, `score`, `launcherImageId`) VALUES ('"+id+"','"+user.getMyName()+"','"+user.getPhonenumber()+"','"+subtaskType+"','"+taskType+"','"+date+"','"+time+"','"+ddl+"','"+location+"','"+payment+"','"+description+"','1','','0','0','0','0','1','待接收','"+launchtime+"','"+precisetime+"','','','','','31.2477189810','121.5085548806','0','"+user.getMyImageId()+"')";
                         st.executeUpdate(sql);
 
                         st.close();
