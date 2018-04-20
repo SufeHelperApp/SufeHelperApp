@@ -37,8 +37,6 @@ public class Task_InfoActivity extends AppCompatActivity {
     Connection con;
     ResultSet rs;
 
-    public static final String TASK_SELECTED = "task_selected";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,38 +173,57 @@ public class Task_InfoActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
 
-                                    /*
-
-                                    task.setIfAccepted(true);
-                                    task.setAccepttime();
-                                    task.setProgress(2); //已接受
-                                    task.setHelper(user);
-                                    task.setHelperName(helperName);
-                                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                            task.getLauncherName());
-
-                                    task.updateTaskStatus();//更新项目进度文字
-                                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                            task.getLauncherName());
-
-                                            */
 
 
+                                    //给发布者一个提醒, msg+1, s+taskID
                                     String launcherName = task.getLauncherName();
-                                    //给发布者一个提醒
+                                    try{
+                                        StrictMode.ThreadPolicy policy =
+                                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                        StrictMode.setThreadPolicy(policy);
 
-                                    /*
-                                    List<user> userList = DataSupport.where("myName = ?",launcherName).find(user.class);
-                                    user launcher = userList.get(0);
-                                    if(!launcher.getMsgTaskList().contains(task)) {
-                                        launcher.addMsg();
-                                        launcher.addMsgTaskList(task.getPreciseLaunchTime());
-                                        launcher.updateAll("myName = ?",launcherName);
-                                        Log.d("被接收->发布者",launcher.getMyName()
-                                            +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
-                                            getMsgTaskList().size()));
+                                        con = DbUtils.getConn();
 
-                                    }*/
+                                        Statement st = con.createStatement();
+
+
+                                        rs = st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+launcherName+"'");
+
+                                        if (rs.next()) {
+
+                                            //msg+1
+                                            int msg = rs.getInt("msg")+1;
+
+                                            //s+taskID
+                                            String s = rs.getString("msgTaskListString");
+                                            if(s.isEmpty()){
+                                                s = s + String.valueOf(task.getTaskID());
+                                            }else{
+                                                s = s + ";" + String.valueOf(task.getTaskID());
+                                            }
+
+                                            String sql1 = "UPDATE `user` SET `msg`= '"+msg+"' WHERE myName='"+launcherName+"'";
+                                            st.executeUpdate(sql1);
+
+                                            String sql2 = "UPDATE `user` SET `msgTaskListString`= '"+s+"' WHERE myName='"+launcherName+"'";
+                                            st.executeUpdate(sql2);
+
+                                        }
+
+                                        rs.close();
+                                        st.close();
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }finally {
+                                        if (con != null)
+                                            try {
+                                                con.close();
+                                            } catch (SQLException e) {
+                                            }
+
+                                    }
+
 
                                     //TODO: ADD
 
@@ -240,7 +257,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     } else if (task.getSubtaskType() == "找同好") {
                                         taskRNum_s5++;
                                         TaskRNum_skill++;
-                                    } else if (task.getSubtaskType() == "选课指南") {
+                                    } else if (task.getSubtaskType() == "周边服务") {
                                         taskRNum_c1++;
                                         TaskRNum_counsel++;
                                     } else if (task.getSubtaskType() == "考研出国经验") {
@@ -278,25 +295,6 @@ public class Task_InfoActivity extends AppCompatActivity {
                                             e.printStackTrace();
                                         }
 
-/*
-                                    user.increaseCredit(30);
-                                    user.addTaskRNum(1);*/
-                                    //user.addTaskNum(1);
-
-                                    /*
-                                    user.updateAll("phonenumber = ?", user.getPhonenumber());
-                                    Log.d("msg1", String.valueOf(user.getTaskRNum_errand()));
-                                    Log.d("msg2", String.valueOf(user.getTaskRNum_skill()));
-                                    Log.d("msg3", String.valueOf(user.getTaskRNum_counsel()));*/
-
-
-                                    /*
-                                    List<user> userList1 = DataSupport.findAll(user.class);
-                                    Log.d("info","after sending msg");
-                                    for(user user:userList1){
-                                        Log.d("name",user.getMyName());
-                                        Log.d("msg list size",String.valueOf(user.getMsgTaskList().size()));
-                                    }*/
 
                                     Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
                                     intent1.putExtra("user_phone", myPhone);
@@ -330,7 +328,7 @@ public class Task_InfoActivity extends AppCompatActivity {
         TextView subtaskType = (TextView) findViewById(R.id.taskinfo_subtaskType);
         TextView date = (TextView) findViewById(R.id.taskinfo_date);
         TextView time = (TextView)findViewById(R.id.taskinfo_time);
-        TextView area = (TextView)findViewById(R.id.taskinfo_area);
+        //TextView area = (TextView)findViewById(R.id.taskinfo_area);
         TextView location = (TextView) findViewById(R.id.taskinfo_location);
         TextView payment = (TextView) findViewById(R.id.taskinfo_payment);
         TextView description = (TextView) findViewById(R.id.taskinfo_description);
@@ -342,7 +340,7 @@ public class Task_InfoActivity extends AppCompatActivity {
         subtaskType.setText(task.getSubtaskType());
         date.setText(task.getDdlDate());
         time.setText(task.getDdlTime());
-        area.setText(task.getArea());
+        //area.setText(task.getArea());
         location.setText(task.getLocation());
         String paymentString = Double.toString(task.getPayment());
         payment.setText(paymentString);
@@ -380,56 +378,6 @@ public class Task_InfoActivity extends AppCompatActivity {
             }
         });
 
-
-
-                //接收任务
-        /*Button b1 = (Button) findViewById(R.id.receive_task_btn);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String helperName = user.getMyName();
-
-                //不得接收自己的任务
-                if(task.getLauncherName().equals(helperName)){
-                    Toast.makeText(Task_InfoActivity.this, "请勿接收自己的任务！",
-                            Toast.LENGTH_SHORT).show();
-                }else {
-
-                    //更新该task信息
-                    task.setIfAccepted(true);
-                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
-                            task.getLauncherName());
-                    task.updateTaskStatus(); //
-                    task.setProgress(2); //已接受
-                    task.setHelper(user);
-                    task.setHelperName(helperName);
-                    task.updateAll("launchtime = ? and launcherName = ?",task.getLaunchtime(),
-                            task.getLauncherName());
-
-                    user.increaseCredit(30);
-                    user.addTaskRNum(1);
-                    if (task.getTaskType() == "跑腿") {
-                        user.addTaskRNum_errand(1);
-                    }else if(task.getTaskType() == "技能"){
-                        user.addTaskRNum_skill(1);
-                    }else if(task.getTaskType() == "咨询"){
-                        user.addTaskRNum_counsel(1);
-                    }
-                    user.addTaskNum(1);
-
-                    user.updateAll("phonenumber = ?",user.getPhonenumber());
-                    Log.d("msg1",String.valueOf(user.getTaskRNum_errand()));
-                    Log.d("msg2",String.valueOf(user.getTaskRNum_skill()));
-                    Log.d("msg3",String.valueOf(user.getTaskRNum_counsel()));
-
-                    Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
-                    intent1.putExtra(""user_phone", myPhone);
-                    startActivity(intent1);
-                    Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
 
 
     }

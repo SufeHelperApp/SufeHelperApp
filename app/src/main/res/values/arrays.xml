@@ -1,6 +1,8 @@
 <resources>
     <string-array name="subtasks" >
+        <item>占座</item>
         <item>拿快递</item>
+        <item>买饭</item>
         <item>买东西</item>
         <item>拼单</item>
         <item>电子产品修理</item>
@@ -8,6 +10,7 @@
         <item>学习作业辅导</item>
         <item>技能培训</item>
         <item>找同好</item>
+        <item>周边服务</item>
         <item>考研出国经验</item>
         <item>求职经验</item>
         <item>票务转让</item>
@@ -17,10 +20,11 @@
 
     <string-array name="subtasks_errand" >
         <item>种类</item>
+        <item>占座</item>
         <item>拿快递</item>
+        <item>买饭</item>
         <item>买东西</item>
         <item>拼单</item>
-        <item>其他</item>
     </string-array>
 
     <string-array name="subtasks_skill" >
@@ -30,16 +34,15 @@
         <item>学习作业辅导</item>
         <item>技能培训</item>
         <item>找同好</item>
-        <item>其他</item>
     </string-array>
 
     <string-array name="subtasks_counsel" >
         <item>种类</item>
+        <item>周边服务</item>
         <item>考研出国经验</item>
         <item>求职经验</item>
         <item>票务转让</item>
         <item>二手闲置</item>
-        <item>其他</item>
     </string-array>
 
     <string-array name="area" >
@@ -49,10 +52,10 @@
     </string-array>
 
     <string-array name="areas" >
-        <item>校区</item>
-        <item>国定校区</item>
-        <item>武东校区</item>
-        <item>武川校区</item>
+        <item>距离</item>
+        <item>500米内</item>
+        <item>1公里内</item>
+        <item>3公里内</item>
     </string-array>
 
     <string-array name="dormitory" >
@@ -78,8 +81,8 @@
         <item>3小时内</item>
         <item>24小时内</item>
         <item>3天内</item>
-        <item>本周</item>
-        <item>本月</item>
+        <item>1周内</item>
+        <item>1个月内</item>
     </string-array>
 
 

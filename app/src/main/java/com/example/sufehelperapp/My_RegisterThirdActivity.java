@@ -88,6 +88,8 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
 
         }
 
+        /*
+
         CityPickerView cityPickerView = new CityPickerView(My_RegisterThirdActivity.this);
         cityPickerView.setOnCityItemClickListener(new CityPickerView.OnCityItemClickListener() {
             @Override
@@ -108,7 +110,7 @@ public class My_RegisterThirdActivity extends AppCompatActivity {
         cityPickerView.setIsCyclic(true);//滚轮是否循环滚动
         cityPickerView.show();
         user = (user) getIntent().getSerializableExtra("user_now");
-        Log.d("RegisterThirdActivity",user.getMyName());
+        Log.d("RegisterThirdActivity",user.getMyName());*/
 
 
         ActionBar actionBar = getSupportActionBar();

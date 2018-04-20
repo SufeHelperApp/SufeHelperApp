@@ -5,16 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/common_toolbar"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#009088"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:text="任务状态更新"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:layout_marginStart="37dp"
+        android:textSize="24sp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="3dp"
-        android:text="暂无状态变化！"/>
+        android:layout_marginStart="7dp"
+        android:text="暂无状态更新！"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mail"

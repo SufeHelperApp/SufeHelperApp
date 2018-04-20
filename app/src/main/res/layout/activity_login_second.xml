@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="95dp">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:fontFamily="cursive"
             android:gravity="center"
             android:text="iTask"
@@ -57,7 +57,7 @@
         android:textColor="@color/white"
         android:background="@drawable/confirm_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="160dp"
         android:layout_alignParentBottom="true"
         android:textSize="20dp" />
 </RelativeLayout>

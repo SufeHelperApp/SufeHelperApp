@@ -33,8 +33,6 @@ public class MyActivity_Task_Details extends AppCompatActivity {
 
     private int tabNum;
 
-    public static final String TASK_SELECTED = "task_selected";
-
     private RecyclerView rvTrace;
     private List<Trace> traceList = new ArrayList<>(4);
     private TraceListAdapter adapter;
@@ -129,6 +127,8 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                 }else if (num == 5) { //mailbox
                     Intent intent = new Intent(MyActivity_Task_Details.this, Mailbox.class);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
+                    intent.putExtra("task_selected",task);
                     startActivity(intent);
                     finish();
                 }
@@ -196,15 +196,6 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                         btn_finish.setVisibility(View.GONE);
                         btn_wait_pay.setVisibility(View.VISIBLE); //显示待支付
                         String achievetime = TimeUtils.getNowTime();
-                        /*
-                        task.setProgress(3);
-                        task.setAchievetime();
-                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                task.getLauncherName());
-
-                        task.updateTaskStatus();
-                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                task.getLauncherName());*/
 
                         try {
                             StrictMode.ThreadPolicy policy =
@@ -222,20 +213,55 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        //给发布者一个提醒
-                        /*
+
+                        //给发布者一个提醒, msg+1, s+taskID
                         String launcherName = task.getLauncherName();
-                        List<user> userList = DataSupport.where("myName = ?",launcherName).find(user.class);
-                        user launcher = userList.get(0);
-                        if(!launcher.getMsgTaskList().contains(task)) {
-                            launcher.addMsg();
-                            launcher.addMsgTaskList(task.getPreciseLaunchTime());
-                            launcher.updateAll("myName = ?",launcherName);
-                            Log.d("完成->发布者",launcher.getMyName()
-                                    +" "+String.valueOf(launcher.getMsg())+" "+String.valueOf(launcher.
-                                    getMsgTaskList().size()));
+                        try{
+                            StrictMode.ThreadPolicy policy =
+                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+
+                            con = DbUtils.getConn();
+
+                            Statement st = con.createStatement();
+
+
+                            rs = st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+launcherName+"'");
+
+                            if (rs.next()) {
+
+                                //msg+1
+                                int msg = rs.getInt("msg")+1;
+
+                                //s+taskID
+                                String s = rs.getString("msgTaskListString");
+                                if(s.isEmpty()){
+                                    s = s + String.valueOf(task.getTaskID());
+                                }else{
+                                    s = s + ";" + String.valueOf(task.getTaskID());
+                                }
+
+                                String sql1 = "UPDATE `user` SET `msg`= '"+msg+"' WHERE myName='"+launcherName+"'";
+                                st.executeUpdate(sql1);
+
+                                String sql2 = "UPDATE `user` SET `msgTaskListString`= '"+s+"' WHERE myName='"+launcherName+"'";
+                                st.executeUpdate(sql2);
+
+                            }
+
+                            rs.close();
+                            st.close();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }finally {
+                            if (con != null)
+                                try {
+                                    con.close();
+                                } catch (SQLException e) {
+                                }
+
                         }
-                        launcher.updateAll("myName = ?",launcherName);*/
 
                         addData(1); //增加完成信息
 
@@ -268,15 +294,6 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                         btn_payoff.setVisibility(View.GONE);
                         String paytime = TimeUtils.getNowTime();
 
-                        /*
-                        task.setProgress(4);
-                        task.setPaytime();
-                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                task.getLauncherName());
-
-                        task.updateTaskStatus();
-                        task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                task.getLauncherName());*/
 
                         try {
                             StrictMode.ThreadPolicy policy =
@@ -294,21 +311,55 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        /*
 
-                        //给接收者一个提醒
+                        //给接收者一个提醒, msg+1, s+taskID
                         String helperName = task.getHelperName();
-                        List<user> userList = DataSupport.where("myName = ?",helperName).find(user.class);
-                        user helper = userList.get(0);
-                        if(!helper.getMsgTaskList().contains(task)) {
-                            helper.addMsg();
-                            helper.addMsgTaskList(task.getPreciseLaunchTime());
-                            helper.updateAll("myName = ?",helperName);
-                            Log.d("支付->接收者",helper.getMyName()
-                                    +" "+String.valueOf(helper.getMsg())+" "+String.valueOf(helper.
-                                    getMsgTaskList().size()));
+                        try{
+                            StrictMode.ThreadPolicy policy =
+                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+
+                            con = DbUtils.getConn();
+
+                            Statement st = con.createStatement();
+
+
+                            rs = st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+helperName+"'");
+
+                            if (rs.next()) {
+
+                                //msg+1
+                                int msg = rs.getInt("msg")+1;
+
+                                //s+taskID
+                                String s = rs.getString("msgTaskListString");
+                                if(s.isEmpty()){
+                                    s = s + String.valueOf(task.getTaskID());
+                                }else{
+                                    s = s + ";" + String.valueOf(task.getTaskID());
+                                }
+
+                                String sql1 = "UPDATE `user` SET `msg`= '"+msg+"' WHERE myName='"+helperName+"'";
+                                st.executeUpdate(sql1);
+
+                                String sql2 = "UPDATE `user` SET `msgTaskListString`= '"+s+"' WHERE myName='"+helperName+"'";
+                                st.executeUpdate(sql2);
+
+                            }
+
+                            rs.close();
+                            st.close();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }finally {
+                            if (con != null)
+                                try {
+                                    con.close();
+                                } catch (SQLException e) {
+                                }
+
                         }
-                        helper.updateAll("myName = ?",helperName); */
 
                         addData(2);//增加支付信息
 
@@ -319,6 +370,7 @@ public class MyActivity_Task_Details extends AppCompatActivity {
                                 Log.d("msg","发布者评价");
                                 Intent intent = new Intent(MyActivity_Task_Details.this, MyActivity_evaluation.class);
                                 intent.putExtra("user_phone", myPhone);
+                                intent.putExtra("num",num);
                                 intent.putExtra("task_selected", task);
                                 startActivity(intent);
 
@@ -466,6 +518,8 @@ public class MyActivity_Task_Details extends AppCompatActivity {
         }else if (num == 5) { //mailbox
             Intent intent = new Intent(MyActivity_Task_Details.this, Mailbox.class);
             intent.putExtra("user_phone", myPhone);
+            intent.putExtra("num",2);
+            intent.putExtra("task_selected",task);
             startActivity(intent);
             finish();
         }

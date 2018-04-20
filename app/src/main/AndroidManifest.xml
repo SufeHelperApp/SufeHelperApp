@@ -13,7 +13,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -94,7 +95,8 @@
         <activity android:name=".My_LoginSecondActivity" />
         <activity android:name=".My_HomeActivity" />
         <activity android:name=".My_LoginFirstActivity" />
-        <activity android:name=".All_task"></activity>
+        <activity android:name=".All_task" />
+        <activity android:name=".NoteActivity"></activity>
     </application>
 
 </manifest>

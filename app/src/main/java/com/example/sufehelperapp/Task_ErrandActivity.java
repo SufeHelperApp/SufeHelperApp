@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+
 import org.litepal.crud.DataSupport;
 
 import java.sql.Connection;
@@ -36,6 +40,20 @@ public class Task_ErrandActivity extends AppCompatActivity {
     private List<task> taskList = new ArrayList<>();
 
     private TaskAdapter adapter;
+
+    private LocationClient locationClient = new LocationClient(this);
+    private double latNow;
+    private double lngNow;
+
+    public void requestLocation() {
+        locationClient.registerLocationListener(new BDLocationListener() {
+            @Override
+            public void onReceiveLocation(final BDLocation location) {
+                latNow = location.getLatitude();
+                lngNow = location.getLongitude();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,15 +185,16 @@ public class Task_ErrandActivity extends AppCompatActivity {
 
             int credit = 0;
 
-            //位置近
-            if(task.getArea().equals(user.getDormArea())){
+
+            //1.距离小于1km
+            if(MapUtils.isTaskWithin1km(latNow,lngNow,task.getLatitude(),task.getLongtitude())){
                 credit++;
             }
 
 
-            //符合特长
+            //2.符合特长
             String[] specialty = {"占座", "拿快递", "买饭", "买东西", "拼单", "电子产品修理", "家具器件组装",
-                    "学习作业辅导", "技能培训", "找同好", "选课指南", "考研出国经验", "求职经验", "票务转让", "二手闲置"};
+                    "学习作业辅导", "技能培训", "找同好", "周边服务", "考研出国经验", "求职经验", "票务转让", "二手闲置"};
 
             String str = user.getSpecialtyString();
             for(int i = 0; i < 15; i++){
@@ -188,18 +207,7 @@ public class Task_ErrandActivity extends AppCompatActivity {
             }
 
 
-
-            /*
-
-            List<task> userTaskList = DataSupport.where("helperName = ?",user.getMyName())
-                    .find(task.class);
-            for(task task1:userTaskList) {
-                if (task1.getLauncherName() == task.getLauncherName()){
-                    credit++;
-                }
-            }*/
-
-            //发布者是曾经帮助过的用户
+            //3.发布者是曾经帮助过的用户
 
             String thisLauncher = task.getLauncherName();
 
@@ -218,18 +226,18 @@ public class Task_ErrandActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            //价格很高
+            //4.价格很高
             if(task.getPayment()>=20){
                 credit++;
             }
 
-            //时间紧急
+            //5.时间紧急
             if(TimeUtils.isDateWithinThreeHour(task.getDdl())){
                 credit++;
             }
 
             //符合两项即推荐
-            if(credit>=1 && preferredTasks.size()<3 && !task.getLauncherName().equals(user.getMyName())){
+            if(credit>=2 && preferredTasks.size()<3 && !task.getLauncherName().equals(user.getMyName())){
 
                 preferredTasks.add(task);
 

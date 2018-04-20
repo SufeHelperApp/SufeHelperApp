@@ -80,7 +80,7 @@ public class MyActivity_evaluation extends AppCompatActivity {
         task = (task) getIntent().getSerializableExtra("task_selected");
         //TODO:获得MyActivity_Task_Details中传入的task
 
-        num = getIntent().getIntExtra("num",1);
+        num = getIntent().getIntExtra("num",2);
 
 
         Button button1 = (Button) findViewById(R.id.title_back);
@@ -90,7 +90,6 @@ public class MyActivity_evaluation extends AppCompatActivity {
                 Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                 intent.putExtra("user_phone", myPhone);
                 intent.putExtra("task_selected",task);
-                intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
                 intent.putExtra("num",num);
 
                 startActivity(intent);
@@ -143,6 +142,8 @@ public class MyActivity_evaluation extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) { //progress5
                         String finishtime = TimeUtils.getNowTime();
 
+                        //更新任务信息
+
                         try{
                             StrictMode.ThreadPolicy policy =
                                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -152,20 +153,19 @@ public class MyActivity_evaluation extends AppCompatActivity {
 
                             Statement st = con.createStatement();
 
-                            rs = st.executeQuery("SELECT * FROM `task` WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'");
-
-                            while (rs.next()) {
 
                                 String sql1 = "UPDATE `task` SET `score`= '"+ratingBar.getRating()+"' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
                                 st.executeUpdate(sql1);
-                                String sql2 = "UPDATE `task` SET `progress= '5' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
+                                task.setScore(ratingBar.getRating());
+                                String sql2 = "UPDATE `task` SET `progress`= '5' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
                                 st.executeUpdate(sql2);
-                                String sql3 = "UPDATE `task` SET `StatusText= '任务已结束' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
+                                task.setProgress(5);
+                                String sql3 = "UPDATE `task` SET `StatusText`= '任务已结束' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
                                 st.executeUpdate(sql3);
-                                String sql4 = "UPDATE `task` SET `finishtime= '"+finishtime+"' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
+                                task.setStatusText("任务已结束");
+                                String sql4 = "UPDATE `task` SET `finishtime`= '"+finishtime+"' WHERE `preciseLaunchTime` = '"+task.getPreciseLaunchTime()+"'";
                                 st.executeUpdate(sql4);
-
-                            }
+                                task.setFinishtime1(finishtime);
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -178,7 +178,51 @@ public class MyActivity_evaluation extends AppCompatActivity {
 
                         }
 
-                        //TODO：设置task的一系列参数
+                        //更新帮助者平均分
+
+                        try{
+                            StrictMode.ThreadPolicy policy =
+                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+
+                            con = DbUtils.getConn();
+
+                            Statement st = con.createStatement();
+
+                            //helper
+                            rs = st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+task.getHelperName()+"'");
+
+                            while (rs.next()) {
+                                float newScore = ratingBar.getRating();
+                                float averageScore = rs.getFloat("averageScore");
+                                int taskRNum = rs.getInt("taskRNum");
+
+                                    if(averageScore == 0){
+                                        averageScore = averageScore + newScore;
+                                    }else {
+                                        averageScore = (averageScore * (taskRNum - 1) + newScore) / taskRNum;
+                                    }
+
+                                String sql1 = "UPDATE `user` SET `averageScore`= '"+averageScore+"' WHERE myName='"+task.getHelperName()+"'";
+                                st.executeUpdate(sql1);
+
+                            }
+
+                            rs.close();
+                            st.close();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }finally {
+                            if (con != null)
+                                try {
+                                    con.close();
+                                } catch (SQLException e) {
+                                }
+
+                        }
+
+
                         /*
                         task.setScore(ratingBar.getRating());
                         task.setProgress(5);
@@ -206,10 +250,58 @@ public class MyActivity_evaluation extends AppCompatActivity {
                         }
                         helper.updateAll("phonenumber = ?",helper.getPhonenumber()); */
 
+                        //给接收者一个提醒, msg+1, s+taskID
+                        String helperName = task.getHelperName();
+                        try{
+                            StrictMode.ThreadPolicy policy =
+                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+
+                            con = DbUtils.getConn();
+
+                            Statement st = con.createStatement();
+
+
+                            rs = st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+helperName+"'");
+
+                            if (rs.next()) {
+
+                                //msg+1
+                                int msg = rs.getInt("msg")+1;
+
+                                //s+taskID
+                                String s = rs.getString("msgTaskListString");
+                                if(s.isEmpty()){
+                                    s = s + String.valueOf(task.getTaskID());
+                                }else{
+                                    s = s + ";" + String.valueOf(task.getTaskID());
+                                }
+
+                                String sql1 = "UPDATE `user` SET `msg`= '"+msg+"' WHERE myName='"+helperName+"'";
+                                st.executeUpdate(sql1);
+
+                                String sql2 = "UPDATE `user` SET `msgTaskListString`= '"+s+"' WHERE myName='"+helperName+"'";
+                                st.executeUpdate(sql2);
+
+                            }
+
+                            rs.close();
+                            st.close();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }finally {
+                            if (con != null)
+                                try {
+                                    con.close();
+                                } catch (SQLException e) {
+                                }
+
+                        }
+
                         Intent intent = new Intent(MyActivity_evaluation.this, MyActivity_Task_Details.class);
                         intent.putExtra("user_phone", myPhone);
                         intent.putExtra("task_selected",task);
-                        intent.putExtra(MyActivity_Task_Details.TASK_SELECTED, task);
                         intent.putExtra("num",num);
                         startActivity(intent);
 
@@ -228,6 +320,8 @@ public class MyActivity_evaluation extends AppCompatActivity {
 
 
     }
+
+
 
     //未添加返回值
 

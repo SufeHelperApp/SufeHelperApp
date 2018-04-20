@@ -56,15 +56,16 @@
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/c1"/>
+
             <TextView
                 android:id="@+id/counsel_tx1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="选课指南"
                 android:layout_below="@id/counsel_ic1"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="2dp"
-                android:textSize="16sp"/>
+                android:text="周边服务"
+                android:textSize="16sp" />
             <ImageView
                 android:id="@+id/counsel_ic2"
                 android:layout_width="65dp"

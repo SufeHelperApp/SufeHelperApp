@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="95dp">
 
         <TextView
             android:id="@+id/text_title"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:hint="绑定手机号"
             android:textSize="22dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/edit_style"
             android:layout_below="@+id/text_title"/>
