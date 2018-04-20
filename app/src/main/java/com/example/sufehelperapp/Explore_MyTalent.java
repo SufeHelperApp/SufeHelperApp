@@ -121,17 +121,6 @@ public class Explore_MyTalent extends AppCompatActivity {
             }
         });
 
-        /*
-
-        Button button2 = (Button) findViewById(R.id.button_to_see_ivt);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Explore_MyTalent.this, MyActivity_recievedaward.class);
-                intent.putExtra("user_phone", myPhone);
-                startActivity(intent);
-            }
-        });*/
 
 
         List<String> talentTitles = new ArrayList<>();
@@ -167,7 +156,7 @@ public class Explore_MyTalent extends AppCompatActivity {
                 talentTitles.add("找同好达人");
             }
             if(user.taskRNum_c1 >= 3){
-                talentTitles.add("选课指南达人");
+                talentTitles.add("周边服务达人");
             }
             if(user.taskRNum_c2 >= 3){
                 talentTitles.add("考研出国经验达人");
@@ -276,7 +265,7 @@ public class Explore_MyTalent extends AppCompatActivity {
         }
 
         final Button mPerson11 = (Button) findViewById(R.id.person11);
-        if(talentTitles.contains("选课指南达人")) {
+        if(talentTitles.contains("周边服务达人")) {
             flag11 = 1;
             mPerson11.setActivated(true);
         }else{

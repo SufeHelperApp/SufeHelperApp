@@ -107,7 +107,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             con = DbUtils.getConn();
             Statement st = con.createStatement();
 
-            rs= st.executeQuery("SELECT * from `user` order by `taskLNum` desc limit 3");
+            rs= st.executeQuery("SELECT * from `user` where `taskLNum` > 0 order by `taskLNum` desc limit 3");
 
             List<user> sampleList = new ArrayList<>(); //清空taskList
 
@@ -130,7 +130,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             con = DbUtils.getConn();
             Statement st = con.createStatement();
 
-            rs= st.executeQuery("SELECT * from `user` order by `taskRNum` desc limit 3");
+            rs= st.executeQuery("SELECT * from `user` where `taskRNum` > 0 order by `taskRNum` desc limit 3");
 
             List<user> sampleList = new ArrayList<>(); //清空taskList
 
@@ -154,7 +154,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             con = DbUtils.getConn();
             Statement st = con.createStatement();
 
-            rs= st.executeQuery("SELECT * from `user` order by `credit` desc limit 3");
+            rs= st.executeQuery("SELECT * from `user` where `credit` > 0 order by `credit` desc limit 3");
 
             List<user> sampleList = new ArrayList<>(); //清空taskList
 
@@ -182,6 +182,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -197,6 +198,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -212,6 +214,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -227,6 +230,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -242,6 +246,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -257,6 +262,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -272,6 +278,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -287,6 +294,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
                     intent.putExtra("user_phone", myPhone);
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -301,7 +309,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
                     Intent intent = new Intent(Explore_WeeklyTalentActivity.this,
                             MyActivity_mytask_personalhome.class);
                     intent.putExtra(MyActivity_mytask_personalhome.USER_SELECTED, user);
-
+                    intent.putExtra("num",2);
                     startActivity(intent);
                 }
             }
@@ -317,7 +325,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             icView1.setImageResource(R.drawable.df1);
             nameView1.setText(userList1.get(0).getMyName());
-            tasknumView1.setText(String.valueOf(userList1.get(0).getTaskRNum()));
+            tasknumView1.setText(String.valueOf(userList1.get(0).getTaskLNum()));
 
         }else{
             TextView nameView1 = (TextView) findViewById(R.id.wt1_name1);
@@ -333,7 +341,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
 
             icView2.setImageResource(R.drawable.df1);
             nameView2.setText(userList1.get(1).getMyName());
-            tasknumView2.setText(String.valueOf(userList1.get(1).getTaskRNum()));
+            tasknumView2.setText(String.valueOf(userList1.get(1).getTaskLNum()));
 
         }else{
             TextView nameView2 = (TextView) findViewById(R.id.wt1_name2);
@@ -348,7 +356,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             icView1.setImageResource(R.drawable.df1);
 
             nameView3.setText(userList1.get(2).getMyName());
-            tasknumView3.setText(String.valueOf(userList1.get(2).getTaskRNum()));
+            tasknumView3.setText(String.valueOf(userList1.get(2).getTaskLNum()));
         }else{
             TextView nameView3 = (TextView) findViewById(R.id.wt1_name3);
             nameView3.setText("暂无");
@@ -411,7 +419,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             icView1.setImageResource(R.drawable.df1);
 
             nameView7.setText(userList3.get(0).getMyName());
-            tasknumView7.setText(String.valueOf(userList3.get(0).getTaskRNum()));
+            tasknumView7.setText(String.valueOf(userList3.get(0).getCredit()));
 
         }else{
             TextView nameView7 = (TextView) findViewById(R.id.wt3_name1);
@@ -427,7 +435,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             icView1.setImageResource(R.drawable.df1);
 
             nameView8.setText(userList3.get(1).getMyName());
-            tasknumView8.setText(String.valueOf(userList3.get(1).getTaskRNum()));
+            tasknumView8.setText(String.valueOf(userList3.get(1).getCredit()));
 
         }else{
             TextView nameView8 = (TextView) findViewById(R.id.wt3_name2);
@@ -443,7 +451,7 @@ public class Explore_WeeklyTalentActivity extends AppCompatActivity {
             icView1.setImageResource(R.drawable.df1);
 
             nameView9.setText(userList3.get(2).getMyName());
-            tasknumView9.setText(String.valueOf(userList3.get(2).getTaskRNum()));
+            tasknumView9.setText(String.valueOf(userList3.get(2).getCredit()));
 
         }else{
             TextView nameView9 = (TextView) findViewById(R.id.wt3_name3);

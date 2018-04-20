@@ -42,6 +42,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
     public String subtaskType;
     private String POIName;
+    private double lat;
+    private double lng;
 
     private int num;
 
@@ -112,6 +114,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
         if(num ==2){
             POIName = getIntent().getStringExtra("POIName");
+            lat = getIntent().getDoubleExtra("lat",0);
+            lng = getIntent().getDoubleExtra("lng",0);
         }
 
 
@@ -220,7 +224,8 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                 String date = dateView.getText().toString();
                 String time = timeView.getText().toString();
-                String location = locationView.getText().toString();
+                //TODO :String location = locationView.getText().toString(); 真机测试时加上
+                String location = "东方明珠";
                 String payment = paymentView.getText().toString();
                 String description = descriptionView.getText().toString();
 
@@ -245,7 +250,7 @@ public class Task_LaunchActivity extends AppCompatActivity {
 
                         rs = st.executeQuery("SELECT * FROM `user` WHERE `myName` = '"+user.getMyName()+"'");
 
-                        while (rs.next()) {
+                        if (rs.next()) {
                             phone += rs.getString(3);
                             int credit = rs.getInt("credit") + 15;
                             int taskLNum = rs.getInt("taskLNum") + 1;
@@ -280,9 +285,17 @@ public class Task_LaunchActivity extends AppCompatActivity {
                         StrictMode.setThreadPolicy(policy);
 
                         con = DbUtils.getConn();
-
-                        String sql = "INSERT INTO `task`(`launcherName`, `launcherPhoneNumber`, `subtaskType`, `taskType`, `ddlDate`, `ddlTime`, `ddl`, `area`, `location`, `payment`, `description`, `ifDisplayable`, `helperName`, `ifAccepted`, `ifOutdated`, `ifDefault`, `ifShutDown`, `progress`, `StatusText`, `launchtime`, `preciseLaunchTime`, `accepttime`, `achievetime`, `paytime`, `finishtime`, `latitude`, `longtitude`, `score`) VALUES ('"+user.getMyName()+"','"+user.getPhonenumber()+"','"+subtaskType+"','"+taskType+"','"+date+"','"+time+"','"+ddl+"','','"+location+"','"+payment+"','"+description+"','1','','0','0','0','0','1','待接收','"+launchtime+"','"+precisetime+"','','','','','0','0','0')";
                         Statement st = con.createStatement();
+
+                        //生成新taskID
+                        rs = st.executeQuery("select count(*) from `task`");
+                        rs.next();
+                        int id = rs.getInt(1);
+                        Log.d("task sum",String.valueOf(id));
+                        id = id + 1;
+
+                        //TODO: '"+lat+"','"+lng+"' 真机测试时加上
+                        String sql = "INSERT INTO `task`(`taskID`,`launcherName`, `launcherPhoneNumber`, `subtaskType`, `taskType`, `ddlDate`, `ddlTime`, `ddl`, `location`, `payment`, `description`, `ifDisplayable`, `helperName`, `ifAccepted`, `ifOutdated`, `ifDefault`, `ifShutDown`, `progress`, `StatusText`, `launchtime`, `preciseLaunchTime`, `accepttime`, `achievetime`, `paytime`, `finishtime`, `latitude`, `longtitude`, `score`, `launcherImageId`) VALUES ('"+id+"','"+user.getMyName()+"','"+user.getPhonenumber()+"','"+subtaskType+"','"+taskType+"','"+date+"','"+time+"','"+ddl+"','"+location+"','"+payment+"','"+description+"','1','','0','0','0','0','1','待接收','"+launchtime+"','"+precisetime+"','','','','','31.2454145690','121.5059477735','0','"+user.getMyImageId()+"')";
                         st.executeUpdate(sql);
 
                         st.close();

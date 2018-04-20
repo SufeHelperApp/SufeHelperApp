@@ -31,7 +31,7 @@ import static org.litepal.LitePalApplication.getContext;
 
 public class My_HomeActivity extends AppCompatActivity {
 
-    private user user1;
+    private user user;
     private TextView bar_num;
     private int MsgCount;
     private ImageView reddot;
@@ -67,7 +67,7 @@ public class My_HomeActivity extends AppCompatActivity {
             for(int i=0; i<list.size(); i++){
                 userList.add((user)list.get(i));
             }
-            user1 = userList.get(0);
+            user = userList.get(0);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,26 +80,48 @@ public class My_HomeActivity extends AppCompatActivity {
 
         }
 
+
+
         bar_num = (TextView) findViewById(R.id.bar_num);
         reddot = findViewById(R.id.reddot);
         //TODO：获得Msg
-        //MsgCount = user1.getMsg();
-        //setMessageCount(MsgCount);
 
-        /*
+        String taskString = user.getMsgTaskListString();
+
+        if (!taskString.isEmpty()) {
+
+            //2.将string转化为IDstring数组
+            String[] IDstring = taskString.split(";");
+
+            //3.去除重复ID
+            List<Integer> taskID = new ArrayList<Integer>();
+            for (int i = 0; i < IDstring.length; i++) {
+                int id = Integer.parseInt(IDstring[i]);
+                if (!taskID.contains(id)) {
+                    taskID.add(id);
+                }
+            }
+
+            MsgCount = taskID.size();
+
+        }else{
+            MsgCount = 0;
+        }
+
+
+        setMessageCount(MsgCount);
+
+
+
         ImageButton mailbox = findViewById(R.id.bar_iv);
         mailbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user1.setIfClicked(true);
-                user1.clearMsg();
-                user1.updateAll("phonenumber = ? and myName = ?",user1.getPhonenumber(),
-                        user1.getMyName());
                 Intent intent = new Intent(My_HomeActivity.this, Mailbox.class);
                 intent.putExtra("user_phone", myPhone);
                 startActivity(intent);
             }
-        });*/
+        });
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -124,15 +146,16 @@ public class My_HomeActivity extends AppCompatActivity {
             }
         });
 
+
         ImageView image = (ImageView) findViewById(R.id.button_picture);
-        Glide.with(getContext()).load(user1.getMyImageId()).into(image);
+        Glide.with(getContext()).load(user.getMyImageId()).into(image);
         /*
         byte[] images=user.getHeadshot();
         Bitmap bitmap= BitmapFactory.decodeByteArray(images,0,images.length);
         image.setImageBitmap(bitmap);*/
 
         TextView nicknameView = (TextView) findViewById(R.id.username_text);
-        nicknameView.setText(user1.getMyName());
+        nicknameView.setText(user.getMyName());
 
         Button button1 = (Button) findViewById(R.id.button_setup);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -162,14 +185,7 @@ public class My_HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        /**Button button4 = (Button) findViewById(R.id.button_talent);
-         button4.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-        Intent intent = new Intent(My_HomeActivity.this, Explore_MyTalent.class);
-        startActivity(intent);
-        }
-        });*/
+
         Button button5 = (Button) findViewById(R.id.button_grade);
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +199,8 @@ public class My_HomeActivity extends AppCompatActivity {
 
 
     }
+
+
 
     public void setMessageCount(int count) {
 

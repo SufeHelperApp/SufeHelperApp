@@ -85,8 +85,7 @@ public class user extends DataSupport implements Serializable {
 
     //消息
     private int msg=0;
-    private String msgTaskListString;
-    private List<String> msgTaskList = new ArrayList<>();
+    private String msgTaskListString="";
 
     public void updateTalentTitles(){
 
@@ -124,7 +123,7 @@ public class user extends DataSupport implements Serializable {
             this.talentTitles.add("找同好达人");
         }
         if(this.taskRNum_c1 >= 3){
-            this.talentTitles.add("选课指南达人");
+            this.talentTitles.add("周边服务达人");
         }
         if(this.taskRNum_c2 >= 3){
             this.talentTitles.add("考研出国经验达人");
@@ -161,27 +160,6 @@ public class user extends DataSupport implements Serializable {
     }
 
 
-    //完整构造函数
-
-/*
-    public user(String phonenumber, String myName, String nickname, String gender, String password,
-                int myImageId, String dormitoryLocation, String demand, String specialty,
-                String talent, int credit, int level, int tasknumber){
-        this.phonenumber = phonenumber;
-        this.myName = myName;
-        this.nickname = nickname;
-        this.gender = gender;
-        this.password = password;
-        this.myImageId = myImageId;
-        this.dormitoryLocation = dormitoryLocation;
-        this.demand = demand;
-        this.specialty = specialty;
-        this.talent = talent;
-        this.credit = credit;
-        this.level = level;
-        this.tasknumber = tasknumber;
-    }
-    */
 
     //图片转换为字节
     private byte[]img(Bitmap bitmap) {
@@ -441,34 +419,12 @@ public class user extends DataSupport implements Serializable {
         return this.msg;
     }
 
-    public void setMsg(int i){
-        this.msg = i;
+    public String getMsgTaskListString(){
+        return this.msgTaskListString;
     }
 
-    public void clearMsg(){this.msg = 0;}
-
-    public void addMsg(){
-        this.msg++;
-    }
-
-    public void addMsgTaskList(String time){
-        this.msgTaskList.add(time);
-    }
-
-    public List<String> getMsgTaskList(){
-        return this.msgTaskList;
-    }
-
-    public void clearMsgTaskList(){
-        this.msgTaskList = new ArrayList<>();
-    }
-
-    public void setIfClicked(boolean i){
-        this.ifClicked = i;
-    }
-
-    public boolean getIfClicked(){
-        return ifClicked;
+    public void addMsgTaskListString(String precisetime){
+        msgTaskListString = msgTaskListString + "|" + precisetime;
     }
 
 

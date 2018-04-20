@@ -104,25 +104,13 @@ public class MyActivity_credit extends AppCompatActivity {
         });
 
 
-        //从数据库显示rating
-
-        RatingBar ratingBar = findViewById(R.id.my_credit_rating_bar);
-        //TODO: 获取当前user的averageScore
-        ratingBar.setRating(user.getAverageScore());
-
-        TextView ratingTextView = findViewById(R.id.my_credit_average_score_text);
-        ratingTextView.setText(String.valueOf(user.getAverageScore()));
-
-
-        //显示违约任务卡片
 
         //检查所有任务当前是否违约
-        updateAllTaskStatus();
+        StatusUtils.updateAllTaskStatus();
 
         //TODO: 调用所有帮助者为当前用户的任务，ifDefault = true，放入taskList
-        /*
-        List<task> taskList = DataSupport.where("helperName = ?",user.getMyName())
-                .where("ifDefault = ? ","1").find(task.class);*/
+
+        //显示违约任务卡片
 
         List<task> taskList = new ArrayList<>();
 
@@ -163,6 +151,26 @@ public class MyActivity_credit extends AppCompatActivity {
             }
         });
 
+
+        //从数据库显示rating
+
+        RatingBar ratingBar = findViewById(R.id.my_credit_rating_bar);
+        //TODO: 获取当前user的averageScore
+        float score = user.getAverageScore();
+        //违约任务扣分
+        if((score - taskList.size())>= 0.5){
+            score = score - taskList.size();
+        }
+        ratingBar.setRating(score);
+
+        TextView ratingTextView = findViewById(R.id.my_credit_average_score_text);
+        ratingTextView.setText(String.valueOf(score));
+
+
+
+
+
+
     }
 
 
@@ -174,192 +182,5 @@ public class MyActivity_credit extends AppCompatActivity {
         finish();
     }
 
-    public void updateAllTaskStatus() {
 
-        List<task> taskAllList = new ArrayList<>();
-
-        try {
-            con = DbUtils.getConn(); //initialize connection
-            Statement st = con.createStatement(); //initialize connection
-            rs = st.executeQuery("SELECT * FROM `task` WHERE `ifShutDown` = '0'");
-
-            List list = DbUtils.populate(rs, task.class);
-            for (int i = 0; i < list.size(); i++) {
-                taskAllList.add((task) list.get(i));
-            }
-
-            Log.d("select:updateAllnum", String.valueOf(taskAllList.size()));
-
-            for (task task : taskAllList) {
-
-                String id = task.getPreciseLaunchTime();
-
-                if (task.getProgress() < 3) {
-                    if (TimeUtils.isDateOneBigger(TimeUtils.getNowTime(), task.getDdl())) {
-                        if (task.getIfAccepted()) {
-                            String sql = "UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '1' " +
-                                    ", `ifShutDown` = '1', `progress` = '7', `statusText` = '接受者违约' " +
-                                    "WHERE `preciseLaunchTime` = '" + id + "'";
-                            st.executeUpdate(sql);
-                            /*
-                            task.setIfDisplayable = false;
-                            task.ifOutdated = false;
-                            task.ifDefault = true;
-                            task.ifShutDown = true; //接收者未及时完成，关闭项目
-                            task.setProgress(7);
-                            task.updateStatusText();
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());
-                                    */
-
-                            /*
-
-                            //给发布者发一条消息
-                            List<user> launcherList = DataSupport.where("myName = ?", task.getLauncherName())
-                                    .find(user.class);
-                            user launcher = launcherList.get(0);
-                            if (!launcher.getMsgTaskList().contains(task)) {
-                                launcher.addMsg();
-                                launcher.addMsgTaskList(task.getPreciseLaunchTime());
-                                launcher.updateAll("phonenumber = ?", launcher.getPhonenumber());
-                                Log.d("违约->发布者", launcher.getMyName()
-                                        + " " + String.valueOf(launcher.getMsg()) + " " + String.valueOf(launcher.
-                                        getMsgTaskList().size()));
-                            }
-
-                            //给接收者发一条消息
-                            List<user> helperList = DataSupport.where("myName = ?", task.getHelperName())
-                                    .find(user.class);
-                            user helper = helperList.get(0);
-
-                            if (!helper.getMsgTaskList().contains(task)) {
-                                helper.addMsg();
-                                helper.addMsgTaskList(task.getPreciseLaunchTime());
-                                helper.updateAll("phonenumber = ?", helper.getPhonenumber());
-                                Log.d("违约->接收者", helper.getMyName()
-                                        + " " + String.valueOf(helper.getMsg()) + " " + String.valueOf(helper.
-                                        getMsgTaskList().size()));
-                            }
-
-                            */
-
-
-                        } else {
-                            /*
-                            task.ifDisplayable = false;
-                            task.ifOutdated = true;
-                            task.ifDefault = false;
-                            task.ifShutDown = true; //过期未接收，关闭项目
-                            task.setProgress(6);
-                            task.updateStatusText();
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());*/
-
-                            String sql = "UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '1' , `ifDefault` = '0' " +
-                                    ", `ifShutDown` = '1', `progress` = '6', `statusText` = '逾期未被接收' " +
-                                    "WHERE `preciseLaunchTime` = '" + id + "'";
-                            st.executeUpdate(sql);
-
-                            /*
-
-                            //给发布者发一条消息
-                            List<user> launcherList = DataSupport.where("myName = ?", task.getLauncherName())
-                                    .find(user.class);
-                            user launcher = launcherList.get(0);
-
-                            if (!launcher.getMsgTaskList().contains(task)) {
-                                launcher.addMsg();
-                                launcher.addMsgTaskList(task.getPreciseLaunchTime());
-                                launcher.updateAll("phonenumber = ?", launcher.getPhonenumber());
-                                Log.d("过期->发布者", launcher.getMyName()
-                                        + " " + String.valueOf(launcher.getMsg()) + " " + String.valueOf(launcher.
-                                        getMsgTaskList().size()));
-                            }
-                            */
-
-
-                        }
-                    } else {
-                        if (task.getIfAccepted()) {
-                            /*
-                            task.ifDisplayable = false;
-                            task.ifOutdated = false;
-                            task.ifDefault = false;
-                            task.ifShutDown = false;
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());*/
-
-                            String sql = "UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                                    ", `ifShutDown` = '0' WHERE `preciseLaunchTime` = '" + id + "'";
-                            st.executeUpdate(sql);
-
-                        } else {
-                            /*
-                            task.ifDisplayable = true;
-                            task.ifOutdated = false;
-                            task.ifDefault = false;
-                            task.ifShutDown = false;
-                            task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                                    task.getLauncherName());*/
-
-                            String sql = "UPDATE `task` SET `ifDisplayable` = '1' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                                    ", `ifShutDown` = '0' WHERE `preciseLaunchTime` = '" + id + "'";
-                            st.executeUpdate(sql);
-
-                        }
-                    }
-                } else if (task.getProgress() == 3) {
-                    /*
-                    task.ifDisplayable = false;
-                    task.ifOutdated = false;
-                    task.ifDefault = false;
-                    task.ifShutDown = false;
-                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                            task.getLauncherName());*/
-
-                    String sql = "UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                            ", `ifShutDown` = '0', `statusText` = '已完成,待支付' WHERE `preciseLaunchTime` = '" + id + "'";
-                    st.executeUpdate(sql);
-
-
-                } else if (task.getProgress() == 4) {
-                    /*
-                    task.ifDisplayable = false;
-                    task.ifOutdated = false;
-                    task.ifDefault = false;
-                    task.ifShutDown = false;
-                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                            task.getLauncherName());*/
-
-                    String sql = "UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                            ", `ifShutDown` = '0', `statusText` = '待评价' WHERE `preciseLaunchTime` = '" + id + "'";
-                    st.executeUpdate(sql);
-
-                } else if (task.getProgress() == 5) {
-                    /*
-                    task.ifDisplayable = false;
-                    task.ifOutdated = false;
-                    task.ifDefault = false;
-                    task.ifShutDown = true;  //评论完成，关闭任务
-                    task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                            task.getLauncherName());*/
-
-                    String sql = "UPDATE `task` SET `ifDisplayable` = '0' , `ifOutdated` = '0' , `ifDefault` = '0' " +
-                            ", `ifShutDown` = '1', `statusText` = '任务已结束' WHERE `preciseLaunchTime` = '" + id + "'";
-                    st.executeUpdate(sql);
-
-                }
-        /*
-                task.updateAll("preciseLaunchTime = ? and launcherName = ?", task.getPreciseLaunchTime(),
-                        task.getLauncherName());*/
-
-            }
-
-            con.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-    }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="通知"
+        android:id="@+id/btnShow"/>
+
+    <ImageView
+        android:id="@+id/largeIcon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/ic_task"
+        android:contentDescription="largeIcon" />
+
+    <TextView
+        android:id="@+id/contentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/largeIcon"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="系统更新"/>
+
+    <TextView
+        android:id="@+id/contentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/contentTitle"
+        android:layout_below="@+id/contentTitle"
+        android:layout_marginTop="5dp"
+        android:text="发现系统更新，点击查看详情"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/when"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:text="11:00"/>
+
+    <ImageView
+        android:id="@+id/smallIcon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignRight="@+id/when"
+        android:layout_alignTop="@+id/contentText"
+        android:src="@drawable/ic_task" />
+
+    <TextView
+        android:id="@+id/contentInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/smallIcon"
+        android:layout_toLeftOf="@+id/smallIcon"
+        android:text="信息"
+        android:textSize="12sp" />
+
+</RelativeLayout>
