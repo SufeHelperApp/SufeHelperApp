@@ -201,7 +201,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
         });
 
         //按钮响应事件
-        final Button mPerson1 = (Button) findViewById(R.id.person1);
+        /*final Button mPerson1 = (Button) findViewById(R.id.person1);
         mPerson1.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 switch(flag1) {
@@ -217,7 +217,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
         final Button mPerson2 = (Button) findViewById(R.id.person2);
         mPerson2.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -235,7 +235,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                 }
             }
         });
-        final Button mPerson3 = (Button) findViewById(R.id.person3);
+        /*final Button mPerson3 = (Button) findViewById(R.id.person3);
         mPerson3.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 switch(flag3) {
@@ -251,7 +251,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
         final Button mPerson4 = (Button) findViewById(R.id.person4);
         mPerson4.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -372,7 +372,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
             }
         });
 
-        final Button mPerson11 = (Button) findViewById(R.id.person11);
+        /*final Button mPerson11 = (Button) findViewById(R.id.person11);
         mPerson11.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 switch(flag11) {
@@ -388,7 +388,7 @@ public class My_RegisterForthActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
 
         final Button mPerson12 = (Button) findViewById(R.id.person12);
         mPerson12.setOnClickListener(new Button.OnClickListener() {

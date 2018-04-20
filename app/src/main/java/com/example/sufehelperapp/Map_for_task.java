@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -132,6 +133,8 @@ public class Map_for_task extends AppCompatActivity {
         baiduMap = mMapView.getMap();
         MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(16f);
         baiduMap.setMapStatus(msu);
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // 定位初始化
         locationClient = new LocationClient(this);
@@ -143,6 +146,43 @@ public class Map_for_task extends AppCompatActivity {
         option.setCoorType("bd09ll"); // 设置坐标类型
         option.setScanSpan(5000);
         locationClient.setLocOption(option);
+
+        BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
+        bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId())
+                {
+                    case R.id.item_task:
+                        break;
+                    case R.id.item_explore:
+                        Intent intent3 = new Intent(Map_for_task.this, ExploreActivity.class);
+                        //intent3.putExtra("user_phone", myPhone);
+                        startActivity(intent3);
+                        break;
+                    case R.id.item_my:
+                        Intent intent2 = new Intent(Map_for_task.this, My_HomeActivity.class);
+                        //intent2.putExtra("user_phone", myPhone);
+                        startActivity(intent2);
+                        break;
+                }
+                return true;
+            }
+        });
+
+        Button b4 = (Button) findViewById(R.id.launch_button);
+        b4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent4 = new Intent(Map_for_task.this, Task_LaunchActivity.class);
+
+                //intent4.putExtra("user_phone", myPhone);
+                //intent4.putExtra("num", 1);
+                startActivity(intent4);
+
+
+            }
+        });
 
         requestLocation();
         setMarkerInfo();
@@ -277,6 +317,30 @@ public class Map_for_task extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.map_for_task:
+
+                break;
+            case R.id.main:
+                Intent intent4 = new Intent(Map_for_task.this, Task_HomeActivity.class);
+                //intent1.putExtra("user_phone", myPhone);
+                startActivity(intent4);
+                break;
+            default:
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tab,menu);
+        return true;
+    }
+
 
     //显示marker
     private void addOverlay(final List<MarkerInfoUtil> infos) {

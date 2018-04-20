@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -75,7 +76,7 @@ public class Task_HomeActivity extends AppCompatActivity {
 
         //user
         myPhone = getIntent().getStringExtra("user_phone");
-        Log.d("myPhone",myPhone);
+        //Log.d("myPhone",myPhone);
 
         try{
             StrictMode.ThreadPolicy policy =
@@ -254,17 +255,30 @@ public class Task_HomeActivity extends AppCompatActivity {
                 startActivity(intent4);
             }
         });
-        Button b5 = (Button) findViewById(R.id.map_btn);
-        b5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent5 = new Intent(Task_HomeActivity.this, Map_for_task.class);
-                intent5.putExtra("user_phone", myPhone);
-                startActivity(intent5);
-            }
-        });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.map_for_task:
+                Intent intent4 = new Intent(Task_HomeActivity.this, Map_for_task.class);
+                //intent1.putExtra("user_phone", myPhone);
+                startActivity(intent4);
+                break;
+            case R.id.main:
+
+                break;
+            default:
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tab,menu);
+        return true;
     }
 
     public void sendNotification(View view){

@@ -192,7 +192,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
 
                     String txt = "注册成功, " + user.getMyName() + "!";
 
-                    Intent intent1 = new Intent(My_RegisterFifthActivity.this, Task_HomeActivity.class);
+                    Intent intent1 = new Intent(My_RegisterFifthActivity.this, Map_for_task.class);
 
                     intent1.putExtra("user_phone", myPhone);
                     startActivity(intent1);
@@ -202,7 +202,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
 
             }
         });
-        final Button mPerson1 = (Button) findViewById(R.id.person19);
+        /*final Button mPerson1 = (Button) findViewById(R.id.person19);
         mPerson1.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 switch(flag1) {
@@ -218,7 +218,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
         final Button mPerson2 = (Button) findViewById(R.id.person29);
         mPerson2.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -236,7 +236,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
                 }
             }
         });
-        final Button mPerson3 = (Button) findViewById(R.id.person39);
+        /*final Button mPerson3 = (Button) findViewById(R.id.person39);
         mPerson3.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 switch(flag3) {
@@ -252,7 +252,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
         final Button mPerson4 = (Button) findViewById(R.id.person49);
         mPerson4.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -372,7 +372,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
                 }
             }
         });
-        final Button mPerson11 = (Button) findViewById(R.id.person119);
+        /*final Button mPerson11 = (Button) findViewById(R.id.person119);
         mPerson11.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 switch(flag11) {
@@ -388,7 +388,7 @@ public class My_RegisterFifthActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
         final Button mPerson12 = (Button) findViewById(R.id.person129);
         mPerson12.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
