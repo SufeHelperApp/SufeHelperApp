@@ -28,6 +28,16 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/text17">
         <Button
+            android:id="@+id/person19"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="占座"
+            android:textSize="15dp"
+            android:textColor="@drawable/btn_text"
+            android:background="@drawable/btn_click"
+            android:layout_marginTop="10dp"
+            />
+        <Button
             android:id="@+id/person29"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
@@ -35,31 +45,42 @@
             android:textSize="15dp"
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/person19"
+            android:layout_marginLeft="5dp"/>
         <Button
-            android:id="@+id/person79"
+            android:id="@+id/person39"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="买饭"
+            android:textSize="15dp"
+            android:textColor="@drawable/btn_text"
+            android:background="@drawable/btn_click"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/person29"
+            android:layout_marginLeft="5dp"/>
+        <Button
+            android:id="@+id/person49"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="买东西"
             android:textSize="15dp"
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/person69"
-            android:layout_marginLeft="5dp"
-            android:layout_below="@id/person29"/>
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/person39"
+            android:layout_marginLeft="5dp"/>
         <Button
             android:id="@+id/person59"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="二手闲置"
+            android:text="拼单"
             android:textSize="15dp"
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/person49"
-            android:layout_marginLeft="5dp"
-            />
+            android:layout_marginLeft="5dp"/>
         <Button
             android:id="@+id/person69"
             android:layout_width="wrap_content"
@@ -69,19 +90,19 @@
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/person29"
+            android:layout_below="@id/person19"
             />
         <Button
-            android:id="@+id/person49"
+            android:id="@+id/person79"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="家具器件组装"
             android:textSize="15dp"
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
-            android:layout_marginTop="10dp"
-
-            android:layout_toRightOf="@id/person29"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/person19"
+            android:layout_toRightOf="@id/person69"
             android:layout_marginLeft="5dp"/>
         <Button
             android:id="@+id/person89"
@@ -92,7 +113,7 @@
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/person29"
+            android:layout_below="@id/person19"
             android:layout_toRightOf="@id/person79"
             android:layout_marginLeft="5dp"/>
         <Button
@@ -104,23 +125,10 @@
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/person159"
             android:layout_below="@id/person69"
             />
         <Button
-            android:id="@+id/person159"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:text="拼单"
-            android:textSize="15dp"
-            android:textColor="@drawable/btn_text"
-            android:background="@drawable/btn_click"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/person69"
-            />
-        <Button
-            android:id="@+id/person129"
+            android:id="@+id/person109"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="技能培训"
@@ -128,10 +136,24 @@
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/person99"
-            />
+            android:layout_below="@id/person69"
+            android:layout_toRightOf="@id/person99"
+            android:layout_marginLeft="5dp"/>
+
         <Button
-            android:id="@+id/person109"
+            android:id="@+id/person119"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/person69"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/person109"
+            android:background="@drawable/btn_click"
+            android:text="周边服务"
+            android:textColor="@drawable/btn_text"
+            android:textSize="15dp" />
+        <Button
+            android:id="@+id/person129"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="考研出国经验"
@@ -139,10 +161,7 @@
             android:textColor="@drawable/btn_text"
             android:background="@drawable/btn_click"
             android:layout_marginTop="5dp"
-
-            android:layout_below="@id/person69"
-            android:layout_toRightOf="@id/person99"
-            android:layout_marginLeft="5dp"
+            android:layout_below="@id/person99"
             />
         <Button
             android:id="@+id/person139"
@@ -167,9 +186,18 @@
             android:layout_marginTop="5dp"
             android:layout_below="@id/person99"
             android:layout_toRightOf="@id/person139"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"/>
-
+            android:layout_marginLeft="5dp"/>
+        <Button
+            android:id="@+id/person159"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二手闲置"
+            android:textSize="15dp"
+            android:textColor="@drawable/btn_text"
+            android:background="@drawable/btn_click"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/person149"
+            />
     </RelativeLayout>
 
     <Button
@@ -190,7 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="○  ○  ○  ●"
+        android:text="○  ○  ○  ○  ●"
         android:textSize="10dp"
         android:textColor="#909090"
         android:background="#00000000"

@@ -106,7 +106,7 @@ public class Task_HomeActivity extends AppCompatActivity {
         }
 
 
-        //在任务量>=5的地点200米内，发通知
+        //在任务量的地点，发通知
         try{
 
             StrictMode.ThreadPolicy policy =
@@ -119,9 +119,9 @@ public class Task_HomeActivity extends AppCompatActivity {
             ResultSet rs2;
 
             //选出任务数>=5的location的经纬度
-            String sql = "select * from `task` group by `location` having count(*)>=5";
-            String sql1 = "select sum(payment) from `task` group by `location` having count(*)>=5";
-            String sql2 = "select count(*) from `task` group by `location` having count(*)>=5";
+            String sql = "select * from `task` group by `location` having count(*)>=1";
+            String sql1 = "select sum(payment) from `task` group by `location` having count(*)>=1";
+            String sql2 = "select count(*) from `task` group by `location` having count(*)>=1";
 
             rs = st.executeQuery(sql);
 
@@ -150,7 +150,7 @@ public class Task_HomeActivity extends AppCompatActivity {
                     }
                 });
 
-                if(MapUtils.getDistance(latNow,lngNow,latTask,lngTask)<=1000){
+                if(MapUtils.getDistance(latNow,lngNow,latTask,lngTask)<=2000){
                     Log.d("msg","broadcast");
                     manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                     Notification.Builder builder = new Notification.Builder(Task_HomeActivity.this);
@@ -174,7 +174,7 @@ public class Task_HomeActivity extends AppCompatActivity {
 
                     Notification notification = builder.build();//4.1以上用.build();
                     notification.flags |= Notification.FLAG_AUTO_CANCEL;// 点击通知的时候cancel掉
-                    manager.notify(0,notification);
+                    //manager.notify(0,notification);
                 }
             }
 
@@ -264,7 +264,7 @@ public class Task_HomeActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.map_for_task:
                 Intent intent4 = new Intent(Task_HomeActivity.this, Map_for_task.class);
-                //intent1.putExtra("user_phone", myPhone);
+                intent4.putExtra("user_phone", myPhone);
                 startActivity(intent4);
                 break;
             case R.id.main:
