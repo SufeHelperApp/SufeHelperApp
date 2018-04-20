@@ -173,7 +173,7 @@ public class Explore_MyTalent extends AppCompatActivity {
 
 
 
-        final Button mPerson1 = (Button) findViewById(R.id.person1);
+        /*final Button mPerson1 = (Button) findViewById(R.id.person1);
         if(talentTitles.contains("占座达人")) {
             flag1 = 1;
             mPerson1.setActivated(true);
@@ -181,7 +181,7 @@ public class Explore_MyTalent extends AppCompatActivity {
         }else{
             flag1 = 0;
             mPerson1.setActivated(false);
-        }
+        }*/
 
         final Button mPerson2 = (Button) findViewById(R.id.person2);
         if(talentTitles.contains("拿快递达人")) {
@@ -192,14 +192,14 @@ public class Explore_MyTalent extends AppCompatActivity {
             mPerson2.setActivated(false);
         }
 
-        final Button mPerson3 = (Button) findViewById(R.id.person3);
+        /*final Button mPerson3 = (Button) findViewById(R.id.person3);
         if(talentTitles.contains("买饭达人")) {
             flag3 = 1;
             mPerson3.setActivated(true);
         }else{
             flag3 = 0;
             mPerson3.setActivated(false);
-        }
+        }*/
 
         final Button mPerson4 = (Button) findViewById(R.id.person4);
         if(talentTitles.contains("买东西达人")) {

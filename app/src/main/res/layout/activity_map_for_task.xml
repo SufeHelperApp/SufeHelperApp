@@ -3,13 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <include layout="@layout/common_toolbar"/>
+
     <com.baidu.mapapi.map.MapView
         android:id="@+id/bmapView_task"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
         android:clickable="true"
         android:layout_marginBottom="55dp"/>
 
-
     <include layout="@layout/common_bottom_navigation_bar"/>
+    <Button
+        android:id="@+id/launch_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp"
+        android:text="发布" />
 </RelativeLayout>

@@ -92,7 +92,7 @@ public class My_LoginSecondActivity extends AppCompatActivity {
                             String userName = user.getMyName();
                             String txt = "欢迎回来, "+userName+"!";
 
-                            Intent intent = new Intent(My_LoginSecondActivity.this, Task_HomeActivity.class);
+                            Intent intent = new Intent(My_LoginSecondActivity.this, Map_for_task.class);
                             intent.putExtra("user_phone",user.getPhonenumber());
                             startActivity(intent);
                             Toast.makeText(My_LoginSecondActivity.this,txt,

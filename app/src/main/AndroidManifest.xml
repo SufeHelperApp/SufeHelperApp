@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -29,7 +30,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="6XBYdiYeyZkxQYh3IKDtnv7p6mGGRQhk" />
 
-        <activity android:name=".Map_for_task">
+        <activity android:name=".My_LoginFirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -94,7 +95,7 @@
         <activity android:name=".Mailbox" />
         <activity android:name=".My_LoginSecondActivity" />
         <activity android:name=".My_HomeActivity" />
-        <activity android:name=".My_LoginFirstActivity" />
+        <activity android:name=".Map_for_task" />
         <activity android:name=".All_task" />
         <activity android:name=".NoteActivity"></activity>
     </application>

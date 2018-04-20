@@ -17,11 +17,13 @@
         android:layout_above="@id/btn_navigation"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
+        <!--
         <ImageView
             android:id="@+id/btn_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"/>
+            -->
 
         <Button
             android:id="@+id/btn_errand"
@@ -32,6 +34,8 @@
             android:textSize="40sp"
             android:textColor="#404040"
             android:background="@drawable/btn_button"
+            android:drawableLeft="@drawable/ic_run"
+            android:gravity="left|center_vertical"
             android:textAlignment="center"
             />
         <Button
@@ -43,6 +47,8 @@
             android:textSize="40sp"
             android:textColor="#404040"
             android:layout_marginTop="1dp"
+            android:drawableLeft="@drawable/ic_talent"
+            android:gravity="left|center_vertical"
             android:background="@drawable/btn_button2"
             android:textAlignment="center"/>
         <Button
@@ -53,6 +59,8 @@
             android:text="@string/btn_counsel"
             android:textColor="#404040"
             android:textSize="40sp"
+            android:drawableLeft="@drawable/ic_counsel"
+            android:gravity="left|center_vertical"
             android:background="@drawable/btn_button3"
             android:layout_marginTop="1dp"
             android:textAlignment="center"/>
@@ -64,10 +72,9 @@
         android:id="@+id/launch_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout"
+        android:layout_marginTop="5dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="7dp"
+        android:layout_marginEnd="40dp"
         android:text="发布" />
-
 
 </RelativeLayout>
