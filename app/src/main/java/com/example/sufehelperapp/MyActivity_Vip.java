@@ -131,8 +131,8 @@ public class MyActivity_Vip extends AppCompatActivity {
             public void onClick(View view) {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Vip.this);
-                dialog.setTitle("积分的作用");
-                dialog.setMessage("积分的作用？？？？？？");
+                dialog.setTitle("我们的积分体制");
+                dialog.setMessage("您将  "+"发布任务：30分；接收任务：15分"+"\n"+"若您的积分较同时间发布任务的其他用户的积分高，那么您的任务将被优先推送，您的任务就会先被看到了！");
                 dialog.setCancelable(true);
                 dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
