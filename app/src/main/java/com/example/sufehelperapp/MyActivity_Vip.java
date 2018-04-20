@@ -1,10 +1,12 @@
 package com.example.sufehelperapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -123,6 +125,25 @@ public class MyActivity_Vip extends AppCompatActivity {
                 startActivity(intent);
             }
         });*/
+        Button button3 = (Button) findViewById(R.id.button_function);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MyActivity_Vip.this);
+                dialog.setTitle("积分的作用");
+                dialog.setMessage("积分的作用？？？？？？");
+                dialog.setCancelable(true);
+                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                dialog.show();
+
+            }
+        });
 
     }
 

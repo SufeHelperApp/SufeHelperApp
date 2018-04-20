@@ -22,7 +22,9 @@
             android:layout_weight="1"
             android:text="@string/btn_weekly_data"
             android:textSize="35sp"
-            android:textAlignment="textStart"
+            android:background="@drawable/btn_button3"
+            android:layout_marginTop="1dp"
+            android:textAlignment="center"
             />
         <Button
             android:id="@+id/btn_weekly_talent"
@@ -31,7 +33,10 @@
             android:layout_weight="1"
             android:text="@string/btn_weekly_talent"
             android:textSize="35sp"
-            android:textAlignment="textStart"/>
+            android:textColor="#404040"
+            android:background="@drawable/btn_button"
+            android:textAlignment="center"/>
+
         <Button
             android:id="@+id/btn_my_talent"
             android:layout_width="match_parent"
@@ -39,7 +44,10 @@
             android:layout_weight="1"
             android:text="@string/btn_my_talent"
             android:textSize="35sp"
-            android:textAlignment="textStart"/>
+            android:textColor="#404040"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/btn_button2"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <include layout="@layout/common_bottom_navigation_bar"/>
