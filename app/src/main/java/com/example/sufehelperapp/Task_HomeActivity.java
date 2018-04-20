@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -85,7 +86,7 @@ public class Task_HomeActivity extends AppCompatActivity {
 
         //user
         myPhone = getIntent().getStringExtra("user_phone");
-        Log.d("myPhone",myPhone);
+        //Log.d("myPhone",myPhone);
 
         try{
             StrictMode.ThreadPolicy policy =
@@ -114,8 +115,8 @@ public class Task_HomeActivity extends AppCompatActivity {
 
         }
 
-        ImageView view = (ImageView) findViewById(R.id.btn_note);
-        sendNotification(view);
+        //ImageView view = (ImageView) findViewById(R.id.btn_note);
+        //sendNotification(view);
 
         //map
 
@@ -267,6 +268,28 @@ public class Task_HomeActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.map_for_task:
+                Intent intent4 = new Intent(Task_HomeActivity.this, Map_for_task.class);
+                //intent1.putExtra("user_phone", myPhone);
+                startActivity(intent4);
+                break;
+            case R.id.main:
+
+                break;
+            default:
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tab,menu);
+        return true;
     }
 
     public void sendNotification(View view){
