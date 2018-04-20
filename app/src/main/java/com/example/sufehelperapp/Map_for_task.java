@@ -1,9 +1,6 @@
 package com.example.sufehelperapp;
 
 import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -78,8 +75,8 @@ public class Map_for_task extends AppCompatActivity {
     private String myPhone;
     user user;
 
-    private double latNow = 31.2463430229; //TODO
-    private double lngNow = 121.5088982034; //TODO
+    private double latNow;
+    private double lngNow;
 
     private List<Marker> marker = new ArrayList<>();
     private List<InfoWindow> window = new ArrayList<>();
@@ -91,8 +88,26 @@ public class Map_for_task extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //此方法要再setContentView方法之前实现
+        SDKInitializer.initialize(getApplicationContext());
+        setContentView(R.layout.activity_map_for_task);
+        mMapView =(MapView)findViewById(R.id.bmapView_task);
+        baiduMap = mMapView.getMap();
+        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(16f);
+        baiduMap.setMapStatus(msu);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // 定位初始化
+        locationClient = new LocationClient(this);
+        firstLocation =true;
+        // 设置定位的相关配置
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setOpenGps(true);
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(5000);
+        locationClient.setLocOption(option);
 
         //获得当前user
         myPhone = getIntent().getStringExtra("user_phone");
@@ -125,28 +140,6 @@ public class Map_for_task extends AppCompatActivity {
 
         }
 
-
-        //此方法要再setContentView方法之前实现
-        SDKInitializer.initialize(getApplicationContext());
-        setContentView(R.layout.activity_map_for_task);
-        mMapView = (MapView) findViewById(R.id.bmapView_task);
-        baiduMap = mMapView.getMap();
-        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(16f);
-        baiduMap.setMapStatus(msu);
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // 定位初始化
-        locationClient = new LocationClient(this);
-        firstLocation = true;
-        // 设置定位的相关配置
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setOpenGps(true);
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(5000);
-        locationClient.setLocOption(option);
-
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -154,15 +147,18 @@ public class Map_for_task extends AppCompatActivity {
                 switch(item.getItemId())
                 {
                     case R.id.item_task:
+                        Intent intent1 = new Intent(Map_for_task.this, Task_HomeActivity.class);
+                        intent1.putExtra("user_phone", myPhone);
+                        startActivity(intent1);
                         break;
                     case R.id.item_explore:
                         Intent intent3 = new Intent(Map_for_task.this, ExploreActivity.class);
-                        //intent3.putExtra("user_phone", myPhone);
+                        intent3.putExtra("user_phone", myPhone);
                         startActivity(intent3);
                         break;
                     case R.id.item_my:
                         Intent intent2 = new Intent(Map_for_task.this, My_HomeActivity.class);
-                        //intent2.putExtra("user_phone", myPhone);
+                        intent2.putExtra("user_phone", myPhone);
                         startActivity(intent2);
                         break;
                 }
@@ -174,18 +170,34 @@ public class Map_for_task extends AppCompatActivity {
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent4 = new Intent(Map_for_task.this, Task_LaunchActivity.class);
-
-                //intent4.putExtra("user_phone", myPhone);
-                //intent4.putExtra("num", 1);
-                startActivity(intent4);
-
-
+                Intent intent6 = new Intent(Map_for_task.this, Task_LaunchActivity.class);
+                intent6.putExtra("user_phone", myPhone);
+                intent6.putExtra("num", 3);
+                startActivity(intent6);
             }
         });
 
         requestLocation();
         setMarkerInfo();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.map_for_task:
+                break;
+            case R.id.main:
+                Intent intent4 = new Intent(Map_for_task.this, Task_HomeActivity.class);
+                intent4.putExtra("user_phone", myPhone);
+                startActivity(intent4);
+                break;
+            default:
+        }
+        return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tab,menu);
+        return true;
     }
 
     public void requestLocation() {
@@ -195,40 +207,27 @@ public class Map_for_task extends AppCompatActivity {
                 // map view 销毁后不在处理新接收的位置
                 if (location == null || mMapView == null)
                     return;
-                //获得当前经纬度
-                //latNow = location.getLatitude();
-                //lngNow = location.getLongitude();
-
                 // 构造定位数据
-                /*
                 MyLocationData locData = new MyLocationData.Builder()
                         .accuracy(location.getRadius())
                         // 此处设置开发者获取到的方向信息，顺时针0-360
                         .direction(100).latitude(location.getLatitude())
-                        .longitude(location.getLongitude()).build();*/
-                MyLocationData locData = new MyLocationData.Builder()
-                        .accuracy(location.getRadius())
-                        // 此处设置开发者获取到的方向信息，顺时针0-360
-                        .direction(100).latitude(latNow)
-                        .longitude(lngNow).build();
+                        .longitude(location.getLongitude()).build();
                 // 设置定位数据
                 baiduMap.setMyLocationData(locData);
 
-
                 // 第一次定位时，将地图位置移动到当前位置
-                if (firstLocation) {/*
+                if (firstLocation)
+                {
                     firstLocation = false;
                     LatLng xy = new LatLng(location.getLatitude(),
                             location.getLongitude());
                     MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(xy);
-                    baiduMap.animateMapStatus(status);*/
-                    firstLocation = false;
-                    LatLng xy = new LatLng(latNow,
-                            lngNow);
-                    MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(xy);
                     baiduMap.animateMapStatus(status);
-
                 }
+
+                //latNow = location.getLatitude();
+                //lngNow = location.getLongitude();
 
                /* runOnUiThread(new Runnable() {
                     @Override
@@ -269,7 +268,7 @@ public class Map_for_task extends AppCompatActivity {
             String sql = "select * from `task` group by `location` ";
 
             rs = st.executeQuery(sql);
-            rs.last();// 移动到最后                                
+            rs.last();// 移动到最后
             Log.d("rs", String.valueOf(rs.getRow()));// 获得结果集长度
             rs.beforeFirst();//获得该location的任务数
 
@@ -319,27 +318,6 @@ public class Map_for_task extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.map_for_task:
-
-                break;
-            case R.id.main:
-                Intent intent4 = new Intent(Map_for_task.this, Task_HomeActivity.class);
-                //intent1.putExtra("user_phone", myPhone);
-                startActivity(intent4);
-                break;
-            default:
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tab,menu);
-        return true;
-    }
 
 
     //显示marker
@@ -356,6 +334,8 @@ public class Map_for_task extends AppCompatActivity {
             //添加每个marker
 
             latLng = new LatLng(info.getLatitude(), info.getLongitude());
+
+            LatLng l1 = new LatLng(info.getLatitude()+ 0.001123, info.getLongitude());
 
             options = new MarkerOptions()
                     .position(latLng)//设置位置
@@ -400,12 +380,11 @@ public class Map_for_task extends AppCompatActivity {
 
             //构建文字Option对象，用于在地图上添加文字
             OverlayOptions textOption = new TextOptions()
-                    .bgColor(0xAAFFFF00)
-                    .fontSize(25)
+                    .fontSize(40)
                     .zIndex(10)
-                    .fontColor(0xFFFF00FF)
+                    .fontColor(0xfffefefe)
                     .text(info.getsum())
-                    .position(latLng);
+                    .position(l1);
 
             //在地图上添加该文字对象并显示
             baiduMap.addOverlay(textOption);

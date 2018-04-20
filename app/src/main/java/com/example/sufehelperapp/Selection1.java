@@ -18,6 +18,16 @@ import android.widget.Spinner;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 
 import org.litepal.crud.DataSupport;
 
@@ -30,6 +40,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Selection1 extends AppCompatActivity {
+
+    private String POIName;
+    private MapView mMapView;
+    private BaiduMap baiduMap;
+    private boolean firstLocation;
+    private BitmapDescriptor mCurrentMarker;
+    private MyLocationConfiguration config;
 
     List<task> taskList = new ArrayList<>();
     private String myPhone;
@@ -55,9 +72,10 @@ public class Selection1 extends AppCompatActivity {
     private String pay2string = "10000";
 
     private LocationClient locationClient = new LocationClient(this);
-    private double latNow = 31.2459531645; //TODO
-    private double lngNow = 121.5059477735; //TODO
+    private double latNow; //TODO
+    private double lngNow; //TODO
 
+    /*
     public void requestLocation() {
         locationClient.registerLocationListener(new BDLocationListener() {
             @Override
@@ -66,13 +84,59 @@ public class Selection1 extends AppCompatActivity {
                 lngNow = location.getLongitude();
             }
         });
+    }*/
+
+    public void requestLocation() {
+        locationClient.registerLocationListener(new BDLocationListener() {
+            @Override
+            public void onReceiveLocation(final BDLocation location) {
+                // map view 销毁后不在处理新接收的位置
+                if (location == null || mMapView == null)
+                    return;
+                // 构造定位数据
+                MyLocationData locData = new MyLocationData.Builder()
+                        .accuracy(location.getRadius())
+                        // 此处设置开发者获取到的方向信息，顺时针0-360
+                        .direction(100).latitude(location.getLatitude())
+                        .longitude(location.getLongitude()).build();
+                // 设置定位数据
+                //baiduMap.setMyLocationData(locData);
+
+                // 第一次定位时，将地图位置移动到当前位置
+                if (firstLocation)
+                {
+                    firstLocation = false;
+                    LatLng xy = new LatLng(location.getLatitude(),
+                            location.getLongitude());
+                    MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(xy);
+                    //baiduMap.animateMapStatus(status);
+                }
+
+                latNow = location.getLatitude();
+                lngNow = location.getLongitude();
+
+               /* runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        StringBuilder currentPosition = new StringBuilder();
+                        currentPosition.append("纬度：").append(location.getLatitude()).append("\n");
+                        currentPosition.append("经线：").append(location.getLongitude()).append("\n");
+                        currentPosition.append("定位方式：");
+                        if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                            currentPosition.append("GPS");
+                        } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                            currentPosition.append("网络");
+                        }
+                    }
+                });*/
+            }
+        });
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection);
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
 
 
         //user
@@ -105,6 +169,30 @@ public class Selection1 extends AppCompatActivity {
                 }
 
         }
+
+        //此方法要再setContentView方法之前实现
+        SDKInitializer.initialize(getApplicationContext());
+        setContentView(R.layout.activity_selection);
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        //mMapView =(MapView)findViewById(R.id.bmapView_task);
+        //baiduMap = mMapView.getMap();
+        MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(16f);
+        //baiduMap.setMapStatus(msu);
+
+
+        // 定位初始化
+        locationClient = new LocationClient(this);
+        firstLocation =true;
+        // 设置定位的相关配置
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setOpenGps(true);
+        option.setCoorType("bd09ll"); // 设置坐标类型
+        option.setScanSpan(5000);
+        locationClient.setLocOption(option);
+
+        requestLocation();
+
 
 
         BottomNavigationView bottomNavigationItemView = (BottomNavigationView) findViewById(R.id.btn_navigation);
@@ -147,7 +235,9 @@ public class Selection1 extends AppCompatActivity {
 
         StatusUtils.updateAllTaskStatus();
 
-        double dis = MapUtils.getDistance(latNow,lngNow,31.2454145690,121.5059477735);
+        double dis = MapUtils.getDistance(latNow,lngNow,31.3079395836,121.5089110332);
+        Log.d("lat",String.valueOf(latNow));
+        Log.d("lng",String.valueOf(lngNow));
         Log.d("dis",String.valueOf(dis));
 
         if(num == 0 ) {

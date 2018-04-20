@@ -139,7 +139,7 @@ public class Map extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Map.this, Task_LaunchActivity.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone",myPhone);
                 intent.putExtra("num", 2);
                 intent.putExtra("POIName", POIName);
                 intent.putExtra("lat", lat);
@@ -153,7 +153,7 @@ public class Map extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Map.this, Task_LaunchActivity.class);
-                intent.putExtra("user_now", user);
+                intent.putExtra("user_phone",myPhone);
                 intent.putExtra("num", 2);
                 intent.putExtra("POIName", POIName);
                 intent.putExtra("lat", lat);

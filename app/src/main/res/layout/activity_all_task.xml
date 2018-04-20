@@ -13,7 +13,7 @@
         android:id="@+id/Layout_alltask">
 
         <Button
-            android:id="@+id/title_back"
+            android:id="@+id/title_map_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
@@ -28,16 +28,7 @@
             android:text="该地点的所有任务"
             android:textColor="#FFFFFF"
             android:textSize="22sp"/>
-        <Button
-            android:id="@+id/title_map_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="5dp"
-            android:textSize="15dp"
-            android:textColor="@color/white"
-            android:background="#00000000"
-            android:layout_alignParentRight="true"/>
+
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -285,7 +285,7 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     }
 
 
-                                    Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);
+                                    Intent intent1 = new Intent(Task_InfoActivity.this, Map_for_task.class);
                                     intent1.putExtra("user_phone", myPhone);
                                     startActivity(intent1);
                                     Toast.makeText(Task_InfoActivity.this, "任务接收成功！", Toast.LENGTH_SHORT).show();
