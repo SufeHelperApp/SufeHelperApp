@@ -17,12 +17,6 @@
         android:layout_above="@id/btn_navigation"
         android:orientation="vertical"
         android:id="@+id/linearLayout">
-        <ImageView
-            android:id="@+id/btn_note"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"/>
-
         <Button
             android:id="@+id/btn_errand"
             android:layout_width="match_parent"
@@ -68,6 +62,15 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="7dp"
         android:text="发布" />
+
+    <Button
+        android:id="@+id/map_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/launch_button"
+        android:layout_marginEnd="14dp"
+        android:layout_toStartOf="@+id/launch_button"
+        android:text="map" />
 
 
 </RelativeLayout>

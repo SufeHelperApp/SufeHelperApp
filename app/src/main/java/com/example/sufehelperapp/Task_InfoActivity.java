@@ -45,6 +45,7 @@ public class Task_InfoActivity extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //num
         num = getIntent().getIntExtra("num",1);
 
         //user
@@ -105,9 +106,9 @@ public class Task_InfoActivity extends AppCompatActivity {
 
         Button button3 = (Button) findViewById(R.id.receive_task_btn);
 
-        if(num == 2){
+        if(num == 2){ //task_detail
             button3.setVisibility(View.GONE);
-        }else if(num == 1){
+        }else if(num == 1 || num == 3){
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,14 +131,13 @@ public class Task_InfoActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
                                     String helperName = user.getMyName();
-                                    String id = task.getPreciseLaunchTime();
+                                    int taskID = task.getTaskID();
                                     String accepttime = TimeUtils.getNowTime();
-                                    int credit = user.getCredit()+30;
                                     int taskRNum = user.getTaskRNum()+1;
                                     int taskNum = user.getTaskNum()+1;
-                                    int TaskRNum_errand = user.getTaskRNum_errand();
-                                    int TaskRNum_skill = user.getTaskRNum_skill();
-                                    int TaskRNum_counsel = user.getTaskRNum_counsel();
+                                    int taskRNum_errand = user.getTaskRNum_errand();
+                                    int taskRNum_skill = user.getTaskRNum_skill();
+                                    int taskRNum_counsel = user.getTaskRNum_counsel();
                                     int taskRNum_e1 = user.taskRNum_e1;
                                     int taskRNum_e2 = user.taskRNum_e2;
                                     int taskRNum_e3 = user.taskRNum_e3;
@@ -154,6 +154,57 @@ public class Task_InfoActivity extends AppCompatActivity {
                                     int taskRNum_c4 = user.taskRNum_c4;
                                     int taskRNum_c5 = user.taskRNum_c5;
 
+                                    int credit = user.getCredit()+30;
+
+                                    //TODO: ADD
+
+                                    if (task.getSubtaskType().equals("占座")) {
+                                        taskRNum_e1++;
+                                        taskRNum_errand++;
+                                    } else if (task.getSubtaskType().equals("拿快递")) {
+                                        taskRNum_e2++;
+                                        taskRNum_errand++;
+                                    } else if (task.getSubtaskType().equals("买饭")) {
+                                        taskRNum_e3++;
+                                        taskRNum_errand++;
+                                    } else if (task.getSubtaskType().equals("买东西")) {
+                                        taskRNum_e4++;
+                                        taskRNum_errand++;
+                                    } else if (task.getSubtaskType().equals("拼单")) {
+                                        taskRNum_e5++;
+                                        taskRNum_errand++;
+                                    } else if (task.getSubtaskType().equals("电子产品修理")) {
+                                        taskRNum_s1++;
+                                        taskRNum_skill++;
+                                    } else if (task.getSubtaskType().equals("家具器件组装")) {
+                                        taskRNum_s2++;
+                                        taskRNum_skill++;
+                                    } else if (task.getSubtaskType().equals("学习作业辅导")) {
+                                        taskRNum_s3++;
+                                        taskRNum_skill++;
+                                    } else if (task.getSubtaskType().equals("技能培训")) {
+                                        taskRNum_s4++;
+                                        taskRNum_skill++;
+                                    } else if (task.getSubtaskType().equals("找同好")) {
+                                        taskRNum_s5++;
+                                        taskRNum_skill++;
+                                    } else if (task.getSubtaskType().equals("周边服务")) {
+                                        taskRNum_c1++;
+                                        taskRNum_counsel++;
+                                    } else if (task.getSubtaskType().equals("考研出国经验")) {
+                                        taskRNum_c2++;
+                                        taskRNum_counsel++;
+                                    } else if (task.getSubtaskType().equals("求职经验")) {
+                                        taskRNum_c3++;
+                                        taskRNum_counsel++;
+                                    } else if (task.getSubtaskType().equals("票务转让")) {
+                                        taskRNum_c4++;
+                                        taskRNum_counsel++;
+                                    } else if (task.getSubtaskType().equals("二手闲置")) {
+                                        taskRNum_c5++;
+                                        taskRNum_counsel++;
+                                    }
+
                                     //更新该task信息
 
                                     try {
@@ -164,8 +215,17 @@ public class Task_InfoActivity extends AppCompatActivity {
                                         con = DbUtils.getConn();
                                         Statement st = con.createStatement();
                                         st.executeUpdate("UPDATE `task` SET `ifAccepted` = '1', `ifDisplayable` = '0',`accepttime` = '"+accepttime+"', " +
-                                                "`progress` = '2',`helperName` = '"+user.getMyName()+"',`StatusText` = '待完成' " +
-                                                "WHERE `preciseLaunchTime` = '" + task.getPreciseLaunchTime() + "'");
+                                                "`progress` = '2',`helperName` = '"+helperName+"',`StatusText` = '待完成' " +
+                                                "WHERE `taskID` = '"+taskID+"'");
+
+                                        st.executeUpdate("UPDATE `user` SET `credit` = '"+credit+"', `credit` = '"+credit+"' ," +
+                                                "`taskRNum_errand` = '"+taskRNum_errand+"',`taskRNum_skill` = '"+taskRNum_skill+"',`taskRNum_counsel` = '"+taskRNum_counsel+"'," +
+                                                "`taskRNum` = '"+taskRNum+"',`taskNum` = '"+taskNum+"',`taskRNum_e1` = '"+taskRNum_e1+"'" +
+                                                ",`taskRNum_e2` = '"+taskRNum_e2+"',`taskRNum_e3` = '"+taskRNum_e3+"',`taskRNum_e4` = '"+taskRNum_e4+"'" +
+                                                ",`taskRNum_e5` = '"+taskRNum_e5+"',`taskRNum_s1` = '"+taskRNum_s1+"',`taskRNum_s2` = '"+taskRNum_s2+"'" +
+                                                ",`taskRNum_s3` = '"+taskRNum_s3+"',`taskRNum_s4` = '"+taskRNum_s4+"',`taskRNum_s5` = '"+taskRNum_s5+"'" +
+                                                " ,`taskRNum_c1` = '"+taskRNum_c1+"' ,`taskRNum_c2` = '"+taskRNum_c2+"' ,`taskRNum_c3` = '"+taskRNum_c3+"'" +
+                                                ",`taskRNum_c4` = '"+taskRNum_c4+"' ,`taskRNum_c5` = '"+taskRNum_c5+"' WHERE `phonenumber` = '" + myPhone + "'");
 
                                         con.close();
 
@@ -223,77 +283,6 @@ public class Task_InfoActivity extends AppCompatActivity {
                                             }
 
                                     }
-
-
-                                    //TODO: ADD
-
-                                    if (task.getSubtaskType() == "占座") {
-                                        taskRNum_e1++;
-                                        TaskRNum_errand++;
-                                    } else if (task.getSubtaskType() == "拿快递") {
-                                        taskRNum_e2++;
-                                        TaskRNum_errand++;
-                                    } else if (task.getSubtaskType() == "买饭") {
-                                        taskRNum_e3++;
-                                        TaskRNum_errand++;
-                                    } else if (task.getSubtaskType() == "买东西") {
-                                        taskRNum_e4++;
-                                        TaskRNum_errand++;
-                                    } else if (task.getSubtaskType() == "拼单") {
-                                        taskRNum_e5++;
-                                        TaskRNum_errand++;
-                                    } else if (task.getSubtaskType() == "电子产品修理") {
-                                        taskRNum_s1++;
-                                        TaskRNum_skill++;
-                                    } else if (task.getSubtaskType() == "家具器件组装") {
-                                        taskRNum_s2++;
-                                        TaskRNum_skill++;
-                                    } else if (task.getSubtaskType() == "学习作业辅导") {
-                                        taskRNum_s3++;
-                                        TaskRNum_skill++;
-                                    } else if (task.getSubtaskType() == "技能培训") {
-                                        taskRNum_s4++;
-                                        TaskRNum_skill++;
-                                    } else if (task.getSubtaskType() == "找同好") {
-                                        taskRNum_s5++;
-                                        TaskRNum_skill++;
-                                    } else if (task.getSubtaskType() == "周边服务") {
-                                        taskRNum_c1++;
-                                        TaskRNum_counsel++;
-                                    } else if (task.getSubtaskType() == "考研出国经验") {
-                                        taskRNum_c2++;
-                                        TaskRNum_counsel++;
-                                    } else if (task.getSubtaskType() == "求职经验") {
-                                        taskRNum_c3++;
-                                        TaskRNum_counsel++;
-                                    } else if (task.getSubtaskType() == "票务转让") {
-                                        taskRNum_c4++;
-                                        TaskRNum_counsel++;
-                                    } else if (task.getSubtaskType() == "二手闲置") {
-                                        taskRNum_c5++;
-                                        TaskRNum_counsel++;
-                                    }
-
-                                        try {
-                                            StrictMode.ThreadPolicy policy =
-                                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                                            StrictMode.setThreadPolicy(policy);
-
-                                            con = DbUtils.getConn();
-                                            Statement st = con.createStatement();
-                                            st.executeUpdate("UPDATE `user` SET `credit` = '"+credit+"', `credit` = '"+credit+"' ," +
-                                                    "`taskRNum` = '"+taskRNum+"',`taskNum` = '"+taskNum+"',`taskRNum_e1` = '"+taskRNum_e1+"'" +
-                                                    ",`taskRNum_e2` = '"+taskRNum_e2+"',`taskRNum_e3` = '"+taskRNum_e3+"',`taskRNum_e4` = '"+taskRNum_e4+"'" +
-                                                    ",`taskRNum_e5` = '"+taskRNum_e5+"',`taskRNum_s1` = '"+taskRNum_s1+"',`taskRNum_s2` = '"+taskRNum_s2+"'" +
-                                                    ",`taskRNum_s3` = '"+taskRNum_s3+"',`taskRNum_s4` = '"+taskRNum_s4+"',`taskRNum_s5` = '"+taskRNum_s5+"'" +
-                                                    " ,`taskRNum_c1` = '"+taskRNum_c1+"' ,`taskRNum_c2` = '"+taskRNum_c2+"' ,`taskRNum_c3` = '"+taskRNum_c3+"'" +
-                                                    ",`taskRNum_c4` = '"+taskRNum_c4+"' ,`taskRNum_c5` = '"+taskRNum_c5+"' WHERE `phonenumber` = '" + myPhone + "'");
-
-                                            con.close();
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
 
 
                                     Intent intent1 = new Intent(Task_InfoActivity.this, Task_HomeActivity.class);

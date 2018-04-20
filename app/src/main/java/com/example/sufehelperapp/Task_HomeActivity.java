@@ -62,18 +62,8 @@ public class Task_HomeActivity extends AppCompatActivity {
     int num;
 
     private LocationClient locationClient = new LocationClient(this);
-    private double latNow = 31.2459531645; //TODO
-    private double lngNow = 121.5059477735; //TODO
-
-    public void requestLocation() {
-        locationClient.registerLocationListener(new BDLocationListener() {
-            @Override
-            public void onReceiveLocation(final BDLocation location) {
-                latNow = location.getLatitude();
-                lngNow = location.getLongitude();
-            }
-        });
-    }
+    private double latNow; //TODO
+    private double lngNow; //TODO
 
 
     @Override
@@ -114,14 +104,6 @@ public class Task_HomeActivity extends AppCompatActivity {
 
         }
 
-        ImageView view = (ImageView) findViewById(R.id.btn_note);
-        sendNotification(view);
-
-        //map
-
-        /*
-        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerLocationListener( myListener );    //注册监听函数*/
 
         //在任务量>=5的地点200米内，发通知
         try{
@@ -158,6 +140,14 @@ public class Task_HomeActivity extends AppCompatActivity {
                 if(rs2.next()) {
                     num = rs2.getInt(1);
                 }
+
+                locationClient.registerLocationListener(new BDLocationListener() {
+                    @Override
+                    public void onReceiveLocation(final BDLocation location) {
+                        latNow = location.getLatitude();
+                        lngNow = location.getLongitude();
+                    }
+                });
 
                 if(MapUtils.getDistance(latNow,lngNow,latTask,lngTask)<=1000){
                     Log.d("msg","broadcast");
@@ -199,6 +189,7 @@ public class Task_HomeActivity extends AppCompatActivity {
         mNotifyer.SetNotifyLocation(latSpot,lngSpot,200,"gps");
         //4个参数代表要位置提醒的点的坐标，具体含义依次为：纬度，经度，距离范围，坐标系类型(gcj02,gps,bd09,bd09ll)
         mLocationClient.registerNotify(mNotifyer);*/
+
 
 
 
@@ -261,8 +252,15 @@ public class Task_HomeActivity extends AppCompatActivity {
                 intent4.putExtra("user_phone", myPhone);
                 intent4.putExtra("num", 1);
                 startActivity(intent4);
-
-
+            }
+        });
+        Button b5 = (Button) findViewById(R.id.map_btn);
+        b5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent5 = new Intent(Task_HomeActivity.this, Map_for_task.class);
+                intent5.putExtra("user_phone", myPhone);
+                startActivity(intent5);
             }
         });
 
