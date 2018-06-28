@@ -124,7 +124,7 @@ public class MyActivity_mytask_personalhome extends AppCompatActivity {
         if(num == 1) {
             intent1.putExtra("user_phone", myPhone);
             intent1.putExtra("task_selected", task);
-            intent1.putExtra("num", 1);
+            intent1.putExtra("num", 2);
             startActivity(intent1);
         }else if(num ==2){
             intent2.putExtra("user_phone", myPhone);
