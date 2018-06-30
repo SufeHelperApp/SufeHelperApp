@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbUtils {
-    private static final String url = "jdbc:mysql://139.224.130.219:3306/itask1?useUnicode=true&characterEncoding=UTF-8";
+    private static final String url = "jdbc:mysql://118.25.94.239:3306/itask1?useUnicode=true&characterEncoding=UTF-8";
     private static final String user = "root";
     private static final String pass = "";
     private static String driverClass = "com.mysql.jdbc.Driver";
