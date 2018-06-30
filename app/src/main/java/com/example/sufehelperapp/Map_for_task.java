@@ -295,15 +295,15 @@ public class Map_for_task extends AppCompatActivity {
                 if (rs1.next()) {
                     sum = String.valueOf(rs1.getInt(1));
                     Log.d("任务数量", sum);
-                } else {
-                    sum = "0";
-                }
+
 
                 rs1.close();
 
                 //添加Location
                 //TODO: info.add(new...(获取各满足条件地点经,纬度,地点名称,地点任务总数));
-                infos.add(new MarkerInfoUtil(latitude, longitude, name, sum));
+                    if(!sum.equals("0"))
+                    {infos.add(new MarkerInfoUtil(latitude, longitude, name, sum));}
+                }
             }
 
             addOverlay(infos);
